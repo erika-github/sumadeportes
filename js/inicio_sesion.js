@@ -115,9 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.href = "cambio_clave.html";
         });
       } else if (response.ok) {
-
-        sessionStorage.setItem("userEmail", JSON.stringify({ email: email }));
-        sessionStorage.setItem("userPassword", JSON.stringify({ password: password }));
+        
         firstName = responseData.data.firstName;
         lastName = responseData.data.lastName;
         role = responseData.data.role;        

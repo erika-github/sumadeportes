@@ -118,9 +118,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         sessionStorage.setItem("userEmail", JSON.stringify({ email: email }));
         sessionStorage.setItem("userPassword", JSON.stringify({ password: password }));
-        firstName = responseData.firstName;
-        lastName = responseData.lastName;
-        role = responseData.role;        
+        firstName = responseData.data.firstName;
+        lastName = responseData.data.lastName;
+        role = responseData.data.role;        
         sessionStorage.setItem("userFirstName", firstName);
         sessionStorage.setItem("userLastName", lastName);       
         sessionStorage.setItem("userRole", role);      

@@ -90,7 +90,7 @@
     </div>
     <!-- Logo -->
     <div class="logoDiv">
-      <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index.html'">
+      <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index_autenticado.html'">
     </div>
 
     <!-- Imagen de usuario -->
@@ -183,6 +183,11 @@
   <script src="js/jquery-ui-1.13.3/jquery-ui.min.js"></script>
   <script src="js/main.js"></script>
   <script>
+
+    window.onload = function() {
+      // Desplazarse al 30% de la altura total de la página
+      window.scrollTo(0, document.body.scrollHeight * 0.1);
+    };
 
     /*sessionStorage.setItem("userFirstName", "Erika");
     sessionStorage.setItem("userLastName", "Pérez");

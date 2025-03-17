@@ -2,8 +2,21 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  /** */
-
+  
+    function updateUserEmail() {
+      // Recuperar el correo electrónico desde sessionStorage
+      const userEmail = sessionStorage.getItem("userEmail") || "";
+  
+      // Obtener el input del correo
+      const emailInput = document.getElementById("correo");
+  
+      // Si el input existe, asignarle el valor
+      if (emailInput) {
+          emailInput.value = userEmail;
+      }
+  }
+  
+  updateUserEmail();
 
   /**/
   const toggleIcons = document.querySelectorAll('.toggle-password');
@@ -118,9 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
         
         firstName = responseData.data.firstName;
         lastName = responseData.data.lastName;
-        role = responseData.data.role;        
+        role = responseData.data.role;                
         sessionStorage.setItem("userFirstName", firstName);
-        sessionStorage.setItem("userLastName", lastName);       
+        sessionStorage.setItem("userLastName", lastName);     
         sessionStorage.setItem("userRole", role);      
         
         window.location.href = "gestion.html";

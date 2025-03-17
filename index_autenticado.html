@@ -20,6 +20,25 @@
         cursor: pointer;
   
       }
+
+      .user-icon {
+        width: 4vw;
+        height: 4vw;
+        /*height: 40px;*/
+        background-color: #F36621;
+        /* Color de fondo*/
+        color: white;
+        /* Color del texto */
+        /*font-weight: bold;*/
+        font-size: 1.5vw;
+        border-radius: 50%;
+        /* Hace el ícono circular */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
   
       #img, .user-container p {
   
@@ -31,6 +50,17 @@
         box-sizing: border-box;
         right: 5%;
       }
+
+      #user-icon {
+
+        position: absolute;
+        top: 0px;
+        /*width: 15%;*/
+        z-index: 100;
+        margin-top: 0.7%;
+        box-sizing: border-box;
+        right: 5%;
+      }
   
       /* Estilo del menú emergente */
       .user-menu {
@@ -39,7 +69,7 @@
         right: 1%;
         min-width: 13%;
         max-width: 13%;
-        top: 6vw;
+        top: 5.4vw;
         background-color: white;
         border-radius: 0.5vw;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -100,12 +130,13 @@
 
     <!-- Imagen de usuario -->
     <div class="user-container">
-        <p style="font-size: 1.3vw;
-        margin-right: 2%;
-        margin-top: 3%;
+        <p style="font-size: 1.2vw;
+        /*margin-right: 2%;*/
+        margin-top: 2%;
         color:#1535D6; text-decoration: underline;"
         onclick="window.location.href='gestion.html'">Módulo de gestión</p>
-        <img id="img" src="img/usuario_autent.png" alt="Usuario Autenticado" style="width:5%" onclick="toggleUserMenu()">
+        <!--<img id="img" src="img/usuario_autent.png" alt="Usuario Autenticado" style="width:5%" onclick="toggleUserMenu()">-->
+        <div id="user-icon" class="user-icon"  onclick="toggleUserMenu()"></div>
         
     </div>
   </div>
@@ -118,7 +149,7 @@
     </div>
     <div class="user-menu-content">
       <a href="#" style="font-size:1vw">Editar Perfil</a>
-      <a href="#" style="font-size:1vw">Cerrar Sesión</a>
+      <a href="#" style="font-size:1vw" onclick="logout()">Cerrar Sesión</a>
     </div>
   </div>
 
@@ -302,16 +333,37 @@
   <script src="js/jquery-ui-1.13.3/external/jquery/jquery.js"></script>
   <script src="js/jquery-ui-1.13.3/jquery-ui.min.js"></script>
   <script src="js/main.js"></script>
-  <script>
+  <!--<script>
 
     window.onload = function() {
-        // Desplazarse al 30% de la altura total de la página
+        // Desplazarse al 10% de la altura total de la página
         window.scrollTo(0, document.body.scrollHeight * 0.1);
       };
 
-    /*sessionStorage.setItem("userFirstName", "Erika");
-    sessionStorage.setItem("userLastName", "Pérez");
-    sessionStorage.setItem("userRole", "Administrador(a)");*/
+    
+      function setUserIcon() {
+
+        sessionStorage.setItem("userFirstName", "Erika");
+        sessionStorage.setItem("userLastName", "Diaz");
+        sessionStorage.setItem("userRole", "Administrador(a)");
+  
+        // Llamar a la función para actualizar la info, asumiendo que el DOM ya está cargado:
+        updateUserInfo();
+  
+        let firstName = sessionStorage.getItem("userFirstName");
+        let lastName = sessionStorage.getItem("userLastName");
+  
+        let userIcon = document.getElementById("user-icon");
+        if (userIcon) {
+          userIcon.textContent = getInitials(firstName, lastName);
+        }
+  
+  
+      }
+  
+      // Llamar a la función al cargar la página
+      document.addEventListener("DOMContentLoaded", setUserIcon);
+
 
     function updateUserInfo() {
       // Recuperar datos desde sessionStorage
@@ -333,9 +385,7 @@
         roleElem.innerText = userRole;
       }
     }
-
-    // Llamar a la función para actualizar la info, asumiendo que el DOM ya está cargado:
-    updateUserInfo();
+  
     // Función para mostrar/ocultar el menú emergente
     function toggleUserMenu() {
       var menu = document.getElementById("user-menu");
@@ -354,6 +404,87 @@
         img.style.backgroundColor = "unset"
       }
     });
+  </script>-->
+  <script>
+    /*window.onload = function () {
+      // Desplazarse al 30% de la altura total de la página
+      window.scrollTo(0, document.body.scrollHeight * 0.1);
+    };*/
+
+    /*window.onload = function () {
+      window.scrollTo(0, 400); // 200 píxeles desde la parte superior
+  };*/
+
+  function logout() {
+    sessionStorage.clear(); // Borra toda la información almacenada
+    window.location.href = "index.html"; // Redirige a la página de inicio
+  }
+
+  // Función para obtener las iniciales del usuario
+  function getInitials(firstName, lastName) {
+    if (!firstName || !lastName) return "U"; // Si no hay nombre, usa "U"
+    return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
+  }
+
+  // Función para actualizar la información del usuario en el DOM
+  function updateUserInfo() {
+    // Recuperar datos desde sessionStorage
+    const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
+    const lastName = sessionStorage.getItem("userLastName") || "Apellido";
+    const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
+
+    // Concatenar nombres y mostrar en los elementos correspondientes
+    const fullName = `${firstName} ${lastName}`;
+
+    const nameElem = document.getElementById("userName");
+    const roleElem = document.getElementById("userRole");
+
+    if (nameElem) nameElem.innerText = fullName;
+    if (roleElem) roleElem.innerText = userRole;
+  }
+
+  // Función para establecer el ícono del usuario con iniciales
+  function setUserIcon() {
+    // Actualizar información del usuario
+    updateUserInfo();
+
+    // Obtener nombre y apellido del sessionStorage
+    const firstName = sessionStorage.getItem("userFirstName");
+    const lastName = sessionStorage.getItem("userLastName");
+
+    // Asignar iniciales al ícono del usuario
+    const userIcon = document.getElementById("user-icon");
+    if (userIcon) {
+      userIcon.textContent = getInitials(firstName, lastName);
+    }
+  }
+
+  // Mostrar/ocultar el menú emergente y cambiar color del icono
+  function toggleUserMenu() {
+    const menu = document.getElementById("user-menu");
+    const userIcon = document.getElementById("user-icon");
+
+    if (menu) {
+      const isVisible = menu.style.display === "block";
+      menu.style.display = isVisible ? "none" : "block";
+      userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
+    }
+  }
+
+  // Cerrar el menú si se hace clic fuera de él
+  document.addEventListener("click", (event) => {
+    const menu = document.getElementById("user-menu");
+    const userIcon = document.getElementById("user-icon");
+    const userContainer = document.querySelector(".user-container");
+
+    if (menu && userIcon && userContainer && !userContainer.contains(event.target)) {
+      menu.style.display = "none";
+      userIcon.style.backgroundColor = "#F36621";
+    }
+  });
+
+  // Llamar a la función al cargar la página
+  document.addEventListener("DOMContentLoaded", setUserIcon);
   </script>
 </body>
 

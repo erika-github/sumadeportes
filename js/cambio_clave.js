@@ -1,6 +1,21 @@
 
   document.addEventListener("DOMContentLoaded", function () {
 
+    function updateUserEmail() {
+      // Recuperar el correo electrónico desde sessionStorage
+      const userEmail = sessionStorage.getItem("userEmail") || "";
+  
+      // Obtener el input del correo
+      const emailInput = document.getElementById("correo");
+  
+      // Si el input existe, asignarle el valor
+      if (emailInput) {
+          emailInput.value = userEmail;
+      }
+  }
+  
+  updateUserEmail();
+
     // Función para actualizar el elemento de error:
     // Si message es vacío, se elimina el span de error (si existe).
     // Si message tiene contenido, se crea (si es necesario) y se actualiza.

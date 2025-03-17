@@ -149,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   
         if (!response.ok) {
+          sessionStorage.setItem("userEmail", email);   
           throw new Error("Error en la respuesta del servidor.");
         }
   

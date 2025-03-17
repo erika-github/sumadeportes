@@ -148,14 +148,14 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify(data)
         });
   
-        if (!response.ok) {
-          sessionStorage.setItem("userEmail", email);   
+        if (!response.ok) {            
           throw new Error("Error en la respuesta del servidor.");
         }
   
         const responseData = await response.json();
   
         if (responseData.code === "201") {
+          sessionStorage.setItem("userEmail", email);
           await Swal.fire({
             title: "Registro exitoso",
             text: "Se ha enviado una contraseña temporal a su correo electrónico.",

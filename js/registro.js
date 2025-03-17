@@ -163,6 +163,14 @@ document.addEventListener("DOMContentLoaded", function () {
             confirmButtonText: "Aceptar"
           });
           window.location.href = "iniciar_sesion.html";
+        } else if(responseData.code === "409"){
+          await Swal.fire({
+            title: "Error",
+            text: "El correo pertenece a otro usuario. Coloque uno válido",
+            icon: "error",
+             confirmButtonText: "Intentar nuevamente"
+          });
+        
         } else {
           throw new Error(responseData.message || "Error al registrar el usuario.");
         }

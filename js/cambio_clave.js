@@ -198,8 +198,16 @@
             confirmButtonText: "Aceptar"
           });
           window.location.href = "iniciar_sesion.html";
+        } else if(responseData.code === "401"){
+          await Swal.fire({
+            title: "Error",
+            text: "Contraseña temporal inválida. Favor verificar",
+            icon: "error",
+            confirmButtonText: "Intentar nuevamente"
+          });
+        
         } else {
-          throw new Error(responseData.message || "Error al cambiar la contraseña.");
+          throw new Error(responseData.message);
         }
       } catch (error) {
         console.error("Error:", error);

@@ -137,13 +137,32 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.setItem("userRole", role);      
         
         window.location.href = "gestion.html";
-      } else {
+      } else if(responseData.code === "404"){
         Swal.fire({
           title: "Error",
-          text: responseData.message || "Credenciales incorrectas",
+         /* text: responseData.message || "Credenciales incorrectas",*/
+          text: "El correo es incorrecto. Favor verificar",
           icon: "error",
           confirmButtonText: "Intentar nuevamente"
         });
+      }else if(responseData.code === "401"){
+        Swal.fire({
+          title: "Error",
+         /* text: responseData.message || "Credenciales incorrectas",*/
+          text: "responseData.message",
+          icon: "error",
+          confirmButtonText: "Intentar nuevamente"
+        });
+
+      }else{
+        Swal.fire({
+          title: "Error",
+          //text: responseData.message || "Credenciales incorrectas",  
+          text: responseData.message,       
+          icon: "error",
+          confirmButtonText: "Intentar nuevamente"
+        });
+
       }
 
     } catch (error) {

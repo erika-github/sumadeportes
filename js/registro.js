@@ -42,7 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   
     numeroDocumentoEl.addEventListener("input", function() {
-      if (numeroDocumentoEl.value && !regexDocumento.test(numeroDocumentoEl.value)) {
+
+      const valueNumDoc = numeroDocumentoEl.value.trim();
+      console.log("valor del numDoc=" +valueNumDoc)
+      if(valueNumDoc.length < 7){
+        errorDocumento.textContent = "Debe contener un mínimo de 7 caracteres";
+      }
+      else if (numeroDocumentoEl.value && !regexDocumento.test(numeroDocumentoEl.value)) {
         errorDocumento.textContent = "Solo se permiten números.";
       } else {
         errorDocumento.textContent = "";

@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
         Swal.fire({
           title: "Error",
          /* text: responseData.message || "Credenciales incorrectas",*/
-          text: "responseData.message",
+          text: "La contraseña es inválida. Favor verificar",
           icon: "error",
           confirmButtonText: "Intentar nuevamente"
         });

@@ -184,9 +184,9 @@
           body: JSON.stringify(data)
         });
   
-        if (!response.ok) {
+       /* if (!response.ok) {
           throw new Error("Error en la respuesta del servidor.");
-        }
+        }*/
   
         const responseData = await response.json();
   

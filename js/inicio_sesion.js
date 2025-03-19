@@ -102,6 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var firstName;
     var lastName;
     var role;
+    var birthDate;
+    var documentType;
+    var documentNumber;
 
 
     const requestData = {
@@ -131,10 +134,20 @@ document.addEventListener("DOMContentLoaded", function () {
         
         firstName = responseData.data.firstName;
         lastName = responseData.data.lastName;
-        role = responseData.data.role;                
+        role = responseData.data.role;       
+        birthDate = response.data.birthDate;
+        documentType = response.data.documentType;
+        documentNumber = response.data.documentNumber;
+
+         
         sessionStorage.setItem("userFirstName", firstName);
         sessionStorage.setItem("userLastName", lastName);     
-        sessionStorage.setItem("userRole", role);      
+        sessionStorage.setItem("userRole", role);  
+        sesionStorage.setItem("userBirthdate", birthDate);
+        sesionStorage.setItem("userTypeDoc",documentType);
+        sesionStorage.setItem("userDoc", documentNumber);
+        sesionStorage.setItem("userEmail",email)
+
         
         window.location.href = "gestion.html";
       } else if(responseData.code === "404"){

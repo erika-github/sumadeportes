@@ -333,78 +333,7 @@
   <script src="js/jquery-ui-1.13.3/external/jquery/jquery.js"></script>
   <script src="js/jquery-ui-1.13.3/jquery-ui.min.js"></script>
   <script src="js/main.js"></script>
-  <!--<script>
-
-    window.onload = function() {
-        // Desplazarse al 10% de la altura total de la página
-        window.scrollTo(0, document.body.scrollHeight * 0.1);
-      };
-
-    
-      function setUserIcon() {
-
-        sessionStorage.setItem("userFirstName", "Erika");
-        sessionStorage.setItem("userLastName", "Diaz");
-        sessionStorage.setItem("userRole", "Administrador(a)");
   
-        // Llamar a la función para actualizar la info, asumiendo que el DOM ya está cargado:
-        updateUserInfo();
-  
-        let firstName = sessionStorage.getItem("userFirstName");
-        let lastName = sessionStorage.getItem("userLastName");
-  
-        let userIcon = document.getElementById("user-icon");
-        if (userIcon) {
-          userIcon.textContent = getInitials(firstName, lastName);
-        }
-  
-  
-      }
-  
-      // Llamar a la función al cargar la página
-      document.addEventListener("DOMContentLoaded", setUserIcon);
-
-
-    function updateUserInfo() {
-      // Recuperar datos desde sessionStorage
-      const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
-      const lastName = sessionStorage.getItem("userLastName") || "Apellido";
-      const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
-
-      // Concatenar firstName y lastName
-      const fullName = firstName + " " + lastName;
-
-      // Actualizar los elementos del DOM
-      const nameElem = document.getElementById("userName");
-      const roleElem = document.getElementById("userRole");
-
-      if (nameElem) {
-        nameElem.innerText = fullName;
-      }
-      if (roleElem) {
-        roleElem.innerText = userRole;
-      }
-    }
-  
-    // Función para mostrar/ocultar el menú emergente
-    function toggleUserMenu() {
-      var menu = document.getElementById("user-menu");
-      var img = document.getElementById("img");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-      img.style.backgroundColor = menu.style.display === "block" ? "#F2F2F2" : "";
-    }
-
-    // Cerrar el menú si se hace clic fuera de él
-    document.addEventListener("click", function (event) {
-      var menu = document.getElementById("user-menu");
-      var img = document.getElementById("img");
-      var userContainer = document.querySelector(".user-container");
-      if (userContainer && !userContainer.contains(event.target)) {
-        menu.style.display = "none";
-        img.style.backgroundColor = "unset"
-      }
-    });
-  </script>-->
   <script>
     /*window.onload = function () {
       // Desplazarse al 30% de la altura total de la página

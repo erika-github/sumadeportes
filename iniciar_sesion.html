@@ -66,25 +66,30 @@
             </div>
             <div>
                 <form id="loginForm">
-                    <div id="correo_electronico">
-                        <label for="correo">Correo electrónico:</label>
-                        <input type="email" id="correo" name="correo" maxlength="150">
-                        <span id="errorCorreo" class="error"></span>
-                    </div>
-                    <div id="contraseña" style="font-size: 1.2vw;">
-                        <label for="contrasena">Contraseña:</label>
-                        <div class="password-wrapper" style="position: relative;">
-                            <input type="password" id="contrasena" name="contrasena" maxlength="8"
-                                style="height: 2.5vw; width: 100%; padding: 2%; margin-bottom: 2%; box-sizing: border-box; border: 0.15vw solid #ccc; border-radius: 0.2vw; font-size: 1.1vw;">
-
-                            <i class="fa-solid fa-eye-slash toggle-password" data-target="contrasena"
-                                style="position: absolute; top: 50%; right: 2%; transform: translateY(-50%); cursor: pointer; color:blue"></i>
+                    <!--<div>-->
+                        <div id="correo_electronico">
+                            <label for="correo">Correo electrónico:</label>
+                            <input type="email" id="correo" name="correo" maxlength="150">
+                            <span id="errorCorreo" class="error"></span>
                         </div>
-                        <span class="error" id="errorContrasena"></span>
-                    </div>
-                    <div id="div-botonInicio">
-                        <button type="submit" id="btnLogin" class="boton-inicio">Inicia sesión</button>
-                    </div>
+                    <!--</div>-->
+
+                    <!--<div>-->
+                        <div id="contraseña" style="font-size: 1.2vw;">
+                            <label for="contrasena">Contraseña:</label>
+                            <div class="password-wrapper" style="position: relative;">
+                                <input type="password" id="contrasena" name="contrasena" maxlength="8"
+                                    style="height: 2.5vw; width: 100%; padding: 2%; box-sizing: border-box; border: 0.15vw solid #ccc; border-radius: 0.2vw; font-size: 1.1vw;">
+
+                                <i class="fa-solid fa-eye-slash toggle-password" data-target="contrasena"
+                                    style="position: absolute; top: 50%; right: 2%; transform: translateY(-50%); cursor: pointer; color:blue"></i>
+                            </div>
+                            <span class="error" id="errorContrasena"></span>
+                        </div>
+                        <div id="div-botonInicio">
+                            <button type="submit" id="btnLogin" class="boton-inicio">Inicia sesión</button>
+                        </div>
+                    <!--</div>-->
                 </form>
             </div>
             <div id="cuadro">
@@ -92,7 +97,7 @@
                 </p>
             </div>
         </div>
-    </div>    
+    </div>
 
     <footer>
         <div id=footer_logo>

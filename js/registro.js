@@ -113,8 +113,16 @@ document.addEventListener("DOMContentLoaded", function () {
         errorDocumento.textContent||
         errorCorreo.textContent
       ) {
-        alert("Por favor, corrija los errores en el formulario antes de enviarlo.");
-        return;
+        /*alert("Por favor, corrija los errores en el formulario antes de enviarlo.");*/
+       
+        Swal.fire({
+          title: "Error",
+          text: "Por favor, corrige los errores en el formulario.",
+          icon: "error",
+          confirmButtonText: "Entendido"
+        });
+          return;     
+        
       }
   
       // Deshabilita el botón para evitar múltiples envíos

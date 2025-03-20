@@ -88,7 +88,7 @@ body{
   width: 50%;
   padding: 3% 5%;
   margin-right: 2%;
-  background-color: #012EDC;
+  background-color: #012EDC;  
   color: white;
   border: none;
   border-radius: 0.3vw;
@@ -389,7 +389,15 @@ label {
   justify-content: center;
   text-align: center;
 }
-/**/
+/*Estilos para el Select*/
+
+.select2-container--default .select2-selection:focus {
+
+  border:0.1vw solid #007bff;
+  /*border-color: #007bff; /* Cambia el color del borde cuando se enfoca */
+  outline: none;
+  box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);
+}
 
 .select2-dropdown {
   border: 0.1vw solid #aaa;
@@ -484,7 +492,7 @@ span.select2.select2-container.select2-container--default{
   margin-top: -10%;
 }
 
-/**/
+/*Fin-Estilos para el select*/
 
 
 
@@ -500,9 +508,14 @@ label[for="correo"] {
   margin-bottom: 0.5vw;
 }
 
-input:focus,
-button:focus,
-select:focus {
+input:focus {  
+
+    border: 0.1vw solid #007bff!important;
+    box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+button:focus{
   outline: none;
   box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);
 }
@@ -560,7 +573,7 @@ input[type="text"] {
 }
 
 .boton-registro {
-  background-color: #012EDC;
+  background-color: #012EDC;  
   color: #FFFFFF;
   border: none;
   padding: 2%;

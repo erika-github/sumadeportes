@@ -160,7 +160,13 @@
   
       // Si existen errores, se notifica y se detiene el envío
       if (hayErrores) {
-        alert("Por favor, corrija los errores en el formulario antes de enviarlo.");
+        /*alert("Por favor, corrija los errores en el formulario antes de enviarlo.");*/
+        Swal.fire({
+          title: "Error",
+          text: "Por favor, corrige los errores en el formulario.",
+          icon: "error",
+          confirmButtonText: "Entendido"
+        });     
         return;
       }
   

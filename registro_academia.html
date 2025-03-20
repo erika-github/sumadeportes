@@ -27,8 +27,9 @@
     }
     .form-group label {
       font-size: 14px;
-      font-weight: bold;
+      /*font-weight: bold;*/
       margin-bottom: 5px;
+      color:#808080
     }
     .form-group input,
     .form-group select {
@@ -41,6 +42,7 @@
     .form-group input:focus,
     .form-group select:focus {
       border-color: #007bff;
+      box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);    
       outline: none;
     }
     .submit-container {
@@ -62,7 +64,7 @@
     .submit-container button:hover {
       background-color: #0056b3;
       transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+      /*box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);*/
     }
     .submit-container button:active {
       background-color: #004085;
@@ -184,6 +186,8 @@
       <a href="#" style="font-size:1vw" onclick="logout()">Cerrar Sesión</a>
     </div>
   </div>
+
+  <h1 style="text-align:center; margin-top:5%; margin-bottom:5%; font-size:2.5vw; font-weight:lighter">Formulario de inscripción</h1>
   
   <form class="form-container" id="form-swimmer">
     <div class="form-group">
@@ -371,14 +375,16 @@
   
     document.addEventListener("DOMContentLoaded", setUserIcon);
   
-    // Simulación de valores de sessionStorage para pruebas
+    
     document.addEventListener("DOMContentLoaded", function() {
-      sessionStorage.setItem("userTypeDoc", "V");
+
+      // Simulación de valores de sessionStorage para pruebas
+      /*sessionStorage.setItem("userTypeDoc", "V");
       sessionStorage.setItem("userDoc", "15581951");
       sessionStorage.setItem("userFirstName", "Erika");
       sessionStorage.setItem("userLastName", "Diaz");
       sessionStorage.setItem("userBirthdate", "06/02/1983");
-      sessionStorage.setItem("userEmail", "erika1983@gmail.com");
+      sessionStorage.setItem("userEmail", "erika1983@gmail.com");*/
   
       const sessionData = {
         documentType: sessionStorage.getItem("userTypeDoc") || "",
@@ -542,6 +548,8 @@ function validateField(id, fieldName) {
       return;
     }
 
+    console.log(document.getElementById("birthDate").value);
+
     // Construir objeto de request
     const requestData = {
       documentType: document.getElementById("documentType").value.trim(),
@@ -552,7 +560,7 @@ function validateField(id, fieldName) {
       secondSurename: document.getElementById("secondSurename").value.trim(),
       age: parseInt(document.getElementById("age").value),
       gender: document.getElementById("gender").value.trim(),
-      birthDate: document.getElementById("birthDate").value,
+      birthDate: document.getElementById("birthDate").value,      
       incomingDate: document.getElementById("incomingDate").value,
       email: document.getElementById("email").value.trim(),
       swimmerKey: "",  // Puedes generarlo o asignarlo según tu lógica

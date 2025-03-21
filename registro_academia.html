@@ -525,7 +525,13 @@
       const teamSelect = document.getElementById("team"); // ID del <select>
   
       try {
-          const response = await fetch("http://localhost:8085/team/getAll");  
+
+        const response = await fetch("http://localhost:8085/team/getAll", {
+          method: "GET",
+          mode: "no-cors"
+
+        });
+         // const response = await fetch("http://localhost:8085/team/getAll");  
           const data = await response.json();
   
           if (data.code === "200" && Array.isArray(data.data)) {

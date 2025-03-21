@@ -340,7 +340,10 @@
   </div>
 
 
-  <script>
+  <script>   
+    
+    let birthD; // Se inicializa sin valor (undefined)
+    birthD = new Date(); // Luego se le asigna un valor
 
     const form = document.querySelector("form");
     const submitButton = form.querySelector("button[type='submit']");
@@ -405,8 +408,8 @@
     // Función para calcular la edad a partir de una fecha en formato "DD/MM/YYYY"
     function calcularEdad(birthDate) {
       let partes = birthDate.split("/");
-      let birth = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`); // Convierte a formato "YYYY-MM-DD"
-      let today = new Date();
+      let birth = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`); // Convierte a formato "YYYY-MM-DD"      
+      let today = new Date(); 
       let age = today.getFullYear() - birth.getFullYear();
 
       if (
@@ -418,6 +421,18 @@
       return age;
     }
 
+    // función para convertir fecha de nacimiento en formato "YYYY-mm-dd"
+    function transformDate(birthDate) {
+      let partes = birthDate.split("/");
+    let birth_ = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T00:00:00`); // Asegura la zona horaria correcta
+
+    // Extrae los componentes de la fecha en el formato deseado
+    let year = birth_.getFullYear();
+    let month = (birth_.getMonth() + 1).toString().padStart(2, "0"); // +1 porque los meses van de 0 a 11
+    let day = birth_.getDate().toString().padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  }
     // Función de validación por campo
     function validateField(id, fieldName) {
       const field = document.getElementById(id);
@@ -565,7 +580,7 @@
 
       loadTeams();
 
-      // Simulación de valores de sessionStorage para pruebas
+       //Simulación de valores de sessionStorage para pruebas
       /*sessionStorage.setItem("userTypeDoc", "V");
       sessionStorage.setItem("userDoc", "10000000");
       sessionStorage.setItem("userFirstName", "Erika");
@@ -582,7 +597,9 @@
         email: sessionStorage.getItem("userEmail") || ""
       };
 
-      const edad = calcularEdad(sessionData.birthDate);
+      const edad = calcularEdad(sessionData.birthDate); 
+      birthD= transformDate(sessionData.birthDate);  
+      console.log("Esta es la fecha de cumpleaños: "+birthD)
 
       document.getElementById("documentType").value = sessionData.documentType;
       document.getElementById("documentNumber").value = sessionData.documentNumber;
@@ -622,7 +639,8 @@
         secondSurename: document.getElementById("secondSurename").value.trim(),
         age: parseInt(document.getElementById("age").value),
         gender: document.getElementById("gender").value.trim(),
-        birthDate: document.getElementById("birthDate").value,
+        /*birthDate: document.getElementById("birthDate").value,*/
+        birthDate: birthD,
         incomingDate: document.getElementById("incomingDate").value,
         email: document.getElementById("email").value.trim(),
         swimmerKey: "",

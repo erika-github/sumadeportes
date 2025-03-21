@@ -525,19 +525,14 @@
 
       const teamSelect = document.getElementById("team"); // ID del <select>
   
-      /*try {*/
+      try {
 
         const response = await fetch("http://localhost:8085/team/getAll", {
           method: "GET"
           
 
-        });
-
-        if (!response.ok) {
-          consolo.log('aqui');
-          throw new Error(`HTTP error! status: ${response.status}`);
-      }
-         // const response = await fetch("http://localhost:8085/team/getAll");  
+        });       
+         
           const data = await response.json();
   
           if (data.code === "200" && Array.isArray(data.data)) {
@@ -550,9 +545,9 @@
           } else {
               console.error("Error: Respuesta inesperada del servicio", data);
           }
-     /* } catch (error) {
+     } catch (error) {
           console.error("Error al obtener los teams:", error);
-      }*/
+      }
   }
   
 

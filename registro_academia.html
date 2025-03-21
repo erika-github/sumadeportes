@@ -522,6 +522,7 @@
     }
 
     async function loadTeams() {
+
       const teamSelect = document.getElementById("team"); // ID del <select>
   
       try {
@@ -531,6 +532,10 @@
           
 
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
          // const response = await fetch("http://localhost:8085/team/getAll");  
           const data = await response.json();
   

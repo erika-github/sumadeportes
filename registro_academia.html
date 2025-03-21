@@ -342,7 +342,7 @@
 
   <script>
 
-    const submitButton = form.querySelector("button[type='submit']");
+   
     // Función para cerrar sesión
     var valid = true;
     function logout() {
@@ -350,6 +350,7 @@
       window.location.href = "index.html";
     }
 
+    
     // Función para obtener las iniciales del usuario
     function getInitials(firstName, lastName) {
       if (!firstName || !lastName) return "U";
@@ -555,6 +556,9 @@
 
     // Inicialización única al cargar el DOM
     document.addEventListener("DOMContentLoaded", function () {
+
+      const form = document.querySelector("form");
+      const submitButton = form.querySelector("button[type='submit']");
       // Establece el ícono del usuario
       setUserIcon();
 

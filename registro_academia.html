@@ -342,7 +342,8 @@
 
   <script>
 
-   
+    const form = document.querySelector("form");
+    const submitButton = form.querySelector("button[type='submit']");
     // Función para cerrar sesión
     var valid = true;
     function logout() {
@@ -557,8 +558,7 @@
     // Inicialización única al cargar el DOM
     document.addEventListener("DOMContentLoaded", function () {
 
-      const form = document.querySelector("form");
-      const submitButton = form.querySelector("button[type='submit']");
+      
       // Establece el ícono del usuario
       setUserIcon();
 

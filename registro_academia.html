@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <title>SumaDeportes</title>
@@ -20,17 +21,20 @@
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
+
     .form-group {
       display: flex;
       flex-direction: column;
       margin-bottom: 15px;
     }
+
     .form-group label {
       font-size: 14px;
       /*font-weight: bold;*/
       margin-bottom: 5px;
-      color:#808080
+      color: #808080
     }
+
     .form-group input,
     .form-group select {
       padding: 10px;
@@ -39,17 +43,20 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
+
     .form-group input:focus,
     .form-group select:focus {
       border-color: #007bff;
-      box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);    
+      box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);
       outline: none;
     }
+
     .submit-container {
       grid-column: span 2;
       text-align: center;
       margin-top: 20px;
     }
+
     .submit-container button {
       background-color: #007bff;
       color: white;
@@ -61,26 +68,31 @@
       transition: background-color 0.3s ease, transform 0.3s ease;
       margin: 0 auto;
     }
+
     .submit-container button:hover {
       background-color: #0056b3;
       transform: translateY(-3px);
       /*box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);*/
     }
+
     .submit-container button:active {
       background-color: #004085;
       transform: translateY(0);
     }
+
     @media screen and (max-width: 768px) {
       .form-container {
         grid-template-columns: 1fr;
       }
     }
+
     /* Estilos para los mensajes de error */
     .error {
       color: red;
       font-size: 0.9em;
       margin-top: 5px;
     }
+
     /* Estilos adicionales para header, menú y demás secciones */
     .user-container {
       display: flex;
@@ -89,6 +101,7 @@
       margin-left: 2%;
       cursor: pointer;
     }
+
     .user-icon {
       width: 4vw;
       height: 4vw;
@@ -102,7 +115,9 @@
       text-transform: uppercase;
       cursor: pointer;
     }
-    #img, .user-container p {
+
+    #img,
+    .user-container p {
       position: absolute;
       top: 0px;
       width: 15%;
@@ -111,6 +126,7 @@
       box-sizing: border-box;
       right: 5%;
     }
+
     #user-icon {
       position: absolute;
       top: 0px;
@@ -119,6 +135,7 @@
       box-sizing: border-box;
       right: 5%;
     }
+
     .user-menu {
       display: none;
       position: absolute;
@@ -132,6 +149,7 @@
       padding-bottom: 1%;
       z-index: 10000;
     }
+
     .user-menu-header {
       background-color: #F2F2F2;
       padding: 1.5vw;
@@ -139,11 +157,13 @@
       text-align: center;
       font-weight: lighter;
     }
+
     .user-menu-content {
       padding: 1vw;
       display: flex;
       flex-direction: column;
     }
+
     .user-menu-content a {
       text-decoration: none;
       color: #7F7F7F;
@@ -153,11 +173,13 @@
       margin-top: 2%;
       transition: background 0.3s ease;
     }
+
     .user-menu-content a:hover {
       background: #F2F2F2;
     }
   </style>
 </head>
+
 <body>
   <div class="header-container">
     <!-- Cintillo -->
@@ -170,11 +192,12 @@
     </div>
     <!-- Imagen de usuario -->
     <div class="user-container">
-      <p style="font-size: 1.2vw; margin-top: 2%; color:#1535D6; text-decoration: underline;" onclick="window.location.href='gestion.html'">Módulo de gestión</p>
+      <p style="font-size: 1.2vw; margin-top: 2%; color:#1535D6; text-decoration: underline;"
+        onclick="window.location.href='gestion.html'">Módulo de gestión</p>
       <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
     </div>
   </div>
-  
+
   <!-- Menú emergente -->
   <div class="user-menu" id="user-menu">
     <div class="user-menu-header">
@@ -187,22 +210,23 @@
     </div>
   </div>
 
-  <h1 style="text-align:center; margin-top:5%; margin-bottom:5%; font-size:2.5vw; font-weight:lighter">Formulario de inscripción</h1>
-  
+  <h1 style="text-align:center; margin-top:5%; margin-bottom:5%; font-size:2.5vw; font-weight:lighter">Formulario de
+    inscripción</h1>
+
   <form class="form-container" id="form-swimmer">
     <div class="form-group">
       <label for="documentType">Tipo de Documento:</label>
-      <input type="text" id="documentType" name="documentType">
+      <input type="text" id="documentType" name="documentType" readonly>
       <span class="error" id="errorDocumentType"></span>
     </div>
     <div class="form-group">
       <label for="documentNumber">Número de Documento:</label>
-      <input type="text" id="documentNumber" name="documentNumber">
+      <input type="text" id="documentNumber" name="documentNumber" readonly>
       <span class="error" id="errorDocumentNumber"></span>
     </div>
     <div class="form-group">
       <label for="firstName">Primer Nombre:</label>
-      <input type="text" id="firstName" name="firstName">
+      <input type="text" id="firstName" name="firstName" readonly>
       <span class="error" id="errorFirstName"></span>
     </div>
     <div class="form-group">
@@ -212,7 +236,7 @@
     </div>
     <div class="form-group">
       <label for="firstSurename">Primer Apellido:</label>
-      <input type="text" id="firstSurename" name="firstSurename">
+      <input type="text" id="firstSurename" name="firstSurename" readonly>
       <span class="error" id="errorFirstSurename"></span>
     </div>
     <div class="form-group">
@@ -232,7 +256,7 @@
     </div>
     <div class="form-group">
       <label for="age">Edad:</label>
-      <input type="number" id="age" name="age">
+      <input type="number" id="age" name="age" readonly>
       <span class="error" id="errorAge"></span>
     </div>
     <div class="form-group">
@@ -246,7 +270,7 @@
     </div>
     <div class="form-group">
       <label for="birthDate">Fecha de Nacimiento:</label>
-      <input type="text" id="birthDate" name="birthDate">
+      <input type="text" id="birthDate" name="birthDate" readonly>
       <span class="error" id="errorBirthDate"></span>
     </div>
     <div class="form-group">
@@ -256,7 +280,7 @@
     </div>
     <div class="form-group">
       <label for="email">Correo Electrónico:</label>
-      <input type="email" id="email" name="email">
+      <input type="email" id="email" name="email" readonly>
       <span class="error" id="errorEmail"></span>
     </div>
     <div class="form-group">
@@ -276,7 +300,7 @@
       <label for="team">Equipo:</label>
       <select id="team" name="team">
         <option value="">Seleccione una opción</option>
-        <option value="Barracudas SUMA">Barracudas SUMA</option>
+        <!--<option value="Barracudas SUMA">Barracudas SUMA</option>-->
       </select>
       <span class="error" id="errorTeam"></span>
     </div>
@@ -292,7 +316,7 @@
       <button type="submit">Guardar</button>
     </div>
   </form>
-  
+
   <footer>
     <div id="footer_logo">
       <img src="img/logo_.png" alt="">
@@ -307,14 +331,15 @@
       <p>Preguntas frecuentes</p>
     </div>
   </footer>
-  
+
   <div class="registro">
     <div id="linea"></div>
     <div id="creadores">
       <p>Suma Deportes, RIF J-00000000-0 Todos los derechos reservados. Powered by Lenin Manrique & Erika Díaz</p>
     </div>
   </div>
-  
+
+
   <script>
     // Función para cerrar sesión
     var valid = true;
@@ -322,13 +347,13 @@
       sessionStorage.clear();
       window.location.href = "index.html";
     }
-  
+
     // Función para obtener las iniciales del usuario
     function getInitials(firstName, lastName) {
       if (!firstName || !lastName) return "U";
       return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
     }
-  
+
     // Actualiza la información del usuario en el DOM
     function updateUserInfo() {
       const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
@@ -339,7 +364,7 @@
       if (nameElem) nameElem.innerText = `${firstName} ${lastName}`;
       if (roleElem) roleElem.innerText = userRole;
     }
-  
+
     // Establece el ícono del usuario con iniciales
     function setUserIcon() {
       updateUserInfo();
@@ -350,18 +375,18 @@
         userIcon.textContent = getInitials(firstName, lastName);
       }
     }
-  
+
     // Función para mostrar/ocultar el menú del usuario
     function toggleUserMenu() {
       const menu = document.getElementById("user-menu");
       const userIcon = document.getElementById("user-icon");
-      if (menu) {
+      if (menu && userIcon) {
         const isVisible = menu.style.display === "block";
         menu.style.display = isVisible ? "none" : "block";
         userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
       }
     }
-  
+
     // Cierra el menú al hacer clic fuera de él
     document.addEventListener("click", (event) => {
       const menu = document.getElementById("user-menu");
@@ -372,20 +397,168 @@
         userIcon.style.backgroundColor = "#F36621";
       }
     });
+
+    // Función para calcular la edad a partir de una fecha en formato "DD/MM/YYYY"
+    function calcularEdad(birthDate) {
+      let partes = birthDate.split("/");
+      let birth = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`); // Convierte a formato "YYYY-MM-DD"
+      let today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+
+      if (
+        today.getMonth() < birth.getMonth() ||
+        (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
+      ) {
+        age--;
+      }
+      return age;
+    }
+
+    // Función de validación por campo
+    function validateField(id, fieldName) {
+      const field = document.getElementById(id);
+      const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
+      const value = field.value.trim();
+
+      // Expresiones regulares para validaciones específicas
+      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;
+      const phoneRegex = /^[0-9]{4}-[0-9]{7}$/;
+
+      if (id === "firstName" || id === "secondName" || id === "firstSurename" || id === "secondSurename") {
+        if (!value) {
+          errorField.textContent = `${fieldName} es obligatorio`;
+          return false;
+        }
+        if (!nameRegex.test(value)) {
+          errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
+          return false;
+        }
+      } else if (id === "representorName" || id === "representorSurename") {
+        if (value && !nameRegex.test(value)) {
+          errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
+          return false;
+        }
+      } else if (id === "phone") {
+        if (!value) {
+          errorField.textContent = `${fieldName} es obligatorio`;
+          return false;
+        }
+        if (!phoneRegex.test(value)) {
+          errorField.textContent = `${fieldName} debe tener el formato 0412-1234567`;
+          return false;
+        }
+      } else {
+        if (!value) {
+          errorField.textContent = `${fieldName} es obligatorio`;
+          return false;
+        }
+      }
+
+      errorField.textContent = "";
+      return true;
+    }
+
+    // Función para adjuntar validación en tiempo real a cada campo
+    function attachRealTimeValidations() {
+      const fieldLabels = {
+        documentType: "Tipo de Documento",
+        documentNumber: "Número de Documento",
+        firstName: "Primer Nombre",
+        secondName: "Segundo Nombre",
+        firstSurename: "Primer Apellido",
+        secondSurename: "Segundo Apellido",
+        representorName: "Nombre Representante",
+        representorSurename: "Apellido Representante",
+        age: "Edad",
+        gender: "Género",
+        birthDate: "Fecha de Nacimiento",
+        incomingDate: "Fecha de Ingreso",
+        email: "Correo Electrónico",
+        phone: "Teléfono",
+        plain: "Plan",
+        team: "Equipo",
+        level: "Nivel"
+      };
+
+      Object.keys(fieldLabels).forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.addEventListener("input", function () {
+            validateField(id, fieldLabels[id]);
+          });
+        }
+      });
+    }
+
+    // Función para validar todos los campos antes de enviar el formulario
+    function validateForm() {
+      let valid = true;
+      const fieldsToValidate = {
+        documentType: "Tipo de Documento",
+        documentNumber: "Número de Documento",
+        firstName: "Primer Nombre",
+        secondName: "Segundo Nombre",
+        firstSurename: "Primer Apellido",
+        secondSurename: "Segundo Apellido",
+        representorName: "Nombre Representante",
+        representorSurename: "Apellido Representante",
+        age: "Edad",
+        gender: "Género",
+        birthDate: "Fecha de Nacimiento",
+        incomingDate: "Fecha de Ingreso",
+        email: "Correo Electrónico",
+        phone: "Teléfono",
+        plain: "Plan",
+        team: "Equipo",
+        level: "Nivel"
+      };
+
+      Object.entries(fieldsToValidate).forEach(([id, label]) => {
+        if (!validateField(id, label)) {
+          valid = false;
+        }
+      });
+      return valid;
+    }
+
+    async function loadTeams() {
+      const teamSelect = document.getElementById("team"); // ID del <select>
   
-    document.addEventListener("DOMContentLoaded", setUserIcon);
+      try {
+          const response = await fetch("http://localhost:8085/team/getAll");  
+          const data = await response.json();
   
-    
-    document.addEventListener("DOMContentLoaded", function() {
+          if (data.code === "200" && Array.isArray(data.data)) {
+              data.data.forEach(team => {
+                  const option = document.createElement("option");
+                  option.value = team.id; // Asigna el ID del equipo
+                  option.textContent = team.teamName; // Asigna el nombre del equipo
+                  teamSelect.appendChild(option);
+              });
+          } else {
+              console.error("Error: Respuesta inesperada del servicio", data);
+          }
+      } catch (error) {
+          console.error("Error al obtener los teams:", error);
+      }
+  }
+  
+
+    // Inicialización única al cargar el DOM
+    document.addEventListener("DOMContentLoaded", function () {
+      // Establece el ícono del usuario
+      setUserIcon();
+
+      loadTeams();
 
       // Simulación de valores de sessionStorage para pruebas
       /*sessionStorage.setItem("userTypeDoc", "V");
-      sessionStorage.setItem("userDoc", "15581951");
+      sessionStorage.setItem("userDoc", "10000000");
       sessionStorage.setItem("userFirstName", "Erika");
       sessionStorage.setItem("userLastName", "Diaz");
       sessionStorage.setItem("userBirthdate", "06/02/1983");
-      sessionStorage.setItem("userEmail", "erika1983@gmail.com");*/
-  
+      sessionStorage.setItem("userEmail", "erika_2@gmail.com");*/
+
       const sessionData = {
         documentType: sessionStorage.getItem("userTypeDoc") || "",
         documentNumber: sessionStorage.getItem("userDoc") || "",
@@ -394,225 +567,111 @@
         birthDate: sessionStorage.getItem("userBirthdate") || "",
         email: sessionStorage.getItem("userEmail") || ""
       };
-  
+
+      const edad = calcularEdad(sessionData.birthDate);
+
       document.getElementById("documentType").value = sessionData.documentType;
       document.getElementById("documentNumber").value = sessionData.documentNumber;
       document.getElementById("firstName").value = sessionData.firstName;
       document.getElementById("firstSurename").value = sessionData.lastName;
       document.getElementById("birthDate").value = sessionData.birthDate;
+      document.getElementById("age").value = edad;
       document.getElementById("email").value = sessionData.email;
+
+      attachRealTimeValidations();
     });
-  
-    // Función genérica para validar campos obligatorios
-    function validateField(id, errorMessage) {
-      let field = document.getElementById(id);
-      let errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-      if (!field.value.trim()) {
-        errorField.textContent = errorMessage;
-        return false;
-      } else {
-        errorField.textContent = "";
-        return true;
-      }
-    }
-  
-    
-// Función de validación por campo
-function validateField(id, fieldName) {
-    const field = document.getElementById(id);
-    const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-    const value = field.value.trim();
 
-    // Expresiones regulares
-    const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;
-    // Nota: puedes ajustar el regex del teléfono según tus requerimientos.
-    const phoneRegex = /^[0-9]{4}-[0-9]{7}$/;
+    // Listener único para el submit del formulario
+    document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
+      event.preventDefault();
 
-    // Validación para nombres y apellidos (obligatorios)
-    if (id === "firstName" || id === "secondName" || id === "firstSurename" || id === "secondSurename") {
-      if (!value) {
-        errorField.textContent = `${fieldName} es obligatorio`;
-        return false;
-      }
-      if (!nameRegex.test(value)) {
-        errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
-        return false;
-      }
-    }
-    // Validación para representante (no obligatorio)
-    else if (id === "representorName" || id === "representorSurename") {
-      if (value && !nameRegex.test(value)) {
-        errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
-        return false;
-      }
-    }
-    // Validación para el teléfono (obligatorio)
-    else if (id === "phone") {
-      if (!value) {
-        errorField.textContent = `${fieldName} es obligatorio`;
-        return false;
-      }
-      if (!phoneRegex.test(value)) {
-        errorField.textContent = `${fieldName} debe tener el formato 0412-1234567`;
-        return false;
-      }
-    }
-    // Validación para otros campos obligatorios
-    else {
-      if (!value) {
-        errorField.textContent = `${fieldName} es obligatorio`;
-        return false;
-      }
-    }
-
-    errorField.textContent = "";
-    return true;
-  }
-
-  // Función para adjuntar validación en tiempo real a cada campo
-  function attachRealTimeValidations() {
-    const fieldLabels = {
-      documentType: "Tipo de Documento",
-      documentNumber: "Número de Documento",
-      firstName: "Primer Nombre",
-      secondName: "Segundo Nombre",
-      firstSurename: "Primer Apellido",
-      secondSurename: "Segundo Apellido",
-      representorName: "Nombre Representante",
-      representorSurename: "Apellido Representante",
-      age: "Edad",
-      gender: "Género",
-      birthDate: "Fecha de Nacimiento",
-      incomingDate: "Fecha de Ingreso",
-      email: "Correo Electrónico",
-      phone: "Teléfono",
-      plain: "Plan",
-      team: "Equipo",
-      level: "Nivel"
-    };
-
-    Object.keys(fieldLabels).forEach(id => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.addEventListener("input", function() {
-          validateField(id, fieldLabels[id]);
+      if (!validateForm()) {
+        Swal.fire({
+          title: "Error",
+          text: "Por favor, corrige los errores en el formulario.",
+          icon: "error",
+          confirmButtonText: "Entendido"
         });
+        return;
+      }
+
+      // Construir objeto de request
+      const requestData = {
+        documentType: document.getElementById("documentType").value.trim(),
+        documentNumber: document.getElementById("documentNumber").value.trim(),
+        firstName: document.getElementById("firstName").value.trim(),
+        secondname: document.getElementById("secondName").value.trim(),
+        firstSurename: document.getElementById("firstSurename").value.trim(),
+        secondSurename: document.getElementById("secondSurename").value.trim(),
+        age: parseInt(document.getElementById("age").value),
+        gender: document.getElementById("gender").value.trim(),
+        birthDate: document.getElementById("birthDate").value,
+        incomingDate: document.getElementById("incomingDate").value,
+        email: document.getElementById("email").value.trim(),
+        swimmerKey: "",
+        status: "A",
+        yearsActive: 0,
+        monthsActive: 0,
+        daysActive: 0,
+        representorName: document.getElementById("representorName").value.trim(),
+        representorSurename: document.getElementById("representorSurename").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        plain: document.getElementById("plain").value.trim(),
+        level: document.getElementById("level").value.trim(),
+        monday: "00:00:00.000000",
+        tuesday: "00:00:00.000000",
+        wednesday: "00:00:00.000000",
+        thursday: "00:00:00.000000",
+        friday: "00:00:00.000000",
+        saturday: "00:00:00.000000",
+        team: document.getElementById("team").value.trim()
+      };
+
+      try {
+        // Enviar solicitud con fetch
+        const response = await fetch("http://localhost:8085/swimmer/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestData)
+        });
+
+        const responseData = await response.json();
+
+        if (responseData.code === "201") {
+          sessionStorage.setItem("userEmail", document.getElementById("email").value.trim());
+          await Swal.fire({
+            title: "Registro exitoso",
+            text: "El nadador ha sido inscrito correctamente.",
+            icon: "success",
+            confirmButtonText: "Aceptar"
+          });
+          window.location.href = "iniciar_sesion.html";
+        } else if (responseData.code === "409") {
+          await Swal.fire({
+            title: "Error",
+            text: "Ya existe un usuario con ese número de documento. Coloque uno válido",
+            icon: "error",
+            confirmButtonText: "Intentar nuevamente"
+          });
+        } else {
+          throw new Error(responseData.message || "Error al registrar el usuario.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          title: "Error",
+          text: error.message || "No se pudo conectar con el servidor.",
+          icon: "error",
+          confirmButtonText: "Intentar nuevamente"
+        });
+      } finally {
+        // Reactiva el botón después de procesar la solicitud (asegúrate de que submitButton esté definido)
+        submitButton.disabled = false;
       }
     });
-  }
 
-  attachRealTimeValidations();
-
-  // Función para validar todos los campos antes de enviar el formulario
-  function validateForm() {
-    let valid = true;
-    const fieldsToValidate = {
-      documentType: "Tipo de Documento",
-      documentNumber: "Número de Documento",
-      firstName: "Primer Nombre",
-      secondName: "Segundo Nombre",
-      firstSurename: "Primer Apellido",
-      secondSurename: "Segundo Apellido",
-      representorName: "Nombre Representante",
-      representorSurename: "Apellido Representante",
-      age: "Edad",
-      gender: "Género",
-      birthDate: "Fecha de Nacimiento",
-      incomingDate: "Fecha de Ingreso",
-      email: "Correo Electrónico",
-      phone: "Teléfono",
-      plain: "Plan",
-      team: "Equipo",
-      level: "Nivel"
-    };
-
-    Object.entries(fieldsToValidate).forEach(([id, label]) => {
-      if (!validateField(id, label)) {
-        valid = false;
-      }
-    });
-    return valid;
-  }
-
-  // Listener único para el submit
-  document.getElementById("form-swimmer").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    if (!validateForm()) {
-      Swal.fire({
-        title: "Error",
-        text: "Por favor, corrige los errores en el formulario.",
-        icon: "error",
-        confirmButtonText: "Entendido"
-      });
-      return;
-    }
-
-    console.log(document.getElementById("birthDate").value);
-
-    // Construir objeto de request
-    const requestData = {
-      documentType: document.getElementById("documentType").value.trim(),
-      documentNumber: document.getElementById("documentNumber").value.trim(),
-      firstName: document.getElementById("firstName").value.trim(),
-      secondname: document.getElementById("secondName").value.trim(),
-      firstSurename: document.getElementById("firstSurename").value.trim(),
-      secondSurename: document.getElementById("secondSurename").value.trim(),
-      age: parseInt(document.getElementById("age").value),
-      gender: document.getElementById("gender").value.trim(),
-      birthDate: document.getElementById("birthDate").value,      
-      incomingDate: document.getElementById("incomingDate").value,
-      email: document.getElementById("email").value.trim(),
-      swimmerKey: "",  // Puedes generarlo o asignarlo según tu lógica
-      status: "A",
-      yearsActive: 0,  // Si estos campos se calculan en el backend, puedes omitirlos
-      monthsActive: 0,
-      daysActive: 0,
-      representorName: document.getElementById("representorName").value.trim(),
-      representorSurename: document.getElementById("representorSurename").value.trim(),
-      phone: document.getElementById("phone").value.trim(),
-      plain: document.getElementById("plain").value.trim(),
-      level: document.getElementById("level").value.trim(),
-      monday: "00:00:00.000000",
-      tuesday: "00:00:00.000000",
-      wednesday: "00:00:00.000000",
-      thursday: "00:00:00.000000",
-      friday: "00:00:00.000000",
-      saturday: "00:00:00.000000",
-      team: document.getElementById("team").value.trim()
-    };
-
-    // Enviar solicitud con fetch
-    fetch("http://localhost:8085/swimmer/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(requestData)
-    })
-   /* .then(response => {
-      if (!response.ok) {
-        throw new Error("Error en el registro");
-      }
-      return response.json();
-    })*/
-    .then(data => {
-      Swal.fire({
-        title: "Inscripción exitosa",
-        text: "El nadador ha sido inscrito correctamente.",
-        icon: "success",
-        confirmButtonText: "Aceptar"
-      });
-    })
-    .catch(error => {
-      Swal.fire({
-        title: "Error",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "Entendido"
-      });
-    });
-  });
   </script>
+
 </body>
+
 </html>

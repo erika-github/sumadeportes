@@ -525,7 +525,7 @@
 
       const teamSelect = document.getElementById("team"); // ID del <select>
   
-      try {
+      /*try {*/
 
         const response = await fetch("http://localhost:8085/team/getAll", {
           method: "GET"
@@ -550,9 +550,9 @@
           } else {
               console.error("Error: Respuesta inesperada del servicio", data);
           }
-      } catch (error) {
+     /* } catch (error) {
           console.error("Error al obtener los teams:", error);
-      }
+      }*/
   }
   
 

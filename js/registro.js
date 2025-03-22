@@ -1,6 +1,28 @@
-
-
 document.addEventListener("DOMContentLoaded", function () {
+
+/**/
+ 
+
+// Función para mostrar el spinner
+function showSpinner() {
+  document.getElementById('spinner').style.display = 'block';
+}
+
+// Función para ocultar el spinner
+function hideSpinner() {
+  document.getElementById('spinner').style.display = 'none';
+}
+
+// Función que maneja el envío del formulario
+function handleFormSubmit(event) {
+  event.preventDefault(); // Prevenir el envío del formulario por defecto
+
+}
+ /**/
+
+
+
+
     // Referencias al formulario, botón y campos
     const form = document.querySelector("form");
     const submitButton = form.querySelector("button[type='submit']");
@@ -87,6 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evento submit unificado: primero se validan los campos y si todo es correcto se envía la solicitud
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
+
+      showSpinner();     
+      
   
       // Validaciones finales: se verifica que los campos no estén vacíos
       if (nombreEl.value.trim() === "") {
@@ -121,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
           icon: "error",
           confirmButtonText: "Entendido"
         });
+        hideSpinner();
           return;     
         
       }
@@ -152,6 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
       };
   
       try {
+     
         // Realiza la solicitud al servidor        
         const response = await fetch("http://localhost:8085/user/create", {
           method: "POST",
@@ -197,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
           confirmButtonText: "Intentar nuevamente"
         });
       } finally {
+        hideSpinner();
         // Reactiva el botón después de procesar la solicitud
         submitButton.disabled = false;
       }

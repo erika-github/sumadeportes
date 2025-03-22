@@ -170,17 +170,15 @@ document.addEventListener("DOMContentLoaded", function () {
   
         if (responseData.code === "201") {
           sessionStorage.setItem("userEmail", email);
-          //await Swal.fire({
-            Swal.fire({
+          await Swal.fire({            
             title: "Registro exitoso",
             text: "Se ha enviado una contraseña temporal a su correo electrónico.",
             icon: "success",
             confirmButtonText: "Aceptar"
           });
           window.location.href = "iniciar_sesion.html";
-        } else if(responseData.code === "409"){
-         // await Swal.fire({
-            Swal.fire({
+        } else if(responseData.code === "409"){         
+            await Swal.fire({
             title: "Error",
             text: "El correo pertenece a otro usuario. Coloque uno válido",
             icon: "error",

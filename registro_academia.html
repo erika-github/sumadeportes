@@ -270,7 +270,7 @@
     </div>
     <div class="form-group">
       <label for="birthDate">Fecha de Nacimiento:</label>
-      <input type="text" id="birthDate" name="birthDate" readonly>
+      <input type="date" id="birthDate" name="birthDate" readonly>
       <span class="error" id="errorBirthDate"></span>
     </div>
     <div class="form-group">
@@ -585,7 +585,7 @@
       sessionStorage.setItem("userDoc", "10000000");
       sessionStorage.setItem("userFirstName", "Erika");
       sessionStorage.setItem("userLastName", "Diaz");
-      sessionStorage.setItem("userBirthdate", "06/02/1983");
+      sessionStorage.setItem("userBirthdate", "1983-02-06");
       sessionStorage.setItem("userEmail", "erika_2@gmail.com");*/
 
       const sessionData = {
@@ -598,8 +598,8 @@
       };
 
       const edad = calcularEdad(sessionData.birthDate); 
-      birthD= transformDate(sessionData.birthDate);  
-      console.log("Esta es la fecha de cumpleaños: "+birthD)
+      /*birthD= transformDate(sessionData.birthDate);  
+      console.log("Esta es la fecha de cumpleaños: "+birthD)*/
 
       document.getElementById("documentType").value = sessionData.documentType;
       document.getElementById("documentNumber").value = sessionData.documentNumber;
@@ -639,8 +639,8 @@
         secondSurename: document.getElementById("secondSurename").value.trim(),
         age: parseInt(document.getElementById("age").value),
         gender: document.getElementById("gender").value.trim(),
-        /*birthDate: document.getElementById("birthDate").value,*/
-        birthDate: birthD,
+        birthDate: document.getElementById("birthDate").value,
+        /*birthDate: birthD,*/
         incomingDate: document.getElementById("incomingDate").value,
         email: document.getElementById("email").value.trim(),
         swimmerKey: "",

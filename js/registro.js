@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Función para mostrar el spinner
 function showSpinner() {
-  document.getElementById('spinner').style.display = 'block';
+  document.getElementById('spinner').style.display = 'flex';
 }
 
 // Función para ocultar el spinner
@@ -13,15 +13,8 @@ function hideSpinner() {
   document.getElementById('spinner').style.display = 'none';
 }
 
-// Función que maneja el envío del formulario
-function handleFormSubmit(event) {
-  event.preventDefault(); // Prevenir el envío del formulario por defecto
 
-}
  /**/
-
-
-
 
     // Referencias al formulario, botón y campos
     const form = document.querySelector("form");
@@ -66,7 +59,7 @@ function handleFormSubmit(event) {
     numeroDocumentoEl.addEventListener("input", function() {
 
       const valueNumDoc = numeroDocumentoEl.value.trim();
-      console.log("valor del numDoc=" +valueNumDoc)
+      
       if(valueNumDoc.length < 7){
         errorDocumento.textContent = "Debe contener un mínimo de 7 caracteres";
       }

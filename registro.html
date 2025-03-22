@@ -47,16 +47,22 @@
     document.addEventListener("DOMContentLoaded", function () {
         // Inicializa el calendario Flatpickr
         const fechaInput = flatpickr('#fechaNacimiento', {
-            dateFormat: "d/m/Y",
+            /*dateFormat: "d/m/Y",
             altInput: true,
-            altFormat: "d/m/Y",
+            altFormat: "d/m/Y",*/
+            dateFormat: "Y-m-d", // Formato YYYY-MM-DD
+            altInput: true, // Campo visible con otro formato (opcional)
+            altFormat: "d/m/Y", // Formato visible (opcional)
             defaultDate: null,
-            /*minDate: "2020-01-01",
-            maxDate: "2030-12-31",*/
+            minDate: "1925-01-01",
+            /*maxDate: "2030-12-31",*/
             disableMobile: true, // Desactiva el selector de fecha móvil (opcional)
             locale: "es",
             onChange: (selectedDates, dateStr, instance) => {
-                console.log("Fecha seleccionada:", dateStr);
+                /*console.log("Fecha seleccionada:", dateStr);*/
+                let dateObj = selectedDates[0]; // Obtiene el objeto Date
+                /*console.log("Fecha seleccionada (Date):", dateObj); // Tipo Date
+                console.log("Fecha formateada (YYYY-MM-DD):", dateStr); // String YYYY-MM-DD*/
             }
         });
 

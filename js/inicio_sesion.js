@@ -87,13 +87,13 @@ document.addEventListener("DOMContentLoaded", function () {
               const { firstName, lastName, role, birthDate, email, userId } = responseData.data;
               const { documentType, documentNumber } = userId || {};
 
-              console.log("BirthDate:", birthDate);
+              /*console.log("BirthDate:", birthDate);
               console.log("FirstName:", firstName);
               console.log("LastName:", lastName);
               console.log("Email:", email);
               console.log("UserId:", userId);
               console.log("Document Type:", documentType);
-              console.log("Document Number:", documentNumber);
+              console.log("Document Number:", documentNumber);*/
 
               sessionStorage.setItem("userFirstName", firstName || "");
               sessionStorage.setItem("userLastName", lastName || "");

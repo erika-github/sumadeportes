@@ -400,7 +400,7 @@
         // Función de validación por campo
         function validateField(id, fieldName) {
 
-            console.log("El nombre del campo: "+`${fieldName}`);
+            console.log("El nombre del campo: "+`${fieldName}`+ " valor del id:"+id);
             const field = document.getElementById(id);
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
             const value = field.value.trim();
@@ -447,10 +447,10 @@
         function attachRealTimeValidations() {
             const fieldLabels = {                
             
-                tournament: "Torneo",
-                teams_container: "Equipos",
-                startDate: "Fecha Inicio",
-                endDate: "Fecha Fin"
+                tournament: "tournaments",
+                teams_container: "teams",
+                startDate: "startDate",
+                endDate: "endDate"
                 
             };
 
@@ -487,10 +487,10 @@
                 team: "Equipo",
                 level: "Nivel"*/
 
-                tournament: "Torneo",
-                teams_container: "Equipos",
-                startDate: "Fecha Inicio",
-                endDate: "Fecha Fin"
+                tournament: "tournaments",
+                teams_container: "teams",
+                startDate: "startDate",
+                endDate: "endDate"
             };
 
             Object.entries(fieldsToValidate).forEach(([id, label]) => {

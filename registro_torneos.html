@@ -562,8 +562,8 @@
             }*/
 
             try {
-                // Reemplaza 'URL_DEL_SERVICIO_TEAMS' por la URL real de tu API
-                const response = await fetch('URL_DEL_SERVICIO_TEAMS');
+               
+                const response = await fetch("http://localhost:8085/team/getAll");
           
                 if (!response.ok) {
                   throw new Error(`Error en la API: ${response.status} ${response.statusText}`);

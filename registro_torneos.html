@@ -506,7 +506,7 @@
 
         async function loadTeams() {
 
-            try {
+            /*try {
                 // Reemplaza 'URL_DEL_SERVICIO_TEAMS' por la URL real de tu API
                 const response = await fetch("http://localhost:8085/team/getAll");
 
@@ -540,7 +540,7 @@
             
                     // Agregar el contenedor al contenedor principal
                     teamsContainer.appendChild(div);*/
-                    const checkbox = document.createElement('input');
+                    /*const checkbox = document.createElement('input');
                     checkbox.type = 'checkbox';
                     checkbox.name = 'teamsNames[]';
                     checkbox.value = team.teamName;
@@ -559,7 +559,73 @@
 
             } catch (error) {
                 console.error('Error al cargar los equipos:', error);
-            }
+            }*/
+
+            try {
+                // Reemplaza 'URL_DEL_SERVICIO_TEAMS' por la URL real de tu API
+                const response = await fetch('URL_DEL_SERVICIO_TEAMS');
+          
+                if (!response.ok) {
+                  throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
+                }
+          
+                const data = await response.json();
+          
+                // Verifica que data.data sea un array
+                if (!data.data || !Array.isArray(data.data)) {
+                  throw new Error('La estructura de la respuesta no es válida.');
+                }
+          
+                const teams = data.data;
+                const teamsContainer = document.getElementById('teams-container');
+                teamsContainer.innerHTML = ''; // Limpia el contenedor
+          
+                // Crear contenedores de columnas de forma dinámica
+                const column1 = document.createElement('div');
+                const column2 = document.createElement('div');
+          
+                // Estilos para distribuir las columnas de forma horizontal
+                teamsContainer.style.display = 'flex';
+                teamsContainer.style.gap = '20px';
+                column1.style.flex = '1';
+                column2.style.flex = '1';
+          
+                teamsContainer.appendChild(column1);
+                teamsContainer.appendChild(column2);
+          
+                // Dividir el array de equipos en dos columnas
+                // se reparte equitativamente
+                const mitad = Math.ceil(teams.length / 2);
+                const teamsCol1 = teams.slice(0, mitad);
+                const teamsCol2 = teams.slice(mitad);
+          
+                // Función para crear checkboxes en un contenedor dado
+                function crearCheckboxes(teamsArray, container) {
+                  teamsArray.forEach(team => {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.name = 'teamsNames[]';
+                    checkbox.value = team.teamName;
+                    checkbox.id = `team-${team.id}`;
+          
+                    const label = document.createElement('label');
+                    label.htmlFor = `team-${team.id}`;
+                    label.textContent = team.teamName;
+          
+                    const div = document.createElement('div');
+                    div.appendChild(checkbox);
+                    div.appendChild(label);
+          
+                    container.appendChild(div);
+                  });
+                }
+          
+                crearCheckboxes(teamsCol1, column1);
+                crearCheckboxes(teamsCol2, column2);
+          
+              } catch (error) {
+                console.error('Error al cargar los equipos:', error);
+              }
 
         }
 

@@ -520,7 +520,7 @@
                 const teamsContainer = document.getElementById('teams-container');
                 teamsContainer.innerHTML = ''; // Limpiar antes de agregar
           
-                data.forEach((team, index) => {
+                data.data.forEach((team, index) => {
                   // Crear checkbox
                   const checkbox = document.createElement('input');
                   checkbox.type = 'checkbox';

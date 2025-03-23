@@ -503,61 +503,7 @@
         }
 
         async function loadTeams() {
-
-            /*try {
-                // Reemplaza 'URL_DEL_SERVICIO_TEAMS' por la URL real de tu API
-                const response = await fetch("http://localhost:8085/team/getAll");
-
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-
-                const data = await response.json();
-
-                //  "data" es un arreglo de nombres de equipos.
-                const teamsContainer = document.getElementById('teams-container');
-                teamsContainer.innerHTML = ''; // Limpiar antes de agregar
-
-                data.data.forEach((team, index) => {
-                    // Crear checkbox
-                    /*const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.id = 'team-' + index;
-                    checkbox.name = 'teamsNames[]';
-                    checkbox.value = team;
-            
-                    // Crear etiqueta para el checkbox
-                    const label = document.createElement('label');
-                    label.htmlFor = 'team-' + index;
-                    label.textContent = team;
-            
-                    // Contenedor para el checkbox y su etiqueta (opcional, para estilos)
-                    const div = document.createElement('div');
-                    div.appendChild(checkbox);
-                    div.appendChild(label);
-            
-                    // Agregar el contenedor al contenedor principal
-                    teamsContainer.appendChild(div);*/
-                    /*const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.name = 'teamsNames[]';
-                    checkbox.value = team.teamName;
-                    checkbox.id = `team-${team.id}`;
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `team-${team.id}`;
-                    label.textContent = team.teamName;
-
-                    const div = document.createElement('div');
-                    div.appendChild(checkbox);
-                    div.appendChild(label);
-
-                    teamsContainer.appendChild(div);
-                });
-
-            } catch (error) {
-                console.error('Error al cargar los equipos:', error);
-            }*/
+           
 
             try {
                
@@ -632,8 +578,9 @@
             const tournamentSelect = document.getElementById("tournament"); // ID del <select>
 
             try {
-
-                const response = await fetch("http://localhost:8085/master-tournaments/getAll", {
+                
+                //const response = await fetch("http://localhost:8085/master-tournaments/getAll", {
+                    const response = await fetch("http://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:8085/master-tournaments/getAll", {
                     method: "GET"
 
 
@@ -665,7 +612,7 @@
             // Establece el ícono del usuario
             setUserIcon();
 
-            //loadTournaments();
+            loadTournaments();
             loadTeams();
 
 

@@ -578,6 +578,7 @@
             const tournamentSelect = document.getElementById("tournament"); // ID del <select>
 
             try {
+                   
                 
                 const response = await fetch("http://localhost:8085/master-tournaments/getAll", {
                     //const response = await fetch("http://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:8085/master-tournaments/getAll", {
@@ -594,7 +595,7 @@
                         //option.value = team.id; // Asigna el ID del equipo
                         option.value = team.teamName;
                         option.textContent = team.teamName; // Asigna el nombre del equipo
-                        teamSelect.appendChild(option);
+                        tournamentSelect.appendChild(option);
                     });
                 } else {
                     console.error("Error: Respuesta inesperada del servicio", data);

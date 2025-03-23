@@ -590,11 +590,11 @@
                 const data = await response.json();
 
                 if (data.code === "200" && Array.isArray(data.data)) {
-                    data.data.forEach(team => {
+                    data.data.forEach(tournament => {
                         const option = document.createElement("option");
                         //option.value = team.id; // Asigna el ID del equipo
-                        option.value = team.teamName;
-                        option.textContent = team.teamName; // Asigna el nombre del equipo
+                        option.value = tournament.tournamentName;
+                        option.textContent = tournament.tournamentName; // Asigna el nombre del equipo
                         tournamentSelect.appendChild(option);
                     });
                 } else {

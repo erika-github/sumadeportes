@@ -220,7 +220,7 @@
                 <option value="">Seleccione una opción</option>
                 <!--<option value="Barracudas SUMA">Barracudas SUMA</option>-->
             </select>
-            <span class="error" id="errorTournaments"></span>
+            <span class="error" id="errorTournament"></span>
 
         </div>
 
@@ -238,7 +238,7 @@
             <div id="teams_container">
                 <!-- Aquí se agregarán los checkboxes dinámicamente -->
             </div>
-            <span class="error" id="errorTeams"></span>
+            <span class="error" id="errorTeams_container"></span>
         </div>
         <!--<div class="form-group">
             <label>Equipos:</label>
@@ -403,6 +403,7 @@
             console.log("El nombre del campo: "+`${fieldName}`+ " valor del id:"+id);
             const field = document.getElementById(id);
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
+            console.log("valor del error: "+errorField);
             const value = field.value.trim();
 
             // Expresiones regulares para validaciones específicas

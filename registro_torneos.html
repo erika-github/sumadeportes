@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* Estilos generales del formulario */
-        .form-container {
+       /* .form-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
@@ -20,29 +20,64 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+        }*/
+
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5vw;
+            min-width: 65%;
+            max-width: 66%;
+            margin: auto;
+            padding: 1.3%;
+            background-color: #fff;
+            border-radius: 1vw;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          }
+    
+
+        /*.form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }*/
 
         .form-group {
             display: flex;
             flex-direction: column;
-            margin-bottom: 15px;
-        }
+          }
 
-        .form-group label {
+        /*.form-group label {
             font-size: 14px;
             /*font-weight: bold;*/
-            margin-bottom: 5px;
+            /*margin-bottom: 5px;
             color: #808080
-        }
+        }*/
 
-        .form-group input,
+        .form-group label {
+            font-size: 0.95vw;
+            /* font-weight: bold; */
+            margin-bottom: 1%;
+            color: #808080;
+          }
+
+        /*.form-group input,
         .form-group select {
             padding: 10px;
             font-size: 14px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-        }
+        }*/
+
+        .form-group input,
+        .form-group select {
+        padding: 2.25%;
+        font-size: 0.95vw;
+        border: 0.1vw solid #ccc;
+        border-radius: 0.3vw;
+        box-sizing: border-box;
+      }
 
         .form-group input:focus,
         .form-group select:focus {
@@ -51,13 +86,19 @@
             outline: none;
         }
 
-        .submit-container {
+        /*.submit-container {
             grid-column: span 2;
             text-align: center;
             margin-top: 20px;
-        }
+        }*/
 
-        .submit-container button {
+        .submit-container {
+            grid-column: span 2;
+            text-align: center;
+            margin-top: 3%;
+          }
+
+        /*.submit-container button {
             background-color: #007bff;
             color: white;
             font-size: 16px;
@@ -67,7 +108,19 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
             margin: 0 auto;
-        }
+        }*/
+
+        .submit-container button {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.1vw;
+            padding: 0.8vw 2vw;
+            border: none;
+            border-radius: 5vw;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin: 0 auto;
+          }
 
         .submit-container button:hover {
             background-color: #0056b3;
@@ -80,17 +133,17 @@
             transform: translateY(0);
         }
 
-        @media screen and (max-width: 768px) {
+        /*@media screen and (max-width: 768px) {
             .form-container {
                 grid-template-columns: 1fr;
             }
-        }
+        }*/
 
         /* Estilos para los mensajes de error */
         .error {
             color: red;
-            font-size: 0.9em;
-            margin-top: 5px;
+            font-size: 0.95vw;
+            margin-top: 1%;
         }
 
         /* Estilos adicionales para header, menú y demás secciones */

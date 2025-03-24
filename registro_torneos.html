@@ -389,48 +389,7 @@
             return `${year}-${month}-${day}`;
         }
         // Función de validación por campo
-        function validateField(id, label) {
-        //function validateField(id, fieldName) {
-            /*const field = document.getElementById(id);
-            const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-            const value = field.value.trim();
-
-            // Expresiones regulares para validaciones específicas
-            const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;
-            const phoneRegex = /^[0-9]{4}-[0-9]{7}$/;
-
-            if (id === "firstName" || id === "secondName" || id === "firstSurename" || id === "secondSurename") {
-                if (!value) {
-                    errorField.textContent = `${fieldName} es obligatorio`;
-                    return false;
-                }
-                if (!nameRegex.test(value)) {
-                    errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
-                    return false;
-                }
-            } else if (id === "representorName" || id === "representorSurename") {
-                if (value && !nameRegex.test(value)) {
-                    errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
-                    return false;
-                }
-            } else if (id === "phone") {
-                if (!value) {
-                    errorField.textContent = `${fieldName} es obligatorio`;
-                    return false;
-                }
-                if (!phoneRegex.test(value)) {
-                    errorField.textContent = `${fieldName} debe tener el formato 0412-1234567`;
-                    return false;
-                }
-            } else {
-                if (!value) {
-                    errorField.textContent = `${fieldName} es obligatorio`;
-                    return false;
-                }
-            }
-
-            errorField.textContent = "";
-            return true;*/
+        function validateField(id, label) {        
 
             let valid = true;
             // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
@@ -624,24 +583,9 @@
         document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
             event.preventDefault();
 
-            // Obtener el contenedor del mensaje de error
-            //const errorSpan = document.getElementById("errorTeams");
-            //errorSpan.style.display = "none"; // Oculta el error al inicio
 
             // Obtener valores seleccionados
-            const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
-
-            // Validar que al menos uno esté seleccionado
-            /*if (checkboxes.length === 0) {
-                errorSpan.textContent = "Debes seleccionar al menos un equipo.";
-                errorSpan.style.display = "block"; // Muestra el error
-                return; // Detiene el envío del formulario
-            } else {
-
-                // Si pasa la validación, ocultar el mensaje de error
-                errorSpan.style.display = "none";
-
-            }*/
+            const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');            
 
             const selectedTeams = Array.from(checkboxes).map(cb => cb.value);
 
@@ -713,7 +657,7 @@
         // Evento para ocultar el mensaje de error cuando se seleccione al menos un checkbox
         document.getElementById("teams_container").addEventListener("change", function () {
             const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
-            const errorSpan = document.getElementById("errorTeams");
+            const errorSpan = document.getElementById("errorTeams_container");
 
             if (checkboxes.length > 0) {
                 errorSpan.style.display = "none"; // Oculta el mensaje si hay selección

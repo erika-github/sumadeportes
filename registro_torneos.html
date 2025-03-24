@@ -552,6 +552,9 @@
                 teamsContainer.appendChild(column1);
                 teamsContainer.appendChild(column2);
 
+                // Llamar la función después de crear un nuevo checkbox o div dinámico
+                ajustarAlturaDiv();
+
                 // Dividir el array de equipos en dos columnas
                 // se reparte equitativamente
                 const mitad = Math.ceil(teams.length / 2);
@@ -606,11 +609,7 @@
                                 checkbox.style.backgroundColor = "transparent";
                                 checkbox.style.backgroundImage = "none";
                                 checkbox.style.border = "0.1vw solid gray";
-                            }
-
-
-                            // Llamar la función después de crear un nuevo checkbox o div dinámico
-                            ajustarAlturaDiv();
+                            }                            
 
                         });
                     });

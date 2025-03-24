@@ -552,9 +552,7 @@
                 teamsContainer.appendChild(column1);
                 teamsContainer.appendChild(column2);
 
-                // Llamar la función después de crear un nuevo checkbox o div dinámico
-                ajustarAlturaDiv();
-
+                
                 // Dividir el array de equipos en dos columnas
                 // se reparte equitativamente
                 const mitad = Math.ceil(teams.length / 2);
@@ -589,6 +587,8 @@
                         div.appendChild(label);
 
                         container.appendChild(div);
+                        // Llamar la función después de crear un nuevo checkbox o div dinámico
+                        ajustarAlturaDiv();
 
                         // Evento para cambiar el estilo cuando se marque o desmarque
                         checkbox.addEventListener('change', function () {
@@ -625,7 +625,7 @@
         }
 
 
-        function ajustarAlturaDiv() {
+        /*function ajustarAlturaDiv() {
             console.log("se mete 1");
             let teamsContainer = document.getElementById("teams_container"); // Contenedor principal
             if (teamsContainer) {
@@ -644,7 +644,19 @@
                     }
                 }
             }
-        }
+        }*/
+
+        function ajustarAlturaDiv() {
+            const innerDiv = document.querySelector("#teams_container > div > div");
+            if (innerDiv) {
+              innerDiv.style.height = "1vw";
+              innerDiv.style.maxHeight = "1vw";
+              innerDiv.style.border = "0.1vw solid red";
+              console.log("Se encontró innerDiv y se ajustó la altura");
+            } else {
+              console.log("No se encontró innerDiv");
+            }
+          }
 
 
 

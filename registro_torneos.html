@@ -591,8 +591,8 @@
                         checkbox.addEventListener('change', function () {
                             if (checkbox.checked) {
                                 // Estilo cuando está chequeado
-                               /* checkbox.style.border = "0.1vw solid blue";
-                                checkbox.style.backgroundColor = "blue";*/
+                                /* checkbox.style.border = "0.1vw solid blue";
+                                 checkbox.style.backgroundColor = "blue";*/
                                 checkbox.style.backgroundImage = "url('data:image/svg+xml;charset=UTF-8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path fill=%22white%22 d=%22M20.285 2.859a1 1 0 0 1 1.41 1.41l-12 12a1 1 0 0 1-1.41 0l-6-6a1 1 0 1 1 1.41-1.41L9 13.086l11.285-11.227z%22/></svg>')";
                                 checkbox.style.backgroundSize = "contain";
                                 checkbox.style.backgroundRepeat = "no-repeat";
@@ -602,10 +602,22 @@
                                 checkbox.style.border = "0.1vw solid blue";
                             } else {
                                 // Reestablecer estilo cuando se desmarque
-                                /*checkbox.style.border = "0.1vw solid gray";
-                                checkbox.style.backgroundColor = "transparent";*/
+                                /*checkbox.style.border = "0.1vw solid gray";*/
+                                checkbox.style.backgroundColor = "transparent";
                                 checkbox.style.backgroundImage = "none";
                                 checkbox.style.border = "0.1vw solid gray";
+                            }
+
+
+                            let teamsContainer = document.getElementById("teams_container"); // Contenedor principal
+                            if (teamsContainer) {
+                                let divFlex = teamsContainer.lastElementChild; // Último div creado con estilo Flex
+                                if (divFlex && divFlex.style.display === "flex") {
+                                    let innerDiv = divFlex.lastElementChild; // Último div dentro del Flex
+                                    if (innerDiv) {
+                                        innerDiv.style.height = "1vw"; // Aplicar altura dinámicamente
+                                    }
+                                }
                             }
                         });
                     });

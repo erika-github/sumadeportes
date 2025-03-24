@@ -229,7 +229,7 @@
             <div id="teams_container">
                 <!-- Aquí se agregarán los checkboxes dinámicamente -->
             </div>
-            <span class="error" id="errorTeams"></span>
+            <span class="error" id="errorTeams_container"></span>
         </div>
         <!--<div class="form-group">
             <label>Equipos:</label>
@@ -435,6 +435,7 @@
             let valid = true;
             // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
+            console.log("error:::"+errorField)
 
             // Si es el contenedor de checkboxes para equipos, se valida que se seleccione al menos uno
             if (id === "teams_container") {

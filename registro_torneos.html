@@ -229,7 +229,7 @@
             <div id="teams_container">
                 <!-- Aquí se agregarán los checkboxes dinámicamente -->
             </div>
-            <span class="error" id="errorTeams"></span> 
+            <span class="error" id="errorTeams"></span>
         </div>
         <!--<div class="form-group">
             <label>Equipos:</label>
@@ -603,10 +603,12 @@
                 errorSpan.textContent = "Debes seleccionar al menos un equipo.";
                 errorSpan.style.display = "block"; // Muestra el error
                 return; // Detiene el envío del formulario
-            }
+            } else {
 
-            // Si pasa la validación, ocultar el mensaje de error
-            errorSpan.style.display = "none";
+                // Si pasa la validación, ocultar el mensaje de error
+                errorSpan.style.display = "none";
+
+            }
 
             const selectedTeams = Array.from(checkboxes).map(cb => cb.value);
 

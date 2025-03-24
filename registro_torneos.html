@@ -629,10 +629,13 @@
             console.log("se mete 1");
             let teamsContainer = document.getElementById("teams_container"); // Contenedor principal
             if (teamsContainer) {
+                console.log("Se mete 2");
                 let divFlex = teamsContainer.lastElementChild; // Último div creado con estilo Flex
                 if (divFlex && divFlex.style.display === "flex") {
+                    console.log("Se mete 3");
                     let innerDiv = divFlex.lastElementChild; // Último div dentro del Flex
                     if (innerDiv) {
+                        console.log("Se mete 4");
                         innerDiv.style.height = "1vw"; // Aplicar altura dinámicamente
                         innerDive.style.border= "0.1vw solid red"
                     }

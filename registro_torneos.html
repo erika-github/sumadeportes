@@ -400,10 +400,10 @@
         // Función de validación por campo
         function validateField(id, fieldName) {
 
-            console.log("El nombre del campo: "+`${fieldName}`+ " valor del id:"+id);
+            console.log("El nombre del campo: " + `${fieldName}` + " valor del id:" + id);
             const field = document.getElementById(id);
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-            console.log("valor del error: "+errorField);
+            console.log("valor del error: " + errorField);
             const value = field.value.trim();
 
             // Expresiones regulares para validaciones específicas
@@ -446,13 +446,13 @@
 
         // Función para adjuntar validación en tiempo real a cada campo
         function attachRealTimeValidations() {
-            const fieldLabels = {                
-            
+            const fieldLabels = {
+
                 tournament: "Torneo",
                 /*teams_container: "teams",*/
                 startDate: "Fecha Inicio",
                 endDate: "Fecha Fin"
-                
+
             };
 
             Object.keys(fieldLabels).forEach(id => {
@@ -469,7 +469,7 @@
         function validateForm() {
             let valid = true;
             const fieldsToValidate = {
-                
+
                 /*documentType: "Tipo de Documento",
                 documentNumber: "Número de Documento",
                 firstName: "Primer Nombre",
@@ -503,73 +503,73 @@
         }
 
         async function loadTeams() {
-           
+
 
             try {
-               
+
                 const response = await fetch("http://localhost:8085/team/getAll");
-          
+
                 if (!response.ok) {
-                  throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
+                    throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
                 }
-          
+
                 const data = await response.json();
-          
+
                 // Verifica que data.data sea un array
                 if (!data.data || !Array.isArray(data.data)) {
-                  throw new Error('La estructura de la respuesta no es válida.');
+                    throw new Error('La estructura de la respuesta no es válida.');
                 }
-          
+
                 const teams = data.data;
                 const teamsContainer = document.getElementById('teams_container');
                 teamsContainer.innerHTML = ''; // Limpia el contenedor
-          
+
                 // Crear contenedores de columnas de forma dinámica
                 const column1 = document.createElement('div');
                 const column2 = document.createElement('div');
-          
+
                 // Estilos para distribuir las columnas de forma horizontal
                 teamsContainer.style.display = 'flex';
                 teamsContainer.style.gap = '20px';
                 column1.style.flex = '1';
                 column2.style.flex = '1';
-          
+
                 teamsContainer.appendChild(column1);
                 teamsContainer.appendChild(column2);
-          
+
                 // Dividir el array de equipos en dos columnas
                 // se reparte equitativamente
                 const mitad = Math.ceil(teams.length / 2);
                 const teamsCol1 = teams.slice(0, mitad);
                 const teamsCol2 = teams.slice(mitad);
-          
+
                 // Función para crear checkboxes en un contenedor dado
                 function crearCheckboxes(teamsArray, container) {
-                  teamsArray.forEach(team => {
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.name = 'teamsNames[]';
-                    checkbox.value = team.teamName;
-                    checkbox.id = `team-${team.id}`;
-          
-                    const label = document.createElement('label');
-                    label.htmlFor = `team-${team.id}`;
-                    label.textContent = team.teamName;
-          
-                    const div = document.createElement('div');
-                    div.appendChild(checkbox);
-                    div.appendChild(label);
-          
-                    container.appendChild(div);
-                  });
+                    teamsArray.forEach(team => {
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.name = 'teamsNames[]';
+                        checkbox.value = team.teamName;
+                        checkbox.id = `team-${team.id}`;
+
+                        const label = document.createElement('label');
+                        label.htmlFor = `team-${team.id}`;
+                        label.textContent = team.teamName;
+
+                        const div = document.createElement('div');
+                        div.appendChild(checkbox);
+                        div.appendChild(label);
+
+                        container.appendChild(div);
+                    });
                 }
-          
+
                 crearCheckboxes(teamsCol1, column1);
                 crearCheckboxes(teamsCol2, column2);
-          
-              } catch (error) {
+
+            } catch (error) {
                 console.error('Error al cargar los equipos:', error);
-              }
+            }
 
         }
 
@@ -578,8 +578,8 @@
             const tournamentSelect = document.getElementById("tournament"); // ID del <select>
 
             try {
-                   
-                
+
+
                 const response = await fetch("http://localhost:8085/master-tournaments/getAll", {
                     //const response = await fetch("http://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:8085/master-tournaments/getAll", {
                     method: "GET"
@@ -653,6 +653,10 @@
         document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
             event.preventDefault();
 
+            // Obtener valores seleccionados
+            const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
+            const selectedTeams = Array.from(checkboxes).map(cb => cb.value);
+
             if (!validateForm()) {
                 Swal.fire({
                     title: "Error",
@@ -668,7 +672,7 @@
 
             // Construir objeto de request
             const requestData = {
-                documentType: document.getElementById("documentType").value.trim(),
+                /*documentType: document.getElementById("documentType").value.trim(),
                 documentNumber: document.getElementById("documentNumber").value.trim(),
                 firstName: document.getElementById("firstName").value.trim(),
                 secondname: document.getElementById("secondName").value.trim(),
@@ -676,8 +680,7 @@
                 secondSurename: document.getElementById("secondSurename").value.trim(),
                 age: parseInt(document.getElementById("age").value),
                 gender: document.getElementById("gender").value.trim(),
-                birthDate: document.getElementById("birthDate").value,
-                /*birthDate: birthD,*/
+                birthDate: document.getElementById("birthDate").value,             
                 incomingDate: document.getElementById("incomingDate").value,
                 email: document.getElementById("email").value.trim(),
                 swimmerKey: "",
@@ -696,13 +699,18 @@
                 thursday: "00:00:00.000000",
                 friday: "00:00:00.000000",
                 saturday: "00:00:00.000000",
-                team: document.getElementById("team").value.trim()
+                team: document.getElementById("team").value.trim()*/
+
+                tournamentName: document.getElementById("tournament").value.trim(),
+                startDate: document.getElementById("startDate").value,
+                endDate: document.getElementById("endDate").value,
+                teamsNames: selectedTeams
 
             };
 
             try {
                 // Enviar solicitud con fetch
-                const response = await fetch("http://localhost:8085/swimmer/create", {
+                const response = await fetch("http://localhost:8085/tournament/create", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(requestData)
@@ -711,7 +719,7 @@
                 const responseData = await response.json();
 
                 if (responseData.code === "201") {
-                    sessionStorage.setItem("userEmail", document.getElementById("email").value.trim());
+                    /*sessionStorage.setItem("userEmail", document.getElementById("email").value.trim());*/
                     await Swal.fire({
                         title: "Registro exitoso",
                         text: "El nadador ha sido inscrito correctamente.",
@@ -727,7 +735,7 @@
                         confirmButtonText: "Intentar nuevamente"
                     });
                 } else {
-                    throw new Error(responseData.message || "Error al registrar el usuario.");
+                    throw new Error(responseData.message || "Error al registrar el torneo.");
                 }
             } catch (error) {
                 console.error("Error:", error);

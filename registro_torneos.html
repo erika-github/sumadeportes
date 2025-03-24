@@ -549,18 +549,19 @@
                 column1.style.flex = '1';
                 column2.style.flex = '1';
 
-                teamsContainer.style.width='100vw',
-                teamsContainer.style.maxWidth='100vw',
-                teamsContainer.style.flexWrap='wrap',
-                teamsContainer.style.boxSizing='border-box',
-                teamsContainer.style.border='0.2vw solid black',
-                teamsContainer.style.padding='1vw'
+                teamsContainer.style.width = '30vw',
+                    teamsContainer.style.maxWidth = '30vw',
+                    teamsContainer.style.gap = '2vw';
+                    teamsContainer.style.flexWrap = 'wrap',
+                    teamsContainer.style.boxSizing = 'border-box',
+                    teamsContainer.style.border = '0.2vw solid black',
+                    teamsContainer.style.padding = '1vw'
 
-                
+
                 teamsContainer.appendChild(column1);
                 teamsContainer.appendChild(column2);
 
-                
+
                 // Dividir el array de equipos en dos columnas
                 // se reparte equitativamente
                 const mitad = Math.ceil(teams.length / 2);
@@ -594,9 +595,24 @@
                         div.appendChild(checkbox);
                         div.appendChild(label);
 
+                        ///código añadido
+
+                        // Crear div contenedor para el checkbox y el label
+                        //const div = document.createElement('div');
+                        // Asignar estilos directos para evitar que se salga del contenedor
+                        div.style.height = "1vw";
+                        div.style.maxHeight = "1vw";
+                        // Puedes agregar otros estilos (por ejemplo, overflow:hidden) si es necesario
+
+                        // Agregar checkbox y label al div
+                        div.appendChild(checkbox);
+                        div.appendChild(label);
+
+                        ///////
+
                         container.appendChild(div);
                         // Llamar la función después de crear un nuevo checkbox o div dinámico
-                        ajustarAlturaDiv();
+                        // ajustarAlturaDiv();
 
                         // Evento para cambiar el estilo cuando se marque o desmarque
                         checkbox.addEventListener('change', function () {
@@ -617,7 +633,7 @@
                                 checkbox.style.backgroundColor = "transparent";
                                 checkbox.style.backgroundImage = "none";
                                 checkbox.style.border = "0.1vw solid gray";
-                            }                            
+                            }
 
                         });
                     });
@@ -656,17 +672,17 @@
 
         function ajustarAlturaDiv() {
             const innerDivs = document.querySelectorAll("#teams_container > div > div"); // Selecciona todos los innerDiv
-          
+
             if (innerDivs.length > 0) {
-              innerDivs.forEach(innerDiv => {
-                innerDiv.style.height = "1vw";
-                innerDiv.style.maxHeight = "1vw";                
-              });
-              console.log(`Se ajustó la altura de ${innerDivs.length} elementos.`);
+                innerDivs.forEach(innerDiv => {
+                    innerDiv.style.height = "1vw";
+                    innerDiv.style.maxHeight = "1vw";
+                });
+                console.log(`Se ajustó la altura de ${innerDivs.length} elementos.`);
             } else {
-              console.log("No se encontraron innerDivs.");
+                console.log("No se encontraron innerDivs.");
             }
-          }
+        }
 
 
 

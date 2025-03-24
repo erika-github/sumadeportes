@@ -351,8 +351,7 @@
     <script>
 
         let birthD; // Se inicializa sin valor (undefined)
-        birthD = new Date(); // Luego se le asigna un valor
-        const checkbox = document.getElementById(`team-${team.id}`);
+        birthD = new Date(); // Luego se le asigna un valor       
 
         const form = document.querySelector("form");
         const submitButton = form.querySelector("button[type='submit']");
@@ -587,6 +586,19 @@
                         div.appendChild(label);
 
                         container.appendChild(div);
+
+                        // Evento para cambiar el estilo cuando se marque o desmarque
+                        checkbox.addEventListener('change', function () {
+                            if (checkbox.checked) {
+                                // Estilo cuando está chequeado
+                                checkbox.style.border = "0.1vw solid blue";
+                                checkbox.style.backgroundColor = "blue";
+                            } else {
+                                // Reestablecer estilo cuando se desmarque
+                                checkbox.style.border = "0.1vw solid gray";
+                                checkbox.style.backgroundColor = "transparent";
+                            }
+                        });
                     });
                 }
 
@@ -599,18 +611,7 @@
 
         }
 
-        // Evento para cambiar el estilo cuando se marque o desmarque
-        checkbox.addEventListener('change', function () {
-            if (checkbox.checked) {
-                // Estilo cuando está chequeado
-                checkbox.style.border = "0.1vw solid blue";
-                checkbox.style.backgroundColor = "blue";
-            } else {
-                // Reestablecer estilo cuando se desmarque
-                checkbox.style.border = "0.1vw solid gray";
-                checkbox.style.backgroundColor = "transparent";
-            }
-        });
+
 
         async function loadTournaments() {
 

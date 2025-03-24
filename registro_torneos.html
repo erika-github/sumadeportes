@@ -224,21 +224,12 @@
 
         </div>
 
-        <!--<div class="form-group">
-            <label for="team">Equipos:</label>
-            <select id="team" name="team">
-                <option value="">Seleccione una opción</option>
-                <!--<option value="Barracudas SUMA">Barracudas SUMA</option>-->
-        <!--</select>
-            <span class="error" id="errorTeam"></span>
-        </div>-->
-
         <div class="form-group">
             <label>Equipos:</label>
             <div id="teams_container">
                 <!-- Aquí se agregarán los checkboxes dinámicamente -->
             </div>
-            <span class="error" id="errorTeams_container"></span>
+            <span class="error" id="errorTeams"></span> 
         </div>
         <!--<div class="form-group">
             <label>Equipos:</label>
@@ -399,11 +390,8 @@
         }
         // Función de validación por campo
         function validateField(id, fieldName) {
-
-            console.log("El nombre del campo: " + `${fieldName}` + " valor del id:" + id);
             const field = document.getElementById(id);
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-            console.log("valor del error: " + errorField);
             const value = field.value.trim();
 
             // Expresiones regulares para validaciones específicas
@@ -469,24 +457,6 @@
         function validateForm() {
             let valid = true;
             const fieldsToValidate = {
-
-                /*documentType: "Tipo de Documento",
-                documentNumber: "Número de Documento",
-                firstName: "Primer Nombre",
-                secondName: "Segundo Nombre",
-                firstSurename: "Primer Apellido",
-                secondSurename: "Segundo Apellido",
-                representorName: "Nombre Representante",
-                representorSurename: "Apellido Representante",
-                age: "Edad",
-                gender: "Género",
-                birthDate: "Fecha de Nacimiento",
-                incomingDate: "Fecha de Ingreso",
-                email: "Correo Electrónico",
-                phone: "Teléfono",
-                plain: "Plan",
-                team: "Equipo",
-                level: "Nivel"*/
 
                 tournament: "Torneo",
                 /*teams_container: "teams",*/
@@ -592,7 +562,6 @@
                 if (data.code === "200" && Array.isArray(data.data)) {
                     data.data.forEach(tournament => {
                         const option = document.createElement("option");
-                        //option.value = team.id; // Asigna el ID del equipo
                         option.value = tournament.tournamentName;
                         option.textContent = tournament.tournamentName; // Asigna el nombre del equipo
                         tournamentSelect.appendChild(option);
@@ -609,42 +578,11 @@
         // Inicialización única al cargar el DOM
         document.addEventListener("DOMContentLoaded", function () {
 
-
             // Establece el ícono del usuario
             setUserIcon();
 
             loadTournaments();
             loadTeams();
-
-
-            //Simulación de valores de sessionStorage para pruebas
-            /*sessionStorage.setItem("userTypeDoc", "V");
-            sessionStorage.setItem("userDoc", "10000000");
-            sessionStorage.setItem("userFirstName", "Erika");
-            sessionStorage.setItem("userLastName", "Diaz");
-            sessionStorage.setItem("userBirthdate", "1983-02-06");
-            sessionStorage.setItem("userEmail", "erika_2@gmail.com");*/
-
-            /*const sessionData = {
-                documentType: sessionStorage.getItem("userTypeDoc") || "",
-                documentNumber: sessionStorage.getItem("userDoc") || "",
-                firstName: sessionStorage.getItem("userFirstName") || "",
-                lastName: sessionStorage.getItem("userLastName") || "",
-                birthDate: sessionStorage.getItem("userBirthdate") || "",
-                email: sessionStorage.getItem("userEmail") || ""
-            };*/
-
-            // const edad = calcularEdad(sessionData.birthDate);
-            /*birthD= transformDate(sessionData.birthDate);  
-            console.log("Esta es la fecha de cumpleaños: "+birthD)*/
-
-            /*document.getElementById("documentType").value = sessionData.documentType;
-            document.getElementById("documentNumber").value = sessionData.documentNumber;
-            document.getElementById("firstName").value = sessionData.firstName;
-            document.getElementById("firstSurename").value = sessionData.lastName;
-            document.getElementById("birthDate").value = sessionData.birthDate;
-            document.getElementById("age").value = edad;
-            document.getElementById("email").value = sessionData.email;*/
 
             attachRealTimeValidations();
         });
@@ -653,8 +591,23 @@
         document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
             event.preventDefault();
 
+            // Obtener el contenedor del mensaje de error
+            const errorSpan = document.getElementById("errorTeams");
+            errorSpan.style.display = "none"; // Oculta el error al inicio
+
             // Obtener valores seleccionados
             const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
+
+            // Validar que al menos uno esté seleccionado
+            if (checkboxes.length === 0) {
+                errorSpan.textContent = "Debes seleccionar al menos un equipo.";
+                errorSpan.style.display = "block"; // Muestra el error
+                return; // Detiene el envío del formulario
+            }
+
+            // Si pasa la validación, ocultar el mensaje de error
+            errorSpan.style.display = "none";
+
             const selectedTeams = Array.from(checkboxes).map(cb => cb.value);
 
             if (!validateForm()) {
@@ -672,34 +625,6 @@
 
             // Construir objeto de request
             const requestData = {
-                /*documentType: document.getElementById("documentType").value.trim(),
-                documentNumber: document.getElementById("documentNumber").value.trim(),
-                firstName: document.getElementById("firstName").value.trim(),
-                secondname: document.getElementById("secondName").value.trim(),
-                firstSurename: document.getElementById("firstSurename").value.trim(),
-                secondSurename: document.getElementById("secondSurename").value.trim(),
-                age: parseInt(document.getElementById("age").value),
-                gender: document.getElementById("gender").value.trim(),
-                birthDate: document.getElementById("birthDate").value,             
-                incomingDate: document.getElementById("incomingDate").value,
-                email: document.getElementById("email").value.trim(),
-                swimmerKey: "",
-                status: "A",
-                yearsActive: 0,
-                monthsActive: 0,
-                daysActive: 0,
-                representorName: document.getElementById("representorName").value.trim(),
-                representorSurename: document.getElementById("representorSurename").value.trim(),
-                phone: document.getElementById("phone").value.trim(),
-                plain: document.getElementById("plain").value.trim(),
-                level: document.getElementById("level").value.trim(),
-                monday: "00:00:00.000000",
-                tuesday: "00:00:00.000000",
-                wednesday: "00:00:00.000000",
-                thursday: "00:00:00.000000",
-                friday: "00:00:00.000000",
-                saturday: "00:00:00.000000",
-                team: document.getElementById("team").value.trim()*/
 
                 tournamentName: document.getElementById("tournament").value.trim(),
                 startDate: document.getElementById("startDate").value,
@@ -719,10 +644,9 @@
                 const responseData = await response.json();
 
                 if (responseData.code === "201") {
-                    /*sessionStorage.setItem("userEmail", document.getElementById("email").value.trim());*/
                     await Swal.fire({
                         title: "Registro exitoso",
-                        text: "El nadador ha sido inscrito correctamente.",
+                        text: "El torneo ha sido registrado correctamente.",
                         icon: "success",
                         confirmButtonText: "Aceptar"
                     });
@@ -730,7 +654,7 @@
                 } else if (responseData.code === "409") {
                     await Swal.fire({
                         title: "Error",
-                        text: "Ya existe un usuario con ese número de documento. Coloque uno válido",
+                        text: "Ya existe un torneo con ese nombre",
                         icon: "error",
                         confirmButtonText: "Intentar nuevamente"
                     });

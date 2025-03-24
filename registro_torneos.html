@@ -563,6 +563,7 @@
                     teamsArray.forEach(team => {
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
+                        checkbox.style.width = '2vw';
                         checkbox.name = 'teamsNames[]';
                         checkbox.value = team.teamName;
                         checkbox.id = `team-${team.id}`;

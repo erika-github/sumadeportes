@@ -389,8 +389,9 @@
             return `${year}-${month}-${day}`;
         }
         // Función de validación por campo
-        function validateField(id, fieldName) {
-            const field = document.getElementById(id);
+        function validateField(id, label) {
+        //function validateField(id, fieldName) {
+            /*const field = document.getElementById(id);
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
             const value = field.value.trim();
 
@@ -429,7 +430,38 @@
             }
 
             errorField.textContent = "";
-            return true;
+            return true;*/
+
+            let valid = true;
+            // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
+            const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
+
+            // Si es el contenedor de checkboxes para equipos, se valida que se seleccione al menos uno
+            if (id === "teams_container") {
+                // Se asume que los checkboxes tienen name="teamsNames[]"
+                const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
+                if (checkboxes.length === 0) {
+                    errorField.textContent = `Debes seleccionar al menos un ${label}.`;
+                    errorField.style.display = "block";
+                    valid = false;
+                } else {
+                    errorField.textContent = "";
+                    errorField.style.display = "none";
+                }
+            } else {
+                // Para los demás campos (por ejemplo, "tournament", "startDate", "endDate")
+                const field = document.getElementById(id);
+                // Si el campo no existe o su valor es vacío, se muestra el error
+                if (!field || field.value.trim() === "") {
+                    errorField.textContent = `${label} es requerido.`;
+                    errorField.style.display = "block";
+                    valid = false;
+                } else {
+                    errorField.textContent = "";
+                    errorField.style.display = "none";
+                }
+            }
+            return valid;
         }
 
         // Función para adjuntar validación en tiempo real a cada campo
@@ -437,7 +469,7 @@
             const fieldLabels = {
 
                 tournament: "Torneo",
-                /*teams_container: "teams",*/
+                teams_container: "Equipo",
                 startDate: "Fecha Inicio",
                 endDate: "Fecha Fin"
 
@@ -459,7 +491,7 @@
             const fieldsToValidate = {
 
                 tournament: "Torneo",
-                /*teams_container: "teams",*/
+                teams_container: "Equipo",
                 startDate: "Fecha Inicio",
                 endDate: "Fecha Fin"
             };
@@ -592,14 +624,14 @@
             event.preventDefault();
 
             // Obtener el contenedor del mensaje de error
-            const errorSpan = document.getElementById("errorTeams");
-            errorSpan.style.display = "none"; // Oculta el error al inicio
+            //const errorSpan = document.getElementById("errorTeams");
+            //errorSpan.style.display = "none"; // Oculta el error al inicio
 
             // Obtener valores seleccionados
             const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
 
             // Validar que al menos uno esté seleccionado
-            if (checkboxes.length === 0) {
+            /*if (checkboxes.length === 0) {
                 errorSpan.textContent = "Debes seleccionar al menos un equipo.";
                 errorSpan.style.display = "block"; // Muestra el error
                 return; // Detiene el envío del formulario
@@ -608,7 +640,7 @@
                 // Si pasa la validación, ocultar el mensaje de error
                 errorSpan.style.display = "none";
 
-            }
+            }*/
 
             const selectedTeams = Array.from(checkboxes).map(cb => cb.value);
 

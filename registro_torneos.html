@@ -609,17 +609,9 @@
                             }
 
 
-                            let teamsContainer = document.getElementById("teams_container"); // Contenedor principal
-                            if (teamsContainer) {
-                                let divFlex = teamsContainer.lastElementChild; // Último div creado con estilo Flex
-                                if (divFlex && divFlex.style.display === "flex") {
-                                    let innerDiv = divFlex.lastElementChild; // Último div dentro del Flex
-                                    if (innerDiv) {
-                                        console.log("Llego aquí");
-                                        innerDiv.style.height = "1vw"; // Aplicar altura dinámicamente
-                                    }
-                                }
-                            }
+                            // Llamar la función después de crear un nuevo checkbox o div dinámico
+                            ajustarAlturaDiv();
+
                         });
                     });
                 }
@@ -631,6 +623,20 @@
                 console.error('Error al cargar los equipos:', error);
             }
 
+        }
+
+
+        function ajustarAlturaDiv() {
+            let teamsContainer = document.getElementById("teams-container"); // Contenedor principal
+            if (teamsContainer) {
+                let divFlex = teamsContainer.lastElementChild; // Último div creado con estilo Flex
+                if (divFlex && divFlex.style.display === "flex") {
+                    let innerDiv = divFlex.lastElementChild; // Último div dentro del Flex
+                    if (innerDiv) {
+                        innerDiv.style.height = "1vw"; // Aplicar altura dinámicamente
+                    }
+                }
+            }
         }
 
 

@@ -592,14 +592,20 @@
                         label.textContent = team.teamName;
 
                         const div = document.createElement('div');
+
+                        // Asignar estilos directos para evitar que se salga del contenedor
+                        div.style.height = "1vw";
+                        div.style.maxHeight = "1vw";
+                        div.style.overflow="hidden";
+
                         div.appendChild(checkbox);
-                        div.appendChild(label);   
+                        div.appendChild(label);
                         container.appendChild(div);
-                        
+
                         // Evento para cambiar el estilo cuando se marque o desmarque
                         checkbox.addEventListener('change', function () {
                             if (checkbox.checked) {
-                                
+
                                 checkbox.style.backgroundImage = "url('data:image/svg+xml;charset=UTF-8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path fill=%22white%22 d=%22M20.285 2.859a1 1 0 0 1 1.41 1.41l-12 12a1 1 0 0 1-1.41 0l-6-6a1 1 0 1 1 1.41-1.41L9 13.086l11.285-11.227z%22/></svg>')";
                                 checkbox.style.backgroundSize = "contain";
                                 checkbox.style.backgroundRepeat = "no-repeat";
@@ -607,7 +613,7 @@
                                 checkbox.style.backgroundColor = "blue"; // Fondo azul para mejor visibilidad                           
                                 checkbox.style.border = "0.1vw solid blue";
                             } else {
-                                
+
                                 checkbox.style.backgroundColor = "transparent";
                                 checkbox.style.backgroundImage = "none";
                                 checkbox.style.border = "0.1vw solid gray";
@@ -624,7 +630,7 @@
                 console.error('Error al cargar los equipos:', error);
             }
 
-        }      
+        }
 
 
         async function loadTournaments() {

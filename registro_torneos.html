@@ -677,6 +677,15 @@
             }
         });
 
+        // Evento para ocultar el mensaje de error cuando se seleccione al menos un checkbox
+        document.getElementById("teamsContainer").addEventListener("change", function () {
+            const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
+            const errorSpan = document.getElementById("errorTeams");
+
+            if (checkboxes.length > 0) {
+                errorSpan.style.display = "none"; // Oculta el mensaje si hay selección
+            }
+        });
     </script>
 
 </body>

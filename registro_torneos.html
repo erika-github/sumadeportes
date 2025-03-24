@@ -647,14 +647,16 @@
         }*/
 
         function ajustarAlturaDiv() {
-            const innerDiv = document.querySelector("#teams_container > div > div");
-            if (innerDiv) {
-              innerDiv.style.height = "1vw";
-              innerDiv.style.maxHeight = "1vw";
-              innerDiv.style.border = "0.1vw solid red";
-              console.log("Se encontró innerDiv y se ajustó la altura");
+            const innerDivs = document.querySelectorAll("#teams_container > div > div"); // Selecciona todos los innerDiv
+          
+            if (innerDivs.length > 0) {
+              innerDivs.forEach(innerDiv => {
+                innerDiv.style.height = "1vw";
+                innerDiv.style.maxHeight = "1vw";                
+              });
+              console.log(`Se ajustó la altura de ${innerDivs.length} elementos.`);
             } else {
-              console.log("No se encontró innerDiv");
+              console.log("No se encontraron innerDivs.");
             }
           }
 

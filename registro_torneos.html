@@ -579,9 +579,10 @@
                         checkbox.style.border = "0.1vw solid gray";
                         checkbox.style.padding = "0px";
                         checkbox.style.borderRadius = "0.2vw";
-                        checkbox.style.marginRight = "3%";
-                        checkbox.style.marginLeft = "3%";
+                        //checkbox.style.marginRight = "3%";
+                        checkbox.style.marginLeft = "0.5%";
                         checkbox.style.outline = "none";
+                        checkbox.style.position = "absolute"
 
                         checkbox.name = 'teamsNames[]';
                         checkbox.value = team.teamName;
@@ -590,6 +591,8 @@
                         const label = document.createElement('label');
                         label.htmlFor = `team-${team.id}`;
                         label.textContent = team.teamName;
+                        label.style.position="absolute";
+                        label.style.marginLeft="1.5%"
 
                         const div = document.createElement('div');
 

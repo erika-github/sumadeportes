@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* Estilos generales del formulario */
-       /* .form-container {
+        /* .form-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
@@ -33,8 +33,8 @@
             background-color: #fff;
             border-radius: 1vw;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-          }
-    
+        }
+
 
         /*.form-group {
             display: flex;
@@ -45,12 +45,12 @@
         .form-group {
             display: flex;
             flex-direction: column;
-          }
+        }
 
         /*.form-group label {
             font-size: 14px;
             /*font-weight: bold;*/
-            /*margin-bottom: 5px;
+        /*margin-bottom: 5px;
             color: #808080
         }*/
 
@@ -59,7 +59,7 @@
             /* font-weight: bold; */
             margin-bottom: 1%;
             color: #808080;
-          }
+        }
 
         /*.form-group input,
         .form-group select {
@@ -72,12 +72,12 @@
 
         .form-group input,
         .form-group select {
-        padding: 2.25%;
-        font-size: 0.95vw;
-        border: 0.1vw solid #ccc;
-        border-radius: 0.3vw;
-        box-sizing: border-box;
-      }
+            padding: 2.25%;
+            font-size: 0.95vw;
+            border: 0.1vw solid #ccc;
+            border-radius: 0.3vw;
+            box-sizing: border-box;
+        }
 
         .form-group input:focus,
         .form-group select:focus {
@@ -96,7 +96,7 @@
             grid-column: span 2;
             text-align: center;
             margin-top: 3%;
-          }
+        }
 
         /*.submit-container button {
             background-color: #007bff;
@@ -120,7 +120,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
             margin: 0 auto;
-          }
+        }
 
         .submit-container button:hover {
             background-color: #0056b3;
@@ -442,12 +442,12 @@
             return `${year}-${month}-${day}`;
         }
         // Función de validación por campo
-        function validateField(id, label) {        
+        function validateField(id, label) {
 
             let valid = true;
             // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-            console.log("error:::"+errorField)
+            console.log("error:::" + errorField)
 
             // Si es el contenedor de checkboxes para equipos, se valida que se seleccione al menos uno
             if (id === "teams_container") {
@@ -563,7 +563,16 @@
                     teamsArray.forEach(team => {
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
-                        checkbox.style.width = '2vw';
+                        checkbox.style.width = "0.85vw";
+                        checkbox.style.height = "0.85vw";
+                        checkbox.style.appearance = "none";
+                        checkbox.style.border = "0.1vw solid gray";
+                        checkbox.style.padding = "0px";
+                        checkbox.style.borderRadius = "0.2vw";
+                        checkbox.style.marginRight = "3%";
+                        checkbox.style.marginLeft = "3%";
+                        checkbox.style.outline = "none";
+
                         checkbox.name = 'teamsNames[]';
                         checkbox.value = team.teamName;
                         checkbox.id = `team-${team.id}`;
@@ -588,6 +597,19 @@
             }
 
         }
+
+        // Evento para cambiar el estilo cuando se marque o desmarque
+        checkbox.addEventListener('change', function () {
+            if (checkbox.checked) {
+                // Estilo cuando está chequeado
+                checkbox.style.border = "0.1vw solid blue";
+                checkbox.style.backgroundColor = "blue";
+            } else {
+                // Reestablecer estilo cuando se desmarque
+                checkbox.style.border = "0.1vw solid gray";
+                checkbox.style.backgroundColor = "transparent";
+            }
+        });
 
         async function loadTournaments() {
 
@@ -639,7 +661,7 @@
 
 
             // Obtener valores seleccionados
-            const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');            
+            const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
 
             const selectedTeams = Array.from(checkboxes).map(cb => cb.value);
 

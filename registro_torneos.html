@@ -545,17 +545,17 @@
 
                 // Estilos para distribuir las columnas de forma horizontal
                 teamsContainer.style.display = 'flex';
-                teamsContainer.style.gap = '20px';
+                teamsContainer.style.gap = '2vw';
                 column1.style.flex = '1';
                 column2.style.flex = '1';
 
-                teamsContainer.style.width = '30vw',
+                /*teamsContainer.style.width = '30vw',
                     teamsContainer.style.maxWidth = '30vw',
                     teamsContainer.style.gap = '2vw';
                     teamsContainer.style.flexWrap = 'wrap',
                     teamsContainer.style.boxSizing = 'border-box',
                     teamsContainer.style.border = '0.2vw solid black',
-                    teamsContainer.style.padding = '1vw'
+                    teamsContainer.style.padding = '1vw'*/
 
 
                 teamsContainer.appendChild(column1);
@@ -593,43 +593,25 @@
 
                         const div = document.createElement('div');
                         div.appendChild(checkbox);
-                        div.appendChild(label);
-
-                        ///código añadido
-
-                        // Crear div contenedor para el checkbox y el label
-                        //const div = document.createElement('div');
-                        // Asignar estilos directos para evitar que se salga del contenedor
-                        div.style.height = "1vw";
-                        div.style.maxHeight = "1vw";
-                        // Puedes agregar otros estilos (por ejemplo, overflow:hidden) si es necesario
+                        div.appendChild(label);                        
 
                         // Agregar checkbox y label al div
                         div.appendChild(checkbox);
                         div.appendChild(label);
-
-                        ///////
-
                         container.appendChild(div);
-                        // Llamar la función después de crear un nuevo checkbox o div dinámico
-                        // ajustarAlturaDiv();
-
+                        
                         // Evento para cambiar el estilo cuando se marque o desmarque
                         checkbox.addEventListener('change', function () {
                             if (checkbox.checked) {
-                                // Estilo cuando está chequeado
-                                /* checkbox.style.border = "0.1vw solid blue";
-                                 checkbox.style.backgroundColor = "blue";*/
+                                
                                 checkbox.style.backgroundImage = "url('data:image/svg+xml;charset=UTF-8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path fill=%22white%22 d=%22M20.285 2.859a1 1 0 0 1 1.41 1.41l-12 12a1 1 0 0 1-1.41 0l-6-6a1 1 0 1 1 1.41-1.41L9 13.086l11.285-11.227z%22/></svg>')";
                                 checkbox.style.backgroundSize = "contain";
                                 checkbox.style.backgroundRepeat = "no-repeat";
                                 checkbox.style.backgroundPosition = "center";
-                                checkbox.style.backgroundColor = "blue"; // Fondo azul para mejor visibilidad
-                                // También se puede cambiar el borde para dar feedback visual
+                                checkbox.style.backgroundColor = "blue"; // Fondo azul para mejor visibilidad                           
                                 checkbox.style.border = "0.1vw solid blue";
                             } else {
-                                // Reestablecer estilo cuando se desmarque
-                                /*checkbox.style.border = "0.1vw solid gray";*/
+                                
                                 checkbox.style.backgroundColor = "transparent";
                                 checkbox.style.backgroundImage = "none";
                                 checkbox.style.border = "0.1vw solid gray";
@@ -646,44 +628,7 @@
                 console.error('Error al cargar los equipos:', error);
             }
 
-        }
-
-
-        /*function ajustarAlturaDiv() {
-            console.log("se mete 1");
-            let teamsContainer = document.getElementById("teams_container"); // Contenedor principal
-            if (teamsContainer) {
-                console.log("Se mete 2");
-                // Accedemos al div que tiene el estilo flex (suponiendo que es el primer hijo)
-                let divFlex = teamsContainer.firstElementChild;
-                if (divFlex) {
-                    console.log("Se mete 3");
-                    // Accedemos al div interno que está después del div con el estilo flex
-                    let innerDiv = divFlex.firstElementChild;
-                    if (innerDiv) {
-                        console.log("Se mete 4");
-                        innerDiv.style.height = "1vw"; // Establece la altura dinámica
-                        innerDiv.style.maxHeight = "1vw"; // Si deseas limitar la altura máxima
-                        innerDiv.style.border = "0.1vw solid red"; // Para ver el cambio
-                    }
-                }
-            }
-        }*/
-
-        function ajustarAlturaDiv() {
-            const innerDivs = document.querySelectorAll("#teams_container > div > div"); // Selecciona todos los innerDiv
-
-            if (innerDivs.length > 0) {
-                innerDivs.forEach(innerDiv => {
-                    innerDiv.style.height = "1vw";
-                    innerDiv.style.maxHeight = "1vw";
-                });
-                console.log(`Se ajustó la altura de ${innerDivs.length} elementos.`);
-            } else {
-                console.log("No se encontraron innerDivs.");
-            }
-        }
-
+        }      
 
 
         async function loadTournaments() {

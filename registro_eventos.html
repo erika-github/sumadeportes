@@ -641,75 +641,80 @@
 
         try {
             const response = await fetch("http://localhost:8085/tests/getList");
-    
+        
             if (!response.ok) {
-                throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
+              throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
             }
-    
+        
             const data = await response.json();
-    
+        
             // Verifica que data.data sea un array
             if (!data.data || !Array.isArray(data.data)) {
-                throw new Error('La estructura de la respuesta no es válida.');
+              throw new Error('La estructura de la respuesta no es válida.');
             }
-    
-            const teamsArray = data.data; // Aquí obtenemos el array de strings
-    
-            const container = document.getElementById("events_container");
+        
+            const teamsArray = data.data;
+        
+            // Se asume que existe un contenedor con id "teams-container" en el HTML.
+            const container = document.getElementById("teams-container");
             if (!container) {
-                throw new Error("El contenedor 'teams-container' no existe en el DOM.");
+              throw new Error("El contenedor 'teams-container' no existe en el DOM.");
             }
-    
-            // Limpia el contenedor antes de agregar nuevos elementos (opcional)
+        
+            // Limpia el contenedor
             container.innerHTML = "";
-    
+        
+            // Configura el contenedor para que distribuya en 4 columnas
+            container.style.display = "grid";
+            container.style.gridTemplateColumns = "repeat(4, 1fr)";
+            container.style.gap = "10px"; // Ajusta el espacio entre los elementos según necesites
+        
             teamsArray.forEach((teamStr, index) => {
-                // Separamos la cadena en partes (ejemplo: "25 PATADA, 5 Años , F")
-                const partes = teamStr.split(',').map(item => item.trim());
-                const testName = partes[0]; // "25 PATADA", "25 LIBRE", etc.
-                const age = partes[1];      // "5 Años", "6-7 Años", etc.
-                const gender = partes[2];   // "F" o "M"
-    
-                // Crea un div contenedor para cada checkbox y label (opcional para mejor estructura)
-                const itemContainer = document.createElement("div");
-                itemContainer.style.display = "flex";
-                itemContainer.style.alignItems = "center";
-                itemContainer.style.marginBottom = "5px"; // Espaciado entre elementos
-    
-                // Crea el checkbox
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.style.width = "0.85vw";
-                checkbox.style.height = "0.85vw";
-                checkbox.style.appearance = "none";
-                checkbox.style.border = "0.1vw solid gray";
-                checkbox.style.padding = "0px";
-                checkbox.style.borderRadius = "0.2vw";
-                checkbox.style.marginLeft = "0.5%";
-                checkbox.style.outline = "none";
-    
-                // Asigna atributos
-                checkbox.name = "teamsNames[]";
-                checkbox.value = teamStr; // Puedes asignar una parte, ej: testName
-                checkbox.id = `team-${index}`;
-    
-                // Crea el label
-                const label = document.createElement("label");
-                label.htmlFor = `team-${index}`;
-                label.textContent = `${testName} (${age}, ${gender})`;
-                label.style.marginLeft = "10px"; // Separación con el checkbox
-    
-                // Agrega checkbox y label al contenedor
-                itemContainer.appendChild(checkbox);
-                itemContainer.appendChild(label);
-    
-                // Agrega el div al contenedor principal
-                container.appendChild(itemContainer);
+              // Separamos la cadena en partes (ejemplo: "25 PATADA, 5 Años , F")
+              const partes = teamStr.split(',').map(item => item.trim());
+              const testName = partes[0]; // "25 PATADA" o "25 LIBRE"
+              const age = partes[1];      // "5 Años", "6-7 Años", etc.
+              const gender = partes[2];   // "F" o "M"
+        
+              // Crea un div contenedor para cada checkbox y label
+              const itemContainer = document.createElement("div");
+              itemContainer.style.display = "flex";
+              itemContainer.style.alignItems = "center";
+        
+              // Crea el checkbox
+              const checkbox = document.createElement("input");
+              checkbox.type = "checkbox";
+              checkbox.style.width = "0.85vw";
+              checkbox.style.height = "0.85vw";
+              checkbox.style.appearance = "none";
+              checkbox.style.border = "0.1vw solid gray";
+              checkbox.style.padding = "0px";
+              checkbox.style.borderRadius = "0.2vw";
+              checkbox.style.outline = "none";
+        
+              // Asigna atributos
+              checkbox.name = "teamsNames[]";
+              checkbox.value = teamStr; // Puedes usar el string completo o solo una parte
+              checkbox.id = `team-${index}`;
+        
+              // Crea el label
+              const label = document.createElement("label");
+              label.htmlFor = `team-${index}`;
+              label.textContent = `${testName} (${age}, ${gender})`;
+              label.style.marginLeft = "10px";
+        
+              // Agrega checkbox y label al contenedor de cada elemento
+              itemContainer.appendChild(checkbox);
+              itemContainer.appendChild(label);
+        
+              // Agrega el contenedor del ítem al contenedor principal
+              container.appendChild(itemContainer);
             });
-    
-        } catch (error) {
+            
+          } catch (error) {
             console.error("Error al obtener los datos:", error);
-        }
+          }
+        
     }
     
 

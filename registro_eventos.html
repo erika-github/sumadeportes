@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>SumaDeportes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Estilos generales del formulario */
+        /* .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }*/
+
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5vw;
+            min-width: 65%;
+            max-width: 66%;
+            margin: auto;
+            padding: 1.3%;
+            background-color: #fff;
+            border-radius: 1vw;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /*.form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }*/
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*.form-group label {
+            font-size: 14px;
+            /*font-weight: bold;*/
+        /*margin-bottom: 5px;
+            color: #808080
+        }*/
+
+        .form-group label {
+            font-size: 0.95vw;
+            /* font-weight: bold; */
+            margin-bottom: 1%;
+            color: #808080;
+        }
+
+        /*.form-group input,
+        .form-group select {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }*/
+
+        .form-group input,
+        .form-group select {
+            padding: 2.25%;
+            font-size: 0.95vw;
+            border: 0.1vw solid #ccc;
+            border-radius: 0.3vw;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        /*.submit-container {
+            grid-column: span 2;
+            text-align: center;
+            margin-top: 20px;
+        }*/
+
+        .submit-container {
+            grid-column: span 2;
+            text-align: center;
+            margin-top: 3%;
+        }
+
+        /*.submit-container button {
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin: 0 auto;
+        }*/
+
+        .submit-container button {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.1vw;
+            padding: 0.8vw 2vw;
+            border: none;
+            border-radius: 5vw;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .submit-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+
+        }
+
+        .submit-container button:active {
+            background-color: #004085;
+            transform: translateY(0);
+        }
+
+        /*@media screen and (max-width: 768px) {
+            .form-container {
+                grid-template-columns: 1fr;
+            }
+        }*/
+
+        /* Estilos para los mensajes de error */
+        .error {
+            color: red;
+            font-size: 0.95vw;
+            margin-top: 1%;
+        }
+
+        /* Estilos adicionales para header, menú y demás secciones */
+        .user-container {
+            display: flex;
+            justify-content: space-between;
+            height: auto;
+            margin-left: 2%;
+            cursor: pointer;
+        }
+
+        .user-icon {
+            width: 4vw;
+            height: 4vw;
+            background-color: #F36621;
+            color: white;
+            font-size: 1.5vw;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        #img,
+        .user-container p {
+            position: absolute;
+            top: 0px;
+            width: 15%;
+            z-index: 100;
+            margin-top: 0.5%;
+            box-sizing: border-box;
+            right: 5%;
+        }
+
+        #user-icon {
+            position: absolute;
+            top: 0px;
+            z-index: 100;
+            margin-top: 0.7%;
+            box-sizing: border-box;
+            right: 5%;
+        }
+
+        .user-menu {
+            display: none;
+            position: absolute;
+            right: 1%;
+            min-width: 13%;
+            max-width: 13%;
+            top: 5.4vw;
+            background-color: white;
+            border-radius: 0.5vw;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            padding-bottom: 1%;
+            z-index: 10000;
+        }
+
+        .user-menu-header {
+            background-color: #F2F2F2;
+            padding: 1.5vw;
+            color: #7F7F7F;
+            text-align: center;
+            font-weight: lighter;
+        }
+
+        .user-menu-content {
+            padding: 1vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-menu-content a {
+            text-decoration: none;
+            color: #7F7F7F;
+            padding: 0.7vw;
+            text-align: center;
+            border-radius: 0.3vw;
+            margin-top: 2%;
+            transition: background 0.3s ease;
+        }
+
+        .user-menu-content a:hover {
+            background: #F2F2F2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-container">
+        <!-- Cintillo -->
+        <div style="height: 7vw; position: relative;">
+            <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo">
+        </div>
+        <!-- Logo -->
+        <div class="logoDiv">
+            <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index_autenticado.html'">
+        </div>
+        <!-- Imagen de usuario -->
+        <div class="user-container">
+            <p style="font-size: 1.2vw; margin-top: 2%; color:#1535D6; text-decoration: underline;"
+                onclick="window.location.href='gestion.html'">Módulo de gestión</p>
+            <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
+        </div>
+    </div>
+
+    <!-- Menú emergente -->
+    <div class="user-menu" id="user-menu">
+        <div class="user-menu-header">
+            <p style="font-size:1vw" id="userName">Nombre del Usuario</p>
+            <p style="font-size:1vw" id="userRole">Rol del Usuario</p>
+        </div>
+        <div class="user-menu-content">
+            <a href="#" style="font-size:1vw">Editar Perfil</a>
+            <a href="#" style="font-size:1vw" onclick="logout()">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <h1 style="text-align:center; margin-top:5%; margin-bottom:5%; font-size:2.5vw; font-weight:lighter">Registro
+        de eventos</h1>
+
+    <form class="form-container" id="form-swimmer">
+        <div class="form-group">
+            <label for="tournament">Torneos:</label>
+            <select id="tournament" name="tournament">
+                <option value="">Seleccione una opción</option>
+                <!--<option value="Barracudas SUMA">Barracudas SUMA</option>-->
+            </select>
+            <span class="error" id="errorTournament"></span>
+
+        </div>
+
+        <div class="form-group">
+            <label>Eventos:</label>
+            <div id="events_container">
+                <!-- Aquí se agregarán los checkboxes dinámicamente -->
+            </div>
+            <span class="error" id="errorEvents_container"></span>
+        </div>
+        <!--<div class="form-group">
+            <label>Equipos:</label>
+            <div id="teams-container">
+              <div>
+                <input type="checkbox" id="team-1" name="teamsNames[]" value="Alberto Figueredo">
+                <label for="team-1">Alberto Figueredo</label>
+              </div>
+              <div>
+                <input type="checkbox" id="team-2" name="teamsNames[]" value="Barracudas SUMA">
+                <label for="team-2">Barracudas SUMA</label>
+              </div>
+              <div>
+                <input type="checkbox" id="team-3" name="teamsNames[]" value="Delfines del Centro">
+                <label for="team-3">Delfines del Centro</label>
+              </div>
+              <div>
+                <input type="checkbox" id="team-4" name="teamsNames[]" value="Club Los Andes">
+                <label for="team-4">Club Los Andes</label>
+              </div>
+            </div>
+            <span class="error" id="errorTeams"></span>
+        </div>-->
+
+        <div class="form-group">
+            <label for="startDate">Fecha Inicio:</label>
+            <input type="date" id="startDate" name="startDate">
+            <span class="error" id="errorStartDate"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">Fecha Fin:</label>
+            <input type="date" id="endDate" name="endDate">
+            <span class="error" id="errorEndDate"></span>
+        </div>
+
+
+        <div class="submit-container">
+            <button type="submit">Guardar</button>
+        </div>
+    </form>
+
+    <footer>
+        <div id="footer_logo">
+            <img src="img/logo_.png" alt="">
+        </div>
+        <div id="academia">
+            <h2>Academia</h2>
+            <p>¿Cursos y horarios?</p>
+            <p>¿Dónde encontrarnos?</p>
+        </div>
+        <div id="informacion">
+            <h2>Información</h2>
+            <p>Preguntas frecuentes</p>
+        </div>
+    </footer>
+
+    <div class="registro">
+        <div id="linea"></div>
+        <div id="creadores">
+            <p>Suma Deportes, RIF J-00000000-0 Todos los derechos reservados. Powered by Lenin Manrique & Erika Díaz</p>
+        </div>
+    </div>
+
+
+    <script>
+
+        let birthD; // Se inicializa sin valor (undefined)
+        birthD = new Date(); // Luego se le asigna un valor       
+
+        const form = document.querySelector("form");
+        const submitButton = form.querySelector("button[type='submit']");
+        // Función para cerrar sesión
+        var valid = true;
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "index.html";
+        }
+
+
+        // Función para obtener las iniciales del usuario
+        function getInitials(firstName, lastName) {
+            if (!firstName || !lastName) return "U";
+            return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
+        }
+
+        // Actualiza la información del usuario en el DOM
+        function updateUserInfo() {
+            const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
+            const lastName = sessionStorage.getItem("userLastName") || "Apellido";
+            const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
+            const nameElem = document.getElementById("userName");
+            const roleElem = document.getElementById("userRole");
+            if (nameElem) nameElem.innerText = `${firstName} ${lastName}`;
+            if (roleElem) roleElem.innerText = userRole;
+        }
+
+        // Establece el ícono del usuario con iniciales
+        function setUserIcon() {
+            updateUserInfo();
+            const firstName = sessionStorage.getItem("userFirstName");
+            const lastName = sessionStorage.getItem("userLastName");
+            const userIcon = document.getElementById("user-icon");
+            if (userIcon) {
+                userIcon.textContent = getInitials(firstName, lastName);
+            }
+        }
+
+        // Función para mostrar/ocultar el menú del usuario
+        function toggleUserMenu() {
+            const menu = document.getElementById("user-menu");
+            const userIcon = document.getElementById("user-icon");
+            if (menu && userIcon) {
+                const isVisible = menu.style.display === "block";
+                menu.style.display = isVisible ? "none" : "block";
+                userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
+            }
+        }
+
+        // Cierra el menú al hacer clic fuera de él
+        document.addEventListener("click", (event) => {
+            const menu = document.getElementById("user-menu");
+            const userIcon = document.getElementById("user-icon");
+            const userContainer = document.querySelector(".user-container");
+            if (menu && userIcon && userContainer && !userContainer.contains(event.target)) {
+                menu.style.display = "none";
+                userIcon.style.backgroundColor = "#F36621";
+            }
+        });
+
+        // Función para calcular la edad a partir de una fecha en formato "DD/MM/YYYY"
+        function calcularEdad(birthDate) {
+            let partes = birthDate.split("/");
+            let birth = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`); // Convierte a formato "YYYY-MM-DD"      
+            let today = new Date();
+            let age = today.getFullYear() - birth.getFullYear();
+
+            if (
+                today.getMonth() < birth.getMonth() ||
+                (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
+            ) {
+                age--;
+            }
+            return age;
+        }
+
+        // función para convertir fecha de nacimiento en formato "YYYY-mm-dd"
+        function transformDate(birthDate) {
+            let partes = birthDate.split("/");
+            let birth_ = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T00:00:00`); // Asegura la zona horaria correcta
+
+            // Extrae los componentes de la fecha en el formato deseado
+            let year = birth_.getFullYear();
+            let month = (birth_.getMonth() + 1).toString().padStart(2, "0"); // +1 porque los meses van de 0 a 11
+            let day = birth_.getDate().toString().padStart(2, "0");
+
+            return `${year}-${month}-${day}`;
+        }
+        // Función de validación por campo
+        function validateField(id, label) {
+
+            let valid = true;
+            // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
+            const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
+            console.log("error:::" + errorField)
+
+            // Si es el contenedor de checkboxes para equipos, se valida que se seleccione al menos uno
+            if (id === "events_container") {
+                // Se asume que los checkboxes tienen name="teamsNames[]"
+                const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
+                if (checkboxes.length === 0) {
+                    errorField.textContent = `Debes seleccionar al menos un ${label}.`;
+                    errorField.style.display = "block";
+                    valid = false;
+                } else {
+                    errorField.textContent = "";
+                    errorField.style.display = "none";
+                }
+            } else {
+                // Para los demás campos (por ejemplo, "tournament", "startDate", "endDate")
+                const field = document.getElementById(id);
+                // Si el campo no existe o su valor es vacío, se muestra el error
+                if (!field || field.value.trim() === "") {
+                    errorField.textContent = `${label} es requerido.`;
+                    errorField.style.display = "block";
+                    valid = false;
+                } else {
+                    errorField.textContent = "";
+                    errorField.style.display = "none";
+                }
+            }
+            return valid;
+        }
+
+        // Función para adjuntar validación en tiempo real a cada campo
+        function attachRealTimeValidations() {
+            const fieldLabels = {
+
+                tournament: "Torneo",
+                events_container: "Evento",
+                startDate: "Fecha Inicio",
+                endDate: "Fecha Fin"
+
+            };
+
+            Object.keys(fieldLabels).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener("input", function () {
+                        validateField(id, fieldLabels[id]);
+                    });
+                }
+            });
+        }
+
+        // Función para validar todos los campos antes de enviar el formulario
+        function validateForm() {
+            let valid = true;
+            const fieldsToValidate = {
+
+                tournament: "Torneo",
+                events_container: "Equipo",
+                startDate: "Fecha Inicio",
+                endDate: "Fecha Fin"
+            };
+
+            Object.entries(fieldsToValidate).forEach(([id, label]) => {
+                if (!validateField(id, label)) {
+                    valid = false;
+                }
+            });
+            return valid;
+        }
+
+        async function loadTeams() {
+
+
+            try {
+
+                const response = await fetch("http://localhost:8085/tests/getList");
+
+                if (!response.ok) {
+                    throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                // Verifica que data.data sea un array
+                if (!data.data || !Array.isArray(data.data)) {
+                    throw new Error('La estructura de la respuesta no es válida.');
+                }
+
+                const teams = data.data;
+                const teamsContainer = document.getElementById('events_container');
+                teamsContainer.innerHTML = ''; // Limpia el contenedor
+
+                // Crear contenedores de columnas de forma dinámica
+                const column1 = document.createElement('div');
+                const column2 = document.createElement('div');
+
+                // Estilos para distribuir las columnas de forma horizontal
+                teamsContainer.style.display = 'flex';
+                teamsContainer.style.gap = '2vw';
+                column1.style.flex = '1';
+                column2.style.flex = '1';
+
+                /*teamsContainer.style.width = '30vw',
+                    teamsContainer.style.maxWidth = '30vw',
+                    teamsContainer.style.gap = '2vw';
+                    teamsContainer.style.flexWrap = 'wrap',
+                    teamsContainer.style.boxSizing = 'border-box',
+                    teamsContainer.style.border = '0.2vw solid black',
+                    teamsContainer.style.padding = '1vw'*/
+
+
+                teamsContainer.appendChild(column1);
+                teamsContainer.appendChild(column2);
+
+
+                // Dividir el array de eventos en dos columnas
+                // se reparte equitativamente
+                const mitad = Math.ceil(teams.length / 2);
+                const teamsCol1 = teams.slice(0, mitad);
+                const teamsCol2 = teams.slice(mitad);
+
+                // Función para crear checkboxes en un contenedor dado
+                function crearCheckboxes(teamsArray, container) {
+                    teamsArray.forEach(team => {
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.style.width = "0.85vw";
+                        checkbox.style.height = "0.85vw";
+                        checkbox.style.appearance = "none";
+                        checkbox.style.border = "0.1vw solid gray";
+                        checkbox.style.padding = "0px";
+                        checkbox.style.borderRadius = "0.2vw";
+                        //checkbox.style.marginRight = "3%";
+                        checkbox.style.marginLeft = "0.5%";
+                        checkbox.style.outline = "none";
+                        checkbox.style.position = "absolute";
+                        checkbox.style.marginTop = "0.1%"
+
+                        checkbox.name = 'teamsNames[]';
+                        checkbox.value = team.teamName;
+                        checkbox.id = `team-${team.id}`;
+
+                        const label = document.createElement('label');
+                        label.htmlFor = `team-${team.id}`;
+                        label.textContent = team.teamName;
+                        label.style.position="absolute";
+                        label.style.marginLeft="1.5%"
+
+                        const div = document.createElement('div');
+
+                        // Asignar estilos directos para evitar que se salga del contenedor
+                        div.style.height = "1.2vw";
+                        div.style.maxHeight = "1.2vw";
+                        /*div.style.overflow="hidden";*/
+
+                        div.appendChild(checkbox);
+                        div.appendChild(label);
+                        container.appendChild(div);
+
+                        // Evento para cambiar el estilo cuando se marque o desmarque
+                        checkbox.addEventListener('change', function () {
+                            if (checkbox.checked) {
+
+                                checkbox.style.backgroundImage = "url('data:image/svg+xml;charset=UTF-8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path fill=%22white%22 d=%22M20.285 2.859a1 1 0 0 1 1.41 1.41l-12 12a1 1 0 0 1-1.41 0l-6-6a1 1 0 1 1 1.41-1.41L9 13.086l11.285-11.227z%22/></svg>')";
+                                checkbox.style.backgroundSize = "contain";
+                                checkbox.style.backgroundRepeat = "no-repeat";
+                                checkbox.style.backgroundPosition = "center";
+                                checkbox.style.backgroundColor = "blue"; // Fondo azul para mejor visibilidad                           
+                                checkbox.style.border = "0.1vw solid blue";
+                            } else {
+
+                                checkbox.style.backgroundColor = "transparent";
+                                checkbox.style.backgroundImage = "none";
+                                checkbox.style.border = "0.1vw solid gray";
+                            }
+
+                        });
+                    });
+                }
+
+                crearCheckboxes(teamsCol1, column1);
+                crearCheckboxes(teamsCol2, column2);
+
+            } catch (error) {
+                console.error('Error al cargar los equipos:', error);
+            }
+
+        }
+
+
+        async function loadTournaments() {
+
+            const tournamentSelect = document.getElementById("tournament"); // ID del <select>
+
+            try {
+
+
+                const response = await fetch("http://localhost:8085/master-tournaments/getAll", {
+                    //const response = await fetch("http://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:8085/master-tournaments/getAll", {
+                    method: "GET"
+
+
+                });
+
+                const data = await response.json();
+
+                if (data.code === "200" && Array.isArray(data.data)) {
+                    data.data.forEach(tournament => {
+                        const option = document.createElement("option");
+                        option.value = tournament.tournamentName;
+                        option.textContent = tournament.tournamentName; // Asigna el nombre del equipo
+                        tournamentSelect.appendChild(option);
+                    });
+                } else {
+                    console.error("Error: Respuesta inesperada del servicio", data);
+                }
+            } catch (error) {
+                console.error("Error al obtener los torneos:", error);
+            }
+        }
+
+
+        // Inicialización única al cargar el DOM
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Establece el ícono del usuario
+            setUserIcon();
+
+            loadTournaments();
+            loadTeams();
+
+            attachRealTimeValidations();
+        });
+
+        // Listener único para el submit del formulario
+        document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+
+            // Obtener valores seleccionados
+            const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
+
+            const selectedTeams = Array.from(checkboxes).map(cb => cb.value);
+
+            if (!validateForm()) {
+                Swal.fire({
+                    title: "Error",
+                    text: "Por favor, corrige los errores en el formulario.",
+                    icon: "error",
+                    confirmButtonText: "Entendido"
+                });
+                return;
+            }
+
+            // Deshabilita el botón para evitar múltiples envíos
+            submitButton.disabled = true;
+
+            // Construir objeto de request
+            const requestData = {
+
+                tournamentName: document.getElementById("tournament").value.trim(),
+                startDate: document.getElementById("startDate").value,
+                endDate: document.getElementById("endDate").value,
+                teamsNames: selectedTeams
+
+            };
+
+            try {
+                // Enviar solicitud con fetch
+                const response = await fetch("http://localhost:8085/tournament/create", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(requestData)
+                });
+
+                const responseData = await response.json();
+
+                if (responseData.code === "201") {
+                    await Swal.fire({
+                        title: "Registro exitoso",
+                        text: "El torneo ha sido registrado correctamente.",
+                        icon: "success",
+                        confirmButtonText: "Aceptar"
+                    });
+                    window.location.href = "gestion.html";
+                } else if (responseData.code === "409") {
+                    await Swal.fire({
+                        title: "Error",
+                        text: "Ya existe un torneo con ese nombre",
+                        icon: "error",
+                        confirmButtonText: "Intentar nuevamente"
+                    });
+                } else {
+                    throw new Error(responseData.message || "Error al registrar el torneo.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire({
+                    title: "Error",
+                    text: error.message || "No se pudo conectar con el servidor.",
+                    icon: "error",
+                    confirmButtonText: "Intentar nuevamente"
+                });
+            } finally {
+                // Reactiva el botón después de procesar la solicitud (asegúrate de que submitButton esté definido)
+                submitButton.disabled = false;
+            }
+        });
+
+        // Evento para ocultar el mensaje de error cuando se seleccione al menos un checkbox
+        document.getElementById("events_container").addEventListener("change", function () {
+            const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
+            const errorSpan = document.getElementById("errorEvents_container");
+
+            if (checkboxes.length > 0) {
+                errorSpan.style.display = "none"; // Oculta el mensaje si hay selección
+            }
+        });
+    </script>
+
+</body>
+
+</html>

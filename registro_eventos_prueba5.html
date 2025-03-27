@@ -286,6 +286,9 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
   <script>
+
+    const form = document.querySelector("form");
+    const submitButton = form.querySelector("button[type='submit']");
     // Función para convertir fecha de nacimiento en formato "YYYY-mm-dd"
     function transformDate(birthDate) {
       let partes = birthDate.split("/");

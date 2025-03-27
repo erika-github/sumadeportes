@@ -286,7 +286,7 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
   <script>
-    // Variable global para almacenar los registros de eventos seleccionados
+    // Variable global para almacenar los registros de eventos seleccionados (con propiedad 'original')
     let selectedEvents = [];
 
     const form = document.querySelector("form");
@@ -376,7 +376,7 @@
       let valid = true;
       const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
       if (id === "events_container") {
-        // Se valida que al menos exista un registro seleccionado en selectedEvents
+        // Se valida que haya al menos un evento seleccionado
         if (selectedEvents.length === 0) {
           errorField.textContent = `Debes seleccionar al menos un ${label}.`;
           errorField.style.display = "block";
@@ -445,14 +445,15 @@
         if (!data.data || !Array.isArray(data.data)) {
           throw new Error('La estructura de la respuesta no es válida.');
         }
-        // Convertir cada cadena en un objeto con propiedades: id, estilo, edad y genero
+        // Convertir cada cadena en un objeto y conservar la cadena original
         const teamsData = data.data.map((teamStr, index) => {
           const partes = teamStr.split(',').map(item => item.trim());
           return {
             id: index + 1,
             estilo: partes[0],
             edad: partes[1],
-            genero: partes[2]
+            genero: partes[2],
+            original: teamStr
           };
         });
         
@@ -482,7 +483,6 @@
           info: true,
           responsive: true,
           language: {
-            // Opcional: ajustes de idioma para DataTables
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros",
             info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
@@ -496,14 +496,12 @@
         // Reiniciar el array de eventos seleccionados
         selectedEvents = [];
         
-        // Manejo de la selección de checkboxes dentro del DataTable
+        // Manejo de la selección de checkboxes en el DataTable
         $('#events_table tbody').off('change').on('change', '.event-checkbox', function () {
-          // Obtiene los datos de la fila
           const table = $('#events_table').DataTable();
           const rowData = table.row($(this).closest('tr')).data();
-          // Si se marca el checkbox, agregar el registro al array; si se desmarca, removerlo
           if (this.checked) {
-            // Verifica que no se haya agregado previamente
+            // Si no está agregado, se agrega el objeto completo
             if (!selectedEvents.find(event => event.id === rowData.id)) {
               selectedEvents.push(rowData);
             }
@@ -552,7 +550,6 @@
     // Listener para el envío del formulario
     document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
       event.preventDefault();
-      // Aquí usamos el array selectedEvents en lugar de checkboxes individuales
       if (!validateForm()) {
         Swal.fire({
           title: "Error",
@@ -563,11 +560,13 @@
         return;
       }
       submitButton.disabled = true;
+      // Mapeamos selectedEvents para obtener un array de strings (la propiedad 'original')
+      const eventsNames = selectedEvents.map(event => event.original);
       const requestData = {
         tournamentName: document.getElementById("tournament").value.trim(),
+        eventsNames: eventsNames,
         startDate: document.getElementById("startDate").value,
-        endDate: document.getElementById("endDate").value,
-        teamsNames: selectedEvents  // Array de registros seleccionados
+        endDate: document.getElementById("endDate").value
       };
       try {
         const response = await fetch("http://localhost:8085/tournament/create", {

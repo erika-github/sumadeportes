@@ -286,68 +286,7 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
   <script>
-    // Variable global para almacenar los registros de eventos seleccionados.
-    // Cada objeto incluye la propiedad 'original' con la cadena completa.
     let selectedEvents = [];
-
-    const form = document.querySelector("form");
-    const submitButton = form.querySelector("button[type='submit']");
-
-    // Función para cerrar sesión
-    function logout() {
-      sessionStorage.clear();
-      window.location.href = "index.html";
-    }
-
-    // Función para obtener las iniciales del usuario
-    function getInitials(firstName, lastName) {
-      if (!firstName || !lastName) return "U";
-      return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
-    }
-
-    // Actualiza la información del usuario en el DOM
-    function updateUserInfo() {
-      const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
-      const lastName = sessionStorage.getItem("userLastName") || "Apellido";
-      const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
-      const nameElem = document.getElementById("userName");
-      const roleElem = document.getElementById("userRole");
-      if (nameElem) nameElem.innerText = `${firstName} ${lastName}`;
-      if (roleElem) roleElem.innerText = userRole;
-    }
-
-    // Establece el ícono del usuario con iniciales
-    function setUserIcon() {
-      updateUserInfo();
-      const firstName = sessionStorage.getItem("userFirstName");
-      const lastName = sessionStorage.getItem("userLastName");
-      const userIcon = document.getElementById("user-icon");
-      if (userIcon) {
-        userIcon.textContent = getInitials(firstName, lastName);
-      }
-    }
-
-    // Función para mostrar/ocultar el menú del usuario
-    function toggleUserMenu() {
-      const menu = document.getElementById("user-menu");
-      const userIcon = document.getElementById("user-icon");
-      if (menu && userIcon) {
-        const isVisible = menu.style.display === "block";
-        menu.style.display = isVisible ? "none" : "block";
-        userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
-      }
-    }
-
-    // Cierra el menú al hacer clic fuera de él
-    document.addEventListener("click", (event) => {
-      const menu = document.getElementById("user-menu");
-      const userIcon = document.getElementById("user-icon");
-      const userContainer = document.querySelector(".user-container");
-      if (menu && userIcon && userContainer && !userContainer.contains(event.target)) {
-        menu.style.display = "none";
-        userIcon.style.backgroundColor = "#F36621";
-      }
-    });
 
     // Función para calcular la edad a partir de una fecha en formato "DD/MM/YYYY"
     function calcularEdad(birthDate) {
@@ -377,7 +316,6 @@
       let valid = true;
       const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
       if (id === "events_container") {
-        // Validamos directamente leyendo los checkboxes marcados del DOM
         if ($('input.event-checkbox:checked').length === 0) {
           errorField.textContent = `Debes seleccionar al menos un ${label}.`;
           errorField.style.display = "block";
@@ -446,22 +384,29 @@
         if (!data.data || !Array.isArray(data.data)) {
           throw new Error('La estructura de la respuesta no es válida.');
         }
-        // Convertir cada cadena en un objeto y conservar la cadena original en 'original'
-        const teamsData = data.data.map((teamStr, index) => {
-          const partes = teamStr.split(',').map(item => item.trim());
+        console.log("Datos recibidos:", data.data);
+
+        // Verificación y mejora del manejo de datos
+        const teamsData = data.data.map((team, index) => {
+          if (typeof team !== "string") {
+            console.error(`El elemento en la posición ${index} no es una cadena:`, team);
+            return null; // O maneja el error de otra manera
+          }
+          const partes = team.split(",").map(item => item.trim());
           return {
             id: index + 1,
-            estilo: partes[0],
-            edad: partes[1],
-            genero: partes[2],
-            original: teamStr
+            estilo: partes[0] || "Desconocido",
+            edad: partes[1] || "Desconocido",
+            genero: partes[2] || "Desconocido",
+            original: team
           };
-        });
-        
+        }).filter(item => item !== null); // Elimina elementos nulos
+
         // Inicializa el DataTable con rowCallback para restablecer la selección
         if ($.fn.DataTable.isDataTable('#events_table')) {
           $('#events_table').DataTable().destroy();
         }
+
         const table = $('#events_table').DataTable({
           data: teamsData,
           columns: [
@@ -474,7 +419,6 @@
               title: 'Seleccionar', 
               orderable: false,
               render: function (data, type, row) {
-                // El checkbox se marcará mediante rowCallback
                 return `<input type="checkbox" class="event-checkbox" data-id="${row.id}">`;
               }
             }
@@ -495,16 +439,14 @@
             }
           },
           rowCallback: function(row, data) {
-            // Si el registro ya está seleccionado, marcar el checkbox
             if (selectedEvents.some(event => event.id === data.id)) {
               $(row).find('input.event-checkbox').prop('checked', true);
             }
           }
         });
-        
-        // Reiniciar el array de eventos seleccionados
+
         selectedEvents = [];
-        
+
         // Manejador del evento change para actualizar selectedEvents
         $('#events_table tbody').off('change').on('change', '.event-checkbox', function () {
           const rowData = table.row($(this).closest('tr')).data();
@@ -517,7 +459,7 @@
           }
           console.log('Eventos seleccionados:', selectedEvents);
         });
-        
+
       } catch (error) {
         console.error("Error al obtener los datos:", error);
       }
@@ -548,7 +490,6 @@
 
     // Inicialización cuando el DOM esté cargado
     document.addEventListener("DOMContentLoaded", function () {
-      setUserIcon();
       loadTournaments();
       loadTeams();
       attachRealTimeValidations();
@@ -567,7 +508,6 @@
         return;
       }
       submitButton.disabled = true;
-      // Mapea selectedEvents para obtener un array de cadenas (la propiedad 'original')
       const eventsNames = selectedEvents.map(event => event.original);
       const requestData = {
         tournamentName: document.getElementById("tournament").value.trim(),
@@ -575,8 +515,9 @@
         startDate: document.getElementById("startDate").value,
         endDate: document.getElementById("endDate").value
       };
+
       try {
-        const response = await fetch(" http://localhost:8085/events/create", {
+        const response = await fetch("http://localhost:8085/events/create", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData)

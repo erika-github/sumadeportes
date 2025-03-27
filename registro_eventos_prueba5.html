@@ -377,8 +377,8 @@
       let valid = true;
       const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
       if (id === "events_container") {
-        // Se valida que haya al menos un evento seleccionado
-        if (selectedEvents.length === 0) {
+        // Validamos directamente leyendo los checkboxes marcados del DOM
+        if ($('input.event-checkbox:checked').length === 0) {
           errorField.textContent = `Debes seleccionar al menos un ${label}.`;
           errorField.style.display = "block";
           valid = false;
@@ -438,7 +438,7 @@
     // Función para cargar los eventos y configurar el DataTable
     async function loadTeams() {
       try {
-        const response = await fetch("http://localhost:8085/tests/getList");
+        const response = await fetch("http://localhost:8085/tournament/getList");
         if (!response.ok) {
           throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
         }
@@ -576,7 +576,7 @@
         endDate: document.getElementById("endDate").value
       };
       try {
-        const response = await fetch("http://localhost:8085/tournament/create", {
+        const response = await fetch(" http://localhost:8085/events/create", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData)

@@ -17,8 +17,8 @@
     .form-container {
       grid-template-columns: 1fr 1fr;
       gap: 1.5vw;
-      min-width: 65%;
-      max-width: 65%;
+      min-width: 90%;
+      max-width: 90%;
       margin: auto;
       padding: 1.3%;
       background-color: #fff;
@@ -458,7 +458,7 @@
           };
         });
         
-        // Inicializa el DataTable
+        // Inicializa el DataTable con rowCallback para restablecer la selección
         if ($.fn.DataTable.isDataTable('#events_table')) {
           $('#events_table').DataTable().destroy();
         }
@@ -474,9 +474,8 @@
               title: 'Seleccionar', 
               orderable: false,
               render: function (data, type, row) {
-                // Si el registro ya está seleccionado, se marca el checkbox
-                const isChecked = selectedEvents.find(e => e.id === row.id) ? 'checked' : '';
-                return `<input type="checkbox" class="event-checkbox" data-id="${row.id}" ${isChecked}>`;
+                // El checkbox se marcará mediante rowCallback
+                return `<input type="checkbox" class="event-checkbox" data-id="${row.id}">`;
               }
             }
           ],
@@ -494,30 +493,23 @@
               previous: "Anterior",
               next: "Siguiente"
             }
+          },
+          rowCallback: function(row, data) {
+            // Si el registro ya está seleccionado, marcar el checkbox
+            if (selectedEvents.some(event => event.id === data.id)) {
+              $(row).find('input.event-checkbox').prop('checked', true);
+            }
           }
         });
         
         // Reiniciar el array de eventos seleccionados
         selectedEvents = [];
         
-        // Actualizar la selección al redibujar la tabla
-        table.on('draw', function () {
-          table.rows().every(function () {
-            const rowData = this.data();
-            const $checkbox = $(this.node()).find('.event-checkbox');
-            if (selectedEvents.find(event => event.id === rowData.id)) {
-              $checkbox.prop('checked', true);
-            } else {
-              $checkbox.prop('checked', false);
-            }
-          });
-        });
-        
-        // Manejo del evento change para actualizar selectedEvents
+        // Manejador del evento change para actualizar selectedEvents
         $('#events_table tbody').off('change').on('change', '.event-checkbox', function () {
           const rowData = table.row($(this).closest('tr')).data();
           if (this.checked) {
-            if (!selectedEvents.find(event => event.id === rowData.id)) {
+            if (!selectedEvents.some(event => event.id === rowData.id)) {
               selectedEvents.push(rowData);
             }
           } else {
@@ -535,7 +527,7 @@
     async function loadTournaments() {
       const tournamentSelect = document.getElementById("tournament");
       try {
-        const response = await fetch("http://localhost:8085/tournament/getList", {
+        const response = await fetch("http://localhost:8085/master-tournaments/getAll", {
           method: "GET"
         });
         const data = await response.json();
@@ -575,7 +567,7 @@
         return;
       }
       submitButton.disabled = true;
-      // Mapea selectedEvents para obtener el array de cadenas (la propiedad 'original')
+      // Mapea selectedEvents para obtener un array de cadenas (la propiedad 'original')
       const eventsNames = selectedEvents.map(event => event.original);
       const requestData = {
         tournamentName: document.getElementById("tournament").value.trim(),
@@ -584,7 +576,7 @@
         endDate: document.getElementById("endDate").value
       };
       try {
-        const response = await fetch("http://localhost:8085/events/create", {
+        const response = await fetch("http://localhost:8085/tournament/create", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData)

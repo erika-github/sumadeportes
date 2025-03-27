@@ -1,306 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <title>SumaDeportes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- CSS y librerías externas -->
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-  
-  <style>
-    /* Estilos generales del formulario */
-    .form-container {
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5vw;
-      min-width: 90%;
-      max-width: 90%;
-      margin: auto;
-      padding: 1.3%;
-      background-color: #fff;
-      border-radius: 1vw;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-    .form-group label {
-      font-size: 1vw;
-      margin-bottom: 1%;
-      color: #808080;
-    }
-    .form-group input,
-    .form-group select {
-      padding: 1.2%;
-      font-size: 1vw;
-      border: 0.1vw solid #ccc;
-      border-radius: 0.3vw;
-      box-sizing: border-box;
-    }
-    .form-group input:focus,
-    .form-group select:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);
-      outline: none;
-    }
-    .submit-container {
-      grid-column: span 2;
-      text-align: center;
-      margin-top: 3%;
-    }
-    .submit-container button {
-      background-color: #007bff;
-      color: white;
-      font-size: 1.1vw;
-      padding: 0.8vw 2vw;
-      border: none;
-      border-radius: 5vw;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      margin: 0 auto;
-    }
-    .submit-container button:hover {
-      background-color: #0056b3;
-      transform: translateY(-3px);
-    }
-    .submit-container button:active {
-      background-color: #004085;
-      transform: translateY(0);
-    }
-    /* Estilos para mensajes de error */
-    .error {
-      color: red;
-      font-size: 0.95vw;
-      margin-top: 1%;
-    }
-    /* Estilos para header y menú */
-    .user-container {
-      display: flex;
-      justify-content: space-between;
-      height: auto;
-      margin-left: 2%;
-      cursor: pointer;
-    }
-    .user-icon {
-      width: 4vw;
-      height: 4vw;
-      background-color: #F36621;
-      color: white;
-      font-size: 1.5vw;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-    #img,
-    .user-container p {
-      position: absolute;
-      top: 0px;
-      width: 15%;
-      z-index: 100;
-      margin-top: 0.5%;
-      box-sizing: border-box;
-      right: 5%;
-    }
-    #user-icon {
-      position: absolute;
-      top: 0px;
-      z-index: 100;
-      margin-top: 0.7%;
-      box-sizing: border-box;
-      right: 5%;
-    }
-    .user-menu {
-      display: none;
-      position: absolute;
-      right: 1%;
-      min-width: 13%;
-      max-width: 13%;
-      top: 5.4vw;
-      background-color: white;
-      border-radius: 0.5vw;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-      padding-bottom: 1%;
-      z-index: 10000;
-    }
-    .user-menu-header {
-      background-color: #F2F2F2;
-      padding: 1.5vw;
-      color: #7F7F7F;
-      text-align: center;
-      font-weight: lighter;
-      font-size: 1vw;
-    }
-    .user-menu-content {
-      padding: 1vw;
-      display: flex;
-      flex-direction: column;
-    }
-    .user-menu-content a {
-      text-decoration: none;
-      color: #7F7F7F;
-      padding: 0.7vw;
-      text-align: center;
-      border-radius: 0.3vw;
-      margin-top: 2%;
-      transition: background 0.3s ease;
-      font-size: 1vw;
-    }
-    .user-menu-content a:hover {
-      background: #F2F2F2;
-    }
-    /* Estilos para el DataTable */
-    #events_table {
-      width: 100%;
-    }
-    #events_table thead th {
-      font-size: 1vw;
-      padding: 0.8vw;
-    }
-    #events_table tbody td {
-      font-size: 0.9vw;
-      padding: 0.8vw;
-    }
-    /* Asignación de anchos en porcentaje a las columnas */
-    #events_table thead th:nth-child(1) { width: 10%; }  /* ID */
-    #events_table thead th:nth-child(2) { width: 30%; }  /* Estilo */
-    #events_table thead th:nth-child(3) { width: 20%; }  /* Edad */
-    #events_table thead th:nth-child(4) { width: 20%; }  /* Género */
-    #events_table thead th:nth-child(5) { width: 20%; }  /* Seleccionar */
-  </style>
-</head>
-<body>
-  <div class="header-container">
-    <!-- Cintillo -->
-    <div style="height: 7vw; position: relative;">
-      <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo">
-    </div>
-    <!-- Logo -->
-    <div class="logoDiv">
-      <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index_autenticado.html'">
-    </div>
-    <!-- Imagen de usuario -->
-    <div class="user-container">
-      <p style="font-size: 1.2vw; margin-top: 2%; color:#1535D6; text-decoration: underline;"
-         onclick="window.location.href='gestion.html'">Módulo de gestión</p>
-      <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
-    </div>
-  </div>
-
-  <!-- Menú emergente -->
-  <div class="user-menu" id="user-menu">
-    <div class="user-menu-header">
-      <p id="userName">Nombre del Usuario</p>
-      <p id="userRole">Rol del Usuario</p>
-    </div>
-    <div class="user-menu-content">
-      <a href="#">Editar Perfil</a>
-      <a href="#" onclick="logout()">Cerrar Sesión</a>
-    </div>
-  </div>
-
-  <h1 style="text-align:center; margin-top:5%; margin-bottom:5%; font-size:2.5vw; font-weight:lighter">
-    Registro de eventos
-  </h1>
-
-  <form class="form-container" id="form-swimmer">
-    <div class="form-group">
-      <label for="tournament">Torneos:</label>
-      <select id="tournament" name="tournament">
-        <option value="">Seleccione una opción</option>
-        <!-- Se cargarán las opciones dinámicamente -->
-      </select>
-      <span class="error" id="errorTournament"></span>
-    </div>
-
-    <div class="form-group">
-      <label>Eventos:</label>
-      <div id="events_container">
-        <!-- DataTable con columnas: ID, Estilo, Edad, Género, Seleccionar -->
-        <table id="events_table" class="display">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Estilo</th>
-              <th>Edad</th>
-              <th>Género</th>
-              <th>Seleccionar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Se llenará con los registros del servicio -->
-          </tbody>
-        </table>
-      </div>
-      <span class="error" id="errorEvents_container"></span>
-    </div>
-    
-    <div class="form-group">
-      <label for="startDate">Fecha Inicio:</label>
-      <input type="date" id="startDate" name="startDate">
-      <span class="error" id="errorStartDate"></span>
-    </div>
-
-    <div class="form-group">
-      <label for="endDate">Fecha Fin:</label>
-      <input type="date" id="endDate" name="endDate">
-      <span class="error" id="errorEndDate"></span>
-    </div>
-
-    <div class="submit-container">
-      <button type="submit">Guardar</button>
-    </div>
-  </form>
-
-  <footer>
-    <div id="footer_logo">
-      <img src="img/logo_.png" alt="">
-    </div>
-    <div id="academia">
-      <h2>Academia</h2>
-      <p>¿Cursos y horarios?</p>
-      <p>¿Dónde encontrarnos?</p>
-    </div>
-    <div id="informacion">
-      <h2>Información</h2>
-      <p>Preguntas frecuentes</p>
-    </div>
-  </footer>
-
-  <div class="registro">
-    <div id="linea"></div>
-    <div id="creadores">
-      <p>Suma Deportes, RIF J-00000000-0 Todos los derechos reservados. Powered by Lenin Manrique & Erika Díaz</p>
-    </div>
-  </div>
-
-  <!-- Librerías JavaScript -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
-  <script>
-    let selectedEvents = [];
-
-    // Función para calcular la edad a partir de una fecha en formato "DD/MM/YYYY"
-    function calcularEdad(birthDate) {
-      let partes = birthDate.split("/");
-      let birth = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
-      let today = new Date();
-      let age = today.getFullYear() - birth.getFullYear();
-      if (today.getMonth() < birth.getMonth() ||
-          (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())) {
-        age--;
-      }
-      return age;
-    }
-
+<script>
     // Función para convertir fecha de nacimiento en formato "YYYY-mm-dd"
     function transformDate(birthDate) {
       let partes = birthDate.split("/");
@@ -310,13 +8,15 @@
       let day = birth_.getDate().toString().padStart(2, "0");
       return `${year}-${month}-${day}`;
     }
-
+  
     // Función de validación por campo
     function validateField(id, label) {
       let valid = true;
       const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
+  
       if (id === "events_container") {
-        if ($('input.event-checkbox:checked').length === 0) {
+        // Se valida que haya al menos un evento seleccionado
+        if (selectedEvents.length === 0) {
           errorField.textContent = `Debes seleccionar al menos un ${label}.`;
           errorField.style.display = "block";
           valid = false;
@@ -337,7 +37,7 @@
       }
       return valid;
     }
-
+  
     // Función para adjuntar validación en tiempo real a cada campo
     function attachRealTimeValidations() {
       const fieldLabels = {
@@ -355,7 +55,7 @@
         }
       });
     }
-
+  
     // Función para validar todos los campos antes de enviar el formulario
     function validateForm() {
       let valid = true;
@@ -372,11 +72,11 @@
       });
       return valid;
     }
-
+  
     // Función para cargar los eventos y configurar el DataTable
-    async function loadTeams() {
+    async function loadEvents() {
       try {
-        const response = await fetch("http://localhost:8085/tournament/getList");
+        const response = await fetch("http://localhost:8085/tests/getList");
         if (!response.ok) {
           throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
         }
@@ -384,30 +84,23 @@
         if (!data.data || !Array.isArray(data.data)) {
           throw new Error('La estructura de la respuesta no es válida.');
         }
-        console.log("Datos recibidos:", data.data);
-
-        // Verificación y mejora del manejo de datos
-        const teamsData = data.data.map((team, index) => {
-          if (typeof team !== "string") {
-            console.error(`El elemento en la posición ${index} no es una cadena:`, team);
-            return null; // O maneja el error de otra manera
-          }
-          const partes = team.split(",").map(item => item.trim());
+        // Convertir cada cadena en un objeto y conservar la cadena original
+        const teamsData = data.data.map((teamStr, index) => {
+          const partes = teamStr.split(',').map(item => item.trim());
           return {
             id: index + 1,
-            estilo: partes[0] || "Desconocido",
-            edad: partes[1] || "Desconocido",
-            genero: partes[2] || "Desconocido",
-            original: team
+            estilo: partes[0],
+            edad: partes[1],
+            genero: partes[2],
+            original: teamStr
           };
-        }).filter(item => item !== null); // Elimina elementos nulos
-
-        // Inicializa el DataTable con rowCallback para restablecer la selección
+        });
+  
+        // Inicializa el DataTable en el contenedor #events_table
         if ($.fn.DataTable.isDataTable('#events_table')) {
           $('#events_table').DataTable().destroy();
         }
-
-        const table = $('#events_table').DataTable({
+        $('#events_table').DataTable({
           data: teamsData,
           columns: [
             { data: 'id', title: 'ID' },
@@ -428,7 +121,6 @@
           ordering: true,
           info: true,
           responsive: true,
-          stateSave: true,
           language: {
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros",
@@ -437,39 +129,42 @@
               previous: "Anterior",
               next: "Siguiente"
             }
-          },
-          rowCallback: function(row, data) {
-            if (selectedEvents.some(event => event.id === data.id)) {
-              $(row).find('input.event-checkbox').prop('checked', true);
-            }
           }
         });
-
+  
+        // Reiniciar el array de eventos seleccionados
         selectedEvents = [];
-
-        // Manejador del evento change para actualizar selectedEvents
+  
+        // Manejo de la selección de checkboxes en el DataTable
         $('#events_table tbody').off('change').on('change', '.event-checkbox', function () {
+          const table = $('#events_table').DataTable();
           const rowData = table.row($(this).closest('tr')).data();
+          
           if (this.checked) {
-            if (!selectedEvents.some(event => event.id === rowData.id)) {
+            // Si no está agregado, se agrega el objeto completo
+            if (!selectedEvents.find(event => event.id === rowData.id)) {
               selectedEvents.push(rowData);
             }
           } else {
             selectedEvents = selectedEvents.filter(event => event.id !== rowData.id);
           }
+  
+          // Validación del formulario en tiempo real
+          validateField('events_container', 'Evento');
+  
           console.log('Eventos seleccionados:', selectedEvents);
         });
-
+  
       } catch (error) {
         console.error("Error al obtener los datos:", error);
       }
     }
-
+  
     // Función para cargar los torneos en el select
     async function loadTournaments() {
       const tournamentSelect = document.getElementById("tournament");
       try {
-        const response = await fetch("http://localhost:8085/master-tournaments/getAll", {
+        const response = await fetch("http://localhost:8085/tournament/getList", {
           method: "GET"
         });
         const data = await response.json();
@@ -487,14 +182,15 @@
         console.error("Error al obtener los torneos:", error);
       }
     }
-
+  
     // Inicialización cuando el DOM esté cargado
     document.addEventListener("DOMContentLoaded", function () {
+      setUserIcon();
       loadTournaments();
-      loadTeams();
+      loadEvents();
       attachRealTimeValidations();
     });
-
+  
     // Listener para el envío del formulario
     document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -508,6 +204,7 @@
         return;
       }
       submitButton.disabled = true;
+      // Mapeamos selectedEvents para obtener un array de strings (la propiedad 'original')
       const eventsNames = selectedEvents.map(event => event.original);
       const requestData = {
         tournamentName: document.getElementById("tournament").value.trim(),
@@ -515,9 +212,8 @@
         startDate: document.getElementById("startDate").value,
         endDate: document.getElementById("endDate").value
       };
-
       try {
-        const response = await fetch("http://localhost:8085/events/create", {
+        const response = await fetch(" http://localhost:8085/events/create", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData)
@@ -526,7 +222,7 @@
         if (responseData.code === "201") {
           await Swal.fire({
             title: "Registro exitoso",
-            text: "El torneo ha sido registrado correctamente.",
+            text: "El evento ha sido registrado correctamente.",
             icon: "success",
             confirmButtonText: "Aceptar"
           });
@@ -534,12 +230,12 @@
         } else if (responseData.code === "409") {
           await Swal.fire({
             title: "Error",
-            text: "Ya existe un torneo con ese nombre",
+            text: "Ya existe un evento con ese nombre",
             icon: "error",
             confirmButtonText: "Intentar nuevamente"
           });
         } else {
-          throw new Error(responseData.message || "Error al registrar el torneo.");
+          throw new Error(responseData.message || "Error al registrar el evento.");
         }
       } catch (error) {
         console.error("Error:", error);
@@ -554,5 +250,6 @@
       }
     });
   </script>
-</body>
-</html>
+  </body>
+  </html>
+  

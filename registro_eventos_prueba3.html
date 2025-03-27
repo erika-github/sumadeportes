@@ -486,7 +486,7 @@
     async function loadTournaments() {
       const tournamentSelect = document.getElementById("tournament");
       try {
-        const response = await fetch("http://localhost:8085/master-tournaments/getAll", {
+        const response = await fetch("http://localhost:8085/tournament/getList", {
           method: "GET"
         });
         const data = await response.json();

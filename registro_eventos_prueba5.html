@@ -331,6 +331,27 @@
           userIcon.textContent = getInitials(firstName, lastName);
         }
       }
+
+      function toggleUserMenu() {
+        const menu = document.getElementById("user-menu");
+        const userIcon = document.getElementById("user-icon");
+        if (menu && userIcon) {
+          const isVisible = menu.style.display === "block";
+          menu.style.display = isVisible ? "none" : "block";
+          userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
+        }
+      }
+  
+      // Cierra el menú al hacer clic fuera de él
+      document.addEventListener("click", (event) => {
+        const menu = document.getElementById("user-menu");
+        const userIcon = document.getElementById("user-icon");
+        const userContainer = document.querySelector(".user-container");
+        if (menu && userIcon && userContainer && !userContainer.contains(event.target)) {
+          menu.style.display = "none";
+          userIcon.style.backgroundColor = "#F36621";
+        }
+      });
   
     // Función de validación por campo
     function validateField(id, label) {

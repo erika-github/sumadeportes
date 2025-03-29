@@ -715,30 +715,35 @@
     table.draw(); // Asegura que el filtro se aplique al inicio*/
 
 
-     // Inicializa DataTable
-     var table = $('#events_table').DataTable({
-      searching: true,  // Mantiene la búsqueda predeterminada de DataTable
-  });
+      // Inicializa DataTable
+      var table = $('#events_table').DataTable({
+        searching: true,  // Mantiene la búsqueda predeterminada de DataTable
+    });
 
-  // Asegurarse de que el selector sea correcto
-  console.log("Selector para el input de búsqueda:", $('#events_table_filter input'));
+    // Verifica si el filtro se genera correctamente
+    var searchInput = $('#events_table_filter input');
+    console.log("Campo de búsqueda generado:", searchInput);
 
-  // Comprobar que el evento de búsqueda se está registrando
-  $('#events_table_filter input').on('keyup', function() {
-      var searchValue = this.value.trim();
-      console.log("Buscando:", searchValue);
+    // Asegúrate de que el input de búsqueda está correctamente capturado
+    if (searchInput.length === 0) {
+        console.log("No se encontró el input de búsqueda.");
+    }
 
-      // Verificar si el valor está siendo capturado correctamente
-      if (searchValue) {
-          console.log("Búsqueda exacta activada con:", searchValue);
-      } else {
-          console.log("Búsqueda vacía");
-      }
-      
-      // Realizar la búsqueda exacta
-      table.search('^' + $.fn.dataTable.util.escapeRegex(searchValue) + '$', true, false).draw();
-  });
+    // Comprobar que el evento de búsqueda se está registrando
+    searchInput.on('keyup', function() {
+        var searchValue = this.value.trim();
+        console.log("Buscando:", searchValue);
 
+        // Verificar si el valor está siendo capturado correctamente
+        if (searchValue) {
+            console.log("Búsqueda exacta activada con:", searchValue);
+        } else {
+            console.log("Búsqueda vacía");
+        }
+        
+        // Realizar la búsqueda exacta
+        table.search('^' + $.fn.dataTable.util.escapeRegex(searchValue) + '$', true, false).draw();
+    });
 
     });
 

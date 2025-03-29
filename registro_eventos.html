@@ -665,7 +665,7 @@
       });*/
 
 
-      var table = $('#events_table').DataTable({
+     /* var table = $('#events_table').DataTable({
         searching: false
     });
 
@@ -715,7 +715,28 @@
         return false; // Si ninguna celda coincide, oculta la fila
     });
 
-    table.draw(); // Asegura que el filtro se aplique al inicio
+    table.draw(); // Asegura que el filtro se aplique al inicio*/
+
+
+     // Inicializa DataTable
+     var table = $('#events_table').DataTable({
+      searching: true // Importante: permite búsqueda manual
+  });
+
+  // Capturar el input de búsqueda personalizada
+  var miBusquedaExacta = document.getElementById('miBusquedaExacta');
+
+  if (!miBusquedaExacta) {
+      console.error("No se encontró el input con id 'miBusquedaExacta'");
+      return;
+  }
+
+  // Búsqueda exacta en el input personalizado
+  miBusquedaExacta.addEventListener("keyup", function () {
+      console.log("Buscando:", this.value);
+      table.search("^" + this.value + "$", true, false).draw(); // Búsqueda exacta
+  });
+
 
     });
 

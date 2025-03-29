@@ -665,59 +665,57 @@
       });*/
 
 
-      // Inicializa DataTable con búsqueda desactivada por defecto
-    var table = $('#events_table').DataTable({
-      searching: false
-  });
+      var table = $('#events_table').DataTable({
+        searching: false
+    });
 
-  // Oculta el buscador automático de DataTables si existe
-  var dtFilter = document.getElementById('events_table_filter');
-  if (dtFilter) {
-      dtFilter.style.display = 'none';
-  }
+    // Oculta el buscador automático de DataTables si existe
+    var dtFilter = document.getElementById('events_table_filter');
+    if (dtFilter) {
+        dtFilter.style.display = 'none';
+    }
 
-  // Capturar el input de búsqueda personalizada
-  var miBusquedaExacta = document.getElementById('miBusquedaExacta');
-  if (miBusquedaExacta) {
-      miBusquedaExacta.addEventListener("keyup", function () {
-          console.log("Buscando:", this.value);
-          table.draw(); // Redibuja la tabla con la nueva búsqueda
-      });
-  } else {
-      console.error("No se encontró el input con id 'miBusquedaExacta'");
-  }
+    // Capturar el input de búsqueda personalizada
+    var miBusquedaExacta = document.getElementById('miBusquedaExacta');
+    if (miBusquedaExacta) {
+        miBusquedaExacta.addEventListener("keyup", function () {
+            console.log("Buscando:", this.value);
+            table.draw(); // Redibuja la tabla con la nueva búsqueda
+        });
+    } else {
+        console.error("No se encontró el input con id 'miBusquedaExacta'");
+    }
 
-  // Agrega el filtro personalizado en DataTables
-  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-      var searchValue = miBusquedaExacta.value.trim().toLowerCase(); // Convierte a minúsculas
-      if (!searchValue) return true; // Si está vacío, mostrar todas las filas
+    // Agrega el filtro personalizado en DataTables
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        var searchValue = miBusquedaExacta.value.trim().toLowerCase(); // Convierte a minúsculas
+        if (!searchValue) return true; // Si está vacío, mostrar todas las filas
 
-      console.log("Filtrando fila:", dataIndex, "Valor de búsqueda:", searchValue);
+        console.log("Filtrando fila:", dataIndex, "Valor de búsqueda:", searchValue);
 
-      // Recorre todas las columnas de la fila actual
-      for (var i = 0; i < data.length; i++) {
-          var cellText = data[i]; // Toma el valor de la celda
+        // Recorre todas las columnas de la fila actual
+        for (var i = 0; i < data.length; i++) {
+            var cellText = data[i]; // Toma el valor de la celda
 
-          if (cellText) {
-              // Elimina etiquetas HTML y extrae solo el texto
-              var tempDiv = document.createElement("div");
-              tempDiv.innerHTML = cellText;
-              cellText = tempDiv.textContent.trim().toLowerCase(); // Convierte a minúsculas
+            if (cellText) {
+                // Elimina etiquetas HTML y extrae solo el texto
+                var tempDiv = document.createElement("div");
+                tempDiv.innerHTML = cellText;
+                cellText = tempDiv.textContent.trim().toLowerCase(); // Convierte a minúsculas
 
-              console.log("Fila", dataIndex, "Columna", i, "Texto:", cellText);
+                console.log("Fila", dataIndex, "Columna", i, "Texto:", cellText);
 
-              if (cellText === searchValue) { // Comparación exacta sin importar mayúsculas/minúsculas
-                  return true; // Muestra la fila si hay coincidencia exacta
-              }
-          }
-      }
+                // Permitir coincidencias parciales
+                if (cellText.includes(searchValue)) { 
+                    return true; // Muestra la fila si hay coincidencia parcial
+                }
+            }
+        }
 
-      console.log("se me esta iendo por el false");
+        return false; // Si ninguna celda coincide, oculta la fila
+    });
 
-      return false; // Si ninguna celda coincide, oculta la fila
-
-  });
-
+    table.draw(); // Asegura que el filtro se aplique al inicio
 
     });
 

@@ -562,13 +562,30 @@
     });*/
 
 
-    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+    /*$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
       var searchValue = $('#miTabla_filter input').val()?.trim() || ""; // Obtiene el valor buscado de forma segura
       if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
   
       // Verifica si alguna celda coincide exactamente con la búsqueda
       return data.some(cell => (cell ? cell.trim() : "") === searchValue);
-  });
+  });*/
+
+
+  $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+    var searchValue = $('#miTabla_filter input').val();
+    searchValue = searchValue ? searchValue.trim() : "";
+    if (!searchValue) return true; // Sin búsqueda, muestra todas las filas
+
+    // Recorre cada celda, extrae el texto plano y compara
+    return data.some(cell => {
+        if (cell) {
+            // Extrae el texto plano en caso de que la celda tenga HTML
+            var cellText = $('<div>').html(cell).text().trim();
+              return cellText.toLowerCase() === searchValue.toLowerCase();
+        }
+        return false;
+    });
+});
 
     // Actualiza la tabla cuando el usuario escribe en la búsqueda
     $('#miTabla_filter input').off('keyup').on('keyup', function() {

@@ -600,9 +600,11 @@
 
 
 
-      /*var table = $('#miTabla').DataTable({
-        searching: false // Desactiva el buscador global de DataTables
+      
+     /*var table = $('#events_table').DataTable({
+        searching: false 
     });
+
     
     // Filtro personalizado para búsqueda exacta en todas las columnas usando el input "miBusquedaExacta"
     $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
@@ -635,20 +637,27 @@
       //$('#miTabla_filter').hide();
 
       // Filtro personalizado para búsqueda exacta en todas las columnas
-      $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
         var searchValue = $('#miBusquedaExacta').val();
         searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
         if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
-
-        // Recorre cada celda y compara el texto (pasándolo a minúsculas)
-        return data.some(cell => {
-          if (cell) {
-            var cellText = $('<div>').html(cell).text().trim().toLowerCase();
-            return cellText === searchValue;
-          }
-          return false;
-        });
-      });
+    
+        // Para depuración: imprime el valor buscado
+        console.log("Valor buscado:", searchValue);
+    
+        // Recorre cada celda y compara el texto procesado
+        for (var i = 0; i < data.length; i++) {
+            var cell = data[i];
+            if (cell) {
+                var cellText = $('<div>').html(cell).text().trim().toLowerCase();
+                console.log("Fila " + dataIndex + " - Columna " + i + ":", cellText);
+                if (cellText === searchValue) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    });
 
       // Cada vez que se escribe en el input personalizado, redibuja la tabla
       $('#miBusquedaExacta').on('keyup', function () {

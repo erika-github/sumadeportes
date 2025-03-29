@@ -178,7 +178,7 @@
 
     /* Estilos para el DataTable */
     #events_table {
-      width: 100%;
+      width: 100% !important;
     }
 
     #events_table thead th {
@@ -191,10 +191,7 @@
       padding: 0.8vw;
     }
 
-    #events_table {
-      width: 100%;
-    }
-
+   
     /* Asignación de anchos en porcentaje a las columnas */
     #events_table thead th:nth-child(1) {
       width: 10%;
@@ -594,153 +591,6 @@
       loadTournaments();
       loadEvents();
       attachRealTimeValidations();
-
-
-
-      
-     /*var table = $('#events_table').DataTable({
-        searching: false 
-    });
-
-    
-    // Filtro personalizado para búsqueda exacta en todas las columnas usando el input "miBusquedaExacta"
-    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-        var searchValue = $('#miBusquedaExacta').val();
-        searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
-        if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
-    
-        // Recorre cada celda y compara el texto (en minúsculas para evitar problemas de mayúsculas/minúsculas)
-        return data.some(cell => {
-            if (cell) {
-                var cellText = $('<div>').html(cell).text().trim().toLowerCase();
-                return cellText === searchValue;
-            }
-            return false;
-        });
-    });
-    
-    // Cada vez que se escribe en el input, redibuja la tabla
-    $('#miBusquedaExacta').on('keyup', function() {
-        table.draw();
-    });*/
-
-
-      // Inicializa el DataTable y desactiva la búsqueda interna
-     /* var table = $('#events_table').DataTable({
-        searching: false 
-    });
-
-      // Opcional: Oculta el contenedor del input de búsqueda por defecto
-      //$('#miTabla_filter').hide();
-
-      // Filtro personalizado para búsqueda exacta en todas las columnas
-      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-        var searchValue = $('#miBusquedaExacta').val();
-        searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
-        if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
-    
-        // Para depuración: imprime el valor buscado
-        console.log("Valor buscado:", searchValue);
-    
-        // Recorre cada celda y compara el texto procesado
-        for (var i = 0; i < data.length; i++) {
-            var cell = data[i];
-            if (cell) {
-                var cellText = $('<div>').html(cell).text().trim().toLowerCase();
-                console.log("Fila " + dataIndex + " - Columna " + i + ":", cellText);
-                if (cellText === searchValue) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    });
-
-      // Cada vez que se escribe en el input personalizado, redibuja la tabla
-      $('#miBusquedaExacta').on('keyup', function () {
-        table.draw();
-      });*/
-
-
-     /* var table = $('#events_table').DataTable({
-        searching: false
-    });
-
-    // Oculta el buscador automático de DataTables si existe
-    var dtFilter = document.getElementById('events_table_filter');
-    if (dtFilter) {
-        dtFilter.style.display = 'none';
-    }
-
-    // Capturar el input de búsqueda personalizada
-    var miBusquedaExacta = document.getElementById('miBusquedaExacta');
-    if (miBusquedaExacta) {
-        miBusquedaExacta.addEventListener("keyup", function () {
-            console.log("Buscando:", this.value);
-            table.draw(); // Redibuja la tabla con la nueva búsqueda
-        });
-    } else {
-        console.error("No se encontró el input con id 'miBusquedaExacta'");
-    }
-
-    // Agrega el filtro personalizado en DataTables
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-        var searchValue = miBusquedaExacta.value.trim().toLowerCase(); // Convierte a minúsculas
-        if (!searchValue) return true; // Si está vacío, mostrar todas las filas
-
-        console.log("Filtrando fila:", dataIndex, "Valor de búsqueda:", searchValue);
-
-        // Recorre todas las columnas de la fila actual
-        for (var i = 0; i < data.length; i++) {
-            var cellText = data[i]; // Toma el valor de la celda
-
-            if (cellText) {
-                // Elimina etiquetas HTML y extrae solo el texto
-                var tempDiv = document.createElement("div");
-                tempDiv.innerHTML = cellText;
-                cellText = tempDiv.textContent.trim().toLowerCase(); // Convierte a minúsculas
-
-                console.log("Fila", dataIndex, "Columna", i, "Texto:", cellText);
-
-                // Permitir coincidencias parciales
-                if (cellText.includes(searchValue)) { 
-                    return true; // Muestra la fila si hay coincidencia parcial
-                }
-            }
-        }
-
-        return false; // Si ninguna celda coincide, oculta la fila
-    });
-
-    table.draw(); // Asegura que el filtro se aplique al inicio*/
-
-
-      // Inicializa DataTable
-       // Inicializa DataTable
-       var table = $('#events_table').DataTable({
-        searching: true,  // Mantiene la búsqueda predeterminada de DataTable
-    });
-
-    // Captura el campo de búsqueda que genera DataTables
-    var searchInput = $('#events_table_filter input');
-    console.log("Campo de búsqueda generado:", searchInput);
-
-    // Verifica si el input está presente
-    if (searchInput.length === 0) {
-        console.log("No se encontró el input de búsqueda.");
-    }
-
-    // Comprobar que el evento de búsqueda se está registrando
-    searchInput.on('keyup', function() {
-        var searchValue = this.value.trim();
-        console.log("Buscando:", searchValue);
-
-        // Realizar la búsqueda exacta
-        // ^ - Coincide con el inicio
-        // $ - Coincide con el final
-        // escapeRegex() - Asegura que los caracteres especiales no interfieran con la búsqueda
-        table.search('^' + $.fn.dataTable.util.escapeRegex(searchValue) + '$', true, false).draw();
-    });
 
     });
 

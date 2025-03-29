@@ -720,15 +720,24 @@
       searching: true,  // Mantiene la búsqueda predeterminada de DataTable
   });
 
-  // Modificar el comportamiento del filtro de búsqueda de DataTables
+  // Asegurarse de que el selector sea correcto
+  console.log("Selector para el input de búsqueda:", $('#events_table_filter input'));
+
+  // Comprobar que el evento de búsqueda se está registrando
   $('#events_table_filter input').on('keyup', function() {
       var searchValue = this.value.trim();
-      console.log("Buscando 1:", searchValue);
+      console.log("Buscando:", searchValue);
+
+      // Verificar si el valor está siendo capturado correctamente
+      if (searchValue) {
+          console.log("Búsqueda exacta activada con:", searchValue);
+      } else {
+          console.log("Búsqueda vacía");
+      }
       
-      // Hacer que la búsqueda sea exacta en lugar de buscar parcialmente
+      // Realizar la búsqueda exacta
       table.search('^' + $.fn.dataTable.util.escapeRegex(searchValue) + '$', true, false).draw();
   });
-
 
 
     });

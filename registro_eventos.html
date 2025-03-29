@@ -629,7 +629,7 @@
 
 
       // Inicializa el DataTable y desactiva la búsqueda interna
-      var table = $('#events_table').DataTable({
+     /* var table = $('#events_table').DataTable({
         searching: false 
     });
 
@@ -662,7 +662,53 @@
       // Cada vez que se escribe en el input personalizado, redibuja la tabla
       $('#miBusquedaExacta').on('keyup', function () {
         table.draw();
+      });*/
+
+
+      var table = $('#events_table').DataTable({
+        searching: false
+    });
+  
+    // Oculta el input por defecto si existe
+    var dtFilter = document.getElementById('events_table_filter');
+    if(dtFilter) {
+      dtFilter.style.display = 'none';
+    }
+  
+    // Selecciona el input personalizado con JavaScript nativo
+    var miBusquedaExacta = document.getElementById('miBusquedaExacta');
+    if(miBusquedaExacta) {
+      miBusquedaExacta.addEventListener("keyup", function() {
+        console.log("Evento keyup en input personalizado:", this.value);
+        table.draw();
       });
+    } else {
+      console.log("No se encontró el input con id 'miBusquedaExacta'");
+    }
+  
+    // Agrega el filtro personalizado a DataTables
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+      console.log("Filtrando fila", dataIndex);
+      var searchValue = document.getElementById('miBusquedaExacta').value;
+      searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
+      if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
+  
+      // Recorre cada celda de la fila
+      for (var i = 0; i < data.length; i++) {
+        var cell = data[i];
+        if (cell) {
+          // Crea un elemento temporal para extraer el texto sin HTML
+          var tempDiv = document.createElement("div");
+          tempDiv.innerHTML = cell;
+          var cellText = tempDiv.textContent.trim().toLowerCase();
+          console.log("Fila", dataIndex, "Columna", i, "valor:", cellText);
+          if (cellText === searchValue) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
 
 
     });

@@ -550,26 +550,7 @@
 
       //Busquedas exacta en todo el Data Table de eventos
 
-      var table = $('#miTabla').DataTable(); // Inicializa DataTable
-
-    // Función para hacer la búsqueda exacta en todas las columnas
-    /*$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-        var searchValue = $('#miTabla_filter input').val().trim(); // Obtiene el valor buscado
-        if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
-
-        // Verifica si hay una coincidencia exacta en alguna celda
-        return data.some(cell => cell.trim() === searchValue);
-    });*/
-
-
-    /*$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-      var searchValue = $('#miTabla_filter input').val()?.trim() || ""; // Obtiene el valor buscado de forma segura
-      if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
-  
-      // Verifica si alguna celda coincide exactamente con la búsqueda
-      return data.some(cell => (cell ? cell.trim() : "") === searchValue);
-  });*/
-
+      /*var table = $('#miTabla').DataTable(); // Inicializa DataTable
 
   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
     var searchValue = $('#miTabla_filter input').val();
@@ -590,7 +571,24 @@
     // Actualiza la tabla cuando el usuario escribe en la búsqueda
     $('#miTabla_filter input').off('keyup').on('keyup', function() {
         table.draw();
-    });
+    });*/
+
+
+    var table = $('#miTabla').DataTable({
+      search: {
+          smart: false  // Desactiva la búsqueda inteligente para evitar coincidencias parciales
+      }
+  });
+
+  // Al escribir en el input de búsqueda por defecto
+  $('#miTabla_filter input').on('keyup', function() {
+      var value = this.value ? this.value.trim() : "";
+      // Aplica el filtro exacto en cada columna (asumiendo que deseas que todas las columnas cumplan la condición)
+      table.columns().every(function() {
+          this.search('^' + $.fn.dataTable.util.escapeRegex(value) + '$', true, false);
+      });
+      table.draw();
+  });
     });
   
     // Listener para el envío del formulario

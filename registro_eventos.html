@@ -220,10 +220,7 @@
       width: 20%;
     }
 
-    #events_table_filter {
-      display: none;
-  }
-
+   
     /* Seleccionar */
 
     .dataTables_wrapper .dataTables_length,
@@ -286,8 +283,8 @@
       <label>Eventos:</label>
       <div id="events_container">
         <!-- DataTable con columnas: ID, Estilo, Edad, Género, Seleccionar -->
-        <label for="miBusquedaExacta">Buscar exacto:</label>
-        <input type="text" id="miBusquedaExacta" placeholder="Ingresa el valor a buscar">
+        <!--<label for="miBusquedaExacta">Buscar exacto:</label>
+        <input type="text" id="miBusquedaExacta" placeholder="Ingresa el valor a buscar">-->
         <table id="events_table" class="display">
           <thead>
             <tr>
@@ -720,22 +717,18 @@
 
      // Inicializa DataTable
      var table = $('#events_table').DataTable({
-      searching: true // Importante: permite búsqueda manual
+      searching: true,  // Mantiene la búsqueda predeterminada de DataTable
   });
 
-  // Capturar el input de búsqueda personalizada
-  var miBusquedaExacta = document.getElementById('miBusquedaExacta');
-
-  if (!miBusquedaExacta) {
-      console.error("No se encontró el input con id 'miBusquedaExacta'");
-      return;
-  }
-
-  // Búsqueda exacta en el input personalizado
-  miBusquedaExacta.addEventListener("keyup", function () {
-      console.log("Buscando:", this.value);
-      table.search("^" + this.value + "$", true, false).draw(); // Búsqueda exacta
+  // Modificar el comportamiento del filtro de búsqueda de DataTables
+  $('#events_table_filter input').on('keyup', function() {
+      var searchValue = this.value.trim();
+      console.log("Buscando 1:", searchValue);
+      
+      // Hacer que la búsqueda sea exacta en lugar de buscar parcialmente
+      table.search('^' + $.fn.dataTable.util.escapeRegex(searchValue) + '$', true, false).draw();
   });
+
 
 
     });

@@ -220,6 +220,10 @@
       width: 20%;
     }
 
+    #events_table_filter {
+      display: none;
+  }
+
     /* Seleccionar */
 
     .dataTables_wrapper .dataTables_length,
@@ -623,12 +627,12 @@
 
 
       // Inicializa el DataTable y desactiva la búsqueda interna
-      var table = $('#miTabla').DataTable({
-        searching: false
-      });
+      var table = $('#events_table').DataTable({
+        searching: false 
+    });
 
       // Opcional: Oculta el contenedor del input de búsqueda por defecto
-      $('#miTabla_filter').hide();
+      //$('#miTabla_filter').hide();
 
       // Filtro personalizado para búsqueda exacta en todas las columnas
       $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {

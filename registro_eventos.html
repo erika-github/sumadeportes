@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <title>SumaDeportes</title>
@@ -8,10 +9,10 @@
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
+
   <!-- DataTables CSS -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-  
+
   <style>
     /* Estilos generales del formulario */
     .form-container {
@@ -25,15 +26,18 @@
       border-radius: 1vw;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
+
     .form-group {
       display: flex;
       flex-direction: column;
     }
+
     .form-group label {
       font-size: 1vw;
       margin-bottom: 1%;
       color: #808080;
     }
+
     .form-group input,
     .form-group select {
       padding: 1.2%;
@@ -42,17 +46,20 @@
       border-radius: 0.3vw;
       box-sizing: border-box;
     }
+
     .form-group input:focus,
     .form-group select:focus {
       border-color: #007bff;
       box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);
       outline: none;
     }
+
     .submit-container {
       grid-column: span 2;
       text-align: center;
       margin-top: 3%;
     }
+
     .submit-container button {
       background-color: #007bff;
       color: white;
@@ -64,20 +71,24 @@
       transition: background-color 0.3s ease, transform 0.3s ease;
       margin: 0 auto;
     }
+
     .submit-container button:hover {
       background-color: #0056b3;
       transform: translateY(-3px);
     }
+
     .submit-container button:active {
       background-color: #004085;
       transform: translateY(0);
     }
+
     /* Estilos para mensajes de error */
     .error {
       color: red;
       font-size: 0.95vw;
       margin-top: 1%;
     }
+
     /* Estilos para header y menú */
     .user-container {
       display: flex;
@@ -86,6 +97,7 @@
       margin-left: 2%;
       cursor: pointer;
     }
+
     .user-icon {
       width: 4vw;
       height: 4vw;
@@ -99,6 +111,7 @@
       text-transform: uppercase;
       cursor: pointer;
     }
+
     #img,
     .user-container p {
       position: absolute;
@@ -109,6 +122,7 @@
       box-sizing: border-box;
       right: 5%;
     }
+
     #user-icon {
       position: absolute;
       top: 0px;
@@ -117,6 +131,7 @@
       box-sizing: border-box;
       right: 5%;
     }
+
     .user-menu {
       display: none;
       position: absolute;
@@ -130,6 +145,7 @@
       padding-bottom: 1%;
       z-index: 10000;
     }
+
     .user-menu-header {
       background-color: #F2F2F2;
       padding: 1.5vw;
@@ -138,11 +154,13 @@
       font-weight: lighter;
       font-size: 1vw;
     }
+
     .user-menu-content {
       padding: 1vw;
       display: flex;
       flex-direction: column;
     }
+
     .user-menu-content a {
       text-decoration: none;
       color: #7F7F7F;
@@ -153,43 +171,69 @@
       transition: background 0.3s ease;
       font-size: 1vw;
     }
+
     .user-menu-content a:hover {
       background: #F2F2F2;
     }
+
     /* Estilos para el DataTable */
     #events_table {
       width: 100%;
     }
+
     #events_table thead th {
       font-size: 1vw;
       padding: 0.8vw;
     }
+
     #events_table tbody td {
       font-size: 0.9vw;
       padding: 0.8vw;
     }
 
-    #events_table{
+    #events_table {
       width: 100%;
     }
-    /* Asignación de anchos en porcentaje a las columnas */
-    #events_table thead th:nth-child(1) { width: 10%; }  /* ID */
-    #events_table thead th:nth-child(2) { width: 30%; }  /* Estilo */
-    #events_table thead th:nth-child(3) { width: 20%; }  /* Edad */
-    #events_table thead th:nth-child(4) { width: 20%; }  /* Género */
-    #events_table thead th:nth-child(5) { width: 20%; }  /* Seleccionar */
 
-    .dataTables_wrapper .dataTables_length, 
-    .dataTables_wrapper .dataTables_filter, 
-    .dataTables_wrapper .dataTables_info, 
-    .dataTables_wrapper .dataTables_processing, 
+    /* Asignación de anchos en porcentaje a las columnas */
+    #events_table thead th:nth-child(1) {
+      width: 10%;
+    }
+
+    /* ID */
+    #events_table thead th:nth-child(2) {
+      width: 30%;
+    }
+
+    /* Estilo */
+    #events_table thead th:nth-child(3) {
+      width: 20%;
+    }
+
+    /* Edad */
+    #events_table thead th:nth-child(4) {
+      width: 20%;
+    }
+
+    /* Género */
+    #events_table thead th:nth-child(5) {
+      width: 20%;
+    }
+
+    /* Seleccionar */
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_processing,
     .dataTables_wrapper .dataTables_paginate {
 
       color: inherit;
       font-size: 1vw;
-  }
+    }
   </style>
 </head>
+
 <body>
   <div class="header-container">
     <!-- Cintillo -->
@@ -203,7 +247,7 @@
     <!-- Imagen de usuario -->
     <div class="user-container">
       <p style="font-size: 1.2vw; margin-top: 2%; color:#1535D6; text-decoration: underline;"
-         onclick="window.location.href='gestion.html'">Módulo de gestión</p>
+        onclick="window.location.href='gestion.html'">Módulo de gestión</p>
       <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
     </div>
   </div>
@@ -257,7 +301,7 @@
       </div>
       <span class="error" id="errorEvents_container"></span>
     </div>
-    
+
     <div class="form-group">
       <label for="startDate">Fecha Inicio:</label>
       <input type="date" id="startDate" name="startDate">
@@ -316,64 +360,64 @@
     }
 
     function logout() {
-        sessionStorage.clear();
-        window.location.href = "index.html";
-      }
-  
-      // Función para obtener las iniciales del usuario
-      function getInitials(firstName, lastName) {
-        if (!firstName || !lastName) return "U";
-        return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
-      }
-  
-      // Actualiza la información del usuario en el DOM
-      function updateUserInfo() {
-        const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
-        const lastName = sessionStorage.getItem("userLastName") || "Apellido";
-        const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
-        const nameElem = document.getElementById("userName");
-        const roleElem = document.getElementById("userRole");
-        if (nameElem) nameElem.innerText = `${firstName} ${lastName}`;
-        if (roleElem) roleElem.innerText = userRole;
-      }
-  
-      // Establece el ícono del usuario con iniciales
-      function setUserIcon() {
-        updateUserInfo();
-        const firstName = sessionStorage.getItem("userFirstName");
-        const lastName = sessionStorage.getItem("userLastName");
-        const userIcon = document.getElementById("user-icon");
-        if (userIcon) {
-          userIcon.textContent = getInitials(firstName, lastName);
-        }
-      }
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    }
 
-      function toggleUserMenu() {
-        const menu = document.getElementById("user-menu");
-        const userIcon = document.getElementById("user-icon");
-        if (menu && userIcon) {
-          const isVisible = menu.style.display === "block";
-          menu.style.display = isVisible ? "none" : "block";
-          userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
-        }
+    // Función para obtener las iniciales del usuario
+    function getInitials(firstName, lastName) {
+      if (!firstName || !lastName) return "U";
+      return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
+    }
+
+    // Actualiza la información del usuario en el DOM
+    function updateUserInfo() {
+      const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
+      const lastName = sessionStorage.getItem("userLastName") || "Apellido";
+      const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
+      const nameElem = document.getElementById("userName");
+      const roleElem = document.getElementById("userRole");
+      if (nameElem) nameElem.innerText = `${firstName} ${lastName}`;
+      if (roleElem) roleElem.innerText = userRole;
+    }
+
+    // Establece el ícono del usuario con iniciales
+    function setUserIcon() {
+      updateUserInfo();
+      const firstName = sessionStorage.getItem("userFirstName");
+      const lastName = sessionStorage.getItem("userLastName");
+      const userIcon = document.getElementById("user-icon");
+      if (userIcon) {
+        userIcon.textContent = getInitials(firstName, lastName);
       }
-  
-      // Cierra el menú al hacer clic fuera de él
-      document.addEventListener("click", (event) => {
-        const menu = document.getElementById("user-menu");
-        const userIcon = document.getElementById("user-icon");
-        const userContainer = document.querySelector(".user-container");
-        if (menu && userIcon && userContainer && !userContainer.contains(event.target)) {
-          menu.style.display = "none";
-          userIcon.style.backgroundColor = "#F36621";
-        }
-      });
-  
+    }
+
+    function toggleUserMenu() {
+      const menu = document.getElementById("user-menu");
+      const userIcon = document.getElementById("user-icon");
+      if (menu && userIcon) {
+        const isVisible = menu.style.display === "block";
+        menu.style.display = isVisible ? "none" : "block";
+        userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
+      }
+    }
+
+    // Cierra el menú al hacer clic fuera de él
+    document.addEventListener("click", (event) => {
+      const menu = document.getElementById("user-menu");
+      const userIcon = document.getElementById("user-icon");
+      const userContainer = document.querySelector(".user-container");
+      if (menu && userIcon && userContainer && !userContainer.contains(event.target)) {
+        menu.style.display = "none";
+        userIcon.style.backgroundColor = "#F36621";
+      }
+    });
+
     // Función de validación por campo
     function validateField(id, label) {
       let valid = true;
       const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-  
+
       if (id === "events_container") {
         // Se valida que haya al menos un evento seleccionado
         if (selectedEvents.length === 0) {
@@ -397,7 +441,7 @@
       }
       return valid;
     }
-  
+
     // Función para adjuntar validación en tiempo real a cada campo
     function attachRealTimeValidations() {
       const fieldLabels = {
@@ -415,7 +459,7 @@
         }
       });
     }
-  
+
     // Función para validar todos los campos antes de enviar el formulario
     function validateForm() {
       let valid = true;
@@ -432,7 +476,7 @@
       });
       return valid;
     }
-  
+
     // Función para cargar los eventos y configurar el DataTable
     async function loadEvents() {
       try {
@@ -455,7 +499,7 @@
             original: teamStr
           };
         });
-  
+
         // Inicializa el DataTable en el contenedor #events_table
         if ($.fn.DataTable.isDataTable('#events_table')) {
           $('#events_table').DataTable().destroy();
@@ -467,9 +511,9 @@
             { data: 'estilo', title: 'Estilo' },
             { data: 'edad', title: 'Edad' },
             { data: 'genero', title: 'Género' },
-            { 
-              data: null, 
-              title: 'Seleccionar', 
+            {
+              data: null,
+              title: 'Seleccionar',
               orderable: false,
               render: function (data, type, row) {
                 return `<input type="checkbox" class="event-checkbox" data-id="${row.id}">`;
@@ -491,15 +535,15 @@
             }
           }
         });
-  
+
         // Reiniciar el array de eventos seleccionados
         selectedEvents = [];
-  
+
         // Manejo de la selección de checkboxes en el DataTable
         $('#events_table tbody').off('change').on('change', '.event-checkbox', function () {
           const table = $('#events_table').DataTable();
           const rowData = table.row($(this).closest('tr')).data();
-          
+
           if (this.checked) {
             // Si no está agregado, se agrega el objeto completo
             if (!selectedEvents.find(event => event.id === rowData.id)) {
@@ -508,18 +552,18 @@
           } else {
             selectedEvents = selectedEvents.filter(event => event.id !== rowData.id);
           }
-  
+
           // Validación del formulario en tiempo real
           validateField('events_container', 'Evento');
-  
+
           console.log('Eventos seleccionados:', selectedEvents);
         });
-  
+
       } catch (error) {
         console.error("Error al obtener los datos:", error);
       }
     }
-  
+
     // Función para cargar los torneos en el select
     async function loadTournaments() {
       const tournamentSelect = document.getElementById("tournament");
@@ -542,7 +586,7 @@
         console.error("Error al obtener los torneos:", error);
       }
     }
-  
+
     // Inicialización cuando el DOM esté cargado
     document.addEventListener("DOMContentLoaded", function () {
       setUserIcon();
@@ -550,76 +594,66 @@
       loadEvents();
       attachRealTimeValidations();
 
-      //Busquedas exacta en todo el Data Table de eventos
 
-      /*var table = $('#miTabla').DataTable(); // Inicializa DataTable
 
-  $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-    var searchValue = $('#miTabla_filter input').val();
-    searchValue = searchValue ? searchValue.trim() : "";
-    if (!searchValue) return true; // Sin búsqueda, muestra todas las filas
-
-    // Recorre cada celda, extrae el texto plano y compara
-    return data.some(cell => {
-        if (cell) {
-            // Extrae el texto plano en caso de que la celda tenga HTML
-            var cellText = $('<div>').html(cell).text().trim();
-              return cellText.toLowerCase() === searchValue.toLowerCase();
-        }
-        return false;
+      /*var table = $('#miTabla').DataTable({
+        searching: false // Desactiva el buscador global de DataTables
     });
-});
-
-    // Actualiza la tabla cuando el usuario escribe en la búsqueda
-    $('#miTabla_filter input').off('keyup').on('keyup', function() {
+    
+    // Filtro personalizado para búsqueda exacta en todas las columnas usando el input "miBusquedaExacta"
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        var searchValue = $('#miBusquedaExacta').val();
+        searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
+        if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
+    
+        // Recorre cada celda y compara el texto (en minúsculas para evitar problemas de mayúsculas/minúsculas)
+        return data.some(cell => {
+            if (cell) {
+                var cellText = $('<div>').html(cell).text().trim().toLowerCase();
+                return cellText === searchValue;
+            }
+            return false;
+        });
+    });
+    
+    // Cada vez que se escribe en el input, redibuja la tabla
+    $('#miBusquedaExacta').on('keyup', function() {
         table.draw();
     });*/
 
 
-   /* var table = $('#miTabla').DataTable({
-      search: {
-          smart: false  // Desactiva la búsqueda inteligente para evitar coincidencias parciales
-      }
-  });
-
-  // Al escribir en el input de búsqueda por defecto
-  $('#miTabla_filter input').on('keyup', function() {
-      var value = this.value ? this.value.trim() : "";
-      // Aplica el filtro exacto en cada columna (asumiendo que deseas que todas las columnas cumplan la condición)
-      table.columns().every(function() {
-          this.search('^' + $.fn.dataTable.util.escapeRegex(value) + '$', true, false);
+      // Inicializa el DataTable y desactiva la búsqueda interna
+      var table = $('#miTabla').DataTable({
+        searching: false
       });
-      table.draw();
-  });*/
 
-  var table = $('#miTabla').DataTable({
-    searching: false // Desactiva el buscador global de DataTables
-});
+      // Opcional: Oculta el contenedor del input de búsqueda por defecto
+      $('#miTabla_filter').hide();
 
-// Filtro personalizado para búsqueda exacta en todas las columnas usando el input "miBusquedaExacta"
-$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-    var searchValue = $('#miBusquedaExacta').val();
-    searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
-    if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
+      // Filtro personalizado para búsqueda exacta en todas las columnas
+      $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        var searchValue = $('#miBusquedaExacta').val();
+        searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
+        if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
 
-    // Recorre cada celda y compara el texto (en minúsculas para evitar problemas de mayúsculas/minúsculas)
-    return data.some(cell => {
-        if (cell) {
+        // Recorre cada celda y compara el texto (pasándolo a minúsculas)
+        return data.some(cell => {
+          if (cell) {
             var cellText = $('<div>').html(cell).text().trim().toLowerCase();
             return cellText === searchValue;
-        }
-        return false;
+          }
+          return false;
+        });
+      });
+
+      // Cada vez que se escribe en el input personalizado, redibuja la tabla
+      $('#miBusquedaExacta').on('keyup', function () {
+        table.draw();
+      });
+
+
     });
-});
 
-// Cada vez que se escribe en el input, redibuja la tabla
-$('#miBusquedaExacta').on('keyup', function() {
-    table.draw();
-});
-
-
-    });
-  
     // Listener para el envío del formulario
     document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -679,8 +713,10 @@ $('#miBusquedaExacta').on('keyup', function() {
       }
     });
   </script>
-  </body>
-  </html>
-  
 </body>
+
+</html>
+
+</body>
+
 </html>

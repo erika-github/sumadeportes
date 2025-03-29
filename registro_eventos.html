@@ -665,50 +665,58 @@
       });*/
 
 
-      var table = $('#events_table').DataTable({
-        searching: false
-    });
-  
-    // Oculta el input por defecto si existe
-    var dtFilter = document.getElementById('events_table_filter');
-    if(dtFilter) {
+      // Inicializa DataTable con búsqueda desactivada por defecto
+    var table = $('#events_table').DataTable({
+      searching: false
+  });
+
+  // Oculta el buscador automático de DataTables si existe
+  var dtFilter = document.getElementById('events_table_filter');
+  if (dtFilter) {
       dtFilter.style.display = 'none';
-    }
-  
-    // Selecciona el input personalizado con JavaScript nativo
-    var miBusquedaExacta = document.getElementById('miBusquedaExacta');
-    if(miBusquedaExacta) {
-      miBusquedaExacta.addEventListener("keyup", function() {
-        console.log("Evento keyup en input personalizado:", this.value);
-        table.draw();
+  }
+
+  // Capturar el input de búsqueda personalizada
+  var miBusquedaExacta = document.getElementById('miBusquedaExacta');
+  if (miBusquedaExacta) {
+      miBusquedaExacta.addEventListener("keyup", function () {
+          console.log("Buscando:", this.value);
+          table.draw(); // Redibuja la tabla con la nueva búsqueda
       });
-    } else {
-      console.log("No se encontró el input con id 'miBusquedaExacta'");
-    }
-  
-    // Agrega el filtro personalizado a DataTables
-    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-      console.log("Filtrando fila", dataIndex);
-      var searchValue = document.getElementById('miBusquedaExacta').value;
-      searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
-      if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
-  
-      // Recorre cada celda de la fila
+  } else {
+      console.error("No se encontró el input con id 'miBusquedaExacta'");
+  }
+
+  // Agrega el filtro personalizado en DataTables
+  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+      var searchValue = miBusquedaExacta.value.trim().toLowerCase(); // Convierte a minúsculas
+      if (!searchValue) return true; // Si está vacío, mostrar todas las filas
+
+      console.log("Filtrando fila:", dataIndex, "Valor de búsqueda:", searchValue);
+
+      // Recorre todas las columnas de la fila actual
       for (var i = 0; i < data.length; i++) {
-        var cell = data[i];
-        if (cell) {
-          // Crea un elemento temporal para extraer el texto sin HTML
-          var tempDiv = document.createElement("div");
-          tempDiv.innerHTML = cell;
-          var cellText = tempDiv.textContent.trim().toLowerCase();
-          console.log("Fila", dataIndex, "Columna", i, "valor:", cellText);
-          if (cellText === searchValue) {
-            return true;
+          var cellText = data[i]; // Toma el valor de la celda
+
+          if (cellText) {
+              // Elimina etiquetas HTML y extrae solo el texto
+              var tempDiv = document.createElement("div");
+              tempDiv.innerHTML = cellText;
+              cellText = tempDiv.textContent.trim().toLowerCase(); // Convierte a minúsculas
+
+              console.log("Fila", dataIndex, "Columna", i, "Texto:", cellText);
+
+              if (cellText === searchValue) { // Comparación exacta sin importar mayúsculas/minúsculas
+                  return true; // Muestra la fila si hay coincidencia exacta
+              }
           }
-        }
       }
-      return false;
-    });
+
+      console.log("se me esta iendo por el false");
+
+      return false; // Si ninguna celda coincide, oculta la fila
+
+  });
 
 
     });

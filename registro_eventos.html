@@ -238,6 +238,8 @@
       <label>Eventos:</label>
       <div id="events_container">
         <!-- DataTable con columnas: ID, Estilo, Edad, Género, Seleccionar -->
+        <label for="miBusquedaExacta">Buscar exacto:</label>
+        <input type="text" id="miBusquedaExacta" placeholder="Ingresa el valor a buscar">
         <table id="events_table" class="display">
           <thead>
             <tr>
@@ -574,7 +576,7 @@
     });*/
 
 
-    var table = $('#miTabla').DataTable({
+   /* var table = $('#miTabla').DataTable({
       search: {
           smart: false  // Desactiva la búsqueda inteligente para evitar coincidencias parciales
       }
@@ -588,7 +590,34 @@
           this.search('^' + $.fn.dataTable.util.escapeRegex(value) + '$', true, false);
       });
       table.draw();
-  });
+  });*/
+
+  var table = $('#miTabla').DataTable({
+    searching: false // Desactiva el buscador global de DataTables
+});
+
+// Filtro personalizado para búsqueda exacta en todas las columnas usando el input "miBusquedaExacta"
+$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+    var searchValue = $('#miBusquedaExacta').val();
+    searchValue = searchValue ? searchValue.trim().toLowerCase() : "";
+    if (!searchValue) return true; // Si no hay búsqueda, muestra todas las filas
+
+    // Recorre cada celda y compara el texto (en minúsculas para evitar problemas de mayúsculas/minúsculas)
+    return data.some(cell => {
+        if (cell) {
+            var cellText = $('<div>').html(cell).text().trim().toLowerCase();
+            return cellText === searchValue;
+        }
+        return false;
+    });
+});
+
+// Cada vez que se escribe en el input, redibuja la tabla
+$('#miBusquedaExacta').on('keyup', function() {
+    table.draw();
+});
+
+
     });
   
     // Listener para el envío del formulario

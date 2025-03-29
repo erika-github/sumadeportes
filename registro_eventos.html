@@ -716,15 +716,16 @@
 
 
       // Inicializa DataTable
-      var table = $('#events_table').DataTable({
+       // Inicializa DataTable
+       var table = $('#events_table').DataTable({
         searching: true,  // Mantiene la búsqueda predeterminada de DataTable
     });
 
-    // Verifica si el filtro se genera correctamente
+    // Captura el campo de búsqueda que genera DataTables
     var searchInput = $('#events_table_filter input');
     console.log("Campo de búsqueda generado:", searchInput);
 
-    // Asegúrate de que el input de búsqueda está correctamente capturado
+    // Verifica si el input está presente
     if (searchInput.length === 0) {
         console.log("No se encontró el input de búsqueda.");
     }
@@ -734,14 +735,10 @@
         var searchValue = this.value.trim();
         console.log("Buscando:", searchValue);
 
-        // Verificar si el valor está siendo capturado correctamente
-        if (searchValue) {
-            console.log("Búsqueda exacta activada con:", searchValue);
-        } else {
-            console.log("Búsqueda vacía");
-        }
-        
         // Realizar la búsqueda exacta
+        // ^ - Coincide con el inicio
+        // $ - Coincide con el final
+        // escapeRegex() - Asegura que los caracteres especiales no interfieran con la búsqueda
         table.search('^' + $.fn.dataTable.util.escapeRegex(searchValue) + '$', true, false).draw();
     });
 

@@ -466,12 +466,11 @@
       });
     }
 
-     // Listener para el evento change en el select
-     tournamentSelect.addEventListener('change', updateDates());
-
-     
+    
      // Función que actualiza los campos de fecha según el torneo seleccionado
     function updateDates() {
+
+      console.log("Entré:::::");
       // Obtenemos el valor seleccionado
       const selectedTournament = tournamentSelect.value;
 
@@ -626,6 +625,8 @@
       loadTournaments();
       loadEvents();
       attachRealTimeValidations();
+      // Listener para el evento change en el select
+     tournamentSelect.addEventListener('change', updateDates());
 
     });
 

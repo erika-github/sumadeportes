@@ -460,6 +460,7 @@
         startDate: "Fecha Inicio",
         endDate: "Fecha Fin"
       };
+      
       Object.keys(fieldLabels).forEach(id => {
         const element = document.getElementById(id);
         if (element) {
@@ -500,14 +501,14 @@
         startDate: "Fecha Inicio",
         endDate: "Fecha Fin"
       };
-      console.log("valor de fields::"+fieldLabels1.value)
+      console.log("valor de fields::"+fieldLabels1.startDate, fieldLabels1.endDate);
       Object.keys(fieldLabels1).forEach(id => {
         const element = document.getElementById(id);
-		
+        console.log("valor de element::"+element);
         if (element) {
-          element.addEventListener("input", function () {
+          //element.addEventListener("input", function () {
             validateField(id, fieldLabels[id]);
-          });
+          //});
         }
       });
     }

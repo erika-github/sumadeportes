@@ -271,7 +271,7 @@
     <div class="form-group">
       <label for="tournament">Torneos:</label>
       <select id="tournament" name="tournament">
-        <option value="">Seleccione una opción</option>
+        <option value="">Seleccione una opción</option>        
         <!-- Se cargarán las opciones dinámicamente -->
       </select>
       <span class="error" id="errorTournament"></span>
@@ -303,13 +303,13 @@
 
     <div class="form-group">
       <label for="startDate">Fecha Inicio:</label>
-      <input type="date" id="startDate" name="startDate">
+      <input type="date" id="startDate" name="startDate" readonly>
       <span class="error" id="errorStartDate"></span>
     </div>
 
     <div class="form-group">
       <label for="endDate">Fecha Fin:</label>
-      <input type="date" id="endDate" name="endDate">
+      <input type="date" id="endDate" name="endDate" readonly>
       <span class="error" id="errorEndDate"></span>
     </div>
 
@@ -352,6 +352,9 @@
 
      // Variable global para almacenar los datos de los torneos
      let tournamentsData = [];
+
+      // Listener para el evento change en el select
+    tournamentSelectGlobal.addEventListener('change', updateDates);
 
     const form = document.querySelector("form");
     const submitButton = form.querySelector("button[type='submit']");
@@ -470,9 +473,10 @@
      // Función que actualiza los campos de fecha según el torneo seleccionado
     function updateDates() {
 
-      console.log("Entré:::::");
+      
       // Obtenemos el valor seleccionado
       const selectedTournament = tournamentSelectGlobal.value;
+      console.log("torneo seleccionado: "+selectedTournament);
 
       // Buscamos en el array data el torneo seleccionado
       const tournament = tournamentsData.find(item => item.tournamentName === selectedTournament);
@@ -625,12 +629,12 @@
       loadTournaments();
       loadEvents();
       attachRealTimeValidations();
-      // Listener para el evento change en el select
+     
      
 
     });
 
-    tournamentSelectGlobal.addEventListener('change', updateDates());
+    
 
     // Listener para el envío del formulario
     document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
@@ -690,6 +694,8 @@
         submitButton.disabled = false;
       }
     });
+
+    
   </script>
 </body>
 

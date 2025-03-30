@@ -439,7 +439,7 @@
         }
       } else {
         const field = document.getElementById(id);
-        console.log("field:::"+field);
+        console.log("field:::"+field.value);
         if (!field || field.value.trim() === "") {
           errorField.textContent = `${label} es requerido.`;
           errorField.style.display = "block";
@@ -496,12 +496,11 @@
         endDateInput.value = "";
       }
 
-      console.log("aqui:::");
-
-      const fieldLabels1 = {       
+        const fieldLabels1 = {       
         startDate: "Fecha Inicio",
         endDate: "Fecha Fin"
       };
+      console.log("valor de fields::"+fieldLabels1)
       Object.keys(fieldLabels1).forEach(id => {
         const element = document.getElementById(id);
 		

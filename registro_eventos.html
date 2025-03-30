@@ -439,6 +439,7 @@
         }
       } else {
         const field = document.getElementById(id);
+        console.log("field:::"+field);
         if (!field || field.value.trim() === "") {
           errorField.textContent = `${label} es requerido.`;
           errorField.style.display = "block";
@@ -494,6 +495,8 @@
         startDateInput.value = "";
         endDateInput.value = "";
       }
+
+      console.log("aqui:::");
 
       const fieldLabels1 = {       
         startDate: "Fecha Inicio",

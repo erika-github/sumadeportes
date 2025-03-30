@@ -504,10 +504,10 @@
       console.log("valor de fields::"+fieldLabels1.startDate, fieldLabels1.endDate);
       Object.keys(fieldLabels1).forEach(id => {
         const element = document.getElementById(id);
-        console.log("valor de element::"+element);
+        console.log("valor de element::"+element.value);
         if (element) {
           //element.addEventListener("input", function () {
-            validateField(id, fieldLabels[id]);
+            validateField(id, fieldLabels1[id]);
           //});
         }
       });

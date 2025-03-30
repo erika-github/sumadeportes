@@ -478,10 +478,12 @@
       const selectedTournament = tournamentSelectGlobal.value;
       console.log("torneo seleccionado: "+selectedTournament);
 
-      // Buscamos en el array data el torneo seleccionado
-      const tournament = tournamentsData.find(item => item.tournamentName === selectedTournament);
       console.log(tournamentsData);
       console.log(Array.isArray(tournamentsData)); // Esto debe imprimir "true"
+
+      // Buscamos en el array data el torneo seleccionado
+      const tournament = tournamentsData.find(item => item.tournamentName === selectedTournament);
+     
 
       if (tournament) {
         // Si encontramos el torneo, actualizamos los inputs de fecha

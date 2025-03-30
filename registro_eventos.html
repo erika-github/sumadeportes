@@ -495,7 +495,19 @@
         endDateInput.value = "";
       }
 
-      attachRealTimeValidations();
+      const fieldLabels1 = {       
+        startDate: "Fecha Inicio",
+        endDate: "Fecha Fin"
+      };
+      Object.keys(fieldLabels1).forEach(id => {
+        const element = document.getElementById(id);
+		
+        if (element) {
+          element.addEventListener("input", function () {
+            validateField(id, fieldLabels[id]);
+          });
+        }
+      });
     }
 
     // Función para validar todos los campos antes de enviar el formulario

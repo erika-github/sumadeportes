@@ -346,7 +346,7 @@
 
   <script>
 
-    const tournamentSelect = document.getElementById('tournament');
+    const tournamentSelectGlobal = document.getElementById('tournament');
     const startDateInput = document.getElementById('startDate');
     const endDateInput = document.getElementById('endDate');
 
@@ -472,7 +472,7 @@
 
       console.log("Entré:::::");
       // Obtenemos el valor seleccionado
-      const selectedTournament = tournamentSelect.value;
+      const selectedTournament = tournamentSelectGlobal.value;
 
       // Buscamos en el array data el torneo seleccionado
       const tournament = tournamentsData.find(item => item.tournamentName === selectedTournament);
@@ -626,9 +626,11 @@
       loadEvents();
       attachRealTimeValidations();
       // Listener para el evento change en el select
-     tournamentSelect.addEventListener('change', updateDates());
+     
 
     });
+
+    tournamentSelectGlobal.addEventListener('change', updateDates());
 
     // Listener para el envío del formulario
     document.getElementById("form-swimmer").addEventListener("submit", async function (event) {

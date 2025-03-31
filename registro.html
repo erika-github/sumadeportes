@@ -80,11 +80,8 @@
     document.addEventListener("DOMContentLoaded", function () {
         // Inicializa el calendario Flatpickr
         console.time("Flatpickr Init");
-        const fechaInput = flatpickr('#fechaNacimiento', {
-            /*dateFormat: "d/m/Y",
-            altInput: true,
-            altFormat: "d/m/Y",*/
-            dateFormat: "Y-m-d", // Formato YYYY-MM-DD
+        const fechaInput = flatpickr('#fechaNacimiento', {           
+            dateFormat: "Y-m-d", // Formato YYYY-MM-DD, este es el formato con el que va a viajar
             altInput: true, // Campo visible con otro formato (opcional)
             altFormat: "d/m/Y", // Formato visible (opcional)
             defaultDate: null,
@@ -241,34 +238,7 @@
         </div>
     </div>
     <script src="js/registro.js"></script>
-    <!--<script>
-        // Función para mostrar el spinner
-        function showSpinner() {
-          document.getElementById('spinner').style.display = 'block';
-        }
     
-        // Función para ocultar el spinner
-        function hideSpinner() {
-          document.getElementById('spinner').style.display = 'none';
-        }
-    
-        // Función que maneja el envío del formulario
-        function handleFormSubmit(event) {
-          event.preventDefault(); // Prevenir el envío del formulario por defecto
-    
-          // Muestra el spinner
-          showSpinner();
-    
-          // Simula una llamada a la API o un proceso de envío (3 segundos de espera)
-          setTimeout(() => {
-            // Simula el éxito de la operación
-            alert("Formulario enviado correctamente");
-    
-            // Ocultar el spinner después de 3 segundos
-            hideSpinner();
-          }, 3000);
-        }
-      </script>-->
 </body>
 
 </html>

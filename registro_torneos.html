@@ -56,7 +56,7 @@
 
         .form-group label {
             font-size: 0.95vw;
-            /* font-weight: bold; */           
+            /* font-weight: bold; */
             margin-bottom: 1%;
             color: #808080;
         }
@@ -77,7 +77,6 @@
             border: 0.1vw solid #ccc;
             border-radius: 0.3vw;
             box-sizing: border-box;
-            margin-bottom:2%
         }
 
         .form-group input:focus,
@@ -276,20 +275,20 @@
             </select>
             <span class="error" id="errorTournament"></span>
 
-            <label for="numeroEquipo">Número Equipo:</label>
+            <label for="numeroEquipo" style="margin-top:3%">Número Equipo:</label>
             <input type="number" id="numeroEquipo" name="numeroEquipo" oninput="limitarLongitud(this)" />
             <span class="error" id="errorNumeroEquipo"></span>
-           
+
         </div>
-       
+
 
         <div class="form-group">
             <label>Equipos:</label>
             <div id="teams_container">
                 <!-- Aquí se agregarán los checkboxes dinámicamente -->
             </div>
-            <span class="error" id="errorTeams_container"></span>            
-          
+            <span class="error" id="errorTeams_container"></span>
+
         </div>
 
         <!--<div class="form-group">            
@@ -333,6 +332,7 @@
             <input type="date" id="endDate" name="endDate">
             <span class="error" id="errorEndDate"></span>
         </div>
+        <span class="error" id="errorDate"></span>
 
 
         <div class="submit-container">
@@ -366,7 +366,7 @@
     <script>
 
         /*let birthD; // Se inicializa sin valor (undefined)
-        birthD = new Date(); // Luego se le asigna un valor    */   
+        birthD = new Date(); // Luego se le asigna un valor    */
 
         const form = document.querySelector("form");
         const submitButton = form.querySelector("button[type='submit']");
@@ -436,34 +436,7 @@
             }
         });
 
-        // Función para calcular la edad a partir de una fecha en formato "DD/MM/YYYY"
-        /*function calcularEdad(birthDate) {
-            let partes = birthDate.split("/");
-            let birth = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`); // Convierte a formato "YYYY-MM-DD"      
-            let today = new Date();
-            let age = today.getFullYear() - birth.getFullYear();
-
-            if (
-                today.getMonth() < birth.getMonth() ||
-                (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
-            ) {
-                age--;
-            }
-            return age;
-        }*/
-
-        // función para convertir fecha de nacimiento en formato "YYYY-mm-dd"
-        /*function transformDate(birthDate) {
-            let partes = birthDate.split("/");
-            let birth_ = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T00:00:00`); // Asegura la zona horaria correcta
-
-            // Extrae los componentes de la fecha en el formato deseado
-            let year = birth_.getFullYear();
-            let month = (birth_.getMonth() + 1).toString().padStart(2, "0"); // +1 porque los meses van de 0 a 11
-            let day = birth_.getDate().toString().padStart(2, "0");
-
-            return `${year}-${month}-${day}`;
-        }*/
+       
         // Función de validación por campo
         function validateField(id, label) {
 
@@ -497,6 +470,28 @@
                     errorField.style.display = "none";
                 }
             }
+
+            /**/
+
+            // Obtener las fechas de inicio y fin
+            var fechaInicio = document.getElementById("startDate").value;
+            var fechaFin = document.getElementById("endDate").value;
+
+            // Convertir las fechas a objetos Date
+            var fechaInicioDate = new Date(fechaInicio);
+            var fechaFinDate = new Date(fechaFin);
+
+            // Verificar si la fecha de inicio es mayor que la de fin o si la fecha de fin es menor que la de inicio
+            if (fechaInicioDate > fechaFinDate) {
+                document.getElementById("errorDate").innerText = "La fecha Inicio no puede ser mayor que la fecha Fin.";
+                event.preventDefault(); // Evita que se envíe el formulario
+                valid=false;
+            } else {
+                document.getElementById("errorDate").innerText = ""; // Limpiar el mensaje de error
+            }
+
+
+            /**/
             return valid;
         }
 
@@ -506,7 +501,7 @@
 
                 tournament: "Torneo",
                 numeroEquipo: "Número Equipo",
-                teams_container: "Equipo",             
+                teams_container: "Equipo",
                 startDate: "Fecha Inicio",
                 endDate: "Fecha Fin"
 
@@ -572,15 +567,7 @@
                 teamsContainer.style.display = 'flex';
                 teamsContainer.style.gap = '2vw';
                 column1.style.flex = '1';
-                column2.style.flex = '1';
-
-                /*teamsContainer.style.width = '30vw',
-                    teamsContainer.style.maxWidth = '30vw',
-                    teamsContainer.style.gap = '2vw';
-                    teamsContainer.style.flexWrap = 'wrap',
-                    teamsContainer.style.boxSizing = 'border-box',
-                    teamsContainer.style.border = '0.2vw solid black',
-                    teamsContainer.style.padding = '1vw'*/
+                column2.style.flex = '1';             
 
 
                 teamsContainer.appendChild(column1);
@@ -603,7 +590,7 @@
                         checkbox.style.appearance = "none";
                         checkbox.style.border = "0.1vw solid gray";
                         checkbox.style.padding = "0px";
-                        checkbox.style.borderRadius = "0.2vw";                        
+                        checkbox.style.borderRadius = "0.2vw";
                         checkbox.style.marginLeft = "0.5%";
                         checkbox.style.outline = "none";
                         checkbox.style.position = "absolute";
@@ -616,8 +603,8 @@
                         const label = document.createElement('label');
                         label.htmlFor = `team-${team.id}`;
                         label.textContent = team.teamName;
-                        label.style.position="absolute";
-                        label.style.marginLeft="1.5%"
+                        label.style.position = "absolute";
+                        label.style.marginLeft = "1.5%"
 
                         const div = document.createElement('div');
 

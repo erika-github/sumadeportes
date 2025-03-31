@@ -284,8 +284,7 @@
         <table id="events_table" class="display">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Distancia</th>
+              <th>ID</th>             
               <th>Estilo</th>
               <th>Edad</th>
               <th>Género</th>
@@ -542,11 +541,10 @@
         const teamsData = data.data.map((teamStr, index) => {
           const partes = teamStr.split(',').map(item => item.trim());
           return {
-            id: index + 1,
-            distancia:partes[0],
-            estilo: partes[1],
-            edad: partes[2],
-            genero: partes[3],
+            id: index + 1,           
+            estilo: partes[0],
+            edad: partes[1],
+            genero: partes[2],
             original: teamStr
           };
         });
@@ -558,8 +556,7 @@
         $('#events_table').DataTable({
           data: teamsData,
           columns: [
-            { data: 'id', title: 'ID' },
-            { data: 'distancia', title: 'Distancia'},
+            { data: 'id', title: 'ID' },            
             { data: 'estilo', title: 'Estilo' },
             { data: 'edad', title: 'Edad' },
             { data: 'genero', title: 'Género' },

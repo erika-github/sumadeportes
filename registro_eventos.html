@@ -280,13 +280,12 @@
     <div class="form-group">
       <label>Eventos:</label>
       <div id="events_container">
-        <!-- DataTable con columnas: ID, Estilo, Edad, Género, Seleccionar -->
-        <!--<label for="miBusquedaExacta">Buscar exacto:</label>
-        <input type="text" id="miBusquedaExacta" placeholder="Ingresa el valor a buscar">-->
+        <!-- DataTable con columnas: ID, Estilo, Edad, Género, Seleccionar -->        
         <table id="events_table" class="display">
           <thead>
             <tr>
               <th>ID</th>
+              <th>Distancia</th>
               <th>Estilo</th>
               <th>Edad</th>
               <th>Género</th>
@@ -497,18 +496,16 @@
         endDateInput.value = "";
       }
 
-        const fieldLabels1 = {       
+        const fieldLabels = {       
         startDate: "Fecha Inicio",
         endDate: "Fecha Fin"
       };
-      console.log("valor de fields::"+fieldLabels1.startDate, fieldLabels1.endDate);
-      Object.keys(fieldLabels1).forEach(id => {
+      console.log("valor de fields::"+fieldLabels.startDate, fieldLabels.endDate);
+      Object.keys(fieldLabels).forEach(id => {
         const element = document.getElementById(id);
         console.log("valor de element::"+element.value);
-        if (element) {
-          //element.addEventListener("input", function () {
-            validateField(id, fieldLabels1[id]);
-          //});
+        if (element) {          
+            validateField(id, fieldLabels[id]);          
         }
       });
     }
@@ -546,9 +543,10 @@
           const partes = teamStr.split(',').map(item => item.trim());
           return {
             id: index + 1,
-            estilo: partes[0],
-            edad: partes[1],
-            genero: partes[2],
+            distancia:partes[0],
+            estilo: partes[1],
+            edad: partes[2],
+            genero: partes[3],
             original: teamStr
           };
         });
@@ -561,6 +559,7 @@
           data: teamsData,
           columns: [
             { data: 'id', title: 'ID' },
+            { data: 'distancia', title: 'Distancia'},
             { data: 'estilo', title: 'Estilo' },
             { data: 'edad', title: 'Edad' },
             { data: 'genero', title: 'Género' },

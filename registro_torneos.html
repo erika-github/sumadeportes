@@ -57,6 +57,7 @@
         .form-group label {
             font-size: 0.95vw;
             /* font-weight: bold; */
+            margin-top:2%;
             margin-bottom: 1%;
             color: #808080;
         }
@@ -275,15 +276,29 @@
             </select>
             <span class="error" id="errorTournament"></span>
 
+            <label for="numeroEquipo">Número Equipo:</label>
+            <input type="number" id="numeroEquipo" name="numeroEquipo" oninput="limitarLongitud(this)" />
+            <span class="error" id="errorNumeroEquipo"></span>
+           
         </div>
+       
 
         <div class="form-group">
             <label>Equipos:</label>
             <div id="teams_container">
                 <!-- Aquí se agregarán los checkboxes dinámicamente -->
             </div>
-            <span class="error" id="errorTeams_container"></span>
+            <span class="error" id="errorTeams_container"></span>            
+          
         </div>
+
+        <!--<div class="form-group">            
+
+            <label for="numeroEquipo">Número Equipo:</label>
+            <input type="number" id="numeroEquipo" name="numeroEquipo">
+            <span class="error" id="errorNumeroEquipo"></span>
+
+       </div>-->
         <!--<div class="form-group">
             <label>Equipos:</label>
             <div id="teams-container">
@@ -350,8 +365,8 @@
 
     <script>
 
-        let birthD; // Se inicializa sin valor (undefined)
-        birthD = new Date(); // Luego se le asigna un valor       
+        /*let birthD; // Se inicializa sin valor (undefined)
+        birthD = new Date(); // Luego se le asigna un valor    */   
 
         const form = document.querySelector("form");
         const submitButton = form.querySelector("button[type='submit']");
@@ -360,6 +375,14 @@
         function logout() {
             sessionStorage.clear();
             window.location.href = "index.html";
+        }
+
+
+        function limitarLongitud(input) {
+            let valor = input.value;
+            if (valor.length > 8) {
+                input.value = valor.slice(0, 8); // Limita a 8 dígitos
+            }
         }
 
 
@@ -414,7 +437,7 @@
         });
 
         // Función para calcular la edad a partir de una fecha en formato "DD/MM/YYYY"
-        function calcularEdad(birthDate) {
+        /*function calcularEdad(birthDate) {
             let partes = birthDate.split("/");
             let birth = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`); // Convierte a formato "YYYY-MM-DD"      
             let today = new Date();
@@ -427,10 +450,10 @@
                 age--;
             }
             return age;
-        }
+        }*/
 
         // función para convertir fecha de nacimiento en formato "YYYY-mm-dd"
-        function transformDate(birthDate) {
+        /*function transformDate(birthDate) {
             let partes = birthDate.split("/");
             let birth_ = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T00:00:00`); // Asegura la zona horaria correcta
 
@@ -440,7 +463,7 @@
             let day = birth_.getDate().toString().padStart(2, "0");
 
             return `${year}-${month}-${day}`;
-        }
+        }*/
         // Función de validación por campo
         function validateField(id, label) {
 
@@ -482,7 +505,8 @@
             const fieldLabels = {
 
                 tournament: "Torneo",
-                teams_container: "Equipo",
+                numeroEquipo: "Número Equipo",
+                teams_container: "Equipo",             
                 startDate: "Fecha Inicio",
                 endDate: "Fecha Fin"
 
@@ -504,6 +528,7 @@
             const fieldsToValidate = {
 
                 tournament: "Torneo",
+                numeroEquipo: "Número Equipo",
                 teams_container: "Equipo",
                 startDate: "Fecha Inicio",
                 endDate: "Fecha Fin"
@@ -578,8 +603,7 @@
                         checkbox.style.appearance = "none";
                         checkbox.style.border = "0.1vw solid gray";
                         checkbox.style.padding = "0px";
-                        checkbox.style.borderRadius = "0.2vw";
-                        //checkbox.style.marginRight = "3%";
+                        checkbox.style.borderRadius = "0.2vw";                        
                         checkbox.style.marginLeft = "0.5%";
                         checkbox.style.outline = "none";
                         checkbox.style.position = "absolute";
@@ -710,7 +734,8 @@
                 tournamentName: document.getElementById("tournament").value.trim(),
                 startDate: document.getElementById("startDate").value,
                 endDate: document.getElementById("endDate").value,
-                teamsNames: selectedTeams
+                teamsNames: selectedTeams,
+                teamNumber: document.getElementById("numeroEquipo").value
 
             };
 

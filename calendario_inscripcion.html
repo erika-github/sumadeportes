@@ -642,7 +642,7 @@
     
         if (result.code === "200" && result.data) {
           console.log("Datos:::" + result.data.firstName);
-          document.getElementById("nombre").innerText = result.data.firstName;
+          document.getElementById("nombre").innerText = `Nombre: ${result.data.firstName}`;        
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }

@@ -638,28 +638,18 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData),
         });
-        const data = await response.json();
-
-        if (data.code === "200") {
-          //data.forEach(swimmer => {
-
-            /*const option = document.createElement("option");
-            option.value = tournament.tournamentName;
-            option.textContent = tournament.tournamentName;
-            tournamentSelect.appendChild(option); 
-            tournamentsData.push(tournament); */
-            //document.getElementById("cedula").innerText= swimmer.documentType;
-            document.getElementById("nombre").innerText = data.firstName;
-
-          //});
+        const result = await response.json(); // Renombramos data a result para evitar confusión
+    
+        if (result.code === "200" && result.data) {
+          console.log("Datos:::" + result.data.firstName);
+          document.getElementById("nombre").innerText = result.data.firstName;
         } else {
-          console.error("Error: Respuesta inesperada del servicio", data);
+          console.error("Error: Respuesta inesperada del servicio", result);
         }
       } catch (error) {
         console.error("Error al obtener los datos del nadador:", error);
       }
     }
-
     async function fetchEvents() {
       // Simulación de datos
       data = [

@@ -389,111 +389,123 @@
     <div class="events-container">
       <div style="" class="student-info">
 
-        <div
-          style="margin-left:33%; margin-right:33%; border: 1px solid lightGray; background-color: #f9f9f9; padding:10px; margin-top:10px">
-          <h2>Datos del Nadador</h2>
-          <div style="text-align:start" id="cedula"><strong>Cédula:</strong> V-22524178</div>
-          <div style="text-align:start" id="nombre"><strong>Nombre:</strong></div>
-          <div style="text-align:start" id="apellido"><strong>Apellido:</strong> Pérez</div>
-          <div style="text-align:start" id="sexo"><strong>Sexo:</strong> Masculino</div>
-          <div style="text-align:start" id="edad"><strong>Edad:</strong> 25 años</div>
-          <div style="text-align:start" id="fechaNac"><strong>Fecha de Nacimiento:</strong> 01/01/2000</div>
-        </div>
+        <!--<div
+          style="margin-left:33%; margin-right:33%; border: 1px solid lightGray; background-color: #f9f9f9; padding:10px; margin-top:10px">-->
+        <div style=" margin: 2vh auto; /* Margen vertical adaptable */
+    
+    width: 25vw; /* Ancho relativo al viewport */
+    min-width: 20vw; /* Evita que sea demasiado pequeño */
+    max-width: 25vw; /* Evita que sea demasiado grande */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*align-items: center;*/
+    border: 0.1vw solid #ccc; /* Borde adaptable */
+    background-color: #f9f9f9;
+    padding: 1.5vw; /* Espaciado interno relativo */
+    border-radius: 0.5vw; /* Bordes redondeados proporcionales */
+    box-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.1); /* Sombra adaptable */
+    font-size: 0.95vw; /* Tamaño de texto relativo */">
+        <h2 style="margin-bottom:2%">Datos del Nadador</h2>
+        <div style="text-align:start" id="cedula"></div>
+        <div style="text-align:start" id="nombre"></div>
+        <div style="text-align:start" id="apellido"></div>
+        <div style="text-align:start" id="sexo"></div>
+        <div style="text-align:start" id="edad"></div>
+        <div style="text-align:start" id="fechaNac"></div>
       </div>
-      <h2 style="margin-top:50px" id="calendarEventsTitle">
-        Eventos Programados Seleccionados en el Calendario
-        <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;" onclick="scrollToTop()"></i>
-      </h2>
-      <table id="eventTable" class="display">
-        <thead>
+    </div>
+    <h2 style="margin-top:50px" id="calendarEventsTitle">
+      Eventos Programados Seleccionados en el Calendario
+      <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;" onclick="scrollToTop()"></i>
+    </h2>
+    <table id="eventTable" class="display">
+      <thead>
 
-          <tr>
-            <th style="width:50px">ID</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Evento</th>
-            <!--<th>Minutos</th>
+        <tr>
+          <th style="width:50px">ID</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Evento</th>
+          <!--<th>Minutos</th>
             <th>Segundos</th>
             <th>Centésimas</th>-->
-            <th style="width:50px">Tiempo</th>
-            <th style="width:50px">Seleccionar</th>
-            <th>Acción</th>
+          <th style="width:50px">Tiempo</th>
+          <th style="width:50px">Seleccionar</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button id="clearEvents" class="button-blue">Borrar Eventos</button>
+    <button id="registerEvent" class="button-orange">Inscribirse en Evento</button>
+
+    <div id="plannedEventsTableContainer" class="hidden">
+
+      <h2 id="plannedEventsTitle" style="margin-top: 150px;">
+        Listado de Todos los <span style="color:orangered">Eventos Programados </span>
+        <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;" onclick="scrollToTop()"></i>
+        <br>Categoría Adulto-Masculino
+
+      </h2>
+
+      <table id="plannedEventsTable" class="display">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Evento</th>
+            <th>Estado</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
-      <button id="clearEvents" class="button-blue">Borrar Eventos</button>
-      <button id="registerEvent" class="button-orange">Inscribirse en Evento</button>
-
-      <div id="plannedEventsTableContainer" class="hidden">
-
-        <h2 id="plannedEventsTitle" style="margin-top: 150px;">
-          Listado de Todos los <span style="color:orangered">Eventos Programados </span>
-          <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;"
-            onclick="scrollToTop()"></i>
-          <br>Categoría Adulto-Masculino
-
-        </h2>
-
-        <table id="plannedEventsTable" class="display">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Fecha</th>
-              <th>Evento</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <div id="finishedEventsTableContainer" class="hidden">
-        <h2 id="finishedEventsTitle" style="margin-top: 150px;">
-          Listado de Todos los <span style="color:orangered">Eventos Finalizados </span>
-          <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;"
-            onclick="scrollToTop()"></i>
-          <br>Categoría Adulto-Masculino
-
-        </h2>
-
-        <table id="finishedEventsTable" class="display">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Fecha</th>
-              <th>Evento</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <div id="otherEventsTableContainer" class="hidden">
-        <h2 id="otherEventsTitle" style="margin-top: 150px;">
-          Listado de Todos los
-          <span style="color:orangered">Eventos Programados y Finalizados </span>
-          <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;"
-            onclick="scrollToTop()"></i>
-          <br>
-
-          (Otras Categorías)
-        </h2>
-
-        <table id="otherEventsTable" class="display">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Fecha</th>
-              <th>Evento</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
     </div>
+
+    <div id="finishedEventsTableContainer" class="hidden">
+      <h2 id="finishedEventsTitle" style="margin-top: 150px;">
+        Listado de Todos los <span style="color:orangered">Eventos Finalizados </span>
+        <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;" onclick="scrollToTop()"></i>
+        <br>Categoría Adulto-Masculino
+
+      </h2>
+
+      <table id="finishedEventsTable" class="display">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Evento</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="otherEventsTableContainer" class="hidden">
+      <h2 id="otherEventsTitle" style="margin-top: 150px;">
+        Listado de Todos los
+        <span style="color:orangered">Eventos Programados y Finalizados </span>
+        <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;" onclick="scrollToTop()"></i>
+        <br>
+
+        (Otras Categorías)
+      </h2>
+
+      <table id="otherEventsTable" class="display">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Evento</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
   </div>
   <footer style="margin-top:0%">
     <div id=footer_logo>

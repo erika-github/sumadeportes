@@ -642,12 +642,12 @@
     
         if (result.code === "200" && result.data) {
           
-          document.getElementById("cedula").innerText = `Cédula: ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;  
-          document.getElementById("nombre").innerText = `Nombre: ${result.data.firstName}`;  
-          document.getElementById("apellido").innerText = `Apellido:${result.data.firstSurename}`; 
-          document.getElementById("sexo").innerText = `Género:${result.data.gender}`; 
-          document.getElementById("edad").innerText = `Género:${result.data.age}`;   
-          document.getElementById("fechaNac").innerText = `Fecha de Nacimiento: ${result.data.birthDate}`;          
+          document.getElementById("cedula").innerHTML = `<strong>Cédula:</strong> ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;
+          document.getElementById("nombre").innerHTML = `<strong>Nombre:</strong> ${result.data.firstName}`;
+          document.getElementById("apellido").innerHTML = `<strong>Apellido:</strong> ${result.data.firstSurename}`;
+          document.getElementById("sexo").innerHTML = `<strong>Género:</strong> ${result.data.gender}`;
+          document.getElementById("edad").innerHTML = `<strong>Edad:</strong> ${result.data.age}`;
+          document.getElementById("fechaNac").innerHTML = `<strong>Fecha de Nacimiento:</strong> ${result.data.birthDate}`;         
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }

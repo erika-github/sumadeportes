@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendario de Eventos - Enero 2025</title>
+  <link rel="stylesheet" type="text/css" href="css/gestion.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
   <style>
@@ -210,6 +211,91 @@
       border: none;
       cursor: pointer;
       margin: 10px;
+
+    }
+
+    .user-container {
+      display: flex;
+      justify-content: space-between;
+      height: auto;
+      margin-left: 2%;
+      cursor: pointer;
+    }
+
+    .user-icon {
+      width: 4vw;
+      height: 4vw;
+      background-color: #F36621;
+      color: white;
+      font-size: 1.5vw;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    #img,
+    .user-container p {
+      position: absolute;
+      top: 0px;
+      width: 15%;
+      z-index: 100;
+      margin-top: 0.5%;
+      box-sizing: border-box;
+      right: 5%;
+    }
+
+    #user-icon {
+      position: absolute;
+      top: 0px;
+      z-index: 100;
+      margin-top: 0.7%;
+      box-sizing: border-box;
+      right: 5%;
+    }
+
+    .user-menu {
+      display: none;
+      position: absolute;
+      right: 1%;
+      min-width: 13%;
+      max-width: 13%;
+      top: 5.4vw;
+      background-color: white;
+      border-radius: 0.5vw;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      padding-bottom: 1%;
+      z-index: 10000;
+    }
+
+    .user-menu-header {
+      background-color: #F2F2F2;
+      padding: 1.5vw;
+      color: #7F7F7F;
+      text-align: center;
+      font-weight: lighter;
+    }
+
+    .user-menu-content {
+      padding: 1vw;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-menu-content a {
+      text-decoration: none;
+      color: #7F7F7F;
+      padding: 0.7vw;
+      text-align: center;
+      border-radius: 0.3vw;
+      margin-top: 2%;
+      transition: background 0.3s ease;
+    }
+
+    .user-menu-content a:hover {
+      background: #F2F2F2;
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -217,6 +303,41 @@
 </head>
 
 <body>
+
+  <div class="header-container">
+    <!-- Cintillo -->
+    <div style="height: 7vw; position: relative">
+      <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo" />
+    </div>
+    <!-- Logo -->
+    <div class="logoDiv">
+      <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index_autenticado.html'" />
+    </div>
+    <!-- Imagen de usuario -->
+    <div class="user-container">
+      <p style="
+            font-size: 1.2vw;
+            margin-top: 2%;
+            color: #1535d6;
+            text-decoration: underline;
+          " onclick="window.location.href='gestion.html'">
+        Módulo de gestión
+      </p>
+      <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
+    </div>
+  </div>
+
+  <!-- Menú emergente -->
+  <div class="user-menu" id="user-menu">
+    <div class="user-menu-header">
+      <p style="font-size:1vw" id="userName">Nombre del Usuario</p>
+      <p style="font-size:1vw" id="userRole">Rol del Usuario</p>
+    </div>
+    <div class="user-menu-content">
+      <a href="#" style="font-size:1vw">Editar Perfil</a>
+      <a href="#" style="font-size:1vw" onclick="logout()">Cerrar Sesión</a>
+    </div>
+  </div>
 
 
   <div style="display: flex;
@@ -374,6 +495,32 @@
       </div>
     </div>
   </div>
+  <footer style="margin-top:0%">
+    <div id=footer_logo>
+        <img src="img/logo_.png" alt="">
+    </div>
+    <div id="academia">
+        <h2>Academia</h2>
+        <p>¿Cursos y horarios?</p>
+        <p>¿Dónde encontrarnos?</p>
+    </div>
+    <div id="informacion">
+        <h2>Información</h2>
+        <p>Preguntas frecuentes</p>
+    </div>
+
+</footer>
+
+<div class="registro">
+    <div id="linea">
+    </div>
+    <div id="creadores">
+        <p>Suma Deportes, RIF J-00000000-0 Todos los derechos
+            reservados.
+            Powered by Lenin Manrique & Erika Díaz
+        </p>
+    </div>
+</div>
   <script>
 
     /*document.addEventListener('click', function (event) {
@@ -398,39 +545,109 @@
     const parametros = obtenerParametrosURL();
     const resultado = infoMes(parametros.mes, parametros.anio);
 
-    const Mes=document.getElementById('mes');
-    Mes.innerText=`${resultado.mesNombre} - ${resultado.anio}`;
+    const Mes = document.getElementById('mes');
+    Mes.innerText = `${resultado.mesNombre} - ${resultado.anio}`;
 
+    // Función para cerrar sesión y redirigir a la página de inicio
+    function logout() {
+      sessionStorage.clear(); // Borra toda la información almacenada
+      window.location.href = "index.html"; // Redirige a la página de inicio
+    }
+
+    // Función para obtener las iniciales del usuario
+    function getInitials(firstName, lastName) {
+      if (!firstName || !lastName) return "U"; // Si no hay nombre, usa "U"
+      return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
+    }
+
+    // Función para actualizar la información del usuario en el DOM
+    function updateUserInfo() {
+      // Recuperar datos desde sessionStorage
+      const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
+      const lastName = sessionStorage.getItem("userLastName") || "Apellido";
+      const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
+
+      // Concatenar nombres y mostrar en los elementos correspondientes
+      const fullName = `${firstName} ${lastName}`;
+
+      const nameElem = document.getElementById("userName");
+      const roleElem = document.getElementById("userRole");
+
+      if (nameElem) nameElem.innerText = fullName;
+      if (roleElem) roleElem.innerText = userRole;
+    }
+
+    // Función para establecer el ícono del usuario con iniciales
+    function setUserIcon() {
+      // Actualizar información del usuario
+      updateUserInfo();
+
+      // Obtener nombre y apellido del sessionStorage
+      const firstName = sessionStorage.getItem("userFirstName");
+      const lastName = sessionStorage.getItem("userLastName");
+
+      // Asignar iniciales al ícono del usuario
+      const userIcon = document.getElementById("user-icon");
+      if (userIcon) {
+        userIcon.textContent = getInitials(firstName, lastName);
+      }
+    }
+
+    // Mostrar/ocultar el menú emergente y cambiar color del icono
+    function toggleUserMenu() {
+      const menu = document.getElementById("user-menu");
+      const userIcon = document.getElementById("user-icon");
+
+      if (menu) {
+        const isVisible = menu.style.display === "block";
+        menu.style.display = isVisible ? "none" : "block";
+        userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
+      }
+    }
+
+    // Cerrar el menú si se hace clic fuera de él
+    document.addEventListener("click", (event) => {
+      const menu = document.getElementById("user-menu");
+      const userIcon = document.getElementById("user-icon");
+      const userContainer = document.querySelector(".user-container");
+
+      if (menu && userIcon && userContainer && !userContainer.contains(event.target)) {
+        menu.style.display = "none";
+        userIcon.style.backgroundColor = "#F36621";
+      }
+    }); 
+      
+    
 
     // Función para buscar el nadador
     async function searchSwimmer() {
 
       const requestData = {
-        
+
         documentType: sessionStorage.getItem("userTypeDoc") || "",
-        documentNumber:sessionStorage.getItem("userDoc") || ""
+        documentNumber: sessionStorage.getItem("userDoc") || ""
 
       };
 
-      console.log("Tipo de documento: "+requestData.documentType)
-      console.log("Número de documento: "+requestData.documentNumber)
-     
+      console.log("Tipo de documento: " + requestData.documentType)
+      console.log("Número de documento: " + requestData.documentNumber)
+
       try {
         const response = await fetch(": http://localhost:8085/swimmer/getById", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData),
         });
-        const data = await response.json();        
+        const data = await response.json();
 
         if (data.code === "200") {
-          data.data.forEach(swimmer => {            
-             
+          data.data.forEach(swimmer => {
+
             /*const option = document.createElement("option");
             option.value = tournament.tournamentName;
             option.textContent = tournament.tournamentName;
             tournamentSelect.appendChild(option); 
-            tournamentsData.push(tournament); */        
+            tournamentsData.push(tournament); */
             //document.getElementById("cedula").innerText= swimmer.documentType;
             document.getElementById("nombre").innerText = swimmer.name;
 
@@ -459,7 +676,7 @@
       data.forEach(ev => {
         events[ev.day] = ev.names;
       });
-     
+
       createCalendar(resultado.dias, resultado.primerDiaNumero);
     }
 
@@ -498,14 +715,14 @@
     function obtenerParametrosURL() {
       const params = new URLSearchParams(window.location.search);
       return {
-        mes: params.get("mes"),        
+        mes: params.get("mes"),
         anio: params.get("anio")
       };
     }
 
     // Función para obtener la cantidad de días y el primer día de la semana de un mes dado
     //function infoMes(mesParametro, anioParametro = new Date().getFullYear()) {
-      function infoMes(mesParametro, anioParametro) {
+    function infoMes(mesParametro, anioParametro) {
       // Convertir el parámetro mes a número
       const mes = parseInt(mesParametro, 10);
 
@@ -513,11 +730,11 @@
         return { error: "El parámetro 'mes' debe ser un número entre 1 y 12." };
       }
 
-       // Lista de nombres de los meses en español
-       const nombresMeses = [
-       "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
-       "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-     ];
+      // Lista de nombres de los meses en español
+      const nombresMeses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+      ];
 
       // Para obtener el primer día de la semana, se resta 1 al mes (porque en JavaScript enero es 0)
       const primerDiaFecha = new Date(anioParametro, mes - 1, 1);
@@ -865,7 +1082,7 @@
       $('#clearEvents').on('click', function () {
         const table = $('#eventTable').DataTable();
         table.clear().draw();
-        selectedDates = [];        
+        selectedDates = [];
         createCalendar(resultado.dias, resultado.primerDiaNumero);
         eventId = 1;
 
@@ -1006,6 +1223,7 @@
 
     }
 
+    setUserIcon();
     fetchEvents();
     searchSwimmer();
 

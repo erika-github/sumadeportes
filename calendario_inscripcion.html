@@ -497,30 +497,30 @@
   </div>
   <footer style="margin-top:0%">
     <div id=footer_logo>
-        <img src="img/logo_.png" alt="">
+      <img src="img/logo_.png" alt="">
     </div>
     <div id="academia">
-        <h2>Academia</h2>
-        <p>¿Cursos y horarios?</p>
-        <p>¿Dónde encontrarnos?</p>
+      <h2>Academia</h2>
+      <p>¿Cursos y horarios?</p>
+      <p>¿Dónde encontrarnos?</p>
     </div>
     <div id="informacion">
-        <h2>Información</h2>
-        <p>Preguntas frecuentes</p>
+      <h2>Información</h2>
+      <p>Preguntas frecuentes</p>
     </div>
 
-</footer>
+  </footer>
 
-<div class="registro">
+  <div class="registro">
     <div id="linea">
     </div>
     <div id="creadores">
-        <p>Suma Deportes, RIF J-00000000-0 Todos los derechos
-            reservados.
-            Powered by Lenin Manrique & Erika Díaz
-        </p>
+      <p>Suma Deportes, RIF J-00000000-0 Todos los derechos
+        reservados.
+        Powered by Lenin Manrique & Erika Díaz
+      </p>
     </div>
-</div>
+  </div>
   <script>
 
     /*document.addEventListener('click', function (event) {
@@ -615,9 +615,9 @@
         menu.style.display = "none";
         userIcon.style.backgroundColor = "#F36621";
       }
-    }); 
-      
-    
+    });
+
+
 
     // Función para buscar el nadador
     async function searchSwimmer() {
@@ -639,15 +639,36 @@
           body: JSON.stringify(requestData),
         });
         const result = await response.json(); // Renombramos data a result para evitar confusión
-    
+
         if (result.code === "200" && result.data) {
-          
-          document.getElementById("cedula").innerHTML = `<strong>Cédula:</strong> ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;
+
+          /*document.getElementById("cedula").innerHTML = `<strong>Cédula:</strong> ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;
           document.getElementById("nombre").innerHTML = `<strong>Nombre:</strong> ${result.data.firstName}`;
           document.getElementById("apellido").innerHTML = `<strong>Apellido:</strong> ${result.data.firstSurename}`;
           document.getElementById("sexo").innerHTML = `<strong>Género:</strong> ${result.data.gender}`;
           document.getElementById("edad").innerHTML = `<strong>Edad:</strong> ${result.data.age}`;
-          document.getElementById("fechaNac").innerHTML = `<strong>Fecha de Nacimiento:</strong> ${result.data.birthDate}`;         
+          document.getElementById("fechaNac").innerHTML = `<strong>Fecha de Nacimiento:</strong> ${result.data.birthDate}`;    */
+
+          // Mapeo de género de inglés a español
+          const genderMap = {
+            "MALE": "Masculino",
+            "FEMALE": "Femenino",
+            "OTHER": "Otro"
+          };
+
+          // Función para formatear la fecha de aaaa-mm-dd a dd/mm/aaaa
+          function formatDate(isoDate) {
+            if (!isoDate) return "Fecha no disponible";
+            const [year, month, day] = isoDate.split("-");
+            return `${day}/${month}/${year}`;
+          }
+
+          document.getElementById("cedula").innerHTML = `<strong>Cédula:</strong> ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;
+          document.getElementById("nombre").innerHTML = `<strong>Nombre:</strong> ${result.data.firstName}`;
+          document.getElementById("apellido").innerHTML = `<strong>Apellido:</strong> ${result.data.firstSurename}`;
+          document.getElementById("sexo").innerHTML = `<strong>Género:</strong> ${genderMap[result.data.gender] || "No especificado"}`;
+          document.getElementById("edad").innerHTML = `<strong>Edad:</strong> ${result.data.age}`;
+          document.getElementById("fechaNac").innerHTML = `<strong>Fecha de Nacimiento:</strong> ${formatDate(result.data.birthDate)}`;
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }

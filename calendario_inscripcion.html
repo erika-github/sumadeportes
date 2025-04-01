@@ -641,7 +641,7 @@
         const data = await response.json();
 
         if (data.code === "200") {
-          data.data.forEach(swimmer => {
+          data.forEach(swimmer => {
 
             /*const option = document.createElement("option");
             option.value = tournament.tournamentName;

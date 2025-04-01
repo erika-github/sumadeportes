@@ -642,11 +642,12 @@
     
         if (result.code === "200" && result.data) {
           
-          document.getElementById("cedula").innerText = `<strong>Cédula:</strong> ${result.data.documentType}-${result.data.documentNumber}`;  
-          document.getElementById("nombre").innerText = `<strong>Nombre:</strong> ${result.data.firstName}`;  
-          document.getElementById("apellido").innerText = `<strong>Apellido:</strong> ${result.data.firstSurename}`; 
-          document.getElementById("sexo").innerText = `<strong>Género:</strong> ${result.data.gender}`;  
-          document.getElementById("fechaNac").innerText = `<strong>Fecha de Nacimiento:</strong> ${result.data.birthDate}`;          
+          document.getElementById("cedula").innerText = `Cédula: ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;  
+          document.getElementById("nombre").innerText = `Nombre: ${result.data.firstName}`;  
+          document.getElementById("apellido").innerText = `Apellido:${result.data.firstSurename}`; 
+          document.getElementById("sexo").innerText = `Género:${result.data.gender}`; 
+          document.getElementById("edad").innerText = `Género:${result.data.age}`;   
+          document.getElementById("fechaNac").innerText = `Fecha de Nacimiento: ${result.data.birthDate}`;          
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }

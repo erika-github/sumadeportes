@@ -411,10 +411,13 @@
         documentNumber:sessionStorage.getItem("userDoc") || ""
 
       };
+
+      console.log("Tipo de documento: "+documentType)
+      console.log("Número de documento: "+documentNumber)
      
       try {
         const response = await fetch(": http://localhost:8085/swimmer/getById", {
-          method: "GET",
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData),
         });

@@ -641,7 +641,7 @@
         const data = await response.json();
 
         if (data.code === "200") {
-          data.forEach(swimmer => {
+          //data.forEach(swimmer => {
 
             /*const option = document.createElement("option");
             option.value = tournament.tournamentName;
@@ -649,9 +649,9 @@
             tournamentSelect.appendChild(option); 
             tournamentsData.push(tournament); */
             //document.getElementById("cedula").innerText= swimmer.documentType;
-            document.getElementById("nombre").innerText = swimmer.name;
+            document.getElementById("nombre").innerText = data.name;
 
-          });
+          //});
         } else {
           console.error("Error: Respuesta inesperada del servicio", data);
         }

@@ -633,7 +633,7 @@
       console.log("Número de documento: " + requestData.documentNumber)
 
       try {
-        const response = await fetch(": http://localhost:8085/swimmer/getById", {
+        const response = await fetch("http://localhost:8085/swimmer/getById", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData),

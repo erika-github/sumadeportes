@@ -641,8 +641,12 @@
         const result = await response.json(); // Renombramos data a result para evitar confusión
     
         if (result.code === "200" && result.data) {
-          console.log("Datos:::" + result.data.firstName);
-          document.getElementById("nombre").innerText = `Nombre: ${result.data.firstName}`;        
+          
+          document.getElementById("cedula").innerText = `<strong>Cédula:</strong> ${result.data.documentType}-${result.data.documentNumber}`;  
+          document.getElementById("nombre").innerText = `<strong>Nombre:</strong> ${result.data.firstName}`;  
+          document.getElementById("apellido").innerText = `<strong>Apellido:</strong> ${result.data.firstSurename}`; 
+          document.getElementById("sexo").innerText = `<strong>Género:</strong> ${result.data.gender}`;  
+          document.getElementById("fechaNac").innerText = `<strong>Fecha de Nacimiento:</strong> ${result.data.birthDate}`;          
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }

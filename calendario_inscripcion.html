@@ -635,9 +635,10 @@
 
     async function getEventsByDate(age, gender, resultado) {
       // Obtenemos el mes a partir del objeto "resultado"
-      const month = resultado.mes;     
+      const month = resultado.mes;   
+      const firstLetterGender = gender.charAt(0).toUpperCase(); // Obtiene 'f' 
       // Construimos la URL con los parámetros deseados
-      const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${gender}&age=${age}`;
+      const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${firstLetterGender}&age=${age}`;
 
       console.log("url: "+url);
     
@@ -695,8 +696,8 @@
         });
         const result = await response.json(); // Renombramos data a result para evitar confusión
 
-        if (result.code === "200" && result.data) {
-          
+        if (result.code === "200" && result.data) {          
+
 
           // Mapeo de género de inglés a español
           const genderMap = {

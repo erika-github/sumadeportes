@@ -636,6 +636,7 @@
     async function getEventsByDate(age, gender, resultado) {
       // Obtenemos el mes a partir del objeto "resultado"
       const month = resultado.mes;
+      const f="f";
       // Construimos la URL con los parámetros deseados
       const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${f}&age=${5}`;
 

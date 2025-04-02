@@ -711,6 +711,7 @@
           document.getElementById("sexo").innerHTML = `<strong>Género:</strong> ${genderMap[result.data.gender] || "No especificado"}`;
           document.getElementById("edad").innerHTML = `<strong>Edad:</strong> ${result.data.age}`;
           document.getElementById("fechaNac").innerHTML = `<strong>Fecha de Nacimiento:</strong> ${formatDate(result.data.birthDate)}`;
+          getEventsByDate(age, gender, resultado);
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }
@@ -1283,8 +1284,7 @@
 
     setUserIcon();
     //fetchEvents();
-    searchSwimmer();
-    getEventsByDate(age, gender, resultado);
+    searchSwimmer();    
 
     $('#registerEvent').click(function () {
       /* alert('Función de registro de eventos a implementar');*/

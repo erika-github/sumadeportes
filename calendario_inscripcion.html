@@ -556,6 +556,8 @@
     let data;
     const parametros = obtenerParametrosURL();
     const resultado = infoMes(parametros.mes, parametros.anio);
+    let age;
+    let gender;
 
     const Mes = document.getElementById('mes');
     Mes.innerText = `${resultado.mesNombre} - ${resultado.anio}`;
@@ -629,7 +631,39 @@
       }
     });
 
+    //Función para buscar los eventos por fecha
 
+    async function getEventsByDate(age, gender, resultado) {
+      // Obtenemos el mes a partir del objeto "resultado"
+      const month = resultado.mes;
+      // Construimos la URL con los parámetros deseados
+      const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${gender}&age=${age}`;
+    
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        });
+        
+        // Convertimos la respuesta a JSON y la renombramos a "result" para evitar confusiones
+        const result = await response.json();
+    
+        if (result.code === "200" && result.data) {
+
+          data.forEach(ev => {
+            events[ev.date] = true;
+          });
+
+          createCalendar(resultado.dias, resultado.primerDiaNumero);
+          //console.log("Eventos obtenidos:", result.data);
+          // Aquí puedes continuar con el procesamiento de result.data
+        } else {
+          console.error("Error en la respuesta:", result);
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error.message);
+      }
+    }
 
     // Función para buscar el nadador
     async function searchSwimmer() {
@@ -653,13 +687,7 @@
         const result = await response.json(); // Renombramos data a result para evitar confusión
 
         if (result.code === "200" && result.data) {
-
-          /*document.getElementById("cedula").innerHTML = `<strong>Cédula:</strong> ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;
-          document.getElementById("nombre").innerHTML = `<strong>Nombre:</strong> ${result.data.firstName}`;
-          document.getElementById("apellido").innerHTML = `<strong>Apellido:</strong> ${result.data.firstSurename}`;
-          document.getElementById("sexo").innerHTML = `<strong>Género:</strong> ${result.data.gender}`;
-          document.getElementById("edad").innerHTML = `<strong>Edad:</strong> ${result.data.age}`;
-          document.getElementById("fechaNac").innerHTML = `<strong>Fecha de Nacimiento:</strong> ${result.data.birthDate}`;    */
+          
 
           // Mapeo de género de inglés a español
           const genderMap = {
@@ -675,6 +703,8 @@
             return `${day}/${month}/${year}`;
           }
 
+          let age=result.data.age;
+          let gender= result.data.gender;
           document.getElementById("cedula").innerHTML = `<strong>Cédula:</strong> ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;
           document.getElementById("nombre").innerHTML = `<strong>Nombre:</strong> ${result.data.firstName}`;
           document.getElementById("apellido").innerHTML = `<strong>Apellido:</strong> ${result.data.firstSurename}`;
@@ -1252,8 +1282,9 @@
     }
 
     setUserIcon();
-    fetchEvents();
+    //fetchEvents();
     searchSwimmer();
+    getEventsByDate(age, gender, resultado);
 
     $('#registerEvent').click(function () {
       /* alert('Función de registro de eventos a implementar');*/

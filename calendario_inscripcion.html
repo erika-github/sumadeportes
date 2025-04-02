@@ -939,7 +939,7 @@
       selectedDates.forEach(day => {
         // Buscar en "data" el objeto que coincide con el día
 
-        let eventData = data.find(item => item.date === day);
+        let eventData = event.find(item => item.date === day);
 
         if (eventData) {
           // Recorrer los nombres y obtener la hora correspondiente (por índice)

@@ -638,8 +638,10 @@
       const month = resultado.mes;
       // Construimos la URL con los parámetros deseados
       const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${gender}&age=${age}`;
+
+      console.log("url: "+url);
     
-      console.log("edad: "+age+" genero: "+gender+ "mes: "+month);
+      console.log("edad: "+age+" genero: "+gender+ " mes: "+month);
       try {
         const response = await fetch(url, {
           method: "GET",

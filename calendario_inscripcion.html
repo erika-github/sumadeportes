@@ -654,7 +654,7 @@
     
         if (result.code === "200" && result.data) {
 
-          data.forEach(ev => {
+          result.data.forEach(ev => {
             events[ev.date] = true;
           });
 

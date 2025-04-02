@@ -662,9 +662,9 @@
         if (result.data && Array.isArray(result.data)) {
          
           result.data.forEach(ev => {
-            events[ev.date] = true;
+            events[ev.date] = ev.eventName;
           });
-
+         
           plannedEvents_ = result.data || [];
 
          // plannedEvents = response.data || [];

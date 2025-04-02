@@ -48,7 +48,7 @@
     }
 
     .calendar-panel {
-      width: auto;
+      width: 26%;
       height: 100vh;
       overflow-y: auto;
       background-color: white;
@@ -635,10 +635,9 @@
 
     async function getEventsByDate(age, gender, resultado) {
       // Obtenemos el mes a partir del objeto "resultado"
-      const month = resultado.mes;
-      const f="f";
+      const month = resultado.mes;     
       // Construimos la URL con los parámetros deseados
-      const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${f}&age=${5}`;
+      const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${gender}&age=${age}`;
 
       console.log("url: "+url);
     

@@ -651,6 +651,12 @@
         
         // Convertimos la respuesta a JSON y la renombramos a "result" para evitar confusiones
         const result = await response.json();
+        console.log("Respuesta completa del servidor:", result);
+        console.log("Código de respuesta:", result.code);
+        console.log("Datos recibidos:", result.data);
+        console.log("Tipo de result.data:", typeof result.data);
+        console.log("Es un array?:", Array.isArray(result.data));
+
     
         if (result.code === "200" && result.data) {
 

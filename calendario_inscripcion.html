@@ -658,9 +658,8 @@
         console.log("Es un array?:", Array.isArray(result.data));
 
     
-        if (result.code === "200" && result.data) {
-
-          console.log("se mete por aqui::::"+ result.data)
+        if (result.data && Array.isArray(result.data)) {
+         
           result.data.forEach(ev => {
             events[ev.date] = true;
           });

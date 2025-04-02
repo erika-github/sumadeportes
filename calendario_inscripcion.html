@@ -425,7 +425,7 @@
         <tr>
           <th style="width:50px">ID</th>
           <th>Fecha</th>
-          <th>Hora</th>
+          <!--<th>Hora</th>-->
           <th>Evento</th>
           <!--<th>Minutos</th>
             <th>Segundos</th>
@@ -948,10 +948,11 @@
           eventData.eventName.forEach((eventName, index) => {
             //let hora = eventData.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
            
-              let hora ="00:00:00"; 
-            // Verificar si el registro ya existe en la tabla, comparando fecha, hora y nombre del evento
+             
+            // Verificar si el registro ya existe en la tabla, comparando fecha y nombre del evento
             let isExisting = existingData.some(row => {
-              return row[1] === `${day.toString().padStart(2, '0')}/01/2025` && row[2] === hora && row[3] === eventName;
+              //return row[1] === `${day.toString().padStart(2, '0')}/01/2025` && row[2] === eventName;
+              `${day.toString().padStart(2, '0')}/${resultado.mes.toString().padStart(2, '0')}/${resultado.anio}` && row[2] === eventName;
             });
 
             if (!isExisting) {
@@ -970,7 +971,7 @@
               table.row.add([
                 eventId++,
                 `${day.toString().padStart(2, '0')}/01/2025`,  // Fecha en formato DD/MM/YYYY
-                hora,                                           // Hora extraída de "data"
+                //hora,                                           // Hora extraída de "data"
                 eventName,                                      // Nombre del evento
                 /*createDropdown('minutes', Array.from({ length: 60 }, (_, i) => i)),
                 createDropdown('seconds', Array.from({ length: 60 }, (_, i) => i)),

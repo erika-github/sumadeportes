@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
        
           /*let response = await fetch("http://localhost:8085/login", {*/
-          let response = await fetch("https://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:8443/login", {
+          let response = await fetch("http://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:8443/login", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(requestData)

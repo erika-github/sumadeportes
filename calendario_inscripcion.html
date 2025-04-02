@@ -554,7 +554,7 @@
     let eventId = 1;
     let dataTableInstance;
     let data;
-    //let plannedEvents= [];
+    let plannedEvents_= [];
     const parametros = obtenerParametrosURL();
     const resultado = infoMes(parametros.mes, parametros.anio);
     let age;
@@ -664,6 +664,8 @@
           result.data.forEach(ev => {
             events[ev.date] = true;
           });
+
+          plannedEvents_ = result.data || [];
 
          // plannedEvents = response.data || [];
 
@@ -939,11 +941,11 @@
       selectedDates.forEach(day => {
         // Buscar en "data" el objeto que coincide con el día
         
-        let eventData = events.find(item => item.date === day);
+        let eventData = plannedEvents_.find(item => item.date === day);
 
         if (eventData) {
           // Recorrer los nombres y obtener la hora correspondiente (por índice)
-          eventData.eventName.forEach((eventName, index) => {
+          plannedEvents_.eventName.forEach((eventName, index) => {
             let hora = events.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
 
             // Verificar si el registro ya existe en la tabla, comparando fecha, hora y nombre del evento

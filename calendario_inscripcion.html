@@ -946,7 +946,8 @@
         if (eventData) {
           // Recorrer los nombres y obtener la hora correspondiente (por índice)
           eventData.eventName.forEach((eventName, index) => {
-            let hora = events.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
+            let hora = eventData.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
+           
 
             // Verificar si el registro ya existe en la tabla, comparando fecha, hora y nombre del evento
             let isExisting = existingData.some(row => {

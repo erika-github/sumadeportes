@@ -455,8 +455,9 @@
       <table id="plannedEventsTable" class="display">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Fecha</th>
+            <th>Torneo</th>
             <th>Evento</th>
             <th>Estado</th>
           </tr>
@@ -476,7 +477,7 @@
       <table id="finishedEventsTable" class="display">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Fecha</th>
             <th>Evento</th>
             <th>Estado</th>
@@ -499,7 +500,7 @@
       <table id="otherEventsTable" class="display">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Fecha</th>
             <th>Evento</th>
             <th>Estado</th>
@@ -1180,15 +1181,19 @@
         // Cambiar el icono del ojo
         $('#eyeIcon-1').toggleClass('fa-eye fa-eye-slash');
         $('#eyeIcon-1').css('color', $('#eyeIcon-1').hasClass('fa-eye') ? '#012EDC' : '#f5754C');
+        
+        plannedEvents_.forEach(event => {
+          event.eventName.forEach((eventName, index) => {
+           // let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
 
-        plannedEvents.forEach(event => {
-          event.name.forEach((name, index) => {
-            let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
+           let status = "PROGRAMADO" || "";
 
             plannedEventsTable.row.add([
               idCounter++, // Genera un ID autoincremental
-              `${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha              
-              name, // Nombre del evento
+              //`${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
+              `${event.date.toString().padStart(2, '0')}/${resultado.mes.toString().padStart(2, '0')}/${resultado.anio}`,
+              tournamentsName,              
+              eventName, // Nombre del evento
               status // Estado del evento
             ]).draw(false);
           });

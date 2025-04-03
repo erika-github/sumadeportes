@@ -951,12 +951,12 @@
           eventData.eventName.forEach((eventName, index) => {
             //let hora = eventData.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
            
-            let tournamentsName = eventData.tournamentsName|| "";
+            let tournamentsName = eventData.tournamentsName[index]|| "";
              
             // Verificar si el registro ya existe en la tabla, comparando fecha y nombre del evento
             let isExisting = existingData.some(row => {
               //return row[1] === `${day.toString().padStart(2, '0')}/01/2025` && row[2] === eventName;
-              return row[1] === `${day.toString().padStart(2, '0')}/${resultado.mes.toString().padStart(2, '0')}/${resultado.anio}` && row[2] === eventName;
+              return row[1] === `${day.toString().padStart(2, '0')}/${resultado.mes.toString().padStart(2, '0')}/${resultado.anio}` && row[2] === tournamentsName && row[3] === eventName;
             });
 
             if (!isExisting) {

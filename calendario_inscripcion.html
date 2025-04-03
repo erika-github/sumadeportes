@@ -566,6 +566,7 @@
     const resultado = infoMes(parametros.mes, parametros.anio);
     let age;
     let gender;
+    let genderMap;
 
     const Mes = document.getElementById('mes');
     Mes.innerText = `${resultado.mesNombre} - ${resultado.anio}`;
@@ -671,7 +672,7 @@
           let elements = document.getElementsByClassName("eventsCategory");
 
           for (let elem of elements) {
-            elem.innerHTML = `Edad comprendida: ${age} años, ${gender}`;
+            elem.innerHTML = `Edad comprendida: ${age} años, ${genderMap[gender]}`;
           }
 
          
@@ -719,7 +720,7 @@
 
 
           // Mapeo de género de inglés a español
-          const genderMap = {
+          genderMap = {
             "male": "Masculino",
             "female": "Femenino",
             "OTHER": "Otro"

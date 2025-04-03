@@ -449,7 +449,7 @@
           Listado de Todos los <span style="color:orangered">Eventos Programados </span>
           <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;"
             onclick="scrollToTop()"></i>
-          <br class="eventsCategory">
+          <br><span class="eventsCategory"></span>
 
         </h2>
 
@@ -472,7 +472,7 @@
           Listado de Todos los <span style="color:orangered">Eventos Finalizados </span>
           <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;"
             onclick="scrollToTop()"></i>
-          <br class="eventsCategory">
+          <br><span class="eventsCategory"></span>
 
         </h2>
 
@@ -672,7 +672,7 @@
           let elements = document.getElementsByClassName("eventsCategory");
 
           for (let elem of elements) {
-            elem.innerHTML = `Edad comprendida: ${age} años, ${genderMap[gender]}`;
+            elem.innerHTML = `Edad Comprendida: ${age} Años, ${genderMap[gender]}`;
           }
 
          

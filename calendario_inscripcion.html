@@ -420,6 +420,7 @@
       <h2 style="margin-top:50px" id="calendarEventsTitle">
         Eventos Programados Seleccionados en el Calendario
         <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;" onclick="scrollToTop()"></i>
+        <br><span class="eventsCategory"></span>
       </h2>
       <table id="eventTable" class="display">
         <thead>
@@ -672,7 +673,7 @@
           let elements = document.getElementsByClassName("eventsCategory");
 
           for (let elem of elements) {
-            elem.innerHTML = `Edad Comprendida: ${age} Años, ${genderMap[gender]}`;
+            elem.innerHTML = `Dentro de la Categoría: ${age} Años, ${genderMap[gender]}`;
           }
 
          
@@ -792,8 +793,8 @@
     ];
 
     let otherEvents = [
-      { id: 1, date: 8, name: ["Nado LIBRE 3-4 años F", "LIBRE 5-6 años F"], status: ["FINALIZADO", "PROGRAMADO"] },
-      { id: 2, date: 12, name: ["Nado LIBRE 3-4 años M"], status: ["FINALIZADO"] },
+      { id: 1, date: 8, name: ["NADO LIBRE 3-4 años F", "LIBRE 5-6 años F"], status: ["FINALIZADO", "PROGRAMADO"] },
+      { id: 2, date: 12, name: ["NADO LIBRE 3-4 años M"], status: ["FINALIZADO"] },
       { id: 3, date: 15, name: ["25 TABLA 5 años F"], status: ["FINALIZADO"] },
       { id: 4, date: 16, name: ["50 TABLA 5 años M"], status: ["PROGRAMADO"] },
       { id: 5, date: 17, name: ["50 TABLA 6-7 años F"], status: ["PROGRAMADO"] },
@@ -1238,8 +1239,9 @@
             let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
 
             finishedTable.row.add([
-              idCounter++, // Genera un ID autoincremental
-              `${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
+              idCounter++, // Genera un ID autoincremental              
+              //`${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
+              `${event.date.toString().padStart(2, '0')}/${resultado.mes.toString().padStart(2, '0')}/${resultado.anio}`,
               name, // Nombre del evento
               status // Estado del evento
             ]).draw(false);
@@ -1273,7 +1275,8 @@
 
             otherEventsTable.row.add([
               idCounter++, // Genera un ID autoincremental
-              `${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
+              //`${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
+              `${event.date.toString().padStart(2, '0')}/${resultado.mes.toString().padStart(2, '0')}/${resultado.anio}`,
               name, // Nombre del evento
               status // Estado del evento
             ]).draw(false);

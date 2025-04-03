@@ -182,8 +182,8 @@
   
       try {
        
-        //const response = await fetch("http://localhost:8085/change-password", {
-        const response = await fetch( "https://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:443/change-password", {
+        const response = await fetch("http://localhost:8085/change-password", {
+        //const response = await fetch( "https://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:443/change-password", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

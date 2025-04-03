@@ -649,18 +649,18 @@
       var table = $('#eventTable').DataTable();
       // Seleccionamos los checkboxes marcados que están dentro de la tabla con id "eventTable"
       const checkboxes = document.querySelectorAll('#eventTable .inscribeCheckbox:checked');
-      
+
 
       checkboxes.forEach(checkbox => {
         // Obtenemos la fila (<tr>) que contiene el checkbox
         const row = checkbox.closest('tr');
         // Utilizamos la instancia DataTables para extraer los datos de la fila
         const data = table.row(row).data();
-        
+
         // Suponiendo que la columna 5 (índice 4) contiene el tiempo,
         // lo extraemos directamente del contenido textual de la celda
         const tiempo = row.cells[4].textContent.trim();
-    
+
         // Agregamos los datos de la fila al array
         eventosSeleccionados.push({
           //eventId: data[0],
@@ -670,30 +670,81 @@
           tiempo: tiempo
         });
       });
-    
+
       return eventosSeleccionados;
     }
-    
-    // Asumimos que tienes un botón con id "guardarEventos" para activar la acción
-    document.getElementById('registerEvent').addEventListener('click', function() {
-      const eventos = obtenerEventosSeleccionados();
-      console.log(eventos);
-      
-      // Aquí podrías enviar 'eventos' a tu servicio, por ejemplo, utilizando fetch:
-      /*
-      fetch('ruta/a/tu/servicio', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(eventos)
-      })
-      .then(response => response.json())
-      .then(data => console.log('Eventos guardados', data))
-      .catch(error => console.error('Error al guardar eventos', error));
-      */
-    });
 
+    // Asumimos que tienes un botón con id "guardarEventos" para activar la acción
+    document.getElementById('registerEvent').addEventListener('click', async function () {
+      const eventos = obtenerEventosSeleccionados();      
+      console.log(eventos);
+
+      // Validar si hay al menos un evento seleccionado
+      if (eventos.length === 0) {
+        await Swal.fire({
+          title: "Advertencia",
+          text: "Debe seleccionar al menos un evento para continuar.",
+          icon: "warning",
+          confirmButtonText: "Aceptar"
+        });
+        return; // Detiene la ejecución si no hay eventos seleccionados
+      }
+
+      // Obtener el contenido del label
+      const cedulaText = document.getElementById("cedula").innerText;
+
+      // Extraer solo la parte después de "Cédula: "
+      const cedulaValue = cedulaText.replace("Cédula:", "").trim();
+
+      // Dividir en tipo y número de documento (asumiendo formato "V-12345678")
+      const [documentType, documentNumber] = cedulaValue.split("-");
+
+
+      const requestData = {
+        swimmerDocumentType: documentType,
+        swimmerDocumentNumber: documentNumber,
+        eventsMarks: eventos
+      };
+
+      console.log("requestData::::"+requestData);
+      try {
+        const response = await fetch("http://localhost:8085/eventsregister/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestData)
+        });
+        const responseData = await response.json();
+        if (responseData.code === "201") {
+          await Swal.fire({
+            title: "Registro exitoso",
+            text: "El nadador se ha inscrito correctamente.",
+            icon: "success",
+            confirmButtonText: "Aceptar"
+          });
+          window.location.href = "gestion.html";
+        } else if (responseData.code === "409") {
+          await Swal.fire({
+            title: "Error",
+            text: "El nadador ya se encuentra registrado en esos eventos",
+            icon: "error",
+            confirmButtonText: "Intentar nuevamente"
+          });
+        } else {
+          throw new Error(responseData.message || "Error al registrar el evento.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          title: "Error",
+          text: error.message || "No se pudo conectar con el servidor.",
+          icon: "error",
+          confirmButtonText: "Intentar nuevamente"
+        });
+      } finally {
+        submitButton.disabled = false;
+      }
+
+    });
     //*//
 
     //Función para buscar los eventos por fecha
@@ -731,7 +782,7 @@
             elem.innerHTML = `Dentro de la Categoría: ${age} Años, ${genderMap[gender]}`;
           }
 
-         
+
           result.data.forEach(ev => {
             events[ev.date] = ev.eventName;
           });
@@ -806,23 +857,23 @@
       }
     }
     //async function fetchEvents() {
-      // Simulación de datos
-     /* data = [
-        {
-          day: 15, hora: ["03:30 pm", "02:05 pm", "10:00 am", "02:00 pm"], names: ["25 LIBRE Adulto M", "50 LIBRE Adulto M", "25 LIBRE Adulto M", "50 LIBRE Adulto M"]
-        },
-        { day: 18, hora: ["11:00 am"], names: ["25 MARIPOSA Adulto M"] },
-        { day: 20, hora: ["09:30 am"], names: ["50 MARIPOSA Adulto M"] },
-        { day: 25, hora: ["09:30 am", "04:00 pm", "03:40 pm"], names: ["25 ESPALDA Adulto M", "50 ESPALDA Adulto M", "50 ESPALDA Adulto M"] },
-        { day: 30, hora: ["05:00 pm"], names: ["50 ESPALDA Adulto M"] },
-      ];
+    // Simulación de datos
+    /* data = [
+       {
+         day: 15, hora: ["03:30 pm", "02:05 pm", "10:00 am", "02:00 pm"], names: ["25 LIBRE Adulto M", "50 LIBRE Adulto M", "25 LIBRE Adulto M", "50 LIBRE Adulto M"]
+       },
+       { day: 18, hora: ["11:00 am"], names: ["25 MARIPOSA Adulto M"] },
+       { day: 20, hora: ["09:30 am"], names: ["50 MARIPOSA Adulto M"] },
+       { day: 25, hora: ["09:30 am", "04:00 pm", "03:40 pm"], names: ["25 ESPALDA Adulto M", "50 ESPALDA Adulto M", "50 ESPALDA Adulto M"] },
+       { day: 30, hora: ["05:00 pm"], names: ["50 ESPALDA Adulto M"] },
+     ];
 
 
-      data.forEach(ev => {
-        events[ev.day] = ev.names;
-      });
+     data.forEach(ev => {
+       events[ev.day] = ev.names;
+     });
 
-      createCalendar(resultado.dias, resultado.primerDiaNumero);*/
+     createCalendar(resultado.dias, resultado.primerDiaNumero);*/
     //}
 
     /*let plannedEvents = [

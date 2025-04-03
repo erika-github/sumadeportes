@@ -361,7 +361,7 @@
 
         <div style=" margin-top:30px; font-size:13px">
           <div><span class="circle planned-circle"></span>Eventos Programados</div>
-          <div class="eventsCategory">Categoría Adulto - Masculino</div>
+          <div class="eventsCategory"></div>
           <div class="clickable" id="planned-Events"
             style="color:blue; cursor: pointer; text-decoration: underline; margin-top: 5px;">
             ver todos <i id="eyeIcon-1" class="fas fa-eye-slash" style="color: #f5754C;"></i>
@@ -370,7 +370,7 @@
 
         <div style="margin-top:30px; font-size:13px">
           <div><span class="circle finished-circle"></span>Eventos Finalizados</div>
-          <div class="eventsCategory">Categoría Adulto - Masculino</div>
+          <div class="eventsCategory"></div>
           <div class="clickable" id="showFinished"
             style="color:blue; cursor: pointer; text-decoration: underline; margin-top: 5px;">
             ver todos <i id="eyeIcon-2" class="fas fa-eye-slash" style=" color: #f5754C;"></i>
@@ -379,7 +379,7 @@
 
         <div style=" margin-top:30px; font-size:13px">
           <div><span class="circle otherEvents-circle"></span>Eventos Programados y Finalizados</div>
-          <div class="eventsCategory">Otras Categorías</div>
+          <div class="eventsCategory"></div>
           <div class="clickable" id="showOtherEvents"
             style="color:blue; cursor: pointer; text-decoration: underline; margin-top: 5px; ">
             ver todos <i id="eyeIcon-3" class="fas fa-eye-slash" style="color: #f5754C;"></i>
@@ -448,7 +448,7 @@
       <h2 id="plannedEventsTitle" style="margin-top: 150px;">
         Listado de Todos los <span style="color:orangered">Eventos Programados </span>
         <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;" onclick="scrollToTop()"></i>
-        <br class="eventsCategory">Categoría Adulto-Masculino
+        <br class="eventsCategory">
 
       </h2>
 
@@ -470,7 +470,7 @@
       <h2 id="finishedEventsTitle" style="margin-top: 150px;">
         Listado de Todos los <span style="color:orangered">Eventos Finalizados </span>
         <i class="fas fa-arrow-up" style="color: blue; cursor: pointer; margin-left: 10px;" onclick="scrollToTop()"></i>
-        <br class="eventsCategory">Categoría Adulto-Masculino
+        <br class="eventsCategory">
 
       </h2>
 
@@ -665,7 +665,7 @@
     
         if (result.data && Array.isArray(result.data)) {
 
-          documento.getElementById("eventsCategory").innerHTML=`Edad comprendida: ${age} años, ${gender}`;
+          documento.getElementsByClassName("eventsCategory").innerHTML=`Edad comprendida: ${age} años, ${gender}`;          
          
           result.data.forEach(ev => {
             events[ev.date] = ev.eventName;

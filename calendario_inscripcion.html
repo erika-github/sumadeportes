@@ -569,6 +569,7 @@
     let age;
     let gender;
     let genderMap;
+    let eventos;
 
     const Mes = document.getElementById('mes');
     Mes.innerText = `${resultado.mesNombre} - ${resultado.anio}`;
@@ -643,6 +644,65 @@
     });
 
 
+    document.addEventListener('change', async function(event) {
+      // Verifica que el cambio provenga de un checkbox con la clase "inscribeCheckbox"
+      if (event.target.classList.contains('inscribeCheckbox')) {
+        const checkbox = event.target;
+        // Obtiene la fila correspondiente
+        const row = checkbox.closest('tr');
+        // Usa DataTables para obtener los datos de la fila (envuelve la fila en jQuery)
+        const data = $("#eventTable").DataTable().row($(row)).data();
+
+        const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
+        
+        // Preparo el objeto a enviar. 
+        const eventData = {
+          documentType: documentType,
+          documentNumber: documentNumber
+         
+        };
+
+        console.log("valor de eventData CheckBox"+eventData+"; "+"Nombre del evento::"+eventos.eventName);
+
+    
+        if (checkbox.checked) {
+          try {                           
+            const response = await fetch(`http://localhost:8085/mark/${eventos.eventName}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(eventData)
+            });
+            const responseData = await response.json();
+    
+            // Si el servicio responde exitosamente con code "200", actualizamos la celda de tiempo
+            if (responseData.code === "200") {
+              
+                row.cells[4].textContent = responseData.data;   
+              
+            } else {
+              await Swal.fire({
+                title: "Error",
+                text: responseData.message || "No se pudo actualizar el tiempo.",
+                icon: "error",
+                confirmButtonText: "Intentar nuevamente"
+              });
+            }
+          } catch (error) {
+            console.error("Error al llamar el servicio:", error);
+            Swal.fire({
+              title: "Error",
+              text: error.message || "No se pudo conectar con el servidor.",
+              icon: "error",
+              confirmButtonText: "Intentar nuevamente"
+            });
+          }
+        } else {
+          // Si se desmarca el checkbox
+          console.log("Checkbox desmarcado. No se realiza la llamada al servicio.");
+        }
+      }
+    });
+
 
     //*//
     function obtenerEventosSeleccionados() {
@@ -675,11 +735,25 @@
       return eventosSeleccionados;
     }
 
-    // Asumimos que tienes un botón con id "guardarEventos" para activar la acción
+
+    function obtenerCedulaInfo(labelId) {
+      // Obtener el contenido del label
+      const cedulaText = document.getElementById(labelId).innerText;
+    
+      // Extraer solo la parte después de "Cédula: "
+      const cedulaValue = cedulaText.replace("Cédula:", "").trim();
+    
+      // Dividir en tipo y número de documento (asumiendo formato "V-12345678")
+      const [documentType, documentNumber] = cedulaValue.split("-");
+    
+      return { documentType, documentNumber };
+    }
+
+   
     document.getElementById('registerEvent').addEventListener('click', async function () {
       const submitButton = document.getElementById("registerEvent"); 
-      const eventos = obtenerEventosSeleccionados();      
-      console.log(eventos);
+      eventos = obtenerEventosSeleccionados();      
+      console.log(eventos.eventName);
 
       // Validar si hay al menos un evento seleccionado
       if (eventos.length === 0) {
@@ -693,14 +767,15 @@
       }
 
       // Obtener el contenido del label
-      const cedulaText = document.getElementById("cedula").innerText;
+      /*const cedulaText = document.getElementById("cedula").innerText;
 
       // Extraer solo la parte después de "Cédula: "
       const cedulaValue = cedulaText.replace("Cédula:", "").trim();
 
       // Dividir en tipo y número de documento (asumiendo formato "V-12345678")
-      const [documentType, documentNumber] = cedulaValue.split("-");
+      const [documentType, documentNumber] = cedulaValue.split("-");*/
 
+      const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
 
       const requestData = {
         swimmerDocumentType: documentType,

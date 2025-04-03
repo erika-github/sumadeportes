@@ -646,9 +646,11 @@
     //*//
     function obtenerEventosSeleccionados() {
       const eventosSeleccionados = [];
+      var table = $('#eventTable').DataTable();
       // Seleccionamos los checkboxes marcados que están dentro de la tabla con id "eventTable"
       const checkboxes = document.querySelectorAll('#eventTable .inscribeCheckbox:checked');
-    
+      
+
       checkboxes.forEach(checkbox => {
         // Obtenemos la fila (<tr>) que contiene el checkbox
         const row = checkbox.closest('tr');

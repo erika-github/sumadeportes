@@ -675,7 +675,7 @@
     
         if (checkbox.checked) {
           try {                           
-            const response = await fetch(`http://localhost:8085/mark/${eventos.eventName}`, {
+            const response = await fetch(`http://localhost:8085/mark/${eventos[0].eventName}`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(eventData)

@@ -676,6 +676,7 @@
 
     // Asumimos que tienes un botón con id "guardarEventos" para activar la acción
     document.getElementById('registerEvent').addEventListener('click', async function () {
+      const submitButton = document.getElementById("registerEvent"); 
       const eventos = obtenerEventosSeleccionados();      
       console.log(eventos);
 
@@ -706,7 +707,7 @@
         eventsMarks: eventos
       };
 
-      console.log("requestData::::"+requestData);
+      console.log("requestData:::: " + JSON.stringify(requestData, null, 2));
       try {
         const response = await fetch("http://localhost:8085/eventsregister/create", {
           method: "POST",

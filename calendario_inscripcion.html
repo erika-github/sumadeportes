@@ -569,7 +569,7 @@
     let age;
     let gender;
     let genderMap;
-    let eventos;
+    let eventos = [];
 
     const Mes = document.getElementById('mes');
     Mes.innerText = `${resultado.mesNombre} - ${resultado.anio}`;
@@ -663,6 +663,12 @@
         };
 
         eventos = obtenerEventosSeleccionados(); 
+
+        if (eventos.length > 1) {
+          console.log("Valor de eventData CheckBox: " + eventData.documentType + "; " + eventData.documentNumber + "; Nombre del evento: " + eventos[1].eventName);
+        } else {
+          console.log("No hay suficientes eventos seleccionados. Eventos actuales:", eventos);
+        }
 
         console.log("valor de eventData CheckBox: "+eventData.documentType+"; "+eventData.documentNumber+ ";"+" Nombre del evento::"+eventos[1].eventName);
 

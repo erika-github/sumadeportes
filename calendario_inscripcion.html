@@ -425,8 +425,9 @@
       <thead>
 
         <tr>
-          <th style="width:50px">ID</th>
+          <th style="width:50px">#</th>
           <th>Fecha</th>
+          <th>Torneo</th>
           <!--<th>Hora</th>-->
           <th>Evento</th>
           <!--<th>Minutos</th>
@@ -975,6 +976,7 @@
                // `${day.toString().padStart(2, '0')}/01/2025`,  // Fecha en formato DD/MM/YYYY
                 `${day.toString().padStart(2, '0')}/${resultado.mes.toString().padStart(2, '0')}/${resultado.anio}`,
                 //hora,                                           // Hora extraída de "data"
+                tournamentsName,
                 eventName,                                      // Nombre del evento
                 /*createDropdown('minutes', Array.from({ length: 60 }, (_, i) => i)),
                 createDropdown('seconds', Array.from({ length: 60 }, (_, i) => i)),

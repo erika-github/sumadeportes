@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendario de Eventos - Enero 2025</title>
   <link rel="stylesheet" type="text/css" href="css/gestion.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
   <style>
@@ -664,10 +665,10 @@
         // Agregamos los datos de la fila al array
         eventosSeleccionados.push({
           //eventId: data[0],
-          fecha: data[1],
+          //fecha: data[1],
           tournamentsName: data[2],
           eventName: data[3],
-          tiempo: tiempo
+          mark: tiempo
         });
       });
 

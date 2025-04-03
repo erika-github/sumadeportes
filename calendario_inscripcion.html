@@ -664,7 +664,7 @@
 
         eventos = obtenerEventosSeleccionados(); 
 
-        console.log("valor de eventData CheckBox"+eventData+"; "+"Nombre del evento::"+eventos.eventName);
+        console.log("valor de eventData CheckBox: "+eventData.documentType+"; "+eventData.documentNumber+ ";"+" Nombre del evento::"+eventos[1]);
 
     
         if (checkbox.checked) {
@@ -755,7 +755,7 @@
     document.getElementById('registerEvent').addEventListener('click', async function () {
       const submitButton = document.getElementById("registerEvent"); 
       eventos = obtenerEventosSeleccionados();      
-      console.log(eventos.eventName);
+      console.log(eventos);
 
       // Validar si hay al menos un evento seleccionado
       if (eventos.length === 0) {

@@ -641,6 +641,59 @@
       }
     });
 
+
+
+    //*//
+    function obtenerEventosSeleccionados() {
+      const eventosSeleccionados = [];
+      // Seleccionamos los checkboxes marcados que están dentro de la tabla con id "eventTable"
+      const checkboxes = document.querySelectorAll('#eventTable .inscribeCheckbox:checked');
+    
+      checkboxes.forEach(checkbox => {
+        // Obtenemos la fila (<tr>) que contiene el checkbox
+        const row = checkbox.closest('tr');
+        // Utilizamos la instancia DataTables para extraer los datos de la fila
+        const data = table.row(row).data();
+        
+        // Suponiendo que la columna 5 (índice 4) contiene el tiempo,
+        // lo extraemos directamente del contenido textual de la celda
+        const tiempo = row.cells[4].textContent.trim();
+    
+        // Agregamos los datos de la fila al array
+        eventosSeleccionados.push({
+          //eventId: data[0],
+          fecha: data[1],
+          tournamentsName: data[2],
+          eventName: data[3],
+          tiempo: tiempo
+        });
+      });
+    
+      return eventosSeleccionados;
+    }
+    
+    // Asumimos que tienes un botón con id "guardarEventos" para activar la acción
+    document.getElementById('registerEvent').addEventListener('click', function() {
+      const eventos = obtenerEventosSeleccionados();
+      console.log(eventos);
+      
+      // Aquí podrías enviar 'eventos' a tu servicio, por ejemplo, utilizando fetch:
+      /*
+      fetch('ruta/a/tu/servicio', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventos)
+      })
+      .then(response => response.json())
+      .then(data => console.log('Eventos guardados', data))
+      .catch(error => console.error('Error al guardar eventos', error));
+      */
+    });
+
+    //*//
+
     //Función para buscar los eventos por fecha
 
     async function getEventsByDate(age, gender, resultado) {

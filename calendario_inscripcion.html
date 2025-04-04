@@ -654,15 +654,19 @@
         const data = $("#eventTable").DataTable().row($(row)).data();
 
         const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
+
+        eventos = obtenerEventosSeleccionados(); 
         
         // Preparo el objeto a enviar. 
         const eventData = {
-          documentType: documentType,
-          documentNumber: documentNumber
+          swimmerId:{
+            documentType:documentType,
+            documentNumber:documentNumber
+        },    
+        teamDescription: eventos[0].eventName
          
         };
-
-        eventos = obtenerEventosSeleccionados(); 
+       
 
        /* if (eventos.length > 1) {
           console.log("Valor de eventData CheckBox: " + eventData.documentType + "; " + eventData.documentNumber + "; Nombre del evento: " + eventos[0].eventName);
@@ -670,19 +674,18 @@
           console.log("No hay suficientes eventos seleccionados. Eventos actuales:", eventos);
         }*/
 
-        console.log("valor de eventData CheckBox: "+eventData.documentType+"; "+eventData.documentNumber+ ";"+" Nombre del evento::"+eventos[0].eventName);
+       // console.log("valor de eventData CheckBox: "+eventData.documentType+"; "+eventData.documentNumber+ ";"+" Nombre del evento::"+eventos[0].eventName);
 
     
         if (checkbox.checked) {
           try {                           
-            const response = await fetch(`http://localhost:8085/mark/getMark/${eventos[0].eventName}`, {
+            const response = await fetch("http://localhost:8085/mark/getMark", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(eventData)
             });
-            const responseData = await response.json();
-    
-            // Si el servicio responde exitosamente con code "200", actualizamos la celda de tiempo
+            const responseData = await response.json();    
+           
             if (responseData.code === "200") {
               
                 row.cells[4].textContent = responseData.data;   

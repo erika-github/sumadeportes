@@ -737,7 +737,7 @@
           );
 
           console.log("SELECTED_INDEX:::"+selectedIndex);
-          const adjustedIndex = selectedIndex - 1;
+         
 
           const checkbox = event.target;
           // Obtiene la fila correspondiente
@@ -748,7 +748,7 @@
           const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
 
           eventos = obtenerEventosSeleccionados();
-          console.log("EVENTOS:::"+eventos);
+          console.log("EVENTOS:::"+eventos[selectedIndex].eventName);
 
           // Preparo el objeto a enviar.
           const eventData = {
@@ -757,7 +757,7 @@
               documentNumber: documentNumber,
             },
             teamDescription:
-              eventos[adjustedIndex]?.eventName || "Evento no encontrado",
+              eventos[selectedIndex]?.eventName || "Evento no encontrado",
           };
 
           /* if (eventos.length > 1) {

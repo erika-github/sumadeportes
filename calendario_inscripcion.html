@@ -648,7 +648,7 @@
       // Verifica que el cambio provenga de un checkbox con la clase "inscribeCheckbox"
       if (event.target.classList.contains('inscribeCheckbox')) {
 
-        const selectedIndex = parseInt(e.target.getAttribute("data-index"));
+        const selectedIndex = parseInt(event.target.getAttribute("data-index"));
 
         const checkbox = event.target;
         // Obtiene la fila correspondiente
@@ -1196,7 +1196,7 @@
                 createDropdown('seconds', Array.from({ length: 60 }, (_, i) => i)),
                 createDropdown('centiseconds', Array.from({ length: 100 }, (_, i) => i)),*/
                 `<span class="time" data-id="${eventId - 1}">00:00:00</span>`,  // Span para el tiempo (puedes actualizarlo según necesidad)
-                `<input type="checkbox" class="inscribeCheckbox" data-index="${index} style="display: block; margin: 0 auto;">`,
+                `<input type="checkbox" class="inscribeCheckbox" data-index="${index}" style="display: block; margin: 0 auto;">`,
                 `<i class="fas fa-trash-alt" style="color: blue; cursor: pointer; display: block; margin: 0 auto;"></i>`
               ]).draw(false);
             }

@@ -745,6 +745,7 @@
           // Usa DataTables para obtener los datos de la fila (envuelve la fila en jQuery)
           const data = $("#eventTable").DataTable().row($(row)).data();
 
+          console.log("Data de la fila:", data);
           const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
 
           //eventos = obtenerEventosSeleccionados();

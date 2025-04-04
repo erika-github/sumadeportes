@@ -74,13 +74,15 @@ document.addEventListener("DOMContentLoaded", function () {
             });*/
 
             const response = {
-
-                message: "Login successful",
-                code: "200",
-                data: {
+                ok: true,
+                status: 200,
+                json: async () => ({
+                  message: "Login successful",
+                  code: "200",
+                  data: {
                     userId: {
-                        documentType: "V",
-                        documentNumber: "21444444"
+                      documentType: "V",
+                      documentNumber: "21444444"
                     },
                     firstName: "Erika",
                     lastName: "Diaz",
@@ -91,10 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     locked: false,
                     enabled: true,
                     firstTime: false,
-                    role: "ROLE_USER",
-
-                }
-
+                    role: "ROLE_USER"
+                  }
+                })
             }
 
           let responseData = await response.json();

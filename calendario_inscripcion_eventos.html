@@ -767,16 +767,7 @@
             "Datos del evento (formato JSON):",
             JSON.stringify(eventData, null, 2)
           );
-          console.log(
-            "valor de eventData CheckBox: " +
-              eventData.documentType +
-              "; " +
-              eventData.documentNumber +
-              ";" +
-              " Nombre del evento::" +
-              eventos[0].eventName
-          );
-
+          
           if (checkbox.checked) {
             try {
               const response = await fetch(
@@ -814,6 +805,8 @@
             console.log(
               "Checkbox desmarcado. No se realiza la llamada al servicio."
             );
+
+            row.cells[4].textContent = "00:00:00";
           }
         }
       });

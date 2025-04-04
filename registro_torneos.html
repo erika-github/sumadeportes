@@ -173,11 +173,11 @@
         .user-container p {
             position: absolute;
             top: 0px;
-            width: 15%;
+            width: auto;
             z-index: 100;
             margin-top: 0.5%;
             box-sizing: border-box;
-            right: 5%;
+            right: 10%;
         }
 
         #user-icon {
@@ -246,7 +246,7 @@
         <!-- Imagen de usuario -->
         <div class="user-container">
             <p style="font-size: 1.2vw; margin-top: 2%; color:#1535D6; text-decoration: underline;"
-                onclick="window.location.href='gestion.html'">Módulo de gestión</p>
+                onclick="window.location.href='gestion.html'">Gestión</p>
             <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
         </div>
     </div>
@@ -436,7 +436,7 @@
             }
         });
 
-       
+
         // Función de validación por campo
         function validateField(id, label) {
 
@@ -481,15 +481,25 @@
             var fechaInicioDate = new Date(fechaInicio);
             var fechaFinDate = new Date(fechaFin);
 
-            // Verificar si la fecha de inicio es mayor que la de fin o si la fecha de fin es menor que la de inicio
+            // Obtener la fecha actual sin hora
+            var hoy = new Date();
+            hoy.setHours(0, 0, 0, 0); // Eliminar hora, minutos, segundos y milisegundos
+
+            // Verificar si la fecha de inicio es mayor que la de fin
             if (fechaInicioDate > fechaFinDate) {
                 document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
                 event.preventDefault(); // Evita que se envíe el formulario
-                valid=false;
-            } else {
+                valid = false;
+            }
+            // Verificar si la fecha de inicio es menor que hoy
+            else if (fechaInicioDate < hoy) {
+                document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser menor que la fecha actual.";
+                event.preventDefault();
+                valid = false;
+            }
+            else {
                 document.getElementById("errorDate").innerText = ""; // Limpiar el mensaje de error
             }
-
 
             /**/
             return valid;
@@ -567,7 +577,7 @@
                 teamsContainer.style.display = 'flex';
                 teamsContainer.style.gap = '2vw';
                 column1.style.flex = '1';
-                column2.style.flex = '1';             
+                column2.style.flex = '1';
 
 
                 teamsContainer.appendChild(column1);

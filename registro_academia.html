@@ -170,11 +170,11 @@
     .user-container p {
       position: absolute;
       top: 0px;
-      width: 15%;
+      width: auto;
       z-index: 100;
       margin-top: 0.5%;
       box-sizing: border-box;
-      right: 5%;
+      right: 10%;
     }
 
     #user-icon {
@@ -248,7 +248,7 @@
             color: #1535d6;
             text-decoration: underline;
           " onclick="window.location.href='gestion.html'">
-        Módulo de gestión
+        Gestión
       </p>
       <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
     </div>
@@ -731,7 +731,7 @@
           console.error("Error: Respuesta inesperada del servicio", data);
         }
       } catch (error) {
-        console.error("Error al obtener los teams:", error);
+        console.error("Error al obtener los equipos:", error);
       }
     }
 

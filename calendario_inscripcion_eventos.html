@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendario de Eventos - Enero 2025</title>
+    <link rel="stylesheet" type="text/css" href="css/gestion.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
+    />
+    <style>
+      * {
+        /* Ancho del scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+          /* Para el scroll horizontal */
+        }
+
+        /* Fondo del scrollbar (Track) */
+        ::-webkit-scrollbar-track {
+          background: #f0f0f0;
+          border-radius: 10px;
+        }
+
+        /* Barra de desplazamiento (Thumb) */
+        ::-webkit-scrollbar-thumb {
+          background: lightgray;
+          /* Color azul */
+          border-radius: 10px;
+        }
+
+        /* Hover en la barra de desplazamiento */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #0056b3;
+        }
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        /*display: flex;
+      height: 100vh;*/
+        margin: 0;
+      }
+
+      .calendar-panel {
+        width: auto;
+        height: 100vh;
+        overflow-y: auto;
+        background-color: white;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        padding-right: 20px;
+        padding-left: 5px;
+        padding-top: 10px;
+        position: sticky;
+        top: 0;
+      }
+
+      .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .day-header {
+        font-weight: bold;
+        padding: 5px;
+        box-sizing: border-box;
+        background-color: lightgray;
+      }
+
+      .day {
+        /*background-color: white;*/
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        box-sizing: border-box;
+        position: relative;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      /* Hover aplicado solo a días con eventos */
+      .day.has-event:hover {
+        background-color: #e9f7ef;
+        transform: scale(1.1);
+      }
+
+      .event {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .planned {
+        background-color: lightgreen;
+      }
+
+      .finished {
+        background-color: lightgray;
+      }
+
+      .otherEvents {
+        background-color: white;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        position: absolute;
+        top: 5px;
+        left: 7px;
+        border: 1px solid black;
+      }
+
+      .selected {
+        background-color: green;
+      }
+
+      .events-container {
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-right: 5px;
+        flex-grow: 1;
+        text-align: center;
+        overflow-y: auto;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .dataTables_wrapper {
+        margin-bottom: 20px;
+      }
+
+      .dataTables_wrapper .dataTables_length {
+        margin-bottom: 15px;
+      }
+
+      table {
+        margin: 20px auto;
+        width: 90%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+
+      .legend {
+        margin-top: 10px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* circulo de la leyenda de Eventos Programados */
+      .legend .circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        /*background-color: lightgreen;*/
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+
+      .legend .planned-circle {
+        background-color: lightgreen;
+      }
+
+      .legend .finished-circle {
+        background-color: lightgray;
+      }
+
+      .legend .otherEvents-circle {
+        background-color: white;
+        border: 1px solid black;
+      }
+
+      .button-blue {
+        background-color: #012edc;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+      }
+
+      .button-orange {
+        background-color: #f5754c;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+      }
+
+      .user-container {
+        display: flex;
+        justify-content: space-between;
+        height: auto;
+        margin-left: 2%;
+        cursor: pointer;
+      }
+
+      .user-icon {
+        width: 4vw;
+        height: 4vw;
+        background-color: #f36621;
+        color: white;
+        font-size: 1.5vw;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      #img,
+      .user-container p {
+        position: absolute;
+        top: 0px;
+        width: auto;
+        z-index: 100;
+        margin-top: 0.5%;
+        box-sizing: border-box;
+        right: 5%;
+      }
+
+      #user-icon {
+        position: absolute;
+        top: 0px;
+        z-index: 100;
+        margin-top: 0.7%;
+        box-sizing: border-box;
+        right: 5%;
+      }
+
+      .user-menu {
+        display: none;
+        position: absolute;
+        right: 1%;
+        min-width: 13%;
+        max-width: 13%;
+        top: 5.4vw;
+        background-color: white;
+        border-radius: 0.5vw;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        padding-bottom: 1%;
+        z-index: 10000;
+      }
+
+      .user-menu-header {
+        background-color: #f2f2f2;
+        padding: 1.5vw;
+        color: #7f7f7f;
+        text-align: center;
+        font-weight: lighter;
+      }
+
+      .user-menu-content {
+        padding: 1vw;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .user-menu-content a {
+        text-decoration: none;
+        color: #7f7f7f;
+        padding: 0.7vw;
+        text-align: center;
+        border-radius: 0.3vw;
+        margin-top: 2%;
+        transition: background 0.3s ease;
+      }
+
+      .user-menu-content a:hover {
+        background: #f2f2f2;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  </head>
+
+  <body>
+    <div class="header-container">
+      <!-- Cintillo -->
+      <div style="height: 7vw; position: relative">
+        <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo" />
+      </div>
+      <!-- Logo -->
+      <div class="logoDiv">
+        <img
+          id="logo"
+          src="img/logo.png"
+          alt="Logo"
+          onclick="window.location.href='index_autenticado.html'"
+        />
+      </div>
+      <!-- Imagen de usuario -->
+      <div class="user-container">
+        <p
+          style="
+            font-size: 1.2vw;
+            margin-top: 2%;
+            right:27%;
+            color: #1535d6;
+            text-decoration: underline;
+          "
+          onclick="window.location.href='gestion.html'"
+        >
+          Gestión
+        </p>
+        <p
+          style="
+            font-size: 1.2vw;
+            margin-top: 2%;
+            right:10%;
+            color: #1535d6;
+            text-decoration: underline;
+          "
+          onclick="window.location.href='inscripcion_eventos_mes.html'"
+        >
+          Incripción a Eventos por Mes
+        </p>
+
+        <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
+      </div>
+    </div>
+
+    <!-- Menú emergente -->
+    <div class="user-menu" id="user-menu">
+      <div class="user-menu-header">
+        <p style="font-size: 1vw" id="userName">Nombre del Usuario</p>
+        <p style="font-size: 1vw" id="userRole">Rol del Usuario</p>
+      </div>
+      <div class="user-menu-content">
+        <a href="#" style="font-size: 1vw">Editar Perfil</a>
+        <a href="#" style="font-size: 1vw" onclick="logout()">Cerrar Sesión</a>
+      </div>
+    </div>
+
+    <div style="display: flex; height: 100vh">
+      <div class="calendar-panel">
+        <h1 style="text-align: center; font-size: 24px">
+          Calendario de Eventos
+        </h1>
+        <h2 style="text-align: center; margin-bottom: 50px" id="mes"></h2>
+        <div class="calendar" id="calendar">
+          <div class="day-header">D</div>
+          <div class="day-header">L</div>
+          <div class="day-header">M</div>
+          <div class="day-header">M</div>
+          <div class="day-header">J</div>
+          <div class="day-header">V</div>
+          <div class="day-header">S</div>
+        </div>
+
+        <div class="legend">
+          <div style="margin-top: 30px; font-size: 13px">
+            <div>
+              <span class="circle planned-circle"></span>Eventos Programados
+            </div>
+            <div class="eventsCategory"></div>
+            <div
+              class="clickable"
+              id="planned-Events"
+              style="
+                color: blue;
+                cursor: pointer;
+                text-decoration: underline;
+                margin-top: 5px;
+              "
+            >
+              ver todos
+              <i
+                id="eyeIcon-1"
+                class="fas fa-eye-slash"
+                style="color: #f5754c"
+              ></i>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px; font-size: 13px">
+            <div>
+              <span class="circle finished-circle"></span>Eventos Finalizados
+            </div>
+            <div class="eventsCategory"></div>
+            <div
+              class="clickable"
+              id="showFinished"
+              style="
+                color: blue;
+                cursor: pointer;
+                text-decoration: underline;
+                margin-top: 5px;
+              "
+            >
+              ver todos
+              <i
+                id="eyeIcon-2"
+                class="fas fa-eye-slash"
+                style="color: #f5754c"
+              ></i>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px; font-size: 13px">
+            <div>
+              <span class="circle otherEvents-circle"></span>Eventos Programados
+              y Finalizados
+            </div>
+            <div class="eventsCategory"></div>
+            <div
+              class="clickable"
+              id="showOtherEvents"
+              style="
+                color: blue;
+                cursor: pointer;
+                text-decoration: underline;
+                margin-top: 5px;
+              "
+            >
+              ver todos
+              <i
+                id="eyeIcon-3"
+                class="fas fa-eye-slash"
+                style="color: #f5754c"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="events-container">
+        <div style="" class="student-info">
+          <!--<div
+          style="margin-left:33%; margin-right:33%; border: 1px solid lightGray; background-color: #f9f9f9; padding:10px; margin-top:10px">-->
+          <div
+            style="
+              margin: 2vh auto; /* Margen vertical adaptable */
+
+              width: 25vw; /* Ancho relativo al viewport */
+              min-width: 20vw; /* Evita que sea demasiado pequeño */
+              max-width: 25vw; /* Evita que sea demasiado grande */
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              /*align-items: center;*/
+              border: 0.1vw solid #ccc; /* Borde adaptable */
+              background-color: #f9f9f9;
+              padding: 1.5vw; /* Espaciado interno relativo */
+              border-radius: 0.5vw; /* Bordes redondeados proporcionales */
+              box-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.1); /* Sombra adaptable */
+              font-size: 0.95vw; /* Tamaño de texto relativo */
+            "
+          >
+            <h2 style="margin-bottom: 2%">Datos del Nadador</h2>
+            <div style="text-align: start" id="cedula"></div>
+            <div style="text-align: start" id="nombre"></div>
+            <div style="text-align: start" id="apellido"></div>
+            <div style="text-align: start" id="sexo"></div>
+            <div style="text-align: start" id="edad"></div>
+            <div style="text-align: start" id="fechaNac"></div>
+          </div>
+        </div>
+        <h2 style="margin-top: 50px" id="calendarEventsTitle">
+          Eventos Programados Seleccionados en el Calendario
+          <i
+            class="fas fa-arrow-up"
+            style="color: blue; cursor: pointer; margin-left: 10px"
+            onclick="scrollToTop()"
+          ></i>
+          <br /><span class="eventsCategory"></span>
+        </h2>
+        <table id="eventTable" class="display">
+          <thead>
+            <tr>
+              <th style="width: 50px">#</th>
+              <th>Fecha</th>
+              <th>Torneo</th>
+              <!--<th>Hora</th>-->
+              <th>Evento</th>
+              <!--<th>Minutos</th>
+            <th>Segundos</th>
+            <th>Centésimas</th>-->
+              <th style="width: 50px">Tiempo</th>
+              <th style="width: 50px">Seleccionar</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button id="clearEvents" class="button-blue">Borrar Eventos</button>
+        <button id="registerEvent" class="button-orange">
+          Inscribirse en Evento
+        </button>
+
+        <div id="plannedEventsTableContainer" class="hidden">
+          <h2 id="plannedEventsTitle" style="margin-top: 150px">
+            Listado de Todos los
+            <span style="color: orangered">Eventos Programados </span>
+            <i
+              class="fas fa-arrow-up"
+              style="color: blue; cursor: pointer; margin-left: 10px"
+              onclick="scrollToTop()"
+            ></i>
+            <br /><span class="eventsCategory"></span>
+          </h2>
+
+          <table id="plannedEventsTable" class="display">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Torneo</th>
+                <th>Evento</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div id="finishedEventsTableContainer" class="hidden">
+          <h2 id="finishedEventsTitle" style="margin-top: 150px">
+            Listado de Todos los
+            <span style="color: orangered">Eventos Finalizados </span>
+            <i
+              class="fas fa-arrow-up"
+              style="color: blue; cursor: pointer; margin-left: 10px"
+              onclick="scrollToTop()"
+            ></i>
+            <br /><span class="eventsCategory"></span>
+          </h2>
+
+          <table id="finishedEventsTable" class="display">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Evento</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div id="otherEventsTableContainer" class="hidden">
+          <h2 id="otherEventsTitle" style="margin-top: 150px">
+            Listado de Todos los
+            <span style="color: orangered"
+              >Eventos Programados y Finalizados
+            </span>
+            <i
+              class="fas fa-arrow-up"
+              style="color: blue; cursor: pointer; margin-left: 10px"
+              onclick="scrollToTop()"
+            ></i>
+            <br />
+
+            (Otras Categorías)
+          </h2>
+
+          <table id="otherEventsTable" class="display">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Evento</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--<footer style="margin-top:0%">
+    <div id=footer_logo>
+      <img src="img/logo_.png" alt="">
+    </div>
+    <div id="academia">
+      <h2>Academia</h2>
+      <p>¿Cursos y horarios?</p>
+      <p>¿Dónde encontrarnos?</p>
+    </div>
+    <div id="informacion">
+      <h2>Información</h2>
+      <p>Preguntas frecuentes</p>
+    </div>
+
+  </footer>-->
+
+    <!--<div class="registro">
+    <div id="linea">
+    </div>
+    <div id="creadores">
+      <p>Suma Deportes, RIF J-00000000-0 Todos los derechos
+        reservados.
+        Powered by Lenin Manrique & Erika Díaz
+      </p>
+    </div>
+  </div>-->
+    <script>
+      /*document.addEventListener('click', function (event) {
+
+      const dropdowns = document.querySelectorAll('.custom-dropdown');
+      dropdowns.forEach(dropdown => {
+        const options = dropdown.querySelector('.dropdown-options');
+        if (dropdown.contains(event.target)) {
+          options.style.display = options.style.display === 'block' ? 'none' : 'block';
+        } else {
+          options.style.display = 'none';
+        }
+
+      });
+    });*/
+      // Variables globales
+      let selectedDates = [];
+      let events = {};
+      let eventId = 1;
+      let dataTableInstance;
+      let data;
+      let plannedEvents_ = [];
+      const parametros = obtenerParametrosURL();
+      const resultado = infoMes(parametros.mes, parametros.anio);
+      let age;
+      let gender;
+      let genderMap;
+      let eventos = [];
+
+      const Mes = document.getElementById("mes");
+      Mes.innerText = `${resultado.mesNombre} - ${resultado.anio}`;
+
+      // Función para cerrar sesión y redirigir a la página de inicio
+      function logout() {
+        sessionStorage.clear(); // Borra toda la información almacenada
+        window.location.href = "index.html"; // Redirige a la página de inicio
+      }
+
+      // Función para obtener las iniciales del usuario
+      function getInitials(firstName, lastName) {
+        if (!firstName || !lastName) return "U"; // Si no hay nombre, usa "U"
+        return (
+          firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase()
+        );
+      }
+
+      // Función para actualizar la información del usuario en el DOM
+      function updateUserInfo() {
+        // Recuperar datos desde sessionStorage
+        const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
+        const lastName = sessionStorage.getItem("userLastName") || "Apellido";
+        const userRole =
+          sessionStorage.getItem("userRole") || "Rol Predeterminado";
+
+        // Concatenar nombres y mostrar en los elementos correspondientes
+        const fullName = `${firstName} ${lastName}`;
+
+        const nameElem = document.getElementById("userName");
+        const roleElem = document.getElementById("userRole");
+
+        if (nameElem) nameElem.innerText = fullName;
+        if (roleElem) roleElem.innerText = userRole;
+      }
+
+      // Función para establecer el ícono del usuario con iniciales
+      function setUserIcon() {
+        // Actualizar información del usuario
+        updateUserInfo();
+
+        // Obtener nombre y apellido del sessionStorage
+        const firstName = sessionStorage.getItem("userFirstName");
+        const lastName = sessionStorage.getItem("userLastName");
+
+        // Asignar iniciales al ícono del usuario
+        const userIcon = document.getElementById("user-icon");
+        if (userIcon) {
+          userIcon.textContent = getInitials(firstName, lastName);
+        }
+      }
+
+      // Mostrar/ocultar el menú emergente y cambiar color del icono
+      function toggleUserMenu() {
+        const menu = document.getElementById("user-menu");
+        const userIcon = document.getElementById("user-icon");
+
+        if (menu) {
+          const isVisible = menu.style.display === "block";
+          menu.style.display = isVisible ? "none" : "block";
+          userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
+        }
+      }
+
+      // Cerrar el menú si se hace clic fuera de él
+      document.addEventListener("click", (event) => {
+        const menu = document.getElementById("user-menu");
+        const userIcon = document.getElementById("user-icon");
+        const userContainer = document.querySelector(".user-container");
+
+        if (
+          menu &&
+          userIcon &&
+          userContainer &&
+          !userContainer.contains(event.target)
+        ) {
+          menu.style.display = "none";
+          userIcon.style.backgroundColor = "#F36621";
+        }
+      });
+
+      document.addEventListener("change", async function (event) {
+        // Verifica que el cambio provenga de un checkbox con la clase "inscribeCheckbox"
+        if (event.target.classList.contains("inscribeCheckbox")) {
+          const selectedIndex = parseInt(
+            event.target.getAttribute("data-index")
+          );
+
+          const checkbox = event.target;
+          // Obtiene la fila correspondiente
+          const row = checkbox.closest("tr");
+          // Usa DataTables para obtener los datos de la fila (envuelve la fila en jQuery)
+          const data = $("#eventTable").DataTable().row($(row)).data();
+
+          const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
+
+          eventos = obtenerEventosSeleccionados();
+
+          // Preparo el objeto a enviar.
+          const eventData = {
+            swimmerId: {
+              documentType: documentType,
+              documentNumber: documentNumber,
+            },
+            teamDescription:
+              eventos[selectedIndex]?.eventName || "Evento no encontrado",
+          };
+
+          /* if (eventos.length > 1) {
+           console.log("Valor de eventData CheckBox: " + eventData.documentType + "; " + eventData.documentNumber + "; Nombre del evento: " + eventos[0].eventName);
+         } else {
+           console.log("No hay suficientes eventos seleccionados. Eventos actuales:", eventos);
+         }*/
+
+          console.log(eventData);
+          console.log(
+            "Datos del evento (formato JSON):",
+            JSON.stringify(eventData, null, 2)
+          );
+          console.log(
+            "valor de eventData CheckBox: " +
+              eventData.documentType +
+              "; " +
+              eventData.documentNumber +
+              ";" +
+              " Nombre del evento::" +
+              eventos[0].eventName
+          );
+
+          if (checkbox.checked) {
+            try {
+              const response = await fetch(
+                "http://localhost:8085/mark/getMark",
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(eventData),
+                }
+              );
+              const responseData = await response.json();
+
+              if (responseData.code === "200") {
+                row.cells[4].textContent = responseData.data;
+              } else {
+                await Swal.fire({
+                  title: "Error",
+                  text:
+                    responseData.message || "No se pudo actualizar el tiempo.",
+                  icon: "error",
+                  confirmButtonText: "Intentar nuevamente",
+                });
+              }
+            } catch (error) {
+              console.error("Error al llamar el servicio:", error);
+              Swal.fire({
+                title: "Error",
+                text: error.message || "No se pudo conectar con el servidor.",
+                icon: "error",
+                confirmButtonText: "Intentar nuevamente",
+              });
+            }
+          } else {
+            // Si se desmarca el checkbox
+            console.log(
+              "Checkbox desmarcado. No se realiza la llamada al servicio."
+            );
+          }
+        }
+      });
+
+      //*//
+      function obtenerEventosSeleccionados() {
+        const eventosSeleccionados = [];
+        var table = $("#eventTable").DataTable();
+        // Seleccionamos los checkboxes marcados que están dentro de la tabla con id "eventTable"
+        const checkboxes = document.querySelectorAll(
+          "#eventTable .inscribeCheckbox:checked"
+        );
+
+        checkboxes.forEach((checkbox) => {
+          // Obtenemos la fila (<tr>) que contiene el checkbox
+          const row = checkbox.closest("tr");
+          // Utilizamos la instancia DataTables para extraer los datos de la fila
+          const data = table.row(row).data();
+
+          // Suponiendo que la columna 5 (índice 4) contiene el tiempo,
+          // lo extraemos directamente del contenido textual de la celda
+          const tiempo = row.cells[4].textContent.trim();
+
+          // Agregamos los datos de la fila al array
+          eventosSeleccionados.push({
+            //eventId: data[0],
+            //fecha: data[1],
+            tournamentName: data[2],
+            eventName: data[3],
+            mark: tiempo,
+          });
+        });
+
+        return eventosSeleccionados;
+      }
+
+      function obtenerCedulaInfo(labelId) {
+        // Obtener el contenido del label
+        const cedulaText = document.getElementById(labelId).innerText;
+
+        // Extraer solo la parte después de "Cédula: "
+        const cedulaValue = cedulaText.replace("Cédula:", "").trim();
+
+        // Dividir en tipo y número de documento (asumiendo formato "V-12345678")
+        const [documentType, documentNumber] = cedulaValue.split("-");
+
+        return { documentType, documentNumber };
+      }
+
+      document
+        .getElementById("registerEvent")
+        .addEventListener("click", async function () {
+          const submitButton = document.getElementById("registerEvent");
+          eventos = obtenerEventosSeleccionados();
+          console.log(eventos);
+
+          // Validar si hay al menos un evento seleccionado
+          if (eventos.length === 0) {
+            await Swal.fire({
+              title: "Advertencia",
+              text: "Debe seleccionar al menos un evento para continuar.",
+              icon: "warning",
+              confirmButtonText: "Aceptar",
+            });
+            return; // Detiene la ejecución si no hay eventos seleccionados
+          }
+
+          // Obtener el contenido del label
+          /*const cedulaText = document.getElementById("cedula").innerText;
+
+      // Extraer solo la parte después de "Cédula: "
+      const cedulaValue = cedulaText.replace("Cédula:", "").trim();
+
+      // Dividir en tipo y número de documento (asumiendo formato "V-12345678")
+      const [documentType, documentNumber] = cedulaValue.split("-");*/
+
+          const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
+
+          const requestData = {
+            swimmerDocumentType: documentType,
+            swimmerDocumentNumber: documentNumber,
+            eventsMarks: eventos,
+          };
+
+          console.log(
+            "requestData:::: " + JSON.stringify(requestData, null, 2)
+          );
+          try {
+            const response = await fetch(
+              "http://localhost:8085/eventsregister/create",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestData),
+              }
+            );
+            const responseData = await response.json();
+            if (responseData.code === "201") {
+              await Swal.fire({
+                title: "Registro exitoso",
+                text: "El nadador se ha inscrito correctamente.",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+              });
+              window.location.href = "gestion.html";
+            } else if (responseData.code === "409") {
+              await Swal.fire({
+                title: "Error",
+                text: "El nadador ya se encuentra registrado en esos eventos",
+                icon: "error",
+                confirmButtonText: "Intentar nuevamente",
+              });
+            } else {
+              throw new Error(
+                responseData.message || "Error al registrar el evento."
+              );
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            Swal.fire({
+              title: "Error",
+              text: error.message || "No se pudo conectar con el servidor.",
+              icon: "error",
+              confirmButtonText: "Intentar nuevamente",
+            });
+          } finally {
+            submitButton.disabled = false;
+          }
+        });
+      //*//
+
+      //Función para buscar los eventos por fecha
+
+      async function getEventsByDate(age, gender, resultado) {
+        // Obtenemos el mes a partir del objeto "resultado"
+        const month = resultado.mes;
+        const firstLetterGender = gender.charAt(0); // Obtiene 'f'
+        // Construimos la URL con los parámetros deseados
+        const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${firstLetterGender}&age=${age}`;
+
+        console.log("url: " + url);
+
+        console.log("edad: " + age + " genero: " + gender + " mes: " + month);
+        try {
+          const response = await fetch(url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          // Convertimos la respuesta a JSON y la renombramos a "result" para evitar confusiones
+          const result = await response.json();
+          console.log("Respuesta completa del servidor:", result);
+          console.log("Código de respuesta:", result.code);
+          console.log("Datos recibidos:", result.data);
+          console.log("Tipo de result.data:", typeof result.data);
+          console.log("Es un array?:", Array.isArray(result.data));
+
+          if (result.data && Array.isArray(result.data)) {
+            let elements = document.getElementsByClassName("eventsCategory");
+
+            for (let elem of elements) {
+              elem.innerHTML = `Dentro de la Categoría: ${age} Años, ${genderMap[gender]}`;
+            }
+
+            result.data.forEach((ev) => {
+              events[ev.date] = ev.eventName;
+            });
+
+            plannedEvents_ = result.data || [];
+
+            // plannedEvents = response.data || [];
+
+            createCalendar(resultado.dias, resultado.primerDiaNumero);
+            //console.log("Eventos obtenidos:", result.data);
+            // Aquí puedes continuar con el procesamiento de result.data
+          } else {
+            console.error("Error en la respuesta:", result);
+          }
+        } catch (error) {
+          console.error("Error en la solicitud:", error.message);
+        }
+      }
+
+      // Función para buscar el nadador
+      async function searchSwimmer() {
+        const requestData = {
+          documentType: sessionStorage.getItem("userTypeDoc") || "",
+          documentNumber: sessionStorage.getItem("userDoc") || "",
+        };
+
+        console.log("Tipo de documento: " + requestData.documentType);
+        console.log("Número de documento: " + requestData.documentNumber);
+
+        try {
+          const response = await fetch(
+            "http://localhost:8085/swimmer/getById",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(requestData),
+            }
+          );
+          const result = await response.json(); // Renombramos data a result para evitar confusión
+
+          if (result.code === "200" && result.data) {
+            // Mapeo de género de inglés a español
+            genderMap = {
+              male: "Masculino",
+              female: "Femenino",
+              OTHER: "Otro",
+            };
+
+            // Función para formatear la fecha de aaaa-mm-dd a dd/mm/aaaa
+            function formatDate(isoDate) {
+              if (!isoDate) return "Fecha no disponible";
+              const [year, month, day] = isoDate.split("-");
+              return `${day}/${month}/${year}`;
+            }
+
+            let age = result.data.age;
+            let gender = result.data.gender;
+            document.getElementById(
+              "cedula"
+            ).innerHTML = `<strong>Cédula:</strong> ${result.data.swimmerId.documentType}-${result.data.swimmerId.documentNumber}`;
+            document.getElementById(
+              "nombre"
+            ).innerHTML = `<strong>Nombre:</strong> ${result.data.firstName}`;
+            document.getElementById(
+              "apellido"
+            ).innerHTML = `<strong>Apellido:</strong> ${result.data.firstSurename}`;
+            document.getElementById(
+              "sexo"
+            ).innerHTML = `<strong>Género:</strong> ${
+              genderMap[result.data.gender] || "No especificado"
+            }`;
+            document.getElementById(
+              "edad"
+            ).innerHTML = `<strong>Edad:</strong> ${result.data.age}`;
+            document.getElementById(
+              "fechaNac"
+            ).innerHTML = `<strong>Fecha de Nacimiento:</strong> ${formatDate(
+              result.data.birthDate
+            )}`;
+            getEventsByDate(age, gender, resultado);
+          } else {
+            console.error("Error: Respuesta inesperada del servicio", result);
+          }
+        } catch (error) {
+          console.error("Error al obtener los datos del nadador:", error);
+        }
+      }
+      //async function fetchEvents() {
+      // Simulación de datos
+      /* data = [
+       {
+         day: 15, hora: ["03:30 pm", "02:05 pm", "10:00 am", "02:00 pm"], names: ["25 LIBRE Adulto M", "50 LIBRE Adulto M", "25 LIBRE Adulto M", "50 LIBRE Adulto M"]
+       },
+       { day: 18, hora: ["11:00 am"], names: ["25 MARIPOSA Adulto M"] },
+       { day: 20, hora: ["09:30 am"], names: ["50 MARIPOSA Adulto M"] },
+       { day: 25, hora: ["09:30 am", "04:00 pm", "03:40 pm"], names: ["25 ESPALDA Adulto M", "50 ESPALDA Adulto M", "50 ESPALDA Adulto M"] },
+       { day: 30, hora: ["05:00 pm"], names: ["50 ESPALDA Adulto M"] },
+     ];
+
+
+     data.forEach(ev => {
+       events[ev.day] = ev.names;
+     });
+
+     createCalendar(resultado.dias, resultado.primerDiaNumero);*/
+      //}
+
+      /*let plannedEvents = [
+
+      {
+        id: 1, date: 15, name: ["25 LIBRE Adulto M", "50 LIBRE Adulto M", "25 LIBRE Adulto M", "50 LIBRE Adulto M"],
+        status: ["PROGRAMADO", "PROGRAMADO", "PROGRAMADO", "PROGRAMADO"]
+      },
+      { id: 2, date: 18, name: ["25 MARIPOSA Adulto M"], status: ["PROGRAMADO"] },
+      { id: 3, date: 20, name: ["50 MARIPOSA Adulto M"], status: ["PROGRAMADO"] },
+      { id: 4, date: 25, name: ["25 ESPALDA Adulto M", "50 ESPALDA Adulto M", "50 ESPALDA Adulto M"], status: ["PROGRAMADO", "PROGRAMADO", "PROGRAMADO"] },
+      { id: 5, date: 30, name: ["50 ESPALDA Adulto M"], status: ["PROGRAMADO"] }
+
+    ]*/
+
+      let finishedEvents = [
+        { id: 1, date: 2, name: ["25 MARIPOSA"], status: ["FINALIZADO"] },
+        { id: 2, date: 5, name: ["50 MARIPOSA"], status: ["FINALIZADO"] },
+        { id: 3, date: 8, name: ["25 ESPALDA"], status: ["FINALIZADO"] },
+        { id: 4, date: 10, name: ["50 ESPALDA"], status: ["FINALIZADO"] },
+      ];
+
+      let otherEvents = [
+        {
+          id: 1,
+          date: 8,
+          name: ["NADO LIBRE, 3-4 años F", "LIBRE 5-6 años F"],
+          status: ["FINALIZADO", "PROGRAMADO"],
+        },
+        {
+          id: 2,
+          date: 12,
+          name: ["NADO LIBRE, 3-4 años M"],
+          status: ["FINALIZADO"],
+        },
+        {
+          id: 3,
+          date: 15,
+          name: ["25 TABLA 5, años F"],
+          status: ["FINALIZADO"],
+        },
+        {
+          id: 4,
+          date: 16,
+          name: ["50 TABLA 5, años M"],
+          status: ["PROGRAMADO"],
+        },
+        {
+          id: 5,
+          date: 17,
+          name: ["50 TABLA 6-7, años F"],
+          status: ["PROGRAMADO"],
+        },
+        {
+          id: 6,
+          date: 31,
+          name: ["50 TABLA 6-7, años M"],
+          status: ["FINALIZADO"],
+        },
+      ];
+
+      // Función para obtener los parámetros de la URL
+      function obtenerParametrosURL() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          mes: params.get("mes"),
+          anio: params.get("anio"),
+        };
+      }
+
+      // Función para obtener la cantidad de días y el primer día de la semana de un mes dado
+      //function infoMes(mesParametro, anioParametro = new Date().getFullYear()) {
+      function infoMes(mesParametro, anioParametro) {
+        // Convertir el parámetro mes a número
+        const mes = parseInt(mesParametro, 10);
+
+        if (isNaN(mes) || mes < 1 || mes > 12) {
+          return {
+            error: "El parámetro 'mes' debe ser un número entre 1 y 12.",
+          };
+        }
+
+        // Lista de nombres de los meses en español
+        const nombresMeses = [
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre",
+        ];
+
+        // Para obtener el primer día de la semana, se resta 1 al mes (porque en JavaScript enero es 0)
+        const primerDiaFecha = new Date(anioParametro, mes - 1, 1);
+        const primerDia = primerDiaFecha.getDay(); // 0 = Domingo, 1 = Lunes, etc.
+
+        // Para obtener la cantidad de días del mes, se crea una fecha con el día 0 del mes siguiente
+        const diasEnMes = new Date(anioParametro, mes, 0).getDate();
+
+        // Opcional: convertir el número de día en nombre (en español)
+        const diasSemana = [
+          "Domingo",
+          "Lunes",
+          "Martes",
+          "Miércoles",
+          "Jueves",
+          "Viernes",
+          "Sábado",
+        ];
+
+        return {
+          anio: anioParametro,
+          mes: mes,
+          mesNombre: nombresMeses[mes - 1],
+          dias: diasEnMes,
+          primerDiaNumero: primerDia,
+          primerDiaNombre: diasSemana[primerDia],
+        };
+      }
+
+      function createCalendar(dias, primerDia) {
+        const calendar = document.getElementById("calendar");
+        const daysOfWeek = ["D", "L", "M", "M", "J", "V", "S"];
+        const startDay = primerDia; // Miércoles: espacios vacíos al inicio
+        const daysInMonth = dias;
+        calendar.innerHTML = "";
+
+        // Agregar encabezados de días
+        daysOfWeek.forEach((day) => {
+          const dayElement = document.createElement("div");
+          dayElement.classList.add("day-header");
+          dayElement.textContent = day;
+          calendar.appendChild(dayElement);
+        });
+
+        // Crear espacios vacíos del mes
+        for (let i = 0; i < startDay; i++) {
+          const emptyCell = document.createElement("div");
+          calendar.appendChild(emptyCell);
+        }
+
+        // Crear días del mes
+        for (let i = 1; i <= daysInMonth; i++) {
+          let day = document.createElement("div");
+          day.classList.add("day");
+          day.textContent = i;
+
+          // Si hay eventos para ese día, se añade un indicador y la clase correspondiente
+          if (events[i]) {
+            day.classList.add("has-event");
+            const eventIndicator = document.createElement("div");
+            eventIndicator.classList.add("event", "planned");
+            day.appendChild(eventIndicator);
+            day.addEventListener("click", () => selectEvent(i));
+          }
+
+          // Verificar si el día tiene un evento finalizado
+          if (finishedEvents.some((event) => event.date === i)) {
+            let finishedEventIndicator = document.createElement("div");
+            finishedEventIndicator.classList.add("event", "finished");
+            day.appendChild(finishedEventIndicator);
+          }
+
+          // Verificar si existen otros eventos
+          if (otherEvents.some((event) => event.date === i)) {
+            let otherEvents = document.createElement("div");
+            otherEvents.classList.add("event", "otherEvents");
+            day.appendChild(otherEvents);
+          }
+
+          calendar.appendChild(day);
+        }
+      }
+
+      function selectEvent(day) {
+        let index = selectedDates.indexOf(day);
+
+        const dayElement = document
+          .querySelectorAll(".day")
+          [day - 1]?.querySelector(".event");
+        console.log("dayElement: " + dayElement);
+
+        if (!dayElement) return; // Evita errores si el elemento no existe
+        // Asegurar que el elemento tiene la clase "planned"
+        dayElement.classList.add("planned");
+
+        if (index === -1) {
+          // Agrega el día a la lista de días seleccionados
+
+          selectedDates.push(day);
+          dayElement.classList.add("selected"); // Se activa el color verde oscuro
+        } else {
+          // Elimina el día de la lista
+          selectedDates.splice(index, 1);
+          dayElement.classList.remove("selected"); // Regresa a verde claro
+
+          const table = $("#eventTable").DataTable();
+          const dayFormatted = `${day
+            .toString()
+            .padStart(2, "0")}/${resultado.mes.toString().padStart(2, "0")}/${
+            resultado.anio
+          }`;
+
+          const rowIndexes = table
+            .rows()
+            .indexes()
+            .toArray()
+            .filter((index) => {
+              const rowData = table.row(index).data();
+              return rowData[1] === dayFormatted;
+            });
+
+          for (let i = rowIndexes.length - 1; i >= 0; i--) {
+            table.row(rowIndexes[i]).remove();
+          }
+
+          if (rowIndexes.length > 0) {
+            table.draw(false); // Redibuja solo si se eliminó alguna fila
+          }
+        }
+
+        updateTable();
+        reorganizeIndexes();
+      }
+
+      function updateTable() {
+        let table = $("#eventTable").DataTable();
+        let existingData = table.rows().data().toArray(); // Obtener todos los registros actuales en la tabla
+
+        selectedDates.forEach((day) => {
+          // Buscar en "data" el objeto que coincide con el día
+
+          let eventData = plannedEvents_.find((item) => item.date === day);
+
+          if (eventData) {
+            // Recorrer los nombres y obtener la hora correspondiente (por índice)
+            eventData.eventName.forEach((eventName, index) => {
+              //let hora = eventData.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
+
+              let tournamentsName = eventData.tournamentsName[index] || "";
+
+              // Verificar si el registro ya existe en la tabla, comparando fecha y nombre del evento
+              let isExisting = existingData.some((row) => {
+                //return row[1] === `${day.toString().padStart(2, '0')}/01/2025` && row[2] === eventName;
+                return (
+                  row[1] ===
+                    `${day.toString().padStart(2, "0")}/${resultado.mes
+                      .toString()
+                      .padStart(2, "0")}/${resultado.anio}` &&
+                  row[2] === tournamentsName &&
+                  row[3] === eventName
+                );
+              });
+
+              if (!isExisting) {
+                // Función para crear dropdown (se mantiene comentada si no la usas)
+                const createDropdown = (name, options) => {
+                  return `
+                  <div class="custom-dropdown">
+                    <div class="dropdown-selected" data-type="${name}" data-id="${eventId}">00</div>
+                    <div class="dropdown-options">
+                      ${options
+                        .map(
+                          (option) =>
+                            `<div class="dropdown-option" onclick="selectOption(${eventId}, '${name}', ${option})">${
+                              option < 10 ? "0" + option : option
+                            }</div>`
+                        )
+                        .join("")}
+                    </div>
+                  </div>
+                `;
+                };
+
+                table.row
+                  .add([
+                    eventId++,
+                    // `${day.toString().padStart(2, '0')}/01/2025`,  // Fecha en formato DD/MM/YYYY
+                    `${day.toString().padStart(2, "0")}/${resultado.mes
+                      .toString()
+                      .padStart(2, "0")}/${resultado.anio}`,
+                    //hora,                                           // Hora extraída de "data"
+                    tournamentsName,
+                    eventName, // Nombre del evento
+                    /*createDropdown('minutes', Array.from({ length: 60 }, (_, i) => i)),
+                createDropdown('seconds', Array.from({ length: 60 }, (_, i) => i)),
+                createDropdown('centiseconds', Array.from({ length: 100 }, (_, i) => i)),*/
+                    `<span class="time" data-id="${
+                      eventId - 1
+                    }">00:00:00</span>`, // Span para el tiempo (puedes actualizarlo según necesidad)
+                    `<input type="checkbox" class="inscribeCheckbox" data-index="${index}" style="display: block; margin: 0 auto;">`,
+                    `<i class="fas fa-trash-alt" style="color: blue; cursor: pointer; display: block; margin: 0 auto;"></i>`,
+                  ])
+                  .draw(false);
+              }
+            });
+          }
+        });
+      }
+
+      function updateTable_() {
+        let table = $("#eventTable").DataTable();
+        let existingData = table.rows().data().toArray(); // Obtener todos los registros actuales en la tabla
+
+        selectedDates.forEach((day) => {
+          (events[day] || []).forEach((eventName) => {
+            // Verificar si el evento ya está en la tabla
+            let isExisting = existingData.some((row) => {
+              return (
+                row[1] === `${day.toString().padStart(2, "0")}/01/2025` &&
+                row[2] === eventName
+              ); // Comparar la fecha y el nombre del evento
+            });
+
+            if (!isExisting) {
+              const createDropdown = (name, options) => {
+                return `
+                                  <div class="custom-dropdown">
+                                      <div class="dropdown-selected" data-type="${name}" data-id="${eventId}">00</div>
+                                      <div class="dropdown-options">
+                                          ${options
+                                            .map(
+                                              (option) =>
+                                                `<div class="dropdown-option" onclick="selectOption(${eventId}, '${name}', ${option})">${
+                                                  option < 10
+                                                    ? "0" + option
+                                                    : option
+                                                }</div>`
+                                            )
+                                            .join("")}
+                                      </div>
+                                  </div>
+                              `;
+              };
+
+              table.row
+                .add([
+                  eventId++,
+                  `${day.toString().padStart(2, "0")}/01/2025`,
+                  eventName,
+                  /*createDropdown('minutes', Array.from({ length: 60 }, (_, i) => i)),
+              createDropdown('seconds', Array.from({ length: 60 }, (_, i) => i)),
+              createDropdown('centiseconds', Array.from({ length: 100 }, (_, i) => i)),*/
+                  `<span class="time" data-id="${eventId - 1}">00:00:00</span>`, // Añadir data-id para identificar el registro
+                  `<input type="checkbox" class="inscribeCheckbox" style="display: block; margin: 0 auto;">`,
+                  `<i class="fas fa-trash-alt" style="color: blue; cursor: pointer; display: block; margin: 0 auto;"></i>`,
+                ])
+                .draw(false);
+            }
+          });
+        });
+
+        reorganizeIndexes();
+      }
+
+      function getTimeValues(eventName) {
+        return {
+          minutes: "00",
+          seconds: "00",
+          centiseconds: "00",
+          time: "00:00:00",
+        };
+      }
+
+      /*function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }*/
+
+      function scrollToTop() {
+        const container = document.querySelector(".events-container"); // Reemplaza con el ID o clase de tu contenedor
+        if (container) {
+          container.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function scrollToBottom() {
+        document.querySelectorAll(".events-container").forEach((container) => {
+          container.scrollTo({
+            top: container.scrollHeight,
+            behavior: "smooth",
+          });
+        });
+      }
+
+      $(document).ready(function () {
+        // Inicializar DataTable y guardar la instancia globalmente
+        dataTableInstance = $("#eventTable").DataTable({
+          language: {
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ entradas",
+            infoEmpty: "Mostrando _TOTAL_ entradas",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            paginate: {
+              first: "Primero",
+              last: "Último",
+              next: "Siguiente",
+              previous: "Anterior",
+            },
+            emptyTable:
+              "Seleccione alguno de los eventos programados en el calendario",
+          },
+        });
+
+        let plannedTable = $("#plannedEventsTable").DataTable({
+          language: {
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ entradas",
+            infoEmpty: "Mostrando _TOTAL_ entradas",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            paginate: {
+              first: "Primero",
+              last: "Último",
+              next: "Siguiente",
+              previous: "Anterior",
+            },
+            emptyTable: "No hay datos disponibles en la tabla",
+          },
+        });
+
+        let otherEventsTable = $("#otherEventsTable").DataTable({
+          language: {
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ entradas",
+            infoEmpty: "Mostrando _TOTAL_ entradas",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            paginate: {
+              first: "Primero",
+              last: "Último",
+              next: "Siguiente",
+              previous: "Anterior",
+            },
+            emptyTable: "No hay datos disponibles en la tabla",
+          },
+        });
+
+        let finishedTable = $("#finishedEventsTable").DataTable({
+          language: {
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ entradas",
+            infoEmpty: "Mostrando _TOTAL_ entradas",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            paginate: {
+              first: "Primero",
+              last: "Último",
+              next: "Siguiente",
+              previous: "Anterior",
+            },
+            emptyTable: "No hay datos disponibles en la tabla",
+          },
+        });
+
+        $("#eventTable tbody").on("click", ".fa-trash-alt", function () {
+          const table = $("#eventTable").DataTable();
+          let row = table.row($(this).parents("tr"));
+          let rowData = row.data();
+
+          let date = parseInt(rowData[1].split("/")[0]); // Extrae el día (asumiendo formato DD/MM/YYYY)
+
+          // Filtra los registros para ver si todavía hay eventos con la misma fecha
+          let remainingRows = table
+            .rows()
+            .data()
+            .toArray()
+            .filter((data) => parseInt(data[1].split("/")[0]) === date);
+
+          // Elimina la fila seleccionada
+          row.remove().draw();
+
+          // Si no quedan eventos para ese día, elimina la clase 'selected'
+          if (remainingRows.length === 1) {
+            let dayElement = document
+              .querySelectorAll(".day")
+              [date - 1]?.querySelector(".event");
+            if (dayElement) {
+              dayElement.classList.remove("selected");
+              selectedDates = [];
+            }
+          }
+
+          reorganizeIndexes();
+        });
+
+        $("#clearEvents").on("click", function () {
+          const table = $("#eventTable").DataTable();
+          table.clear().draw();
+          selectedDates = [];
+          createCalendar(resultado.dias, resultado.primerDiaNumero);
+          eventId = 1;
+        });
+
+        $("#planned-Events").on("click", function () {
+          let idCounter = 1;
+          let plannedEventsTable = $("#plannedEventsTable").DataTable();
+          plannedEventsTable.clear().draw(); // Limpiar la tabla antes de agregar nuevos registros
+
+          // Cambiar el icono del ojo
+          $("#eyeIcon-1").toggleClass("fa-eye fa-eye-slash");
+          $("#eyeIcon-1").css(
+            "color",
+            $("#eyeIcon-1").hasClass("fa-eye") ? "#012EDC" : "#f5754C"
+          );
+
+          plannedEvents_.forEach((event) => {
+            event.eventName.forEach((eventName, index) => {
+              // let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
+
+              let status = "PROGRAMADO" || "";
+              let tournamentsName = event.tournamentsName[index] || "";
+
+              plannedEventsTable.row
+                .add([
+                  idCounter++, // Genera un ID autoincremental
+                  //`${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
+                  `${event.date.toString().padStart(2, "0")}/${resultado.mes
+                    .toString()
+                    .padStart(2, "0")}/${resultado.anio}`,
+                  tournamentsName,
+                  eventName, // Nombre del evento
+                  status, // Estado del evento
+                ])
+                .draw(false);
+            });
+          });
+          $("#plannedEventsTableContainer").toggleClass("hidden");
+
+          // Desplazar el scroll hacia el título de eventos finalizados
+          const plannedTitle = document.getElementById("plannedEventsTitle");
+          if (plannedTitle) {
+            plannedTitle.scrollIntoView({
+              behavior: "smooth", // Desplazamiento suave
+              block: "start", // Asegura que el título quede al inicio de la vista
+            });
+          }
+        });
+
+        $("#showFinished").on("click", function () {
+          let idCounter = 1;
+          let finishedTable = $("#finishedEventsTable").DataTable();
+
+          finishedTable.clear().draw(); // Limpiar la tabla antes de agregar nuevos registros
+
+          // Cambiar el icono del ojo
+          $("#eyeIcon-2").toggleClass("fa-eye fa-eye-slash");
+          $("#eyeIcon-2").css(
+            "color",
+            $("#eyeIcon-2").hasClass("fa-eye") ? "#012EDC" : "#f5754C"
+          );
+
+          finishedEvents.forEach((event) => {
+            event.name.forEach((name, index) => {
+              let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
+
+              finishedTable.row
+                .add([
+                  idCounter++, // Genera un ID autoincremental
+                  //`${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
+                  `${event.date.toString().padStart(2, "0")}/${resultado.mes
+                    .toString()
+                    .padStart(2, "0")}/${resultado.anio}`,
+                  name, // Nombre del evento
+                  status, // Estado del evento
+                ])
+                .draw(false);
+            });
+          });
+          $("#finishedEventsTableContainer").toggleClass("hidden");
+
+          // Desplazar el scroll hacia el título de eventos finalizados
+          const finishedTitle = document.getElementById("finishedEventsTitle");
+          if (finishedTitle) {
+            finishedTitle.scrollIntoView({
+              behavior: "smooth", // Desplazamiento suave
+              block: "start", // Asegura que el título quede al inicio de la vista
+            });
+          }
+        });
+
+        $("#showOtherEvents").on("click", function () {
+          let idCounter = 1;
+          let otherEventsTable = $("#otherEventsTable").DataTable();
+
+          otherEventsTable.clear().draw(); // Limpiar la tabla antes de agregar nuevos registros
+
+          // Cambiar el icono del ojo
+          $("#eyeIcon-3").toggleClass("fa-eye fa-eye-slash");
+          $("#eyeIcon-3").css(
+            "color",
+            $("#eyeIcon-3").hasClass("fa-eye") ? "#012EDC" : "#f5754C"
+          );
+
+          otherEvents.forEach((event) => {
+            event.name.forEach((name, index) => {
+              let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
+
+              otherEventsTable.row
+                .add([
+                  idCounter++, // Genera un ID autoincremental
+                  //`${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
+                  `${event.date.toString().padStart(2, "0")}/${resultado.mes
+                    .toString()
+                    .padStart(2, "0")}/${resultado.anio}`,
+                  name, // Nombre del evento
+                  status, // Estado del evento
+                ])
+                .draw(false);
+            });
+          });
+
+          $("#otherEventsTableContainer").toggleClass("hidden");
+          const otherEventsTitle = document.getElementById("otherEventsTitle");
+          if (otherEventsTitle) {
+            otherEventsTitle.scrollIntoView({
+              behavior: "smooth", // Desplazamiento suave
+              block: "start", // Asegura que el título quede al inicio de la vista
+            });
+          }
+        });
+      });
+
+      function reorganizeIndexes() {
+        let filas = document.querySelectorAll("#eventTable tbody tr");
+        const table = $("#eventTable").DataTable();
+
+        // Usamos DataTables para verificar si hay filas visibles
+        if (table.rows({ filter: "applied" }).data().length === 0) {
+          const mensajeFila = document.createElement("tr");
+          // Comprobamos si ya hay una fila con el mensaje
+          if (
+            !document.querySelector(
+              '#eventTable tbody tr[data-empty-message="true"]'
+            )
+          ) {
+            mensajeFila.setAttribute("data-empty-message", "true");
+            document
+              .querySelector("#eventTable tbody")
+              .appendChild(mensajeFila);
+          }
+
+          eventId = 1;
+        } else {
+          // Si hay registros, se reorganizan los índices
+          filas.forEach((fila, index) => {
+            fila.cells[0].textContent = index + 1; // Actualiza el índice de la primera celda
+          });
+        }
+      }
+
+      setUserIcon();
+      //fetchEvents();
+      searchSwimmer();
+
+      $("#registerEvent").click(function () {
+        /* alert('Función de registro de eventos a implementar');*/
+      });
+    </script>
+  </body>
+</html>

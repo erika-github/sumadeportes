@@ -747,8 +747,8 @@
 
           const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
 
-          eventos = obtenerEventosSeleccionados();
-          console.log("EVENTOS:::"+eventos[selectedIndex].eventName);
+          //eventos = obtenerEventosSeleccionados();
+          //console.log("EVENTOS:::"+eventos[selectedIndex].eventName);
 
           // Preparo el objeto a enviar.
           const eventData = {
@@ -757,7 +757,7 @@
               documentNumber: documentNumber,
             },
             teamDescription:
-              eventos[selectedIndex]?.eventName || "Evento no encontrado",
+              data.eventName || "Evento no encontrado",
           };
 
           /* if (eventos.length > 1) {

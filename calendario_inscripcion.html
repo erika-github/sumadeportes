@@ -674,7 +674,9 @@
           console.log("No hay suficientes eventos seleccionados. Eventos actuales:", eventos);
         }*/
 
-       // console.log("valor de eventData CheckBox: "+eventData.documentType+"; "+eventData.documentNumber+ ";"+" Nombre del evento::"+eventos[0].eventName);
+        console.log(eventData)
+        console.log("Datos del evento (formato JSON):", JSON.stringify(eventData, null, 2));
+        console.log("valor de eventData CheckBox: "+eventData.documentType+"; "+eventData.documentNumber+ ";"+" Nombre del evento::"+eventos[0].eventName);
 
     
         if (checkbox.checked) {

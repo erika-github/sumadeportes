@@ -737,6 +737,7 @@
           );
 
           console.log("SELECTED_INDEX:::"+selectedIndex);
+          const adjustedIndex = selectedIndex - 1;
 
           const checkbox = event.target;
           // Obtiene la fila correspondiente
@@ -755,7 +756,7 @@
               documentNumber: documentNumber,
             },
             teamDescription:
-              eventos[selectedIndex]?.eventName || "Evento no encontrado",
+              eventos[adjustedIndex]?.eventName || "Evento no encontrado",
           };
 
           /* if (eventos.length > 1) {

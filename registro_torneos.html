@@ -478,12 +478,14 @@
             var fechaFin = document.getElementById("endDate").value;
 
             // Convertir las fechas a objetos Date
-            var fechaInicioDate = new Date(fechaInicio);
+            //var fechaInicioDate = new Date(fechaInicio);
+            var fechaInicioParts = fechaInicio.split('-'); // Suponiendo formato "YYYY-MM-DD"
+            var fechaInicioDate = new Date(fechaInicioParts[0], fechaInicioParts[1] - 1, fechaInicioParts[2]);
             var fechaFinDate = new Date(fechaFin);
 
             // Obtener la fecha actual sin hora
             var hoy = new Date();
-           // hoy.setHours(0, 0, 0, 0); // Eliminar hora, minutos, segundos y milisegundos
+            hoy.setHours(0, 0, 0, 0); // Eliminar hora, minutos, segundos y milisegundos
 
             console.log("Fecha hoy::"+hoy);
             console.log("fecha inicio::"+fechaInicioDate);

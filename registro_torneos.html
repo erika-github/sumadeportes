@@ -444,10 +444,10 @@
             console.log("ID original:", id);
             console.log("ID construido:", "error" + id.charAt(0).toUpperCase() + id.slice(1));
 
+             // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
 
-            console.log("Elemento obtenido:", errorField);
-            // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
+            console.log("Elemento obtenido:", errorField);           
             
             // Si es el contenedor de checkboxes para equipos, se valida que se seleccione al menos uno
             if (id === "teams_container") {
@@ -495,6 +495,7 @@
             if (fechaInicioDate > fechaFinDate) {
                 //document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
                 errorField.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
+                errorField.style.display = "block";
                 event.preventDefault(); // Evita que se envíe el formulario
                 valid = false;
             }
@@ -502,12 +503,14 @@
             else if (fechaInicioDate < hoy) {
                 //document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser menor que la fecha actual.";
                 errorField.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
+                errorField.style.display = "block";
                 event.preventDefault();
                 valid = false;
             }
             else {
                 //document.getElementById("errorDate").innerText = ""; // Limpiar el mensaje de error
                 errorField.textContent = "";
+                errorField.style.display = "none";
             }
 
             /**/

@@ -616,9 +616,10 @@
                 if (element) {
                     element.addEventListener("input", function () {
                        const prueba= validateField(id, fieldLabels[id]);
+                       console.log("valor del validate:::"+prueba);
                     });
 
-                    console.log("valor del validate:::"+prueba);
+                    
                 }
             });
         }

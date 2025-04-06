@@ -442,8 +442,7 @@
 
             let valid = true;
             // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
-            const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-            console.log("error:::" + errorField)
+            const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));           
 
             // Si es el contenedor de checkboxes para equipos, se valida que se seleccione al menos uno
             if (id === "teams_container") {
@@ -487,23 +486,23 @@
             var hoy = new Date();
             hoy.setHours(0, 0, 0, 0); // Eliminar hora, minutos, segundos y milisegundos
 
-            console.log("Fecha hoy::"+hoy);
-            console.log("fecha inicio::"+fechaInicioDate);
-
             // Verificar si la fecha de inicio es mayor que la de fin
-            if (fechaInicioDate > fechaFinDate) {
-                document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
+            if (fechaInicioDate > fechaFinDate) {               
+                //document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
+                errorField.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
                 event.preventDefault(); // Evita que se envíe el formulario
                 valid = false;
             }
             // Verificar si la fecha de inicio es menor que hoy
             else if (fechaInicioDate < hoy) {
-                document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser menor que la fecha actual.";
+                //document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser menor que la fecha actual.";
+                errorField.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
                 event.preventDefault();
                 valid = false;
             }
             else {
-                document.getElementById("errorDate").innerText = ""; // Limpiar el mensaje de error
+                //document.getElementById("errorDate").innerText = ""; // Limpiar el mensaje de error
+                errorField.textContent = "";
             }
 
             /**/

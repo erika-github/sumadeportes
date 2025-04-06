@@ -144,6 +144,7 @@
             color: red;
             font-size: 0.95vw;
             margin-top: 1%;
+            display:none;
         }
 
         /* Estilos adicionales para header, menú y demás secciones */
@@ -275,7 +276,7 @@
             </select>
             <span class="error" id="errorTournament"></span>
 
-            <label for="numeroEquipo" style="margin-top:3%">Número Equipo:</label>
+            <label for="numeroEquipo" style="margin-top:4.5%">Número Equipo:</label>
             <input type="number" id="numeroEquipo" name="numeroEquipo" oninput="limitarLongitud(this)" />
             <span class="error" id="errorNumeroEquipo"></span>
 
@@ -325,6 +326,7 @@
             <label for="startDate">Fecha Inicio:</label>
             <input type="date" id="startDate" name="startDate">
             <span class="error" id="errorStartDate"></span>
+            <span class="error" id="errorDate"></span>
         </div>
 
         <div class="form-group">
@@ -332,7 +334,7 @@
             <input type="date" id="endDate" name="endDate">
             <span class="error" id="errorEndDate"></span>
         </div>
-        <span class="error" id="errorDate"></span>
+        <!--<span class="error" id="errorDate"></span>-->
 
 
         <div class="submit-container">
@@ -370,6 +372,7 @@
 
         const form = document.querySelector("form");
         const submitButton = form.querySelector("button[type='submit']");
+        const errorDate = document.getElementById("errorDate");
         // Función para cerrar sesión
         var valid = true;
         function logout() {
@@ -574,33 +577,36 @@
             var hoy = new Date();
             hoy.setHours(0, 0, 0, 0);
 
-            if (fechaInicio == "" && fechaFin == "") {
+           /* if (fechaInicio == "" && fechaFin == "") {
 
                 //errorField.textContent = "";
                 //errorField.style.display = "block";
                 valid = false;
                 console.log("SON VACÏOS:::")
-            }
+            }*/          
 
             // Verificar si la fecha de inicio es mayor que la de fin
-            else if (fechaInicioDate > fechaFinDate) {
-                errorField.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
-                errorField.style.display = "block";
-                console.log("Se mete aqui 3 fechas menor inicio fin:::" + errorField)
+            if (fechaInicioDate > fechaFinDate) {
+               
+                //errorField.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
+                //errorField.style.display = "block";
+                errorDate.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
+                errorDate.style.display="block";   
                 event.preventDefault(); // Evita que se envíe el formulario
                 valid = false;
             }
             // Verificar si la fecha de inicio es menor que hoy
             else if (fechaInicioDate < hoy) {
-                errorField.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
-                errorField.style.display = "block";
-                console.log("Se mete aqui 4 fechas menor a hoy:::" + errorField)
+                //errorField.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
+                //errorField.style.display = "block";
+                errorDate.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
+                errorDate.style.display="block";
                 event.preventDefault();
                 valid = false;
 
             }else{
-                errorField.textContent = "";
-                errorField.style.display = "none";
+                errorDate.textContent = " ";
+                errorDate.style.display="none";                
                 valid = true;
 
             }            

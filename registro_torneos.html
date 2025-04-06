@@ -485,6 +485,9 @@
             var hoy = new Date();
             hoy.setHours(0, 0, 0, 0); // Eliminar hora, minutos, segundos y milisegundos
 
+            console.log("Fecha hoy::"+hoy);
+            console.log("fecha inicio::"+fechaInicioDate);
+
             // Verificar si la fecha de inicio es mayor que la de fin
             if (fechaInicioDate > fechaFinDate) {
                 document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";

@@ -574,8 +574,16 @@
             var hoy = new Date();
             hoy.setHours(0, 0, 0, 0);
 
+            if (fechaInicioDate == "" || fechaFinDate == "") {
+
+                //errorField.textContent = "";
+                //errorField.style.display = "block";
+                valid = false;
+                console.log("SON VACÏOS:::")
+            }
+
             // Verificar si la fecha de inicio es mayor que la de fin
-            if (fechaInicioDate > fechaFinDate) {
+            else if (fechaInicioDate > fechaFinDate) {
                 errorField.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
                 errorField.style.display = "block";
                 console.log("Se mete aqui 3 fechas menor inicio fin:::" + errorField)
@@ -595,13 +603,7 @@
                 errorField.style.display = "none";
                 valid = true;
 
-            }
-            if (fechaInicioDate == "" || fechaFinDate == "") {
-
-                errorField.textContent = "";
-                errorField.style.display = "block";
-                valid = false;
-            }
+            }            
 
             return valid;
         }

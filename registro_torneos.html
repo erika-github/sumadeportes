@@ -332,7 +332,7 @@
             <input type="date" id="endDate" name="endDate">
             <span class="error" id="errorEndDate"></span>
         </div>
-        <span class="error" id="errorDate"></span>
+        <!--<span class="error" id="errorDate"></span>-->
 
 
         <div class="submit-container">
@@ -487,18 +487,18 @@
 
             // Verificar si la fecha de inicio es mayor que la de fin
             if (fechaInicioDate > fechaFinDate) {
-                document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
+                document.getElementById("error").innerText = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
                 event.preventDefault(); // Evita que se envíe el formulario
                 valid = false;
             }
             // Verificar si la fecha de inicio es menor que hoy
             else if (fechaInicioDate < hoy) {
-                document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser menor que la fecha actual.";
+                document.getElementById("error").innerText = "La Fecha Inicio no puede ser menor que la fecha actual.";
                 event.preventDefault();
                 valid = false;
             }
             else {
-                document.getElementById("errorDate").innerText = ""; // Limpiar el mensaje de error
+                document.getElementById("error").innerText = ""; // Limpiar el mensaje de error
             }
 
             /**/

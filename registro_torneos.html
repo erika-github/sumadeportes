@@ -538,7 +538,7 @@
                 if (checkboxes.length === 0) {
                     errorField.textContent = `Debes seleccionar al menos un ${label}.`;
                     errorField.style.display = "block";
-                    console.log("Se mete aqui 1:::"+errorField)
+                    console.log("Se mete aqui 1:::" + errorField)
                     valid = false;
                 } else {
                     errorField.textContent = "";
@@ -551,7 +551,7 @@
                 if (!field || field.value.trim() === "") {
                     errorField.textContent = `${label} es requerido.`;
                     errorField.style.display = "block";
-                    console.log("Se mete aqui 2:::"+errorField)
+                    console.log("Se mete aqui 2:::" + errorField)
                     valid = false;
                 } else {
                     errorField.textContent = "";
@@ -578,7 +578,7 @@
             if (fechaInicioDate > fechaFinDate) {
                 errorField.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
                 errorField.style.display = "block";
-                console.log("Se mete aqui 3 fechas menor inicio fin:::"+errorField)
+                console.log("Se mete aqui 3 fechas menor inicio fin:::" + errorField)
                 event.preventDefault(); // Evita que se envíe el formulario
                 valid = false;
             }
@@ -586,13 +586,21 @@
             else if (fechaInicioDate < hoy) {
                 errorField.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
                 errorField.style.display = "block";
-                console.log("Se mete aqui 4 fechas menor a hoy:::"+errorField)
+                console.log("Se mete aqui 4 fechas menor a hoy:::" + errorField)
                 event.preventDefault();
                 valid = false;
-            } else {
+
+            }else{
                 errorField.textContent = "";
-                errorField.style.display = "none";                
+                errorField.style.display = "none";
                 valid = true;
+
+            }
+            if (fechaInicioDate == "" || fechaFinDate == "") {
+
+                errorField.textContent = "";
+                errorField.style.display = "block";
+                valid = false;
             }
 
             return valid;
@@ -615,16 +623,16 @@
                 const element = document.getElementById(id);
                 if (element) {
                     element.addEventListener("input", function () {
-                       const prueba= validateField(id, fieldLabels[id]);
-                       console.log("valor del validate:::"+prueba);
+                        const prueba = validateField(id, fieldLabels[id]);
+                        console.log("valor del validate:::" + prueba);
                     });
 
-                    
+
                 }
             });
         }
 
-     
+
 
         // Función para validar todos los campos antes de enviar el formulario
         function validateForm() {

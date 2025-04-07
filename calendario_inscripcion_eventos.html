@@ -731,13 +731,7 @@
 
       document.addEventListener("change", async function (event) {
         // Verifica que el cambio provenga de un checkbox con la clase "inscribeCheckbox"
-        if (event.target.classList.contains("inscribeCheckbox")) {
-          const selectedIndex = parseInt(
-            event.target.getAttribute("data-index")
-          );
-
-          console.log("SELECTED_INDEX:::"+selectedIndex);
-         
+        if (event.target.classList.contains("inscribeCheckbox")) {          
 
           const checkbox = event.target;
           // Obtiene la fila correspondiente
@@ -747,10 +741,7 @@
 
           console.log("Data de la fila:", data);
           const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
-
-          //eventos = obtenerEventosSeleccionados();
-          //console.log("EVENTOS:::"+eventos[selectedIndex].eventName);
-
+          
           // Preparo el objeto a enviar.
           const eventData = {
             swimmerId: {
@@ -760,12 +751,7 @@
             teamDescription:
             data[3] || "Evento no encontrado",
           };
-
-          /* if (eventos.length > 1) {
-           console.log("Valor de eventData CheckBox: " + eventData.documentType + "; " + eventData.documentNumber + "; Nombre del evento: " + eventos[0].eventName);
-         } else {
-           console.log("No hay suficientes eventos seleccionados. Eventos actuales:", eventos);
-         }*/
+         
 
           console.log(eventData);
           console.log(
@@ -1097,10 +1083,10 @@
     ]*/
 
       let finishedEvents = [
-        { id: 1, date: 2, name: ["25 MARIPOSA"], status: ["FINALIZADO"] },
-        { id: 2, date: 5, name: ["50 MARIPOSA"], status: ["FINALIZADO"] },
-        { id: 3, date: 8, name: ["25 ESPALDA"], status: ["FINALIZADO"] },
-        { id: 4, date: 10, name: ["50 ESPALDA"], status: ["FINALIZADO"] },
+        { id: 1, date: 1, name: ["25 MARIPOSA"], status: ["FINALIZADO"] },
+        { id: 2, date: 3, name: ["50 MARIPOSA"], status: ["FINALIZADO"] },
+        { id: 3, date: 4, name: ["25 ESPALDA"], status: ["FINALIZADO"] },
+        { id: 4, date: 6, name: ["50 ESPALDA"], status: ["FINALIZADO"] },
       ];
 
       let otherEvents = [

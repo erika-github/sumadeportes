@@ -570,15 +570,12 @@
               // Convertir la fecha de fin a objeto Date usando el formato "YYYY-MM-DD"
             var fechaDatePartsfin = fechaFin.split('-');
             var fechaFinDate = new Date(fechaDatePartsfin[0], fechaDatePartsfin[1] - 1, fechaDatePartsfin[2]);
-           
-            //var fechaFinDate = new Date(fechaFin);
+                  
 
             // Obtener la fecha actual sin hora
             var hoy = new Date();
             hoy.setHours(0, 0, 0, 0);
-
-            console.log("Fecha-Inicio: "+ fechaInicioDate+"; "+"Fecha-fin: "+fechaFinDate)
-
+            
             if (fechaInicioDate < hoy) {
                 errorDate.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
                 errorDate.style.display = "block";
@@ -589,17 +586,12 @@
                 errorDate.style.display = "block";
                 event.preventDefault();
                 valid = false;
-            } else if (fechaInicioDate.getTime() === fechaFinDate.getTime()) {
-                console.log("Son iguales:::")
-                // Si son iguales, limpiar error explícitamente
-                errorDate.textContent = "";
-                errorDate.style.display = "none";
-                //valid = true;
+           
             } else {
-                // Fechas válidas y distintas
+                // Fechas válidas
                 errorDate.textContent = "";
                 errorDate.style.display = "none";
-                //valid = true;
+                
             }
             return valid;
 

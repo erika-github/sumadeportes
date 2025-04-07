@@ -566,8 +566,12 @@
             // Convertir la fecha de inicio a objeto Date usando el formato "YYYY-MM-DD"
             var fechaInicioParts = fechaInicio.split('-');
             var fechaInicioDate = new Date(fechaInicioParts[0], fechaInicioParts[1] - 1, fechaInicioParts[2]);
-            // Convertir la fecha de fin; aquí se asume que el navegador interpreta correctamente el formato
-            var fechaFinDate = new Date(fechaFin);
+
+              // Convertir la fecha de fin a objeto Date usando el formato "YYYY-MM-DD"
+            var fechaDatePartsfin = fechaFin.split('-');
+            var fechaFinDate = new Date(fechaDatePartsfin[0], fechaDatePartsfin[1] - 1, fechaDatePartsfin[2]);
+           
+            //var fechaFinDate = new Date(fechaFin);
 
             // Obtener la fecha actual sin hora
             var hoy = new Date();

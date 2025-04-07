@@ -526,12 +526,12 @@
         // Función de validación por campo
         function validateField(id, label) {
             let valid = true;
-            console.log("ID original:", id);
-            console.log("ID construido:", "error" + id.charAt(0).toUpperCase() + id.slice(1));
+            /*console.log("ID original:", id);
+            console.log("ID construido:", "error" + id.charAt(0).toUpperCase() + id.slice(1));*/
 
             // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-            console.log("Elemento obtenido:", errorField);
+           // console.log("Elemento obtenido:", errorField);
 
             // Validación para contenedor de checkboxes para equipos
             if (id === "teams_container") {
@@ -539,8 +539,7 @@
                 const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
                 if (checkboxes.length === 0) {
                     errorField.textContent = `Debes seleccionar al menos un ${label}.`;
-                    errorField.style.display = "block";
-                    console.log("Se mete aqui 1:::" + errorField)
+                    errorField.style.display = "block";                  
                     valid = false;
                 } else {
                     errorField.textContent = "";
@@ -552,8 +551,7 @@
                 const field = document.getElementById(id);
                 if (!field || field.value.trim() === "") {
                     errorField.textContent = `${label} es requerido.`;
-                    errorField.style.display = "block";
-                    console.log("Se mete aqui 2:::" + errorField)
+                    errorField.style.display = "block";                   
                     valid = false;
                 } else {
                     errorField.textContent = "";
@@ -575,6 +573,7 @@
             var hoy = new Date();
             hoy.setHours(0, 0, 0, 0);
 
+            console.log("Fecha-Inicio: "+ fechaInicioDate+"; "+"Fecha-fin: "+fechaFinDate)
 
             if (fechaInicioDate < hoy) {
                 errorDate.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
@@ -587,15 +586,16 @@
                 event.preventDefault();
                 valid = false;
             } else if (fechaInicioDate.getTime() === fechaFinDate.getTime()) {
+                console.log("Son iguales:::")
                 // Si son iguales, limpiar error explícitamente
                 errorDate.textContent = "";
                 errorDate.style.display = "none";
-                valid = true;
+                //valid = true;
             } else {
                 // Fechas válidas y distintas
                 errorDate.textContent = "";
                 errorDate.style.display = "none";
-                valid = true;
+                //valid = true;
             }
             return valid;
 
@@ -619,7 +619,7 @@
                 if (element) {
                     element.addEventListener("input", function () {
                         const prueba = validateField(id, fieldLabels[id]);
-                        console.log("valor del validate:::" + prueba);
+                       
                     });
 
 

@@ -144,7 +144,7 @@
             color: red;
             font-size: 0.95vw;
             margin-top: 1%;
-            display:none;
+            display: none;
         }
 
         /* Estilos adicionales para header, menú y demás secciones */
@@ -333,8 +333,7 @@
             <label for="endDate">Fecha Fin:</label>
             <input type="date" id="endDate" name="endDate">
             <span class="error" id="errorEndDate"></span>
-        </div>
-        <!--<span class="error" id="errorDate"></span>-->
+        </div>     
 
 
         <div class="submit-container">
@@ -562,8 +561,7 @@
                     valid = true;
                 }
             }
-
-            // Validación de fechas (asumiendo que estos campos existen en el DOM)
+            
             var fechaInicio = document.getElementById("startDate").value;
             var fechaFin = document.getElementById("endDate").value;
 
@@ -577,39 +575,34 @@
             var hoy = new Date();
             hoy.setHours(0, 0, 0, 0);
 
-           /* if (fechaInicio == "" && fechaFin == "") {
-
-                //errorField.textContent = "";
-                //errorField.style.display = "block";
-                valid = false;
-                console.log("SON VACÏOS:::")
-            }*/          
+           
 
             // Verificar si la fecha de inicio es mayor que la de fin
             if (fechaInicioDate > fechaFinDate) {
                
-                //errorField.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
-                //errorField.style.display = "block";
                 errorDate.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
-                errorDate.style.display="block";   
+                errorDate.style.display = "block";
                 event.preventDefault(); // Evita que se envíe el formulario
                 valid = false;
+            } else {
+                errorDate.textContent = " ";
+                errorDate.style.display = "none";
+
             }
             // Verificar si la fecha de inicio es menor que hoy
-            else if (fechaInicioDate < hoy) {
-                //errorField.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
-                //errorField.style.display = "block";
+            if (fechaInicioDate < hoy) {
+                
                 errorDate.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
-                errorDate.style.display="block";
+                errorDate.style.display = "block";
                 event.preventDefault();
                 valid = false;
 
-            }else{
+            } else {
                 errorDate.textContent = " ";
-                errorDate.style.display="none";                
+                errorDate.style.display = "none";
                 //valid = true;
 
-            }            
+            }
 
             return valid;
         }

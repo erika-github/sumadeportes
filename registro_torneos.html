@@ -333,7 +333,7 @@
             <label for="endDate">Fecha Fin:</label>
             <input type="date" id="endDate" name="endDate">
             <span class="error" id="errorEndDate"></span>
-        </div>     
+        </div>
 
 
         <div class="submit-container">
@@ -561,7 +561,7 @@
                     valid = true;
                 }
             }
-            
+
             var fechaInicio = document.getElementById("startDate").value;
             var fechaFin = document.getElementById("endDate").value;
 
@@ -575,36 +575,29 @@
             var hoy = new Date();
             hoy.setHours(0, 0, 0, 0);
 
-           
 
-            // Verificar si la fecha de inicio es mayor que la de fin
+            // Verificar si la fecha de inicio es mayor que la fecha fin
             if (fechaInicioDate > fechaFinDate) {
-               
                 errorDate.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
                 errorDate.style.display = "block";
                 event.preventDefault(); // Evita que se envíe el formulario
                 valid = false;
-            } else {
-                errorDate.textContent = " ";
-                errorDate.style.display = "none";
-
             }
-            // Verificar si la fecha de inicio es menor que hoy
-            if (fechaInicioDate < hoy) {
-                
-                errorDate.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
+            // Verificar si la fecha de inicio es mayor que la fecha actual
+            else if (fechaInicioDate > hoy) {
+                errorDate.textContent = "La Fecha Inicio no puede ser mayor que la fecha actual.";
                 errorDate.style.display = "block";
                 event.preventDefault();
                 valid = false;
-
             } else {
-                errorDate.textContent = " ";
+                // Si no se cumple ninguna de las condiciones anteriores,
+                // se oculta el mensaje de error y se permite el envío
+                errorDate.textContent = "";
                 errorDate.style.display = "none";
-                //valid = true;
-
             }
 
             return valid;
+
         }
 
 

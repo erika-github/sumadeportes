@@ -905,9 +905,9 @@
               window.location.href = "gestion.html";
             } else if (responseData.code === "409") {
               await Swal.fire({
-                title: "Error",
-                text: "El nadador ya se encuentra registrado en esos eventos",
-                icon: "error",
+                title: "warning",
+                text: "El nadador ya se encuentra registrado en uno o más eventos seleccionados",
+                icon: "warning",
                 confirmButtonText: "Intentar nuevamente",
               });
             } else {
@@ -1093,30 +1093,30 @@
         
         {
           id: 1,
-          date: 12,
+          date: 1,
           name: ["NADO LIBRE, 3-4 años M"],
           status: ["PROGRAMADO"],
         },
         {
           id: 2,
-          date: 15,
+          date: 2,
           name: ["25 TABLA 5, años F"],
           status: ["PROGRAMADO"],
         },
         {
           id: 3,
-          date: 16,
+          date: 3,
           name: ["50 TABLA 5, años M"],
           status: ["PROGRAMADO"],
         },
         {
           id: 4,
-          date: 17,
+          date: 5,
           name: ["50 TABLA 6-7, años F"],
           status: ["PROGRAMADO"],
         },
         {
-          id: 5,
+          id: 6,
           date: 31,
           name: ["50 TABLA 6-7, años M"],
           status: ["PROGRAMADO"],

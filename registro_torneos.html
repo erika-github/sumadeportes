@@ -576,22 +576,20 @@
             hoy.setHours(0, 0, 0, 0);
 
 
-            // Verificar si la fecha de inicio es mayor que la fecha fin
-            if (fechaInicioDate > fechaFinDate) {
-                errorDate.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
+            // Primero, verificamos que la fecha de inicio no sea menor que la fecha actual
+            if (fechaInicioDate < hoy) {
+                errorDate.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
                 errorDate.style.display = "block";
                 event.preventDefault(); // Evita que se envíe el formulario
                 valid = false;
             }
-            // Verificar si la fecha de inicio es mayor que la fecha actual
-            else if (fechaInicioDate > hoy) {
-                errorDate.textContent = "La Fecha Inicio no puede ser mayor que la fecha actual.";
+            // Luego, verificamos que la fecha de inicio no sea mayor que la fecha fin
+            else if (fechaInicioDate > fechaFinDate) {
+                errorDate.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
                 errorDate.style.display = "block";
                 event.preventDefault();
                 valid = false;
             } else {
-                // Si no se cumple ninguna de las condiciones anteriores,
-                // se oculta el mensaje de error y se permite el envío
                 errorDate.textContent = "";
                 errorDate.style.display = "none";
             }

@@ -764,11 +764,12 @@
             window.location.href = "gestion.html";
           } else if (responseData.code === "409") {
             await Swal.fire({
-              title: "Error",
-              text: "Ya existe un pago registrado con ese número de referencia",
-              icon: "error",
+              title: "Advertencia",
+              text: "El nadador ya se encuentra registrado en uno o más eventos seleccionados",
+              icon: "warning",
               confirmButtonText: "Intentar nuevamente",
             });
+            window.location.href = "inscripcion_eventos_mes.html";
           } else {
             throw new Error(
               responseData.message || "Error al registrar el pago."

@@ -317,8 +317,8 @@ correo.addEventListener("input", function () {
     try {
 
       // Realiza la solicitud al servidor  
-      const response = await fetch ("https://1c28-107-170-56-246.ngrok-free.app/user/create", {      
-      //const response = await fetch("http://localhost:8085/user/create", {
+      //const response = await fetch ("https://1c28-107-170-56-246.ngrok-free.app/user/create", {      
+      const response = await fetch("http://localhost:8085/user/create", {
         //const response = await fetch("https://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:443/user/create", {
         method: "POST",
         headers: {

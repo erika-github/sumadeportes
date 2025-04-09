@@ -885,7 +885,7 @@
           console.log(
             "requestData:::: " + JSON.stringify(requestData, null, 2)
           );
-          try {
+         /* try {
             const response = await fetch(
               "http://localhost:8085/eventsregister/create",
               {
@@ -896,19 +896,16 @@
             );
             const responseData = await response.json();
             if (responseData.code === "201") {
-              /*await Swal.fire({
-                title: "Registro exitoso",
-                text: "El nadador se ha inscrito correctamente.",
-                icon: "success",
-                confirmButtonText: "Aceptar",
-              });*/
+             
               await Swal.fire({
                 title: "Inscripción",
                 text: "¿Desea realizar el pago de su inscripción?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Sí",
-                cancelButtonText: "No"
+                cancelButtonText: "No",
+                confirmButtonColor: "#007bff",    // Azul para "Sí"
+                cancelButtonColor: "#d6d6d6"      // Gris claro para "No"
               }).then((result) => {
                 if (result.isConfirmed) {
                   // Redirecciona a la página de pago
@@ -947,7 +944,72 @@
           } finally {
             submitButton.disabled = false;
           }
-        });
+        });*/
+
+        try {
+          const result = await Swal.fire({
+            title: "Inscripción",
+            text: "¿Desea realizar el pago de su inscripción?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Sí",
+            cancelButtonText: "No",
+            confirmButtonColor: "#007bff",    // Azul para "Sí"
+            cancelButtonColor: "#d6d6d6"      // Gris claro para "No"
+          });
+        
+          // Solo procede con el registro si eligió Sí o No (evitar cerrar por fuera)
+          if (result.isConfirmed || result.dismiss === Swal.DismissReason.cancel) {
+            const response = await fetch(
+              "http://localhost:8085/eventsregister/create",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestData),
+              }
+            );
+            
+            const responseData = await response.json();
+        
+            if (responseData.code === "201") {
+              if (result.isConfirmed) {
+                // Redirige a la página de pago si dijo "Sí"
+                window.location.href = "registro_pago_inscripcion.html";
+              } else {
+                // Muestra mensaje si dijo "No"
+                await Swal.fire({
+                  title: "Inscripción registrada",
+                  text: "El nadador se ha inscrito correctamente. Sin embargo, queda pendiente el registro de su pago.",
+                  icon: "info",
+                  confirmButtonText: "Aceptar"
+                });
+              }
+            } else if (responseData.code === "409") {
+              await Swal.fire({
+                title: "Advertencia",
+                text: "El nadador ya se encuentra registrado en uno o más eventos seleccionados",
+                icon: "warning",
+                confirmButtonText: "Intentar nuevamente",
+              });
+            } else {
+              throw new Error(
+                responseData.message || "Error al registrar el evento."
+              );
+            }
+          }
+        
+        } catch (error) {
+          console.error("Error:", error);
+          Swal.fire({
+            title: "Error",
+            text: error.message || "No se pudo conectar con el servidor.",
+            icon: "error",
+            confirmButtonText: "Intentar nuevamente",
+          });
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
       //*//
 
       //Función para buscar los eventos por fecha

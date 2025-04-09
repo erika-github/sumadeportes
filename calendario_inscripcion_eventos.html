@@ -854,8 +854,7 @@
         .addEventListener("click", async function () {
           const submitButton = document.getElementById("registerEvent");
           eventos = obtenerEventosSeleccionados();
-         // Guarda los eventos como una cadena JSON en sessionStorage
-          //sessionStorage.setItem("swimmerMark", JSON.stringify({ eventsMarks: eventos }));
+         // Guarda los eventos como una cadena JSON en sessionStorage          
           sessionStorage.setItem("swimmerMark", JSON.stringify(eventos));
           console.log(eventos);
 

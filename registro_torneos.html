@@ -872,7 +872,7 @@
 
                 const responseData = await response.json();
 
-                if (responseData.code === "201") {
+                /*if (responseData.code === "201") {
                     await Swal.fire({
                         title: "Registro exitoso",
                         text: "El torneo ha sido registrado correctamente.",
@@ -880,7 +880,27 @@
                         confirmButtonText: "Aceptar"
                     });
                     //window.location.href = "gestion.html";
-                    window.location.href = window.location.href;
+                    window.location.href = window.location.href;*/
+                    if (responseData.code === "201") {
+                        const result = await Swal.fire({
+                          title: "Registro exitoso",
+                          text: "¿Desea continuar registrando eventos?",
+                          icon: "success",
+                          showCancelButton: true,
+                          confirmButtonText: "Sí",
+                          cancelButtonText: "No",
+                          confirmButtonColor: "#007bff",    // Azul para "Sí"
+                          cancelButtonColor: "#d6d6d6"      // Gris claro para "No"
+                        });
+                      
+                        if (result.isConfirmed) {
+                          // Si elige "Sí", recarga la página actual
+                          window.location.href = window.location.href;
+                        } else {
+                          // Si elige "No", redirige a gestión.html
+                          window.location.href = "gestion.html";
+                        }
+                      
                 } else if (responseData.code === "409") {
                     await Swal.fire({
                         title: "Error",

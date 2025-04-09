@@ -732,7 +732,8 @@
         const requestData = {
           swimmerDocumentType: sessionStorage.getItem("userTypeDoc") || "",
           swimmerDocumentNumber: sessionStorage.getItem("userDoc") || "",
-          eventsMarks: sessionStorage.getItem("swimmerMark") || ""
+          eventsMarks: JSON.parse(sessionStorage.getItem("swimmerMark"))         
+
         };
 
         console.log(

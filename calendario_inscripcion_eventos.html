@@ -1002,6 +1002,7 @@
               confirmButtonText: "Aceptar"
             });
             // Recarga la página o realiza la acción que desees
+            //window.location.href = "gestion.html";
             window.location.href = window.location.href;  // Recarga la página actual
           } else if (responseData.code === "409") {
             await Swal.fire({
@@ -1010,6 +1011,7 @@
               icon: "warning",
               confirmButtonText: "Intentar nuevamente",
             });
+            window.location.href = window.location.href;  // Recarga la página actual
           } else {
             throw new Error(
               responseData.message || "Error al registrar el evento."

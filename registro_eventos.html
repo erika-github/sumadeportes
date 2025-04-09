@@ -35,7 +35,7 @@
     .form-group label {
       font-size: 1vw;
       margin-bottom: 1%;
-      margin-top:2%;
+      margin-top: 2%;
       color: #808080;
     }
 
@@ -192,7 +192,7 @@
       padding: 0.8vw;
     }
 
-   
+
     /* Asignación de anchos en porcentaje a las columnas */
     #events_table thead th:nth-child(1) {
       width: 10%;
@@ -218,7 +218,7 @@
       width: 20%;
     }
 
-   
+
     /* Seleccionar */
 
     .dataTables_wrapper .dataTables_length,
@@ -271,7 +271,7 @@
     <div class="form-group">
       <label for="tournament">Torneos:</label>
       <select id="tournament" name="tournament">
-        <option value="">Seleccione una opción</option>        
+        <option value="">Seleccione una opción</option>
         <!-- Se cargarán las opciones dinámicamente -->
       </select>
       <span class="error" id="errorTournament"></span>
@@ -280,11 +280,11 @@
     <div class="form-group">
       <label>Eventos:</label>
       <div id="events_container">
-        <!-- DataTable con columnas: ID, Estilo, Edad, Género, Seleccionar -->        
+        <!-- DataTable con columnas: ID, Estilo, Edad, Género, Seleccionar -->
         <table id="events_table" class="display">
           <thead>
             <tr>
-              <th>ID</th>             
+              <th>ID</th>
               <th>Estilo</th>
               <th>Edad</th>
               <th>Género</th>
@@ -348,10 +348,10 @@
     const startDateInput = document.getElementById('startDate');
     const endDateInput = document.getElementById('endDate');
 
-     // Variable global para almacenar los datos de los torneos
-     let tournamentsData = [];
+    // Variable global para almacenar los datos de los torneos
+    let tournamentsData = [];
 
-      // Listener para el evento change en el select
+    // Listener para el evento change en el select
     tournamentSelectGlobal.addEventListener('change', updateDates);
 
     const form = document.querySelector("form");
@@ -437,7 +437,7 @@
         }
       } else {
         const field = document.getElementById(id);
-        console.log("field:::"+field.value);
+        console.log("field:::" + field.value);
         if (!field || field.value.trim() === "") {
           errorField.textContent = `${label} es requerido.`;
           errorField.style.display = "block";
@@ -458,7 +458,7 @@
         startDate: "Fecha Inicio",
         endDate: "Fecha Fin"
       };
-      
+
       Object.keys(fieldLabels).forEach(id => {
         const element = document.getElementById(id);
         if (element) {
@@ -469,21 +469,21 @@
       });
     }
 
-    
-     // Función que actualiza los campos de fecha según el torneo seleccionado
+
+    // Función que actualiza los campos de fecha según el torneo seleccionado
     function updateDates() {
 
-      
+
       // Obtenemos el valor seleccionado
       const selectedTournament = tournamentSelectGlobal.value;
-      console.log("torneo seleccionado: "+selectedTournament);
+      console.log("torneo seleccionado: " + selectedTournament);
 
       console.log(tournamentsData);
       console.log(Array.isArray(tournamentsData)); // Esto debe imprimir "true"
 
       // Buscamos en el array data el torneo seleccionado
       const tournament = tournamentsData.find(item => item.tournamentName === selectedTournament);
-     
+
 
       if (tournament) {
         // Si encontramos el torneo, actualizamos los inputs de fecha
@@ -495,16 +495,16 @@
         endDateInput.value = "";
       }
 
-        const fieldLabels = {       
+      const fieldLabels = {
         startDate: "Fecha Inicio",
         endDate: "Fecha Fin"
       };
-      console.log("valor de fields::"+fieldLabels.startDate, fieldLabels.endDate);
+      console.log("valor de fields::" + fieldLabels.startDate, fieldLabels.endDate);
       Object.keys(fieldLabels).forEach(id => {
         const element = document.getElementById(id);
-        console.log("valor de element::"+element.value);
-        if (element) {          
-            validateField(id, fieldLabels[id]);          
+        console.log("valor de element::" + element.value);
+        if (element) {
+          validateField(id, fieldLabels[id]);
         }
       });
     }
@@ -528,21 +528,42 @@
 
     // Función para cargar los eventos y configurar el DataTable
     async function loadEvents() {
+
+      let data = {};
+
       try {
         //const response = await fetch("http://localhost:8085/tests/getList");
-        const response = await fetch("https://68b2-44-201-249-73.ngrok-free.app/tests/getList");
-        if (!response.ok) {
-          throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
+        const response = await fetch("https://c986-44-201-249-73.ngrok-free.app/tests/getList", {
+
+          /*if (!response.ok) {
+            throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
+          }
+          const data = await response.json();*/
+
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        data = await response.json();
+
+        if (data.code !== "200") {
+          throw new Error(`La API respondió con código: ${data.code}`);
         }
-        const data = await response.json();
+
         if (!data.data || !Array.isArray(data.data)) {
+
           throw new Error('La estructura de la respuesta no es válida.');
+
         }
         // Convertir cada cadena en un objeto y conservar la cadena original
         const teamsData = data.data.map((teamStr, index) => {
           const partes = teamStr.split(',').map(item => item.trim());
           return {
-            id: index + 1,           
+            id: index + 1,
             estilo: partes[0],
             edad: partes[1],
             genero: partes[2],
@@ -557,7 +578,7 @@
         $('#events_table').DataTable({
           data: teamsData,
           columns: [
-            { data: 'id', title: 'ID' },            
+            { data: 'id', title: 'ID' },
             { data: 'estilo', title: 'Estilo' },
             { data: 'edad', title: 'Edad' },
             { data: 'genero', title: 'Género' },
@@ -619,22 +640,32 @@
 
     // Función para cargar los torneos en el select
     async function loadTournaments() {
+
+      let data = {};
       const tournamentSelect = document.getElementById("tournament");
+
       try {
         //const response = await fetch("http://localhost:8085/tournament/getList", {
-          const response = await fetch("https://68b2-44-201-249-73.ngrok-free.app/tournament/getList", {
-          method: "GET"
+        const response = await fetch("https://c986-44-201-249-73.ngrok-free.app/tournament/getList", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(data)
         });
-        const data = await response.json();        
+
+
+        data = await response.json();
 
         if (data.code === "200" && Array.isArray(data.data)) {
-          data.data.forEach(tournament => {            
-             
+          data.data.forEach(tournament => {
+
             const option = document.createElement("option");
             option.value = tournament.tournamentName;
             option.textContent = tournament.tournamentName;
-            tournamentSelect.appendChild(option); 
-            tournamentsData.push(tournament);           
+            tournamentSelect.appendChild(option);
+            tournamentsData.push(tournament);
 
           });
         } else {
@@ -651,12 +682,12 @@
       loadTournaments();
       loadEvents();
       attachRealTimeValidations();
-     
-     
+
+
 
     });
 
-    
+
 
     // Listener para el envío del formulario
     document.getElementById("form-swimmer").addEventListener("submit", async function (event) {
@@ -681,7 +712,7 @@
       };
       try {
         //const response = await fetch("http://localhost:8085/events/create", {
-          const response = await fetch("https://68b2-44-201-249-73.ngrok-free.app/events/create", {
+        const response = await fetch("https://c986-44-201-249-73.ngrok-free.app/events/create", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData)
@@ -719,7 +750,7 @@
       }
     });
 
-    
+
   </script>
 </body>
 

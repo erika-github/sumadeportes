@@ -718,7 +718,11 @@
           method: "GET",
         });
 
+        const textResponse = await response.text();
+        console.log(textResponse);
+        
         const data = await response.json();
+       
 
         if (data.code === "200" && Array.isArray(data.data)) {
           data.data.forEach((team) => {

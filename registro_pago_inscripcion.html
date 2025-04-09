@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <title>SumaDeportes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    /* Estilos generales del formulario */
+    /* .form-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }*/
+    .form-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5vw;
+      min-width: 65%;
+      max-width: 66%;
+      margin: auto;
+      padding: 1.3%;
+      background-color: #fff;
+      border-radius: 1vw;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /*.form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }*/
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /*.form-group label {
+      font-size: 14px;
+      /*font-weight: bold;*/
+    /* margin-bottom: 5px;
+      color: #808080
+    }*/
+
+    .form-group label {
+      font-size: 0.95vw;
+      /* font-weight: bold; */
+      margin-bottom: 1%;
+      color: #808080;
+    }
+
+    /*.form-group input,
+    .form-group select {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }*/
+
+    .form-group input,
+    .form-group select {
+      padding: 2.25%;
+      font-size: 0.95vw;
+      border: 0.1vw solid #ccc;
+      border-radius: 0.3vw;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0.5vw rgba(0, 123, 255, 0.5);
+      outline: none;
+    }
+
+    /*.submit-container {
+      grid-column: span 2;
+      text-align: center;
+      margin-top: 20px;
+    }*/
+
+    .submit-container {
+      grid-column: span 2;
+      text-align: center;
+      margin-top: 3%;
+    }
+
+    /*.submit-container button {
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin: 0 auto;
+    }*/
+
+    .submit-container button {
+      background-color: #007bff;
+      color: white;
+      font-size: 1.1vw;
+      padding: 0.8vw 2vw;
+      border: none;
+      border-radius: 5vw;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin: 0 auto;
+    }
+
+    .submit-container button:hover {
+      background-color: #0056b3;
+      transform: translateY(-3px);
+    }
+
+    .submit-container button:active {
+      background-color: #004085;
+      transform: translateY(0);
+    }
+
+    /*@media screen and (max-width: 768px) {
+      .form-container {
+        grid-template-columns: 1fr;
+      }
+    }*/
+
+    /* Estilos para los mensajes de error */
+    .error {
+      color: red;
+      font-size: 0.95vw;
+      margin-top: 1%;
+    }
+
+    /* Estilos adicionales para header, menú y demás secciones */
+    .user-container {
+      display: flex;
+      justify-content: space-between;
+      height: auto;
+      margin-left: 2%;
+      cursor: pointer;
+    }
+
+    .user-icon {
+      width: 4vw;
+      height: 4vw;
+      background-color: #f36621;
+      color: white;
+      font-size: 1.5vw;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    #img,
+    .user-container p {
+      position: absolute;
+      top: 0px;
+      width: auto;
+      z-index: 100;
+      margin-top: 0.5%;
+      box-sizing: border-box;
+      right: 10%;
+    }
+
+    #user-icon {
+      position: absolute;
+      top: 0px;
+      z-index: 100;
+      margin-top: 0.7%;
+      box-sizing: border-box;
+      right: 5%;
+    }
+
+    .user-menu {
+      display: none;
+      position: absolute;
+      right: 1%;
+      min-width: 13%;
+      max-width: 13%;
+      top: 5.4vw;
+      background-color: white;
+      border-radius: 0.5vw;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      padding-bottom: 1%;
+      z-index: 10000;
+    }
+
+    .user-menu-header {
+      background-color: #f2f2f2;
+      padding: 1.5vw;
+      color: #7f7f7f;
+      text-align: center;
+      font-weight: lighter;
+    }
+
+    .user-menu-content {
+      padding: 1vw;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-menu-content a {
+      text-decoration: none;
+      color: #7f7f7f;
+      padding: 0.7vw;
+      text-align: center;
+      border-radius: 0.3vw;
+      margin-top: 2%;
+      transition: background 0.3s ease;
+    }
+
+    .user-menu-content a:hover {
+      background: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="header-container">
+        <!-- Cintillo -->
+        <div style="height: 7vw; position: relative">
+          <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo" />
+        </div>
+        <!-- Logo -->
+        <div class="logoDiv">
+          <img
+            id="logo"
+            src="img/logo.png"
+            alt="Logo"
+            onclick="window.location.href='index_autenticado.html'"
+          />
+        </div>
+        <!-- Imagen de usuario -->
+        <div class="user-container">
+          <p
+            style="
+              font-size: 1.2vw;
+              margin-top: 2%;
+              right:27%;
+              color: #1535d6;
+              text-decoration: underline;
+            "
+            onclick="window.location.href='gestion.html'"
+          >
+            Gestión
+          </p>
+          <p
+            style="
+              font-size: 1.2vw;
+              margin-top: 2%;
+              right:10%;
+              color: #1535d6;
+              text-decoration: underline;
+            "
+            onclick="window.location.href='calendario_inscripcion_eventos.html'"
+          >
+            Inscripción a Eventos por Mes
+          </p>
+  
+          <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
+        </div>
+      </div>
+
+  <!-- Menú emergente -->
+  <div class="user-menu" id="user-menu">
+    <div class="user-menu-header">
+      <p style="font-size: 1vw" id="userName">Nombre del Usuario</p>
+      <p style="font-size: 1vw" id="userRole">Rol del Usuario</p>
+    </div>
+    <div class="user-menu-content">
+      <a href="#" style="font-size: 1vw">Editar Perfil</a>
+      <a href="#" style="font-size: 1vw" onclick="logout()">Cerrar Sesión</a>
+    </div>
+  </div>
+
+  <h1 style="
+        text-align: center;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-size: 2.5vw;
+        font-weight: lighter;
+      ">
+    Registro de pago de inscripción
+  </h1>
+
+  <form class="form-container" id="form-swimmer">
+    <div class="form-group">
+        <label for="bank">Banco:</label>
+        <select id="bank" name="bank">
+          <option value="">Seleccione una opción</option>
+          <option value="BancoDeVenezuela">0102 - BANCO DE VENEZUELA</option>
+          <option value="100%Banco">0156 - 100% BANCO</option>
+          <option value="BancaAmiga">0172 - BANCAMIGA BANCO UNIVERSAL C.A.</option>
+          <option value="Bancaribe">0114 - BANCARIBE</option>
+          <option value="BancoActivo">0171 - BANCO ACTIVO</option>
+          <option value="BancoAgricolaDeVzla">0166 - BANCO AGRICOLA DE VENEZUELA</option>
+          <option value="BancoCaroni">0128 - BANCO CARONI</option>
+          <option value="BancoDelTesoro">0163 - BANCO DEL TESORO</option>
+          <option value="BancoDigitalDeLosTrabajadores">0175 - BANCO DIGITAL DE LOS TRABAJADORES, BANCO UNIVERSAL</option>
+          <option value="BancoExterior">0175 - BANCO EXTERIOR</option>
+          <option value="BancoFondoComun">0151 - BANCO FONDO COMUN</option>
+          <option value="BancoInternacionalDeDesarrollo">0173 - BANCO INTERNACIONAL DE DESARROLLO</option>
+          <option value="BancoMercantil">0105 - BANCO MERCANTIL</option>
+          <option value="BancoNacionalDeCredito">0191 - BANCO NACIONAL DE CREDITO</option>
+          <option value="BancoPlaza">0138 - BANCO PLAZA</option>
+          <option value="BancoSofitasa">0137 - BANCO SOFITASA</option>        
+          <option value="BancoVenezolanoDeCredito">0104 - BANCO VENEZOLANO DE CREDITO</option>
+          <option value="Bancrecer">0168 - BANCRECER</option>
+          <option value="Banesco">0134 - BANESCO</option>
+          <option value="Banfanb">0177 - BANFANB</option>
+          <option value="Bangente">0146 - BANGENTE</option>
+          <option value="Banplus">0174 - BANPLUS</option>
+          <option value="BbvaProvincial">0108 - BBVA PROVINCIAL</option>
+          <option value="DelSurBancoUniversal">0157 - DELSUR BANCO UNIVERSAL</option>
+          <option value="InstMunDeCreditoPopular">0601 - INSTITUTO MUNICIPAL DE CREDITO POPULAR</option> 
+          <option value="BancoDigitalMicrofinanciero">0178 - N58 BANCO DIGITAL BANCO MICROFINANCIERO S.A.</option>
+          <option value="R4BancoMicrofinanciero">0169 - R4 BANCO MICROFINANCIERO C.A.</option>               
+        </select>
+        <span class="error" id="errorBank"></span>
+      </div>
+    
+    <div class="form-group">
+      <label for="amount">Monto:</label>
+      <input type="text" id="amount" name="amount" oninput="limitarNumeroConDecimales(this)"/>
+      <span class="error" id="errorAmount"></span>
+    </div>
+    <div class="form-group">
+      <label for="referenceNumber">Número de Referencia:</label>
+      <input type="number" id="referenceNumber" name="referenceNumber" oninput="limitarLongitud(this)" />
+      <span class="error" id="errorReferenceNumber"></span>
+    </div>
+    <div class="form-group">
+      <label for="phone">Número de Celular, usado para el pago:</label>
+      <input type="text" id="phone" name="phone" />
+      <span class="error" id="errorPhone"></span>
+    </div>
+    
+    <div class="form-group">
+      <label for="birthDate">Fecha de Pago:</label>
+      <input type="date" id="paymentDate" name="paymentDate" />
+      <span class="error" id="errorPaymentDate"></span>
+    </div>  
+   
+    <div class="submit-container">
+      <button type="submit">Guardar</button>
+    </div>
+  </form>
+
+  <footer>
+    <div id="footer_logo">
+      <img src="img/logo_.png" alt="" />
+    </div>
+    <div id="academia">
+      <h2>Academia</h2>
+      <p>¿Cursos y horarios?</p>
+      <p>¿Dónde encontrarnos?</p>
+    </div>
+    <div id="informacion">
+      <h2>Información</h2>
+      <p>Preguntas frecuentes</p>
+    </div>
+  </footer>
+
+  <div class="registro">
+    <div id="linea"></div>
+    <div id="creadores">
+      <p>
+        Suma Deportes, RIF J-00000000-0 Todos los derechos reservados. Powered
+        by Lenin Manrique & Erika Díaz
+      </p>
+    </div>
+  </div>
+
+  <script>
+    let birthD; // Se inicializa sin valor (undefined)
+    birthD = new Date(); // Luego se le asigna un valor
+
+    const form = document.querySelector("form");
+    const submitButton = form.querySelector("button[type='submit']");
+    // Función para cerrar sesión
+    var valid = true;
+    function logout() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    // Función para obtener las iniciales del usuario
+    function getInitials(firstName, lastName) {
+      if (!firstName || !lastName) return "U";
+      return (
+        firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase()
+      );
+    }
+
+    // Actualiza la información del usuario en el DOM
+    function updateUserInfo() {
+      const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
+      const lastName = sessionStorage.getItem("userLastName") || "Apellido";
+      const userRole =
+        sessionStorage.getItem("userRole") || "Rol Predeterminado";
+      const nameElem = document.getElementById("userName");
+      const roleElem = document.getElementById("userRole");
+      if (nameElem) nameElem.innerText = `${firstName} ${lastName}`;
+      if (roleElem) roleElem.innerText = userRole;
+    }
+
+    // Establece el ícono del usuario con iniciales
+    function setUserIcon() {
+      updateUserInfo();
+      const firstName = sessionStorage.getItem("userFirstName");
+      const lastName = sessionStorage.getItem("userLastName");
+      const userIcon = document.getElementById("user-icon");
+      if (userIcon) {
+        userIcon.textContent = getInitials(firstName, lastName);
+      }
+    }
+
+    // Función para mostrar/ocultar el menú del usuario
+    function toggleUserMenu() {
+      const menu = document.getElementById("user-menu");
+      const userIcon = document.getElementById("user-icon");
+      if (menu && userIcon) {
+        const isVisible = menu.style.display === "block";
+        menu.style.display = isVisible ? "none" : "block";
+        userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
+      }
+    }
+
+    // Cierra el menú al hacer clic fuera de él
+    document.addEventListener("click", (event) => {
+      const menu = document.getElementById("user-menu");
+      const userIcon = document.getElementById("user-icon");
+      const userContainer = document.querySelector(".user-container");
+      if (
+        menu &&
+        userIcon &&
+        userContainer &&
+        !userContainer.contains(event.target)
+      ) {
+        menu.style.display = "none";
+        userIcon.style.backgroundColor = "#F36621";
+      }
+    });
+
+    // Función para calcular la edad a partir de una fecha en formato "DD/MM/YYYY"
+    function calcularEdad(birthDate) {
+      let partes = birthDate.split("/");
+      let birth = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`); // Convierte a formato "YYYY-MM-DD"
+      let today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+
+      if (
+        today.getMonth() < birth.getMonth() ||
+        (today.getMonth() === birth.getMonth() &&
+          today.getDate() < birth.getDate())
+      ) {
+        age--;
+      }
+      return age;
+    }
+
+    // función para convertir fecha de nacimiento en formato "YYYY-mm-dd"
+    function transformDate(birthDate) {
+      let partes = birthDate.split("/");
+      let birth_ = new Date(
+        `${partes[2]}-${partes[1]}-${partes[0]}T00:00:00`
+      ); // Asegura la zona horaria correcta
+
+      // Extrae los componentes de la fecha en el formato deseado
+      let year = birth_.getFullYear();
+      let month = (birth_.getMonth() + 1).toString().padStart(2, "0"); // +1 porque los meses van de 0 a 11
+      let day = birth_.getDate().toString().padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    }
+
+    function limitarLongitud(input) {
+        let valor = input.value;
+        if (valor.length > 30) {
+            input.value = valor.slice(0, 30); // Limita a 30 dígitos
+        }
+    }
+
+    function limitarNumeroConDecimales(input) {
+        let valor = input.value;
+    
+        // Reemplaza comas por puntos desde el principio
+        valor = valor.replace(',', '.');
+    
+        // Elimina cualquier caracter que no sea número o punto
+        valor = valor.replace(/[^0-9.]/g, '');
+    
+        // Solo permite un punto decimal
+        let partes = valor.split('.');
+        if (partes.length > 2) {
+            partes = [partes[0], partes[1]]; // descarta puntos adicionales
+        }
+    
+        // Limita a 10 enteros y 2 decimales
+        if (partes.length === 2) {
+            partes[0] = partes[0].slice(0, 10); // enteros
+            partes[1] = partes[1].slice(0, 2);  // decimales
+            valor = partes[0] + '.' + partes[1];
+        } else {
+            valor = partes[0].slice(0, 12); // solo enteros si no hay punto
+        }
+    
+        input.value = valor;
+
+        console.log("valor del importe:::"+input.value);
+    }
+
+    // Función de validación por campo
+    function validateField(id, fieldName) {     
+
+
+    const field = document.getElementById(id);
+    const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
+    const value = field.value.trim();
+
+    // Expresiones regulares para validaciones específicas
+    const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;
+    const phoneRegex = /^(0412|0414|0416|0424|0426)-\d{7}$/;
+
+    console.log("Entra en las validaciones")
+    // Validaciones para nombres y apellidos
+    if (["bank", "amount", "referenceNumber"].includes(id)) {
+        if (!value) {
+            errorField.textContent = `${fieldName} es obligatorio`;
+            return false;
+        }
+        /*if (!nameRegex.test(value)) {
+            errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
+            return false;
+        }*/
+    }
+
+    // Validaciones opcionales para nombre y apellido del representante
+   /* else if (["representorName", "representorSurename"].includes(id)) {
+        if (value && !nameRegex.test(value)) {
+            errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
+            return false;
+        }
+    }
+
+    else if(!value) {
+      errorField.textContent = `${fieldName} es obligatorio`;
+      return false;
+    
+    }*/
+
+    // Validación para teléfono
+    else if (id === "phone") {
+        if (!value) {
+            errorField.textContent = `${fieldName} es obligatorio`;
+            return false;
+        }
+        if (!phoneRegex.test(value)) {
+            errorField.textContent = `${fieldName} debe tener el sgte formato: 04XX-XXXXXXX. Ejemplo: 0412-1234567`;
+            return false;
+        }
+    }
+
+    // Validación de fecha de ingreso
+    else if (id === "paymentDate") {
+        if (!value) {
+            errorField.textContent = `${fieldName} es obligatorio`;
+            return false;
+        }
+
+        var fechaPagoDate = new Date(value);
+        var fechaActual = new Date();
+        fechaActual.setHours(0, 0, 0, 0); // Establecer a medianoche para evitar problemas con horas
+
+        if (fechaPagoDate > fechaActual) {
+            errorField.textContent = "Fecha de Pago no puede ser mayor a la fecha actual.";
+            return false;
+        }
+    }
+
+    // Si la validación pasa, limpiar el mensaje de error
+    errorField.textContent = "";
+    return true;
+
+  }
+
+    // Función para adjuntar validación en tiempo real a cada campo
+    function attachRealTimeValidations() {
+      const fieldLabels = {        
+        bank:"Banco",
+        amount: "Monto",
+        referenceNumber: "Número de Referencia",
+        phone: "Número de Celular",
+        paymentDate: "Fecha de pago"
+       
+      };
+
+      Object.keys(fieldLabels).forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.addEventListener("input", function () {
+            validateField(id, fieldLabels[id]);
+          });
+        }
+      });
+    }
+
+    // Función para validar todos los campos antes de enviar el formulario
+    function validateForm() {
+      let valid = true;
+      const fieldsToValidate = {
+        bank:"Banco",
+        amount: "Monto",
+        referenceNumber: "Número de Referencia",
+        phone: "Número de Celular",
+        paymentDate: "Fecha de pago"
+       
+      };
+
+      Object.entries(fieldsToValidate).forEach(([id, label]) => {
+        if (!validateField(id, label)) {
+          valid = false;
+        }
+      });
+      return valid;
+    }
+
+    /*async function loadTeams() {
+      const teamSelect = document.getElementById("team"); // ID del <select>
+
+      try {
+        const response = await fetch("http://localhost:8085/team/getAll", {
+          method: "GET",
+        });
+
+        const data = await response.json();
+
+        if (data.code === "200" && Array.isArray(data.data)) {
+          data.data.forEach((team) => {
+            const option = document.createElement("option");
+            //option.value = team.id; // Asigna el ID del equipo
+            option.value = team.teamName;
+            option.textContent = team.teamName; // Asigna el nombre del equipo
+            teamSelect.appendChild(option);
+          });
+        } else {
+          console.error("Error: Respuesta inesperada del servicio", data);
+        }
+      } catch (error) {
+        console.error("Error al obtener los equipos:", error);
+      }
+    }*/
+
+    // Inicialización única al cargar el DOM
+    document.addEventListener("DOMContentLoaded", function () {
+      // Establece el ícono del usuario
+      setUserIcon();
+
+      //loadTeams();
+
+      //Simulación de valores de sessionStorage para pruebas
+      /*sessionStorage.setItem("userTypeDoc", "V");
+    sessionStorage.setItem("userDoc", "10000000");
+    sessionStorage.setItem("userFirstName", "Erika");
+    sessionStorage.setItem("userLastName", "Diaz");
+    sessionStorage.setItem("userBirthdate", "1983-02-06");
+    sessionStorage.setItem("userEmail", "erika_2@gmail.com");*/
+
+      const sessionData = {
+        documentType: sessionStorage.getItem("userTypeDoc") || "",
+        documentNumber: sessionStorage.getItem("userDoc") || "",
+        firstName: sessionStorage.getItem("userFirstName") || "",
+        lastName: sessionStorage.getItem("userLastName") || "",
+        birthDate: sessionStorage.getItem("userBirthdate") || "",
+        email: sessionStorage.getItem("userEmail") || "",
+      };
+
+      const edad = calcularEdad(sessionData.birthDate);
+      /*birthD= transformDate(sessionData.birthDate);  
+    console.log("Esta es la fecha de cumpleaños: "+birthD)*/
+
+      /*document.getElementById("documentType").value =
+        sessionData.documentType;
+      document.getElementById("documentNumber").value =
+        sessionData.documentNumber;
+      document.getElementById("firstName").value = sessionData.firstName;
+      document.getElementById("firstSurename").value = sessionData.lastName;
+      document.getElementById("birthDate").value = sessionData.birthDate;
+      document.getElementById("age").value = edad;
+      document.getElementById("email").value = sessionData.email;*/
+
+      attachRealTimeValidations();
+    });
+
+    // Listener único para el submit del formulario
+    document
+      .getElementById("form-swimmer")
+      .addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        if (!validateForm()) {
+          Swal.fire({
+            title: "Error",
+            text: "Por favor, corrige los errores en el formulario.",
+            icon: "error",
+            confirmButtonText: "Entendido",
+          });
+          return;
+        }
+
+        // Deshabilita el botón para evitar múltiples envíos
+        submitButton.disabled = true;
+        const swimmerK = document.getElementById("firstName").value.trim() + document.getElementById("firstSurename").value.trim()
+
+        // Construir objeto de request
+        const requestData = {
+          documentType: document.getElementById("documentType").value.trim(),
+          documentNumber: document
+            .getElementById("documentNumber")
+            .value.trim(),
+          firstName: document.getElementById("firstName").value.trim(),
+          secondname: document.getElementById("secondName").value.trim(),
+          firstSurename: document
+            .getElementById("firstSurename")
+            .value.trim(),
+          secondSurename: document
+            .getElementById("secondSurename")
+            .value.trim(),
+          age: parseInt(document.getElementById("age").value),
+          gender: document.getElementById("gender").value.trim(),
+          birthDate: document.getElementById("birthDate").value,
+          /*birthDate: birthD,*/
+          incomingDate: document.getElementById("incomingDate").value,
+          email: document.getElementById("email").value.trim(),
+          swimmerKey: swimmerK,
+          status: "A",
+          /*yearsActive: 0,
+          monthsActive: 0,
+          daysActive: 0,*/
+          representorName: document
+            .getElementById("representorName")
+            .value.trim(),
+          representorSurename: document
+            .getElementById("representorSurename")
+            .value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          /*plain: document.getElementById("plain").value.trim(),
+          level: document.getElementById("level").value.trim(),
+          monday: "00:00:00.000000",
+          tuesday: "00:00:00.000000",
+          wednesday: "00:00:00.000000",
+          thursday: "00:00:00.000000",
+          friday: "00:00:00.000000",
+          saturday: "00:00:00.000000",*/
+          team: document.getElementById("team").value.trim(),
+        };
+
+        try {
+          // Enviar solicitud con fetch
+          const response = await fetch(
+            "http://localhost:8085/swimmer/create",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(requestData),
+            }
+          );
+
+          const responseData = await response.json();
+
+          if (responseData.code === "201") {
+            //sessionStorage.setItem("userEmail", document.getElementById("email").value.trim());
+            await Swal.fire({
+              title: "Registro exitoso",
+              text: "¡Inscripción y pago del nadador realizados correctamente!",
+              icon: "success",
+              confirmButtonText: "Aceptar",
+            });
+            window.location.href = "gestion.html";
+          } else if (responseData.code === "409") {
+            await Swal.fire({
+              title: "Error",
+              text: "Ya existe un pago registrado con ese número de referencia",
+              icon: "error",
+              confirmButtonText: "Intentar nuevamente",
+            });
+          } else {
+            throw new Error(
+              responseData.message || "Error al registrar el pago."
+            );
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          Swal.fire({
+            title: "Error",
+            text: error.message || "No se pudo conectar con el servidor.",
+            icon: "error",
+            confirmButtonText: "Intentar nuevamente",
+          });
+        } finally {
+          // Reactiva el botón después de procesar la solicitud (asegúrate de que submitButton esté definido)
+          submitButton.disabled = false;
+        }
+      });
+  </script>
+</body>
+
+</html>

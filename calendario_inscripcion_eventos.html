@@ -896,13 +896,34 @@
             );
             const responseData = await response.json();
             if (responseData.code === "201") {
-              await Swal.fire({
+              /*await Swal.fire({
                 title: "Registro exitoso",
                 text: "El nadador se ha inscrito correctamente.",
                 icon: "success",
                 confirmButtonText: "Aceptar",
+              });*/
+              await Swal.fire({
+                title: "Inscripción",
+                text: "¿Desea realizar el pago de su inscripción?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Sí",
+                cancelButtonText: "No"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Redirecciona a la página de pago
+                  window.location.href = "registro_pago_inscripcion.html"; // <-- reemplaza con tu URL real
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  // Muestra mensaje indicando que el pago está pendiente
+                  Swal.fire({
+                    title: "Inscripción registrada",
+                    text: "El nadador se ha inscrito correctamente. Sin embargo, queda pendiente el registro de su pago.",
+                    icon: "info",
+                    confirmButtonText: "Aceptar"
+                  });
+                }
               });
-              window.location.href = "gestion.html";
+              //window.location.href = "gestion.html";
             } else if (responseData.code === "409") {
               await Swal.fire({
                 title: "Advertencia",

@@ -735,6 +735,10 @@
           eventsMarks: sessionStorage.getItem("swimmerMark") || ""
         };
 
+        console.log(
+          "requestData:::: " + JSON.stringify(requestData, null, 2)
+        );
+
         try {
           // Enviar solicitud con fetch
           const response = await fetch(

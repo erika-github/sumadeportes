@@ -774,8 +774,7 @@
               const responseData = await response.json();
 
               if (responseData.code === "200") {
-                row.cells[4].textContent = responseData.data;
-                sessionStorage.setItem("swimmerMark", responseData.data || "");
+                row.cells[4].textContent = responseData.data;              
               } else {
                 await Swal.fire({
                   title: "Error",
@@ -855,6 +854,7 @@
         .addEventListener("click", async function () {
           const submitButton = document.getElementById("registerEvent");
           eventos = obtenerEventosSeleccionados();
+          sessionStorage.setItem("swimmerMark", eventos || "");
           console.log(eventos);
 
           // Validar si hay al menos un evento seleccionado

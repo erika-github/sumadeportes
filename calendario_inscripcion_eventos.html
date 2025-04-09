@@ -651,6 +651,7 @@
 
       const Mes = document.getElementById("mes");
       Mes.innerText = `${resultado.mesNombre} - ${resultado.anio}`;
+     
 
       // Función para cerrar sesión y redirigir a la página de inicio
       function logout() {
@@ -761,8 +762,10 @@
           
           if (checkbox.checked) {
             try {
-              const response = await fetch(
-                "http://localhost:8085/mark/getMark",
+              /*const response = await fetch(
+                "http://localhost:8085/mark/getMark",*/
+                const response = await fetch(
+                "https://68b2-44-201-249-73.ngrok-free.app/mark/getMark",
                 {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
@@ -773,6 +776,7 @@
 
               if (responseData.code === "200") {
                 row.cells[4].textContent = responseData.data;
+                sessionStorage.setItem("swimmerMark", responseData.data || "");
               } else {
                 await Swal.fire({
                   title: "Error",
@@ -885,68 +889,9 @@
           console.log(
             "requestData:::: " + JSON.stringify(requestData, null, 2)
           );
-         /* try {
-            const response = await fetch(
-              "http://localhost:8085/eventsregister/create",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestData),
-              }
-            );
-            const responseData = await response.json();
-            if (responseData.code === "201") {
-             
-              await Swal.fire({
-                title: "Inscripción",
-                text: "¿Desea realizar el pago de su inscripción?",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Sí",
-                cancelButtonText: "No",
-                confirmButtonColor: "#007bff",    // Azul para "Sí"
-                cancelButtonColor: "#d6d6d6"      // Gris claro para "No"
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  // Redirecciona a la página de pago
-                  window.location.href = "registro_pago_inscripcion.html"; // <-- reemplaza con tu URL real
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                  // Muestra mensaje indicando que el pago está pendiente
-                  Swal.fire({
-                    title: "Inscripción registrada",
-                    text: "El nadador se ha inscrito correctamente. Sin embargo, queda pendiente el registro de su pago.",
-                    icon: "info",
-                    confirmButtonText: "Aceptar"
-                  });
-                }
-              });
-              //window.location.href = "gestion.html";
-            } else if (responseData.code === "409") {
-              await Swal.fire({
-                title: "Advertencia",
-                text: "El nadador ya se encuentra registrado en uno o más eventos seleccionados",
-                icon: "warning",
-                confirmButtonText: "Intentar nuevamente",
-              });
-            } else {
-              throw new Error(
-                responseData.message || "Error al registrar el evento."
-              );
-            }
-          } catch (error) {
-            console.error("Error:", error);
-            Swal.fire({
-              title: "Error",
-              text: error.message || "No se pudo conectar con el servidor.",
-              icon: "error",
-              confirmButtonText: "Intentar nuevamente",
-            });
-          } finally {
-            submitButton.disabled = false;
-          }
-        });*/
-
-        try {
+        
+          // ESTE SERVICIO LO CREA SELECCIONE SI O NO
+        /*try {
           const result = await Swal.fire({
             title: "Inscripción",
             text: "¿Desea realizar el pago de su inscripción?",
@@ -1010,8 +955,79 @@
         } finally {
           submitButton.disabled = false;
         }
-      });
-      //*//
+      });*/
+
+      //ESTE SERVICIO CUANDO SEA UNICAMENTE NO SE CREA AQUI EL REGISTRO DEL NADADOR
+      // SI ES SI, SE REDIRIGE A LA PAGINA DE REGISTRO DE PAGO DE INSCRIPCION Y
+      // AL COMPLETAR, SE REGISTRA EL NADADOR      
+
+      try {
+        const result = await Swal.fire({
+          title: "Inscripción",
+          text: "¿Desea realizar el pago de su inscripción?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Sí",
+          cancelButtonText: "No",
+          confirmButtonColor: "#007bff",    // Azul para "Sí"
+          cancelButtonColor: "#d6d6d6"      // Gris claro para "No"
+        });
+      
+        // Si el usuario elige "Sí", redirigir a la página de pago sin hacer el request
+        if (result.isConfirmed) {
+          // Redirige a la página de pago si dijo "Sí"
+          window.location.href = "registro_pago_inscripcion.html";
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          // Si el usuario dijo "No", entonces realizamos el registro
+          /*const response = await fetch(
+            "http://localhost:8085/eventsregister/create",*/
+
+            const response = await fetch(
+            "https://68b2-44-201-249-73.ngrok-free.app/eventsregister/create",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(requestData),
+            }
+          );
+          
+          const responseData = await response.json();
+      
+          if (responseData.code === "201") {
+            // Muestra mensaje si dijo "No"
+            await Swal.fire({
+              title: "Inscripción registrada",
+              text: "El nadador se ha inscrito correctamente. Sin embargo, queda pendiente el registro de su pago.",
+              icon: "info",
+              confirmButtonText: "Aceptar"
+            });
+            // Recarga la página o realiza la acción que desees
+            window.location.href = window.location.href;  // Recarga la página actual
+          } else if (responseData.code === "409") {
+            await Swal.fire({
+              title: "Advertencia",
+              text: "El nadador ya se encuentra registrado en uno o más eventos seleccionados",
+              icon: "warning",
+              confirmButtonText: "Intentar nuevamente",
+            });
+          } else {
+            throw new Error(
+              responseData.message || "Error al registrar el evento."
+            );
+          }
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          title: "Error",
+          text: error.message || "No se pudo conectar con el servidor.",
+          icon: "error",
+          confirmButtonText: "Intentar nuevamente",
+        });
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
 
       //Función para buscar los eventos por fecha
 
@@ -1020,7 +1036,9 @@
         const month = resultado.mes;
         const firstLetterGender = gender.charAt(0); // Obtiene 'f'
         // Construimos la URL con los parámetros deseados
-        const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${firstLetterGender}&age=${age}`;
+        //const url = `http://localhost:8085/events/getListByDate?month=${month}&gender=${firstLetterGender}&age=${age}`;
+        const url = `https://68b2-44-201-249-73.ngrok-free.app/events/getListByDate?month=${month}&gender=${firstLetterGender}&age=${age}`;
+
 
         console.log("url: " + url);
 
@@ -1076,8 +1094,10 @@
         console.log("Número de documento: " + requestData.documentNumber);
 
         try {
-          const response = await fetch(
-            "http://localhost:8085/swimmer/getById",
+         /* const response = await fetch(
+            "http://localhost:8085/swimmer/getById",*/
+            const response = await fetch(
+            "https://68b2-44-201-249-73.ngrok-free.app/swimmer/getById",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },

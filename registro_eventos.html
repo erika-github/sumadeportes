@@ -529,7 +529,8 @@
     // Función para cargar los eventos y configurar el DataTable
     async function loadEvents() {
       try {
-        const response = await fetch("http://localhost:8085/tests/getList");
+        //const response = await fetch("http://localhost:8085/tests/getList");
+        const response = await fetch("https://68b2-44-201-249-73.ngrok-free.app/tests/getList");
         if (!response.ok) {
           throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
         }
@@ -620,7 +621,8 @@
     async function loadTournaments() {
       const tournamentSelect = document.getElementById("tournament");
       try {
-        const response = await fetch("http://localhost:8085/tournament/getList", {
+        //const response = await fetch("http://localhost:8085/tournament/getList", {
+          const response = await fetch("https://68b2-44-201-249-73.ngrok-free.app/tournament/getList", {
           method: "GET"
         });
         const data = await response.json();        
@@ -678,7 +680,8 @@
         endDate: document.getElementById("endDate").value
       };
       try {
-        const response = await fetch("http://localhost:8085/events/create", {
+        //const response = await fetch("http://localhost:8085/events/create", {
+          const response = await fetch("https://68b2-44-201-249-73.ngrok-free.app/events/create", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData)

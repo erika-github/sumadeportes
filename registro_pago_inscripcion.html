@@ -681,7 +681,7 @@
     sessionStorage.setItem("userBirthdate", "1983-02-06");
     sessionStorage.setItem("userEmail", "erika_2@gmail.com");*/
 
-      const sessionData = {
+      /*const sessionData = {
         documentType: sessionStorage.getItem("userTypeDoc") || "",
         documentNumber: sessionStorage.getItem("userDoc") || "",
         firstName: sessionStorage.getItem("userFirstName") || "",
@@ -690,7 +690,7 @@
         email: sessionStorage.getItem("userEmail") || "",
       };
 
-      const edad = calcularEdad(sessionData.birthDate);
+      const edad = calcularEdad(sessionData.birthDate);*/
       /*birthD= transformDate(sessionData.birthDate);  
     console.log("Esta es la fecha de cumpleaños: "+birthD)*/
 
@@ -727,53 +727,18 @@
         submitButton.disabled = true;
         const swimmerK = document.getElementById("firstName").value.trim() + document.getElementById("firstSurename").value.trim()
 
+
         // Construir objeto de request
         const requestData = {
-          documentType: document.getElementById("documentType").value.trim(),
-          documentNumber: document
-            .getElementById("documentNumber")
-            .value.trim(),
-          firstName: document.getElementById("firstName").value.trim(),
-          secondname: document.getElementById("secondName").value.trim(),
-          firstSurename: document
-            .getElementById("firstSurename")
-            .value.trim(),
-          secondSurename: document
-            .getElementById("secondSurename")
-            .value.trim(),
-          age: parseInt(document.getElementById("age").value),
-          gender: document.getElementById("gender").value.trim(),
-          birthDate: document.getElementById("birthDate").value,
-          /*birthDate: birthD,*/
-          incomingDate: document.getElementById("incomingDate").value,
-          email: document.getElementById("email").value.trim(),
-          swimmerKey: swimmerK,
-          status: "A",
-          /*yearsActive: 0,
-          monthsActive: 0,
-          daysActive: 0,*/
-          representorName: document
-            .getElementById("representorName")
-            .value.trim(),
-          representorSurename: document
-            .getElementById("representorSurename")
-            .value.trim(),
-          phone: document.getElementById("phone").value.trim(),
-          /*plain: document.getElementById("plain").value.trim(),
-          level: document.getElementById("level").value.trim(),
-          monday: "00:00:00.000000",
-          tuesday: "00:00:00.000000",
-          wednesday: "00:00:00.000000",
-          thursday: "00:00:00.000000",
-          friday: "00:00:00.000000",
-          saturday: "00:00:00.000000",*/
-          team: document.getElementById("team").value.trim(),
+          swimmerDocumentType: sessionStorage.getItem("userTypeDoc") || "",
+          swimmerDocumentNumber: sessionStorage.getItem("userDoc") || "",
+          eventsMarks: sessionStorage.getItem("swimmerMark") || ""
         };
 
         try {
           // Enviar solicitud con fetch
           const response = await fetch(
-            "http://localhost:8085/swimmer/create",
+            "https://68b2-44-201-249-73.ngrok-free.app/eventsregister/create",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },

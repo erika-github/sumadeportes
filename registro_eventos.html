@@ -678,7 +678,7 @@
         endDate: document.getElementById("endDate").value
       };
       try {
-        const response = await fetch(" http://localhost:8085/events/create", {
+        const response = await fetch("http://localhost:8085/events/create", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData)
@@ -692,6 +692,7 @@
             confirmButtonText: "Aceptar"
           });
           //window.location.href = "gestion.html";
+          window.location.href = window.location.href;
         } else if (responseData.code === "409") {
           await Swal.fire({
             title: "Error",

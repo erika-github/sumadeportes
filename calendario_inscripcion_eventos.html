@@ -642,7 +642,9 @@
       let data;
       let plannedEvents_ = [];
       const parametros = obtenerParametrosURL();
-      const resultado = infoMes(parametros.mes, parametros.anio);
+      sessionStorage.setItem("month", paramentros.mes);
+      sessionStorage.setItem("year", paramentros.anio);
+      const resultado = infoMes(parametros.mes, parametros.anio);      
       let age;
       let gender;
       let genderMap;
@@ -1067,7 +1069,7 @@
           // Mostrar SweetAlert para preguntar si desea más inscripciones
           const masInscripciones = await Swal.fire({
             title: "Pago pendiente",
-            text: "El nadador se ha inscrito correctamente. Sin embargo, queda pendiente el registro de su pago. ¿Desea realizar más inscripciones?",
+            text: "Su inscripción fue exitosa. Sin embargo, queda pendiente el registro de su pago. ¿Desea realizar más inscripciones?",
             icon: "question",
             showCancelButton: true,
             confirmButtonText: "Sí",

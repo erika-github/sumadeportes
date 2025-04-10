@@ -1051,7 +1051,7 @@
         const pagoPendiente = await Swal.fire({
           title: "Inscripción registrada",
           text: "El nadador se ha inscrito correctamente. ¿Desea registrar su pago ahora?",
-          icon: "info",
+          icon: "success",
           showCancelButton: true,
           confirmButtonText: "Sí",
           cancelButtonText: "No",
@@ -1070,7 +1070,7 @@
           const masInscripciones = await Swal.fire({
             title: "Pago pendiente",
             text: "Su inscripción fue exitosa. Sin embargo, queda pendiente el registro de su pago. ¿Desea realizar más inscripciones?",
-            icon: "question",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Sí",
             cancelButtonText: "No",
@@ -1081,11 +1081,10 @@
             backdrop: true
           });
     
-          if (masInscripciones.isConfirmed) {
-            // El usuario desea hacer más inscripciones: se queda en la misma pantalla.
-            
+          if (masInscripciones.isConfirmed) {          
+            window.location.href = window.location.href;
           } else {
-            // Redirigir a la página de eventos por mes
+            // Redirigir a la página de gestion
             window.location.href = "gestion.html";
           }
         }

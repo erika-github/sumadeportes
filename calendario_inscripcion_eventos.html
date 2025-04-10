@@ -855,7 +855,7 @@
           const submitButton = document.getElementById("registerEvent");
           eventos = obtenerEventosSeleccionados();
          // Guarda los eventos como una cadena JSON en sessionStorage          
-          sessionStorage.setItem("swimmerMark", JSON.stringify(eventos));
+          //sessionStorage.setItem("swimmerMark", JSON.stringify(eventos));
           console.log(eventos);
 
           // Validar si hay al menos un evento seleccionado
@@ -961,7 +961,7 @@
       // SI ES SI, SE REDIRIGE A LA PAGINA DE REGISTRO DE PAGO DE INSCRIPCION Y
       // AL COMPLETAR, SE REGISTRA EL NADADOR      
 
-      try {
+      /*try {
         const result = await Swal.fire({
           title: "Inscripción",
           text: "¿Desea realizar el pago de su inscripción?",
@@ -982,7 +982,7 @@
           /*const response = await fetch(
             "http://localhost:8085/eventsregister/create",*/
 
-            const response = await fetch(
+           /* const response = await fetch(
             "https://c986-44-201-249-73.ngrok-free.app/eventsregister/create",
             {
               method: "POST",
@@ -1029,7 +1029,97 @@
       } finally {
         submitButton.disabled = false;
       }
-    });
+    });*/
+
+    try {
+      // Se realiza el request para registrar la inscripción
+      const response = await fetch(
+        "https://c986-44-201-249-73.ngrok-free.app/eventsregister/create",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestData),
+        }
+      );
+      
+      const responseData = await response.json();
+    
+      if (responseData.code === "201") {
+        // Registro exitoso: Mostrar SweetAlert para confirmar el registro del pago
+        const pagoPendiente = await Swal.fire({
+          title: "Inscripción registrada",
+          text: "El nadador se ha inscrito correctamente. ¿Desea registrar su pago ahora?",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Sí",
+          cancelButtonText: "No",
+          confirmButtonColor: "#007bff",
+          cancelButtonColor: "#d6d6d6",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          backdrop: true
+        });
+    
+        if (pagoPendiente.isConfirmed) {
+          // Redirigir a la página de pago
+          window.location.href = "registro_pago_inscripcion.html";
+        } else {
+          // Mostrar SweetAlert para preguntar si desea más inscripciones
+          const masInscripciones = await Swal.fire({
+            title: "Pago pendiente",
+            text: "El nadador se ha inscrito correctamente. Sin embargo, queda pendiente el registro de su pago. ¿Desea realizar más inscripciones?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Sí",
+            cancelButtonText: "No",
+            confirmButtonColor: "#007bff",
+            cancelButtonColor: "#d6d6d6",
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            backdrop: true
+          });
+    
+          if (masInscripciones.isConfirmed) {
+            // El usuario desea hacer más inscripciones: se queda en la misma pantalla.
+            
+          } else {
+            // Redirigir a la página de eventos por mes
+            window.location.href = "gestion.html";
+          }
+        }
+      } else if (responseData.code === "409") {
+        // El nadador ya estaba registrado en uno o más eventos seleccionados
+        await Swal.fire({
+          title: "Advertencia",
+          text: "El nadador ya se encuentra registrado en uno o más eventos seleccionados",
+          icon: "warning",
+          confirmButtonText: "Intentar nuevamente",
+          confirmButtonColor: "#007bff",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          backdrop: true
+        });
+        // Se recarga la página actual
+        window.location.href = window.location.href;
+      } else {
+        throw new Error(responseData.message || "Error al registrar el evento.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      await Swal.fire({
+        title: "Error",
+        text: error.message || "No se pudo conectar con el servidor.",
+        icon: "error",
+        confirmButtonText: "Intentar nuevamente",
+        confirmButtonColor: "#007bff",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        backdrop: true
+      });
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
 
       //Función para buscar los eventos por fecha
 

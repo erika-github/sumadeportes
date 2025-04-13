@@ -1497,8 +1497,9 @@
           const eventIndicator = document.createElement("div");
           eventIndicator.classList.add("event", "planned");
           day.appendChild(eventIndicator);
-          day.addEventListener("click", () => selectEvent(i));
+          //day.addEventListener("click", () => selectEvent(i));
           //day.addEventListener("click", () => selectEvent(i, events[i]));
+          day.addEventListener("click", () => selectEvent(i, events[i][0]));
         }
 
 
@@ -1557,10 +1558,10 @@
         dayElement.classList.remove("selected"); // Regresa a verde claro
 
         const table = $("#eventTable").DataTable();
-        const dayFormatted = `${day
+        /*const dayFormatted = `${day
           .toString()
           .padStart(2, "0")}/${resultado.mes.toString().padStart(2, "0")}/${resultado.anio
-          }`;
+          }`;*/
 
         /* const dayFormatted= `${day.toString().padStart(2, "0")}/${resultado.mes
           .toString()
@@ -1569,6 +1570,14 @@
           .padStart(2, "0")}/${resultado.mes
           .toString()
           .padStart(2, "0")}/${resultado.anio}`*/
+
+          const dayFormatted = `${day.toString().padStart(2, "0")}/${resultado.mes
+          .toString()
+          .padStart(2, "0")}/${resultado.anio} al ${event.endDate[0]
+          .toString()
+          .padStart(2, "0")}/${resultado.mes
+          .toString()
+          .padStart(2, "0")}/${resultado.anio}`;
 
         const rowIndexes = table
           .rows()
@@ -1632,7 +1641,15 @@
                   .toString()
                   .padStart(2, "0")}/${resultado.mes
                   .toString()
-                  .padStart(2, "0")}/${resultado.anio}`*/ &&
+                  .padStart(2, "0")}/${resultado.anio}`*/ 
+                                                        
+                   `${day.toString().padStart(2, "0")}/${resultado.mes
+                  .toString()
+                  .padStart(2, "0")}/${resultado.anio} al ${event.endDate[0]
+                  .toString()
+                  .padStart(2, "0")}/${resultado.mes
+                  .toString()
+                  .padStart(2, "0")}/${resultado.anio}` &&
                 row[2] === tournamentsName &&
                 row[3] === eventName
               );

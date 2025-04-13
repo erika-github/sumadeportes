@@ -1497,7 +1497,8 @@
           const eventIndicator = document.createElement("div");
           eventIndicator.classList.add("event", "planned");
           day.appendChild(eventIndicator);
-          day.addEventListener("click", () => selectEvent(i));
+          //day.addEventListener("click", () => selectEvent(i));
+          day.addEventListener("click", () => selectEvent(i, events[i]));
         }
 
 
@@ -1532,7 +1533,8 @@
       }
     }
 
-    function selectEvent(day) {
+   // function selectEvent(day) {
+    function selectEvent(day, event) {
       let index = selectedDates.indexOf(day);
 
       const dayElement = document
@@ -1555,10 +1557,18 @@
         dayElement.classList.remove("selected"); // Regresa a verde claro
 
         const table = $("#eventTable").DataTable();
-        const dayFormatted = `${day
+       /* const dayFormatted = `${day
           .toString()
           .padStart(2, "0")}/${resultado.mes.toString().padStart(2, "0")}/${resultado.anio
-          }`;
+          }`;*/
+
+         const dayFormatted= `${day.toString().padStart(2, "0")}/${resultado.mes
+          .toString()
+          .padStart(2, "0")}/${resultado.anio} al ${event.endDate
+          .toString()
+          .padStart(2, "0")}/${resultado.mes
+          .toString()
+          .padStart(2, "0")}/${resultado.anio}`
 
         const rowIndexes = table
           .rows()
@@ -1578,11 +1588,11 @@
         }
       }
 
-      updateTable();
+      updateTable(event);
       reorganizeIndexes();
     }
 
-    function updateTable() {
+    function updateTable(event) {
       let table = $("#eventTable").DataTable();
       let existingData = table.rows().data().toArray(); // Obtener todos los registros actuales en la tabla
 

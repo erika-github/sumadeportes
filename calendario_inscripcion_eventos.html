@@ -1203,7 +1203,7 @@
             events[ev.date] = ev.eventName;
           });
 
-          plannedEvents_ = result.data || [];
+          plannedEvents_ = result.data || [];       
 
           // plannedEvents = response.data || [];
 
@@ -1832,7 +1832,7 @@
               .add([
                 idCounter++, // Genera un ID autoincremental
                 //`${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
-                `${event.date.toString().padStart(2, "0")}/${resultado.mes
+                `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio}`,
                 tournamentsName,

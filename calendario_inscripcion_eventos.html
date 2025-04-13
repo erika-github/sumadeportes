@@ -124,7 +124,7 @@
       border-radius: 50%;
       position: absolute;
       top: 5px;
-      left: 7px;
+      left: 35px;
       border: 1px solid black;
     }
 
@@ -591,7 +591,7 @@
     let selectedDates = [];
     let events = {};
     let finishedEvents = [];
-    //let otherEvents = [];
+    let otherEvents = [];
     let eventId = 1;
     let dataTableInstance;
     let data;
@@ -1298,7 +1298,7 @@
           )}`;
           getEventsByDate(age, gender, resultado);
           getFinishedEvents(age, gender, resultado);
-          /*getOtherEventsCategories(age, gender, resultado);*/
+          getOtherEventsCategories(age, gender, resultado);
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }
@@ -1346,7 +1346,7 @@
       { id: 4, date: 6, name: ["50 ESPALDA"], status: ["FINALIZADO"] },
     ];*/
 
-    let otherEvents = [
+    /*let otherEvents = [
 
       {
         id: 1,
@@ -1378,7 +1378,7 @@
         name: ["50 TABLA 6-7, años M"],
         status: ["FINALIZADO"],
       },
-    ];
+    ];*/
 
     // Función para obtener los parámetros de la URL
     function obtenerParametrosURL() {
@@ -1952,6 +1952,7 @@
                 `${event.date.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio}`,
+                  tournamentsName,
                 eventName, // Nombre del evento
                 status, // Estado del evento
               ])

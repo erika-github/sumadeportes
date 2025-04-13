@@ -1603,8 +1603,10 @@
 
           plannedEvents_.forEach((event) => {
             if (!event.endDate) return;
+
+            if (event.startDate === day) {
         
-            dayFormatted = `${day.toString().padStart(2, "0")}/${resultado.mes
+            dayFormatted = `${event.endDate.toString().padStart(2, "0")}/${resultado.mes
               .toString()
               .padStart(2, "0")}/${resultado.anio} al ${event.endDate
               .toString()
@@ -1614,8 +1616,9 @@
         
             console.log("Fecha formateada:", dayFormatted);
             // Aquí puedes usar dayFormatted como necesites
+            }
           });
-
+        
         const rowIndexes = table
           .rows()
           .indexes()

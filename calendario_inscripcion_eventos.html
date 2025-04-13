@@ -1205,14 +1205,13 @@
 
           
           result.data.forEach((ev) => {
-            for (let d = ev.startDate; d <= ev.endDate; d++) {
-              if (!events[d]) {
-                events[d] = [];
-              }
-              events[d].push(...ev.eventName);
+            const day = ev.startDate;
+            if (!events[day]) {
+              events[day] = [];
             }
+            events[day].push(...ev.eventName);
           });
-
+          
           plannedEvents_ = result.data || [];
 
           // plannedEvents = response.data || [];

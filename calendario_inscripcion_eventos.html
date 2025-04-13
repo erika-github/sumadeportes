@@ -1304,9 +1304,17 @@
           ).innerHTML = `<strong>Fecha de Nacimiento:</strong> ${formatDate(
             result.data.birthDate
           )}`;
-          getEventsByDate(age, gender, resultado);
+          /*getEventsByDate(age, gender, resultado);
           getFinishedEvents(age, gender, resultado);
-          getOtherEventsCategories(age, gender, resultado);
+          getOtherEventsCategories(age, gender, resultado);*/
+
+          await Promise.all([
+          getEventsByDate(age, gender, resultado),
+          getFinishedEvents(age, gender, resultado),
+          getOtherEventsCategories(age, gender, resultado),
+        ]);
+
+        createCalendar(resultado.dias, resultado.primerDiaNumero);
           
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
@@ -1315,7 +1323,7 @@
         console.error("Error al obtener los datos del nadador:", error);
       }
 
-      createCalendar(resultado.dias, resultado.primerDiaNumero);
+     
     }
     //async function fetchEvents() {
     // Simulación de datos

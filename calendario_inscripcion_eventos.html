@@ -1109,7 +1109,7 @@
         console.error("Error en la solicitud:", error.message);
       }
 
-    };
+    }
 
 
     async function getFinishedEvents(age, gender, resultado) {
@@ -1464,19 +1464,33 @@
           day.addEventListener("click", () => selectEvent(i));
         }
 
+
+        // finishedEvents sigue siendo un array
+      if (finishedEvents.some(event => event.date === i)) {
+        let finishedEventIndicator = document.createElement("div");
+        finishedEventIndicator.classList.add("event", "finished");
+        day.appendChild(finishedEventIndicator);
+        }
         // Verificar si el día tiene un evento finalizado
-        if (finishedEvents.some((event) => event.date === i)) {
+       /* if (finishedEvents.some((event) => event.date === i)) {
           let finishedEventIndicator = document.createElement("div");
           finishedEventIndicator.classList.add("event", "finished");
           day.appendChild(finishedEventIndicator);
-        }
+        }*/
 
         // Verificar si existen otros eventos
-        if (otherEvents.some((event) => event.date === i)) {
+        /*if (otherEvents.some((event) => event.date === i)) {
+          let otherEvents = document.createElement("div");
+          otherEvents.classList.add("event", "otherEvents");
+          day.appendChild(otherEvents);
+        }*/
+
+        if (otherEvents.some(event => event.date === i)) {
           let otherEvents = document.createElement("div");
           otherEvents.classList.add("event", "otherEvents");
           day.appendChild(otherEvents);
         }
+
 
         calendar.appendChild(day);
       }

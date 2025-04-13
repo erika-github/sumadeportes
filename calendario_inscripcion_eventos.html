@@ -1220,12 +1220,28 @@
           });*/
 
           
-          result.data.forEach((ev) => {
+          /*result.data.forEach((ev) => {
             const day = ev.startDate;
             if (!events[day]) {
               events[day] = [];
             }
             events[day].push(...ev.eventName);
+          });*/
+
+          result.data.forEach((ev) => {
+            const day = ev.startDate;
+            if (!events[day]) {
+              events[day] = [];
+            }
+          
+            ev.eventName.forEach((name, index) => {
+              events[day].push({
+                eventName: name,
+                startDate: ev.startDate,
+                endDate: ev.endDate?.[index] || ev.endDate || ev.startDate, // soporta array o valor simple
+                tournamentName: ev.tournamentName?.[index] || "", // si es array, toma el valor correspondiente
+              });
+            });
           });
 
           plannedEvents_ = result.data || [];

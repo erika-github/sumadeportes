@@ -1200,7 +1200,7 @@
           }
 
           result.data.forEach((ev) => {
-            events[ev.date] = ev.eventName;
+            events[ev.startDate] = ev.eventName;
           });
 
           plannedEvents_ = result.data || [];       

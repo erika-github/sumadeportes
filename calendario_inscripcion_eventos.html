@@ -1203,8 +1203,7 @@
             events[ev.startDate] = ev.eventName;
           });*/
 
-          let events = {};
-
+          
           result.data.forEach((ev) => {
             for (let d = ev.startDate; d <= ev.endDate; d++) {
               if (!events[d]) {

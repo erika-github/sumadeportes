@@ -1618,6 +1618,12 @@
             // Aquí puedes usar dayFormatted como necesites
             }
           });
+
+
+          const dayFormattedStart = `${day.toString().padStart(2, "0")}/${resultado.mes
+          .toString()
+          .padStart(2, "0")}/${resultado.anio}`;
+        
         
         const rowIndexes = table
           .rows()
@@ -1625,8 +1631,10 @@
           .toArray()
           .filter((index) => {
             const rowData = table.row(index).data();
-            console.log("Comparando:", rowData[1], "==", dayFormatted);
-            return rowData[1] === dayFormatted;
+            /*console.log("Comparando:", rowData[1], "==", dayFormatted);
+            return rowData[1] === dayFormatted;*/
+            const fechaInicioEnTabla = rowData[1]?.split(" al ")[0];
+            return fechaInicioEnTabla === dayFormattedStart;
           });
 
         for (let i = rowIndexes.length - 1; i >= 0; i--) {

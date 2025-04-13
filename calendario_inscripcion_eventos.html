@@ -1475,7 +1475,7 @@
 
 
         // finishedEvents sigue siendo un array
-        if (finishedEvents.some(event => event.date === i)) {
+        if (finishedEvents.some(event => event.startDate === i)) {
           let finishedEventIndicator = document.createElement("div");
           finishedEventIndicator.classList.add("event", "finished");
           day.appendChild(finishedEventIndicator);
@@ -1494,7 +1494,7 @@
           day.appendChild(otherEvents);
         }*/
 
-        if (otherEvents.some(event => event.date === i)) {
+        if (otherEvents.some(event => event.startDate === i)) {
           let otherEventsIndicator = document.createElement("div");
           otherEventsIndicator.classList.add("event", "otherEvents");
           day.appendChild(otherEventsIndicator);

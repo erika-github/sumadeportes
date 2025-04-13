@@ -109,6 +109,12 @@
 
     .finished {
       background-color: lightgray;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      position: absolute;
+      top: 5px;
+      left: 7px;
     }
 
     .otherEvents {
@@ -506,6 +512,7 @@
             <tr>
               <th>#</th>
               <th>Fecha</th>
+              <th>Torneo</th>
               <th>Evento</th>
               <th>Estado</th>
             </tr>
@@ -530,6 +537,7 @@
             <tr>
               <th>#</th>
               <th>Fecha</th>
+              <th>Torneo</th>
               <th>Evento</th>
               <th>Estado</th>
             </tr>
@@ -1891,7 +1899,7 @@
         finishedEvents.forEach((event) => {
           event.eventName.forEach((eventName, index) => {
             //let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
-
+            let tournamentsName = event.tournamentName[index] || "";
             let status = "FINALIZADO" || "";
 
             finishedTable.row
@@ -1901,7 +1909,7 @@
                 `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio}`,
-                name, // Nombre del evento
+                eventName, // Nombre del evento
                 status, // Estado del evento
               ])
               .draw(false);
@@ -1935,7 +1943,7 @@
         otherEvents.forEach((event) => {
           event.name.forEach((name, index) => {
             let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
-
+            let tournamentsName = event.tournamentName[index] || "";
             otherEventsTable.row
               .add([
                 idCounter++, // Genera un ID autoincremental
@@ -1943,7 +1951,7 @@
                 `${event.date.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio}`,
-                name, // Nombre del evento
+                eventName, // Nombre del evento
                 status, // Estado del evento
               ])
               .draw(false);

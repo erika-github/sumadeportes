@@ -1106,6 +1106,13 @@
         );
         const result = await response.json(); // Renombramos data a result para evitar confusión
 
+        console.log("Respuesta completa del servidor:", result);
+        console.log("Código de respuesta:", result.code);
+        console.log("Datos recibidos:", result.data);
+        console.log("Tipo de result.data:", typeof result.data);
+        console.log("Es un array?:", Array.isArray(result.data));
+
+
         if (result.code === "200" && result.data) {
 
           otherEvents = result.data || [];
@@ -1194,11 +1201,11 @@
 
         // Convertimos la respuesta a JSON y la renombramos a "result" para evitar confusiones
         // const result = await response.json();
-        console.log("Respuesta completa del servidor:", result);
+       /* console.log("Respuesta completa del servidor:", result);
         console.log("Código de respuesta:", result.code);
         console.log("Datos recibidos:", result.data);
         console.log("Tipo de result.data:", typeof result.data);
-        console.log("Es un array?:", Array.isArray(result.data));
+        console.log("Es un array?:", Array.isArray(result.data));*/
 
         if (result.code === "200" && Array.isArray(result.data)) {
           let elements = document.getElementsByClassName("eventsCategory");
@@ -1496,17 +1503,17 @@
          }*/
 
         // Verificar si existen otros eventos
-        if (otherEvents.some((event) => event.date === i)) {
+        /*if (otherEvents.some((event) => event.date === i)) {
           let otherEvents = document.createElement("div");
           otherEvents.classList.add("event", "otherEvents");
           day.appendChild(otherEvents);
-        }
+        }*/
 
-        /*if (otherEvents.some(event => event.startDate === i)) {
+        if (otherEvents.some(event => event.startDate === i)) {
           let otherEventsIndicator = document.createElement("div");
           otherEventsIndicator.classList.add("event", "otherEvents");
           day.appendChild(otherEventsIndicator);
-        }*/
+        }
 
 
         calendar.appendChild(day);

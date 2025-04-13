@@ -1575,7 +1575,7 @@
 
           const dayFormatted = `${day.toString().padStart(2, "0")}/${resultado.mes
           .toString()
-          .padStart(2, "0")}/${resultado.anio} al ${event.endDate[0]
+          .padStart(2, "0")}/${resultado.anio} al ${event.endDate
           .toString()
           .padStart(2, "0")}/${resultado.mes
           .toString()
@@ -1622,6 +1622,8 @@
 
         if (eventDataList.length > 0) {
 
+          
+
           eventDataList.forEach((eventData) => {
           // Recorrer los nombres y obtener la hora correspondiente (por índice)
           eventData.eventName.forEach((eventName, index) => {
@@ -1647,7 +1649,7 @@
                                                         
                    `${day.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
-                  .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate[0]
+                  .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
                   .toString()
                   .padStart(2, "0")}/${resultado.mes
                   .toString()

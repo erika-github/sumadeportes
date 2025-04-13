@@ -607,6 +607,7 @@
     let result = {};
     let month;
     let firstLetterGender;
+    let dayFormatted;
 
     const Mes = document.getElementById("mes");
     Mes.innerText = `${resultado.mesNombre} - ${resultado.anio}`;
@@ -1603,7 +1604,7 @@
           plannedEvents_.forEach((event) => {
             if (!event.endDate) return;
         
-            const dayFormatted = `${day.toString().padStart(2, "0")}/${resultado.mes
+            dayFormatted = `${day.toString().padStart(2, "0")}/${resultado.mes
               .toString()
               .padStart(2, "0")}/${resultado.anio} al ${event.endDate
               .toString()

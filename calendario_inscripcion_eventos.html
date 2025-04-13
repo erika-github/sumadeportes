@@ -1567,9 +1567,15 @@
 
         //let eventData = plannedEvents_.find((item) => item.startDate === day);
 
-        let eventData = plannedEvents_.filter((item) => item.startDate === day);
+        //let eventData = plannedEvents_.filter((item) => item.startDate === day);
 
-        if (eventData) {
+        let eventDataList = plannedEvents_.filter((item) => item.startDate === day);
+
+      
+
+        if (eventDataList.length > 0) {
+
+          eventDataList.forEach((eventData) => {
           // Recorrer los nombres y obtener la hora correspondiente (por índice)
           eventData.eventName.forEach((eventName, index) => {
             //let hora = eventData.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
@@ -1629,6 +1635,8 @@
                 .draw(false);
             }
           });
+
+        });
         }
       });
     }

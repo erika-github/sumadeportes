@@ -1499,7 +1499,7 @@
           day.appendChild(eventIndicator);
           //day.addEventListener("click", () => selectEvent(i));
           //day.addEventListener("click", () => selectEvent(i, events[i]));
-          day.addEventListener("click", () => selectEvent(i, events[i][0]));
+          day.addEventListener("click", () => selectEvent(i, events[i]));
         }
 
 
@@ -1556,6 +1556,8 @@
         // Elimina el día de la lista
         selectedDates.splice(index, 1);
         dayElement.classList.remove("selected"); // Regresa a verde claro
+
+        console.log("Eventos para el día:", day, event);
 
         const table = $("#eventTable").DataTable();
         /*const dayFormatted = `${day

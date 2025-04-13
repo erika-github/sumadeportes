@@ -1199,11 +1199,22 @@
             elem.innerHTML = `Dentro de la Categoría: ${age} Años, ${genderMap[gender]}`;
           }
 
-          result.data.forEach((ev) => {
+          /*result.data.forEach((ev) => {
             events[ev.startDate] = ev.eventName;
+          });*/
+
+          let events = {};
+
+          result.data.forEach((ev) => {
+            for (let d = ev.startDate; d <= ev.endDate; d++) {
+              if (!events[d]) {
+                events[d] = [];
+              }
+              events[d].push(...ev.eventName);
+            }
           });
 
-          plannedEvents_ = result.data || [];       
+          plannedEvents_ = result.data || [];
 
           // plannedEvents = response.data || [];
 
@@ -1270,7 +1281,7 @@
           document.getElementById(
             "sexo"
           ).innerHTML = `<strong>Género:</strong> ${genderMap[result.data.gender] || "No especificado"
-            }`;
+          }`;
           document.getElementById(
             "edad"
           ).innerHTML = `<strong>Edad:</strong> ${result.data.age}`;
@@ -1330,7 +1341,7 @@
     ];
 
     let otherEvents = [
-      
+
       {
         id: 1,
         date: 1,
@@ -1466,17 +1477,17 @@
 
 
         // finishedEvents sigue siendo un array
-      if (finishedEvents.some(event => event.date === i)) {
-        let finishedEventIndicator = document.createElement("div");
-        finishedEventIndicator.classList.add("event", "finished");
-        day.appendChild(finishedEventIndicator);
-        }
-        // Verificar si el día tiene un evento finalizado
-       /* if (finishedEvents.some((event) => event.date === i)) {
+        if (finishedEvents.some(event => event.date === i)) {
           let finishedEventIndicator = document.createElement("div");
           finishedEventIndicator.classList.add("event", "finished");
           day.appendChild(finishedEventIndicator);
-        }*/
+        }
+        // Verificar si el día tiene un evento finalizado
+        /* if (finishedEvents.some((event) => event.date === i)) {
+           let finishedEventIndicator = document.createElement("div");
+           finishedEventIndicator.classList.add("event", "finished");
+           day.appendChild(finishedEventIndicator);
+         }*/
 
         // Verificar si existen otros eventos
         /*if (otherEvents.some((event) => event.date === i)) {

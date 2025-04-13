@@ -1942,7 +1942,7 @@
         );
 
         otherEvents.forEach((event) => {
-          event.name.forEach((name, index) => {
+          event.eventName.forEach((eventName, index) => {
             let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
             let tournamentsName = event.tournamentName[index] || "";
             otherEventsTable.row

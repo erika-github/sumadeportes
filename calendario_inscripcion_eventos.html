@@ -1496,17 +1496,17 @@
          }*/
 
         // Verificar si existen otros eventos
-        /*if (otherEvents.some((event) => event.date === i)) {
+        if (otherEvents.some((event) => event.date === i)) {
           let otherEvents = document.createElement("div");
           otherEvents.classList.add("event", "otherEvents");
           day.appendChild(otherEvents);
-        }*/
+        }
 
-        if (otherEvents.some(event => event.startDate === i)) {
+        /*if (otherEvents.some(event => event.startDate === i)) {
           let otherEventsIndicator = document.createElement("div");
           otherEventsIndicator.classList.add("event", "otherEvents");
           day.appendChild(otherEventsIndicator);
-        }
+        }*/
 
 
         calendar.appendChild(day);

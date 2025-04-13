@@ -1606,7 +1606,7 @@
 
             if (event.startDate === day) {
         
-            dayFormatted = `${event.endDate.toString().padStart(2, "0")}/${resultado.mes
+            dayFormatted = `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
               .toString()
               .padStart(2, "0")}/${resultado.anio} al ${event.endDate
               .toString()
@@ -1625,6 +1625,7 @@
           .toArray()
           .filter((index) => {
             const rowData = table.row(index).data();
+            console.log("Comparando:", rowData[1], "==", dayFormatted);
             return rowData[1] === dayFormatted;
           });
 

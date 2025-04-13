@@ -1598,9 +1598,9 @@
           .toString()
           .padStart(2, "0")}/${resultado.anio}`;*/
 
-          if (!Array.isArray(eventsForDay)) return;
+          if (!Array.isArray(plannedEvents_)) return;
 
-          eventsForDay.forEach((event) => {
+          plannedEvents_.forEach((event) => {
             if (!event.endDate) return;
         
             const dayFormatted = `${day.toString().padStart(2, "0")}/${resultado.mes

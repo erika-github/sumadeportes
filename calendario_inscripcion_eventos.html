@@ -1116,7 +1116,6 @@
 
         if (result.code === "200" && result.data) {
 
-          console.log("aqui siempre");
           otherEvents = result.data || [];
 
         } else {
@@ -1566,8 +1565,7 @@
 
       if (index === -1) {
         // Agrega el día a la lista de días seleccionados
-
-        console.log("Ques es day:::"+day)
+      
         selectedDates.push(day);
         dayElement.classList.add("selected"); // Se activa el color verde oscuro
       } else {
@@ -1667,8 +1665,6 @@
 
         let eventDataList = plannedEvents_.filter((item) => item.startDate === day);
 
-        console.log("Se mete antes del for::::" +eventDataList.length);
-
         if (eventDataList.length > 0) {          
           
 
@@ -1682,7 +1678,7 @@
             // Verificar si el registro ya existe en la tabla, comparando fecha y nombre del evento
             let isExisting = existingData.some((row) => {
               //return row[1] === `${day.toString().padStart(2, '0')}/01/2025` && row[2] === eventName;
-              console.log("Se mete en el for::::");
+             
               return (
                 row[1] ===
                 /*`${day.toString().padStart(2, "0")}/${resultado.mes
@@ -1843,6 +1839,18 @@
           behavior: "smooth",
         });
       });
+    }
+
+
+    function obtenerStatus(endDate) {
+      const fechaActual = new Date();
+      const finEvento = new Date(
+        resultado.anio,
+        resultado.mes - 1, // En JavaScript los meses van de 0 a 11
+        endDate
+      );
+    
+      return finEvento < fechaActual ? "FINALIZADO" : "PROGRAMADO";
     }
 
     $(document).ready(function () {
@@ -2071,7 +2079,8 @@
         otherEvents.forEach((event) => {
           event.eventName.forEach((eventName, index) => {
             //let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
-            let status = "";
+            //let status = "";
+            let status = obtenerStatus(event.endDate); // ← Aquí llamamos a la función
             let tournamentsName = event.tournamentName[index] || "";
             otherEventsTable.row
               .add([

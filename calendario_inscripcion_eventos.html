@@ -1943,7 +1943,8 @@
 
         otherEvents.forEach((event) => {
           event.eventName.forEach((eventName, index) => {
-            let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
+            //let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
+            let status = "";
             let tournamentsName = event.tournamentName[index] || "";
             otherEventsTable.row
               .add([

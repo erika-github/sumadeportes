@@ -1609,6 +1609,7 @@
       let existingData = table.rows().data().toArray(); // Obtener todos los registros actuales en la tabla
 
       selectedDates.forEach((day) => {
+        
         // Buscar en "data" el objeto que coincide con el día
 
         //let eventData = plannedEvents_.find((item) => item.date === day);
@@ -1621,9 +1622,7 @@
 
       
 
-        if (eventDataList.length > 0) {
-
-          
+        if (eventDataList.length > 0) {          
 
           eventDataList.forEach((eventData) => {
           // Recorrer los nombres y obtener la hora correspondiente (por índice)
@@ -1635,6 +1634,7 @@
             // Verificar si el registro ya existe en la tabla, comparando fecha y nombre del evento
             let isExisting = existingData.some((row) => {
               //return row[1] === `${day.toString().padStart(2, '0')}/01/2025` && row[2] === eventName;
+              console.log("Se mete en el for::::");
               return (
                 row[1] ===
                 /*`${day.toString().padStart(2, "0")}/${resultado.mes
@@ -1683,7 +1683,14 @@
                 .add([
                   eventId++,
                   // `${day.toString().padStart(2, '0')}/01/2025`,  // Fecha en formato DD/MM/YYYY
-                  `${day.toString().padStart(2, "0")}/${resultado.mes
+                 /* `${day.toString().padStart(2, "0")}/${resultado.mes
+                    .toString()
+                    .padStart(2, "0")}/${resultado.anio}`,*/
+                    `${day.toString().padStart(2, "0")}/${resultado.mes
+                    .toString()
+                    .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
+                    .toString()
+                    .padStart(2, "0")}/${resultado.mes
                     .toString()
                     .padStart(2, "0")}/${resultado.anio}`,
                   //hora,                                           // Hora extraída de "data"

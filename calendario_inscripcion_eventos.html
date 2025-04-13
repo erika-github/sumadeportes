@@ -1307,13 +1307,15 @@
           getEventsByDate(age, gender, resultado);
           getFinishedEvents(age, gender, resultado);
           getOtherEventsCategories(age, gender, resultado);
-          createCalendar(resultado.dias, resultado.primerDiaNumero);
+          
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }
       } catch (error) {
         console.error("Error al obtener los datos del nadador:", error);
       }
+
+      createCalendar(resultado.dias, resultado.primerDiaNumero);
     }
     //async function fetchEvents() {
     // Simulación de datos

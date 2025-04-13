@@ -1565,7 +1565,9 @@
 
         //let eventData = plannedEvents_.find((item) => item.date === day);
 
-        let eventData = plannedEvents_.find((item) => item.startDate === day);
+        //let eventData = plannedEvents_.find((item) => item.startDate === day);
+
+        let eventData = plannedEvents_.filter((item) => item.startDate === day);
 
         if (eventData) {
           // Recorrer los nombres y obtener la hora correspondiente (por índice)

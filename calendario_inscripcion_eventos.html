@@ -708,7 +708,7 @@
             documentType: documentType,
             documentNumber: documentNumber,
           },
-          teamDescription:
+          testDescription:
             data[3] || "Evento no encontrado",
         };
 
@@ -1115,6 +1115,7 @@
 
         if (result.code === "200" && result.data) {
 
+          console.log("aqui siempre");
           otherEvents = result.data || [];
 
         } else {
@@ -1231,7 +1232,7 @@
 
           // plannedEvents = response.data || [];
 
-          createCalendar(resultado.dias, resultado.primerDiaNumero);
+          //createCalendar(resultado.dias, resultado.primerDiaNumero);
           //console.log("Eventos obtenidos:", result.data);
           // Aquí puedes continuar con el procesamiento de result.data
         } else {
@@ -1306,6 +1307,7 @@
           getEventsByDate(age, gender, resultado);
           getFinishedEvents(age, gender, resultado);
           getOtherEventsCategories(age, gender, resultado);
+          createCalendar(resultado.dias, resultado.primerDiaNumero);
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }

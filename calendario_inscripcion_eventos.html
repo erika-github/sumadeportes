@@ -1844,6 +1844,7 @@
 
     function obtenerStatus(endDate) {
       //const fechaActual = new Date();
+      const ahora = new Date(); // Fecha y hora actuales
       const hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()); // Solo la parte de fecha
       console.log(hoy.getDate+" ;"+hoy.getMonth+" ;"+hoy.getFullYear)
       const finEvento = new Date(

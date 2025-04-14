@@ -1857,13 +1857,16 @@
 
       const eventEndDate = new Date(
         resultado.anio,
-        resultado.mes, // JavaScript espera meses de 0 a 11
+        resultado.mes -1, // JavaScript espera meses de 0 a 11
         event.endDate
       );
 
       
       const today = new Date();
       today.setHours(0, 0, 0, 0); // Elimina la hora para comparar solo la fecha
+
+      console.log("Fecha fin del evento:", eventEndDate.toLocaleDateString());
+      console.log("Fecha actual:", today.toLocaleDateString());
 
       return eventEndDate >= today ? "PROGRAMADO" : "FINALIZADO";
     }

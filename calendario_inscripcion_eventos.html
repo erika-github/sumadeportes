@@ -1843,7 +1843,9 @@
 
 
     function obtenerStatus(endDate) {
-      const fechaActual = new Date();
+      //const fechaActual = new Date();
+      const hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()); // Solo la parte de fecha
+      console.log(hoy.getDate+" ;"+hoy.getMonth+" ;"+hoy.getFullYear)
       const finEvento = new Date(
         resultado.anio,
         resultado.mes - 1, // En JavaScript los meses van de 0 a 11

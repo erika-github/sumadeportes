@@ -1202,11 +1202,11 @@
 
         // Convertimos la respuesta a JSON y la renombramos a "result" para evitar confusiones
         // const result = await response.json();
-       /* console.log("Respuesta completa del servidor:", result);
-        console.log("Código de respuesta:", result.code);
-        console.log("Datos recibidos:", result.data);
-        console.log("Tipo de result.data:", typeof result.data);
-        console.log("Es un array?:", Array.isArray(result.data));*/
+        /* console.log("Respuesta completa del servidor:", result);
+         console.log("Código de respuesta:", result.code);
+         console.log("Datos recibidos:", result.data);
+         console.log("Tipo de result.data:", typeof result.data);
+         console.log("Es un array?:", Array.isArray(result.data));*/
 
         if (result.code === "200" && Array.isArray(result.data)) {
           let elements = document.getElementsByClassName("eventsCategory");
@@ -1219,7 +1219,7 @@
             events[ev.startDate] = ev.eventName;
           });*/
 
-          
+
           /*result.data.forEach((ev) => {
             const day = ev.startDate;
             if (!events[day]) {
@@ -1233,7 +1233,7 @@
             if (!events[day]) {
               events[day] = [];
             }
-          
+
             ev.eventName.forEach((name, index) => {
               events[day].push({
                 eventName: name,
@@ -1325,13 +1325,13 @@
           getOtherEventsCategories(age, gender, resultado);*/
 
           await Promise.all([
-          getEventsByDate(age, gender, resultado),
-          getFinishedEvents(age, gender, resultado),
-          getOtherEventsCategories(age, gender, resultado),
-        ]);
+            getEventsByDate(age, gender, resultado),
+            getFinishedEvents(age, gender, resultado),
+            getOtherEventsCategories(age, gender, resultado),
+          ]);
 
-        createCalendar(resultado.dias, resultado.primerDiaNumero);
-          
+          createCalendar(resultado.dias, resultado.primerDiaNumero);
+
         } else {
           console.error("Error: Respuesta inesperada del servicio", result);
         }
@@ -1339,7 +1339,7 @@
         console.error("Error al obtener los datos del nadador:", error);
       }
 
-     
+
     }
     //async function fetchEvents() {
     // Simulación de datos
@@ -1550,7 +1550,7 @@
       }
     }
 
-   // function selectEvent(day) {
+    // function selectEvent(day) {
     function selectEvent(day, event) {
       let index = selectedDates.indexOf(day);
 
@@ -1565,7 +1565,7 @@
 
       if (index === -1) {
         // Agrega el día a la lista de días seleccionados
-      
+
         selectedDates.push(day);
         dayElement.classList.add("selected"); // Se activa el color verde oscuro
       } else {
@@ -1589,40 +1589,40 @@
           .toString()
           .padStart(2, "0")}/${resultado.anio}`*/
 
-          /*const dayFormatted = `${day.toString().padStart(2, "0")}/${resultado.mes
-          .toString()
-          .padStart(2, "0")}/${resultado.anio} al ${event.endDate
-          .toString()
-          .padStart(2, "0")}/${resultado.mes
-          .toString()
-          .padStart(2, "0")}/${resultado.anio}`;*/
+        /*const dayFormatted = `${day.toString().padStart(2, "0")}/${resultado.mes
+        .toString()
+        .padStart(2, "0")}/${resultado.anio} al ${event.endDate
+        .toString()
+        .padStart(2, "0")}/${resultado.mes
+        .toString()
+        .padStart(2, "0")}/${resultado.anio}`;*/
 
-          /*if (!Array.isArray(plannedEvents_)) return;
+        /*if (!Array.isArray(plannedEvents_)) return;
 
-          plannedEvents_.forEach((event) => {
-            if (!event.endDate) return;
+        plannedEvents_.forEach((event) => {
+          if (!event.endDate) return;
 
-            if (event.startDate === day) {
-        
-            dayFormatted = `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
-              .toString()
-              .padStart(2, "0")}/${resultado.anio} al ${event.endDate
-              .toString()
-              .padStart(2, "0")}/${resultado.mes
-              .toString()
-              .padStart(2, "0")}/${resultado.anio}`;
-        
-            console.log("Fecha formateada:", dayFormatted);
-            // Aquí puedes usar dayFormatted como necesites
-            }
-          });*/
+          if (event.startDate === day) {
+      
+          dayFormatted = `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
+            .toString()
+            .padStart(2, "0")}/${resultado.anio} al ${event.endDate
+            .toString()
+            .padStart(2, "0")}/${resultado.mes
+            .toString()
+            .padStart(2, "0")}/${resultado.anio}`;
+      
+          console.log("Fecha formateada:", dayFormatted);
+          // Aquí puedes usar dayFormatted como necesites
+          }
+        });*/
 
 
-          const dayFormattedStart = `${day.toString().padStart(2, "0")}/${resultado.mes
+        const dayFormattedStart = `${day.toString().padStart(2, "0")}/${resultado.mes
           .toString()
           .padStart(2, "0")}/${resultado.anio}`;
-                  
-        
+
+
         const rowIndexes = table
           .rows()
           .indexes()
@@ -1631,7 +1631,7 @@
             const rowData = table.row(index).data();
             /*console.log("Comparando:", rowData[1], "==", dayFormatted);*/
             //return rowData[1] === dayFormatted;           
-           
+
             const fechaInicioEnTabla = rowData[1]?.split(" al ")[0];
             return fechaInicioEnTabla === dayFormattedStart;
           });
@@ -1654,7 +1654,7 @@
       let existingData = table.rows().data().toArray(); // Obtener todos los registros actuales en la tabla
 
       selectedDates.forEach((day) => {
-        
+
         // Buscar en "data" el objeto que coincide con el día
 
         //let eventData = plannedEvents_.find((item) => item.date === day);
@@ -1665,94 +1665,94 @@
 
         let eventDataList = plannedEvents_.filter((item) => item.startDate === day);
 
-        if (eventDataList.length > 0) {          
-          
+        if (eventDataList.length > 0) {
+
 
           eventDataList.forEach((eventData) => {
-          // Recorrer los nombres y obtener la hora correspondiente (por índice)
-          eventData.eventName.forEach((eventName, index) => {
-            //let hora = eventData.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
+            // Recorrer los nombres y obtener la hora correspondiente (por índice)
+            eventData.eventName.forEach((eventName, index) => {
+              //let hora = eventData.hora[index] || "00:00:00"; // Si no existe hora, asigna un valor predeterminado
 
-            let tournamentsName = eventData.tournamentName[index] || "";
+              let tournamentsName = eventData.tournamentName[index] || "";
 
-            // Verificar si el registro ya existe en la tabla, comparando fecha y nombre del evento
-            let isExisting = existingData.some((row) => {
-              //return row[1] === `${day.toString().padStart(2, '0')}/01/2025` && row[2] === eventName;
-             
-              return (
-                row[1] ===
-                /*`${day.toString().padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio}`*/
-                 /* `${day.toString().padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
-                  .toString()
-                  .padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio}`*/ 
-                                                        
-                   `${day.toString().padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
-                  .toString()
-                  .padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio}` &&
-                row[2] === tournamentsName &&
-                row[3] === eventName
-              );
-            });
+              // Verificar si el registro ya existe en la tabla, comparando fecha y nombre del evento
+              let isExisting = existingData.some((row) => {
+                //return row[1] === `${day.toString().padStart(2, '0')}/01/2025` && row[2] === eventName;
 
-            if (!isExisting) {
-              // Función para crear dropdown (se mantiene comentada si no la usas)
-              const createDropdown = (name, options) => {
-                return `
+                return (
+                  row[1] ===
+                  /*`${day.toString().padStart(2, "0")}/${resultado.mes
+                    .toString()
+                    .padStart(2, "0")}/${resultado.anio}`*/
+                  /* `${day.toString().padStart(2, "0")}/${resultado.mes
+                   .toString()
+                   .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
+                   .toString()
+                   .padStart(2, "0")}/${resultado.mes
+                   .toString()
+                   .padStart(2, "0")}/${resultado.anio}`*/
+
+                  `${day.toString().padStart(2, "0")}/${resultado.mes
+                    .toString()
+                    .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
+                      .toString()
+                      .padStart(2, "0")}/${resultado.mes
+                        .toString()
+                        .padStart(2, "0")}/${resultado.anio}` &&
+                  row[2] === tournamentsName &&
+                  row[3] === eventName
+                );
+              });
+
+              if (!isExisting) {
+                // Función para crear dropdown (se mantiene comentada si no la usas)
+                const createDropdown = (name, options) => {
+                  return `
                   <div class="custom-dropdown">
                     <div class="dropdown-selected" data-type="${name}" data-id="${eventId}">00</div>
                     <div class="dropdown-options">
                       ${options
-                    .map(
-                      (option) =>
-                        `<div class="dropdown-option" onclick="selectOption(${eventId}, '${name}', ${option})">${option < 10 ? "0" + option : option
-                        }</div>`
-                    )
-                    .join("")}
+                      .map(
+                        (option) =>
+                          `<div class="dropdown-option" onclick="selectOption(${eventId}, '${name}', ${option})">${option < 10 ? "0" + option : option
+                          }</div>`
+                      )
+                      .join("")}
                     </div>
                   </div>
                 `;
-              };
+                };
 
-              table.row
-                .add([
-                  eventId++,
-                  // `${day.toString().padStart(2, '0')}/01/2025`,  // Fecha en formato DD/MM/YYYY
-                 /* `${day.toString().padStart(2, "0")}/${resultado.mes
-                    .toString()
-                    .padStart(2, "0")}/${resultado.anio}`,*/
+                table.row
+                  .add([
+                    eventId++,
+                    // `${day.toString().padStart(2, '0')}/01/2025`,  // Fecha en formato DD/MM/YYYY
+                    /* `${day.toString().padStart(2, "0")}/${resultado.mes
+                       .toString()
+                       .padStart(2, "0")}/${resultado.anio}`,*/
                     `${day.toString().padStart(2, "0")}/${resultado.mes
-                    .toString()
-                    .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
-                    .toString()
-                    .padStart(2, "0")}/${resultado.mes
-                    .toString()
-                    .padStart(2, "0")}/${resultado.anio}`,
-                  //hora,                                           // Hora extraída de "data"
-                  tournamentsName,
-                  eventName, // Nombre del evento
-                  /*createDropdown('minutes', Array.from({ length: 60 }, (_, i) => i)),
-              createDropdown('seconds', Array.from({ length: 60 }, (_, i) => i)),
-              createDropdown('centiseconds', Array.from({ length: 100 }, (_, i) => i)),*/
-                  `<span class="time" data-id="${eventId - 1
-                  }">00:00:00</span>`, // Span para el tiempo (puedes actualizarlo según necesidad)
-                  `<input type="checkbox" class="inscribeCheckbox" data-index="${index}" style="display: block; margin: 0 auto;">`,
-                  `<i class="fas fa-trash-alt" style="color: blue; cursor: pointer; display: block; margin: 0 auto;"></i>`,
-                ])
-                .draw(false);
-            }
-          });
+                      .toString()
+                      .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
+                        .toString()
+                        .padStart(2, "0")}/${resultado.mes
+                          .toString()
+                          .padStart(2, "0")}/${resultado.anio}`,
+                    //hora,                                           // Hora extraída de "data"
+                    tournamentsName,
+                    eventName, // Nombre del evento
+                    /*createDropdown('minutes', Array.from({ length: 60 }, (_, i) => i)),
+                createDropdown('seconds', Array.from({ length: 60 }, (_, i) => i)),
+                createDropdown('centiseconds', Array.from({ length: 100 }, (_, i) => i)),*/
+                    `<span class="time" data-id="${eventId - 1
+                    }">00:00:00</span>`, // Span para el tiempo (puedes actualizarlo según necesidad)
+                    `<input type="checkbox" class="inscribeCheckbox" data-index="${index}" style="display: block; margin: 0 auto;">`,
+                    `<i class="fas fa-trash-alt" style="color: blue; cursor: pointer; display: block; margin: 0 auto;"></i>`,
+                  ])
+                  .draw(false);
+              }
+            });
 
-        });
+          });
         }
       });
     }
@@ -1843,8 +1843,8 @@
 
 
     function obtenerStatus(endDate) {
-      //const fechaActual = new Date();
-      const ahora = new Date(); // Fecha y hora actuales
+
+      /*const ahora = new Date(); // Fecha y hora actuales
       const hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()); // Solo la parte de fecha
       console.log(hoy.getDate+" ;"+hoy.getMonth+" ;"+hoy.getFullYear)
       const finEvento = new Date(
@@ -1853,7 +1853,18 @@
         endDate
       );
     
-      return finEvento < ahora ? "FINALIZADO" : "PROGRAMADO";
+      return finEvento <= ahora ? "FINALIZADO" : "PROGRAMADO";*/
+
+      const eventEndDate = new Date(
+        resultado.anio,
+        resultado.mes - 1, // JavaScript espera meses de 0 a 11
+        event.endDate
+      );
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Elimina la hora para comparar solo la fecha
+
+      const status = eventEndDate >= today ? "PROGRAMADO" : "FINALIZADO";
     }
 
     $(document).ready(function () {
@@ -1988,13 +1999,13 @@
                 /*`${event.startDate.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio}`,*/
-                  `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
+                `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio} al ${event.endDate
-                  .toString()
-                  .padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio}`,
+                    .toString()
+                    .padStart(2, "0")}/${resultado.mes
+                      .toString()
+                      .padStart(2, "0")}/${resultado.anio}`,
                 tournamentsName,
                 eventName, // Nombre del evento
                 status, // Estado del evento
@@ -2040,14 +2051,14 @@
                 /*`${event.startDate.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio}`,*/
-                  `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
+                `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio} al ${event.endDate
-                  .toString()
-                  .padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio}`,
-                  tournamentsName,
+                    .toString()
+                    .padStart(2, "0")}/${resultado.mes
+                      .toString()
+                      .padStart(2, "0")}/${resultado.anio}`,
+                tournamentsName,
                 eventName, // Nombre del evento
                 status, // Estado del evento
               ])
@@ -2089,17 +2100,17 @@
               .add([
                 idCounter++, // Genera un ID autoincremental
                 //`${event.date.toString().padStart(2, '0')}/01/2025`, // Formato de fecha
-               /* `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio}`,*/
-                  `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
+                /* `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
+                   .toString()
+                   .padStart(2, "0")}/${resultado.anio}`,*/
+                `${event.startDate.toString().padStart(2, "0")}/${resultado.mes
                   .toString()
                   .padStart(2, "0")}/${resultado.anio} al ${event.endDate
-                  .toString()
-                  .padStart(2, "0")}/${resultado.mes
-                  .toString()
-                  .padStart(2, "0")}/${resultado.anio}`,
-                  tournamentsName,
+                    .toString()
+                    .padStart(2, "0")}/${resultado.mes
+                      .toString()
+                      .padStart(2, "0")}/${resultado.anio}`,
+                tournamentsName,
                 eventName, // Nombre del evento
                 status, // Estado del evento
               ])

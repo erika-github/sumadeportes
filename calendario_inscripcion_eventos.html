@@ -1857,10 +1857,11 @@
 
       const eventEndDate = new Date(
         resultado.anio,
-        resultado.mes - 1, // JavaScript espera meses de 0 a 11
+        resultado.mes, // JavaScript espera meses de 0 a 11
         event.endDate
       );
 
+      
       const today = new Date();
       today.setHours(0, 0, 0, 0); // Elimina la hora para comparar solo la fecha
 

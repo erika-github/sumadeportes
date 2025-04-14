@@ -1842,33 +1842,27 @@
     }
 
 
-    function obtenerStatus(endDate) {
-
-      /*const ahora = new Date(); // Fecha y hora actuales
-      const hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()); // Solo la parte de fecha
-      console.log(hoy.getDate+" ;"+hoy.getMonth+" ;"+hoy.getFullYear)
-      const finEvento = new Date(
-        resultado.anio,
-        resultado.mes - 1, // En JavaScript los meses van de 0 a 11
-        endDate
-      );
+    function obtenerEstadoEvento(endDate, mes, anio) {
+      // Verifica si endDate es un array y extrae el valor correcto
+      const endDateValue = Array.isArray(endDate) ? endDate[0] : endDate;
     
-      return finEvento <= ahora ? "FINALIZADO" : "PROGRAMADO";*/
-
-      const eventEndDate = new Date(
-        resultado.anio,
-        resultado.mes -1, // JavaScript espera meses de 0 a 11
-        event.endDate
-      );
-
-      
-      const today = new Date();
-      today.setHours(0, 0, 0, 0); // Elimina la hora para comparar solo la fecha
-
-      console.log("Fecha fin del evento:", eventEndDate.toLocaleDateString());
-      console.log("Fecha actual:", today.toLocaleDateString());
-
-      return eventEndDate >= today ? "PROGRAMADO" : "FINALIZADO";
+      const parsedEndDate = parseInt(endDateValue, 10);
+      if (isNaN(parsedEndDate)) {
+        console.warn("endDate no válido:", endDateValue);
+        return "DESCONOCIDO";
+      }
+    
+      // Crear fecha fin del evento (restando 1 al mes porque en JS enero = 0)
+      const fechaFinEvento = new Date(anio, mes - 1, parsedEndDate);
+    
+      // Obtener la fecha actual sin hora
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0);
+    
+      console.log("Fecha fin del evento:", fechaFinEvento.toLocaleDateString());
+      console.log("Fecha actual:", hoy.toLocaleDateString());
+    
+      return fechaFinEvento >= hoy ? "PROGRAMADO" : "FINALIZADO";
     }
 
     $(document).ready(function () {
@@ -2098,7 +2092,7 @@
           event.eventName.forEach((eventName, index) => {
             //let status = event.status[index] || event.status[0]; // Usa el estado correspondiente o el primero si no hay
             //let status = "";
-            let status = obtenerStatus(event.endDate); // ← Aquí llamamos a la función
+            let status = obtenerEstadoEvento(event.endDate, resultado.mes, resultado.anio); // ← Aquí llamamos a la función
             let tournamentsName = event.tournamentName[index] || "";
             otherEventsTable.row
               .add([

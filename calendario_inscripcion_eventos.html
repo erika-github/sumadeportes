@@ -1864,7 +1864,7 @@
       const today = new Date();
       today.setHours(0, 0, 0, 0); // Elimina la hora para comparar solo la fecha
 
-      const status = eventEndDate >= today ? "PROGRAMADO" : "FINALIZADO";
+      return eventEndDate >= today ? "PROGRAMADO" : "FINALIZADO";
     }
 
     $(document).ready(function () {

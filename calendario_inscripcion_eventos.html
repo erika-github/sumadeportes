@@ -765,6 +765,12 @@
       }
     });
 
+
+    function convertirFecha(fecha) {
+      const partes = fecha.split("/");
+      return `${partes[2]}-${partes[1]}-${partes[0]}`; // YYYY-MM-DD
+    }
+
     //*//
     function obtenerEventosSeleccionados() {
       const eventosSeleccionados = [];
@@ -785,8 +791,8 @@
         const tiempo = row.cells[4].textContent.trim();
 
         const fechas = data[1].split(" al ");
-        const startDate = fechas[0].trim();
-        const endDate = fechas[1].trim();
+        const startDate = convertirFecha(fechas[0].trim());
+        const endDate = convertirFecha(fechas[1].trim());
 
         // Agregamos los datos de la fila al array
         eventosSeleccionados.push({

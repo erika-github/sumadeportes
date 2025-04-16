@@ -784,11 +784,16 @@
         // lo extraemos directamente del contenido textual de la celda
         const tiempo = row.cells[4].textContent.trim();
 
+        const fechas = data[1].split(" al ");
+        const startDate = fechas[0].trim();
+        const endDate = fechas[1].trim();
+
         // Agregamos los datos de la fila al array
         eventosSeleccionados.push({
-          //eventId: data[0],
-          //fecha: data[1],
+          
           tournamentName: data[2],
+          startDate: startDate,
+          endDate: endDate,
           eventName: data[3],
           mark: tiempo,
         });

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showEnrollmentAlert() {
     Swal.fire({
-      title: 'Reglas de para el registro de cuentas',
+      title: 'Reglas para el registro de cuentas',
       html: `
         <div style="text-align: justify;">
         <p style= "font-size: 1.1vw">

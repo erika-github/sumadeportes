@@ -9,16 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showEnrollmentAlert() {
     Swal.fire({
-      title: 'Reglas de para la registro de cuentas',
+      title: 'Reglas de para el registro de cuentas',
       html: `
         <div style="text-align: justify;">
-        <p>
+        <p style= "font-size: 1.1vw">
           <strong>Para registro de cuentas a niños(as) y/o adolescentes menores de 18 años:</strong><br>
           • Utilice la cédula de identidad del representante.<br>
           • Los datos personales, tales como: Nombre, Apellido y Fecha de Nacimiento, deben ser de la persona a quien usted vaya inscribir.<br>
           • Puede usar un correo del representante o uno que pertenezca a la persona a quien usted desee inscribir.
         </p>
-        <p><br>
+        <p style="font-size: 1.1vw"><br>
           <strong>Para registro de cuentas a adultos de 18 años ó mayores:</strong><br>
           • Utilice su cédula de identidad y así mismo, proceda a ingresar sus datos personales, incluyendo su correo.
         </p><br>

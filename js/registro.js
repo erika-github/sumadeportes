@@ -11,31 +11,55 @@ document.addEventListener("DOMContentLoaded", function () {
     Swal.fire({
       title: 'Reglas para el registro de cuentas',
       html: `
-        <div style="text-align: justify;">
+        <br>
+        <div style="text-align: start">
         <p style= "font-size: 1.1vw">
-          <strong>Para registro de cuentas a niños(as) y/o adolescentes menores de 18 años:</strong><br>
-          • Utilice la cédula de identidad del representante.<br>
-          • Los datos personales, tales como: Nombre, Apellido y Fecha de Nacimiento, deben ser de la persona a quien usted vaya inscribir.<br>
-          • Puede usar un correo del representante o uno que pertenezca a la persona a quien usted desee inscribir.
+          <strong>Registro de cuentas para niños, niñas y adolescentes menores de 18 años:</strong><br><br>
+          • Ingrese la cédula de identidad del representante legal.<br>
+          • Los datos personales como nombre, apellido y fecha de nacimiento deben corresponder al niño, niña o adolescente que se desea registrar.<br>
+          • Puede proporcionar un correo electrónico del representante o uno propio del niño, niña o adolescente.
         </p>
-        <p style="font-size: 1.1vw"><br>
-          <strong>Para registro de cuentas a adultos de 18 años ó mayores:</strong><br>
-          • Utilice su cédula de identidad y así mismo, proceda a ingresar sus datos personales, incluyendo su correo.
+        <p style="font-size: 1.1vw"><br><br>
+          <strong>Registro de cuentas para personas adultas (18 años o más):</strong><br><br>
+          • Ingrese exclusivamente su cédula de identidad.<br>
+          • Complete sus datos personales, incluyendo nombre, apellido, fecha de nacimiento y dirección de correo electrónico.
         </p><br>
       </div>
-      <hr>
-      <label style="display: flex; align-items: center; margin-top: 1em;">
-        <input type="checkbox" id="agreeCheck" style="margin-right: .5em;">
-        He leído y acepto todas las reglas de inscripción.
-      </label>
+      <hr style="width: 100%; height: 0.1vw; background-color: lightgray; border: none; margin-top: 1vw; margin-bottom: 1vw;">
+     <input type="checkbox" id="agreeCheck" 
+         style="
+          margin-top: 0.5vw;         
+           margin-right: 1vw;
+           width: 1.2vw;
+           height: 1.2vw;
+          /* min-width: 16px;
+           min-height: 16px;*/
+           border: 0.05vw solid #000;
+           border-radius: 0.05vw;
+           appearance: none;
+           -webkit-appearance: none;
+           outline: none;
+           display: inline-block;
+           position: relative;
+           background-color: #fff;
+         ">
+  <span style="font-size: 0.9vw; position:relative; top:-0.5%; right:2%">
+    He leído y acepto todas las reglas para el registro de cuentas.
+  </span>
+      </div>
       `,
       icon: 'info',
-      width: '40vw',           // Aumenta el ancho (aprox. el doble que el valor por defecto)
+      width: '37vw',           // Aumenta el ancho (aprox. el doble que el valor por defecto)
       heightAuto: false,       // Permite controlar la altura si se quisiera
       allowOutsideClick: false, // No cierra al hacer click fuera
       allowEscapeKey: false,    // No cierra con Escape
       focusConfirm: false,
       confirmButtonText: 'Continuar',
+      customClass: {
+        popup: 'swal-custom-popup',
+        title: 'swal-custom-title',
+        confirmButton: 'swal-custom-button'
+      },
       preConfirm: () => {
         const checkbox = document.getElementById('agreeCheck');
         if (!checkbox || !checkbox.checked) {
@@ -53,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function hideSpinner() {
     document.getElementById('spinner').style.display = 'none';
   }
- 
+
 
   // Referencias al formulario, botón y campos
   const form = document.querySelector("form");
@@ -123,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   // Función para mostrar el error
-  function mostrarError(mensaje) {   
+  function mostrarError(mensaje) {
     const nuevoSpan = document.createElement("span");
     nuevoSpan.className = "error";
     nuevoSpan.textContent = mensaje;
@@ -139,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Validación en tiempo real para la fecha de nacimiento usando Flatpickr
   fechaNacimientoEl.addEventListener("input", function () {
 
-   
+
     grupo = fechaNacimientoEl.closest(".input-group");
     contenedor = grupo.parentElement;
 
@@ -149,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
       siguienteElemento.remove();
     }
 
-    
+
 
     // Validar si está vacío
     if (!validarCampoVacio(fechaNacimientoEl, {}, "Fecha de Nacimiento")) {
@@ -215,10 +239,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (errorEl && errorEl.classList.contains("error")) {
         errorEl.remove();
       }
-    
+
 
       mostrarError("La fecha de nacimiento es obligatoria.");
-      
+
 
     }
     if (numeroDocumentoEl.value.trim() === "") {
@@ -231,11 +255,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Si hay algún error, se detiene el envío
     if (
       errorNombre.textContent ||
-      errorApellido.textContent || 
+      errorApellido.textContent ||
       (errorFecha && errorFecha.textContent) || // esto hace que no intente acceder a un elemento del dom que no existe.
       errorDocumento.textContent ||
       errorCorreo.textContent
-    ) {     
+    ) {
 
       Swal.fire({
         title: "Error",
@@ -264,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
       documentNumber: numeroDocumento,
       firstName: nombre,
       lastName: apellido,
-      birthDate: fechaNacimiento,     
+      birthDate: fechaNacimiento,
       email: email,
       locked: false,
       enabled: true,
@@ -286,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         body: JSON.stringify(data)
       });
-    
+
 
       const responseData = await response.json();
 

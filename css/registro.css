@@ -26,6 +26,42 @@ div:where(.swal2-container) div:where(.swal2-popup) {
 
 }
 
+.swal2-title {
+  font-size: 1.8vw; /* ajusta este valor a tu gusto */
+}
+
+.swal-custom-popup {
+  border-radius: 0.25vw;
+  font-size: 1vw;
+}
+
+.swal-custom-title {
+  font-size: 2vw;
+}
+
+.swal-custom-button {
+  font-size: 1vw;
+  padding: 0.5vw 1vw;
+  border-radius: 0.3vw;
+}
+
+input[type="checkbox"]::before {
+  content: "✔";
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1vw;
+  color: blue;
+  display: none;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 1.5vw;
+}
+
+input[type="checkbox"]:checked::before {
+  display: block;
+}
 
 #cintillo {
   padding: 0.2%;

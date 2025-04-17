@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </label>
       `,
       icon: 'info',
-      width: '32vw',           // Aumenta el ancho (aprox. el doble que el valor por defecto)
+      width: '40vw',           // Aumenta el ancho (aprox. el doble que el valor por defecto)
       heightAuto: false,       // Permite controlar la altura si se quisiera
       allowOutsideClick: false, // No cierra al hacer click fuera
       allowEscapeKey: false,    // No cierra con Escape

@@ -20,6 +20,12 @@ body{
   overflow-x: hidden;
 }
 
+div:where(.swal2-container) div:where(.swal2-popup) {
+
+  font-size: 1vw;
+
+}
+
 
 #cintillo {
   padding: 0.2%;

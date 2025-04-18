@@ -53,9 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (errorCorreo.textContent || errorContrasena.textContent) {
             Swal.fire({
                 title: "Error",
-                text: "Por favor, corrige los errores en el formulario.",
+                text: "Por favor, corrija los errores en el formulario.",
                 icon: "error",
-                confirmButtonText: "Entendido"
+                confirmButtonText: "Entendido",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
             });
             return;
         }

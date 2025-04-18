@@ -163,9 +163,11 @@
         /*alert("Por favor, corrija los errores en el formulario antes de enviarlo.");*/
         Swal.fire({
           title: "Error",
-          text: "Por favor, corrige los errores en el formulario.",
+          text: "Por favor, corrija los errores en el formulario.",
           icon: "error",
-          confirmButtonText: "Entendido"
+          confirmButtonText: "Entendido",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
         });     
         return;
       }
@@ -193,10 +195,7 @@
           body: JSON.stringify(data)
         });
   
-       /* if (!response.ok) {
-          throw new Error("Error en la respuesta del servidor.");
-        }*/
-  
+         
         const responseData = await response.json();
   
         if (responseData.code === "200") {

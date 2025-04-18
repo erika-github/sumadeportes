@@ -9,19 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Estilos generales del formulario */
-        /* .form-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 1000px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }*/
-
+        
         .form-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -36,40 +24,20 @@
         }
 
 
-        /*.form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 15px;
-        }*/
-
+       
         .form-group {
             display: flex;
             flex-direction: column;
         }
 
-        /*.form-group label {
-            font-size: 14px;
-            /*font-weight: bold;*/
-        /*margin-bottom: 5px;
-            color: #808080
-        }*/
-
+       
         .form-group label {
-            font-size: 0.95vw;
-            /* font-weight: bold; */
+            font-size: 0.95vw;            
             margin-bottom: 1%;
             color: #808080;
         }
 
-        /*.form-group input,
-        .form-group select {
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }*/
-
+        
         .form-group input,
         .form-group select {
             padding: 2.25%;
@@ -86,30 +54,14 @@
             outline: none;
         }
 
-        /*.submit-container {
-            grid-column: span 2;
-            text-align: center;
-            margin-top: 20px;
-        }*/
-
+        
         .submit-container {
             grid-column: span 2;
             text-align: center;
             margin-top: 3%;
         }
 
-        /*.submit-container button {
-            background-color: #007bff;
-            color: white;
-            font-size: 16px;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            margin: 0 auto;
-        }*/
-
+        
         .submit-container button {
             background-color: #007bff;
             color: white;
@@ -133,12 +85,7 @@
             transform: translateY(0);
         }
 
-        /*@media screen and (max-width: 768px) {
-            .form-container {
-                grid-template-columns: 1fr;
-            }
-        }*/
-
+        
         /* Estilos para los mensajes de error */
         .error {
             color: red;
@@ -292,36 +239,7 @@
 
         </div>
 
-        <!--<div class="form-group">            
-
-            <label for="numeroEquipo">Número Equipo:</label>
-            <input type="number" id="numeroEquipo" name="numeroEquipo">
-            <span class="error" id="errorNumeroEquipo"></span>
-
-       </div>-->
-        <!--<div class="form-group">
-            <label>Equipos:</label>
-            <div id="teams-container">
-              <div>
-                <input type="checkbox" id="team-1" name="teamsNames[]" value="Alberto Figueredo">
-                <label for="team-1">Alberto Figueredo</label>
-              </div>
-              <div>
-                <input type="checkbox" id="team-2" name="teamsNames[]" value="Barracudas SUMA">
-                <label for="team-2">Barracudas SUMA</label>
-              </div>
-              <div>
-                <input type="checkbox" id="team-3" name="teamsNames[]" value="Delfines del Centro">
-                <label for="team-3">Delfines del Centro</label>
-              </div>
-              <div>
-                <input type="checkbox" id="team-4" name="teamsNames[]" value="Club Los Andes">
-                <label for="team-4">Club Los Andes</label>
-              </div>
-            </div>
-            <span class="error" id="errorTeams"></span>
-        </div>-->
-
+        
         <div class="form-group">
             <label for="startDate">Fecha Inicio:</label>
             <input type="date" id="startDate" name="startDate">
@@ -366,9 +284,7 @@
 
     <script>
 
-        /*let birthD; // Se inicializa sin valor (undefined)
-        birthD = new Date(); // Luego se le asigna un valor    */
-
+       
         const form = document.querySelector("form");
         const submitButton = form.querySelector("button[type='submit']");
         const errorDate = document.getElementById("errorDate");
@@ -437,97 +353,12 @@
                 userIcon.style.backgroundColor = "#F36621";
             }
         });
-
-
-        // Función de validación por campo
-        /*function validateField(id, label) {
-
-            let valid = true;
-            console.log("ID original:", id);
-            console.log("ID construido:", "error" + id.charAt(0).toUpperCase() + id.slice(1));
-
-             // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
-            const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-
-            console.log("Elemento obtenido:", errorField);           
-            
-            // Si es el contenedor de checkboxes para equipos, se valida que se seleccione al menos uno
-            if (id === "teams_container") {
-                // Se asume que los checkboxes tienen name="teamsNames[]"
-                const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
-                if (checkboxes.length === 0) {
-                    errorField.textContent = `Debes seleccionar al menos un ${label}.`;
-                    errorField.style.display = "block";
-                    valid = false;
-                } else {
-                    errorField.textContent = "";
-                    errorField.style.display = "none";
-                    valid= true;
-                }
-            } else {
-                // Para los demás campos (por ejemplo, "tournament", "startDate", "endDate")
-                const field = document.getElementById(id);
-                // Si el campo no existe o su valor es vacío, se muestra el error
-                if (!field || field.value.trim() === "") {
-                    errorField.textContent = `${label} es requerido.`;
-                    errorField.style.display = "block";
-                    valid = false;
-                } else {
-                    errorField.textContent = "";
-                    errorField.style.display = "none";
-                    valid = true;
-                }
-            }
-
-            
-
-            // Obtener las fechas de inicio y fin
-            var fechaInicio = document.getElementById("startDate").value;
-            var fechaFin = document.getElementById("endDate").value;
-
-            // Convertir las fechas a objetos Date
-            //var fechaInicioDate = new Date(fechaInicio);
-            var fechaInicioParts = fechaInicio.split('-'); // Suponiendo formato "YYYY-MM-DD"
-            var fechaInicioDate = new Date(fechaInicioParts[0], fechaInicioParts[1] - 1, fechaInicioParts[2]);
-            var fechaFinDate = new Date(fechaFin);
-
-            // Obtener la fecha actual sin hora
-            var hoy = new Date();
-            hoy.setHours(0, 0, 0, 0); // Eliminar hora, minutos, segundos y milisegundos
-
-            // Verificar si la fecha de inicio es mayor que la de fin
-            if (fechaInicioDate > fechaFinDate) {
-                //document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
-                errorField.textContent = "La Fecha Inicio no puede ser mayor que la Fecha Fin.";
-                errorField.style.display = "block";
-                event.preventDefault(); // Evita que se envíe el formulario
-                valid = false;
-            }
-            // Verificar si la fecha de inicio es menor que hoy
-            else if (fechaInicioDate < hoy) {
-                //document.getElementById("errorDate").innerText = "La Fecha Inicio no puede ser menor que la fecha actual.";
-                errorField.textContent = "La Fecha Inicio no puede ser menor que la fecha actual.";
-                errorField.style.display = "block";
-                event.preventDefault();
-                valid = false;
-            }
-            else {
-                //document.getElementById("errorDate").innerText = ""; // Limpiar el mensaje de error
-                errorField.textContent = "";
-                errorField.style.display = "none";
-                valid =true
-            }
-
-            
-            return valid;
-        }*/
-
+       
 
         // Función de validación por campo
         function validateField(id, label) {
             let valid = true;
-            /*console.log("ID original:", id);
-            console.log("ID construido:", "error" + id.charAt(0).toUpperCase() + id.slice(1));*/
+           
 
             // Construir dinámicamente el ID del span de error (por ejemplo: "errorTournament" para id "tournament")
             const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
@@ -665,12 +496,7 @@
 
                 data = await response.json();
 
-                /*if (!response.ok) {
-                    throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
-                }
-
-                const data = await response.json();*/
-
+               
                 // Verifica que data.data sea un array
 
                 if (data.code !== "200") {
@@ -840,9 +666,11 @@
             if (!validateForm()) {
                 Swal.fire({
                     title: "Error",
-                    text: "Por favor, corrige los errores en el formulario.",
+                    text: "Por favor, corrija los errores en el formulario.",
                     icon: "error",
-                    confirmButtonText: "Entendido"
+                    confirmButtonText: "Entendido",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
                 });
                 return;
             }
@@ -871,16 +699,7 @@
                 });
 
                 const responseData = await response.json();
-
-                /*if (responseData.code === "201") {
-                    await Swal.fire({
-                        title: "Registro exitoso",
-                        text: "El torneo ha sido registrado correctamente.",
-                        icon: "success",
-                        confirmButtonText: "Aceptar"
-                    });
-                    //window.location.href = "gestion.html";
-                    window.location.href = window.location.href;*/
+              
                     if (responseData.code === "201") {
                         const result = await Swal.fire({
                           title: "Registro exitoso",
@@ -890,7 +709,10 @@
                           confirmButtonText: "Sí",
                           cancelButtonText: "No",
                           confirmButtonColor: "#007bff",    // Azul para "Sí"
-                          cancelButtonColor: "#d6d6d6"      // Gris claro para "No"
+                          cancelButtonColor: "#d6d6d6" ,     // Gris claro para "No"
+                          allowOutsideClick: false,
+                          allowEscapeKey: false,
+                          backdrop: true
                         });
                       
                         if (result.isConfirmed) {

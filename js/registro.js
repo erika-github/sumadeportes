@@ -31,9 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
           margin-top: 0.5vw;         
            margin-right: 1vw;
            width: 1.2vw;
-           height: 1.2vw;
-          /* min-width: 16px;
-           min-height: 16px;*/
+           height: 1.2vw;          
            border: 0.05vw solid #000;
            border-radius: 0.05vw;
            appearance: none;
@@ -49,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
       `,
       icon: 'info',
-      width: '37vw',           // Aumenta el ancho (aprox. el doble que el valor por defecto)
+      width: '37vw',           
       heightAuto: false,       // Permite controlar la altura si se quisiera
       allowOutsideClick: false, // No cierra al hacer click fuera
       allowEscapeKey: false,    // No cierra con Escape
@@ -63,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
       preConfirm: () => {
         const checkbox = document.getElementById('agreeCheck');
         if (!checkbox || !checkbox.checked) {
-          Swal.showValidationMessage('Debes aceptar las reglas antes de continuar');
+          Swal.showValidationMessage('Debe aceptar las reglas antes de continuar');
         }
       }
     });
@@ -263,9 +261,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       Swal.fire({
         title: "Error",
-        text: "Por favor, corrige los errores en el formulario.",
+        text: "Por favor, corrija los errores en el formulario.",
         icon: "error",
-        confirmButtonText: "Entendido"
+        confirmButtonText: "Entendido",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       });
       hideSpinner();
       return;
@@ -320,7 +320,10 @@ document.addEventListener("DOMContentLoaded", function () {
           title: "Registro exitoso",
           text: "Se ha enviado una contraseña temporal a su correo electrónico.",
           icon: "success",
-          confirmButtonText: "Aceptar"
+          confirmButtonText: "Aceptar",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+
         });
         window.location.href = "iniciar_sesion.html";
       } else if (responseData.code === "409") {
@@ -328,7 +331,9 @@ document.addEventListener("DOMContentLoaded", function () {
           title: "Error",
           text: "El correo pertenece a otro usuario. Coloque uno válido",
           icon: "error",
-          confirmButtonText: "Intentar nuevamente"
+          confirmButtonText: "Intentar nuevamente",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
         });
 
       } else {

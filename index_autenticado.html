@@ -23,13 +23,9 @@
 
       .user-icon {
         width: 4vw;
-        height: 4vw;
-        /*height: 40px;*/
-        background-color: #F36621;
-        /* Color de fondo*/
-        color: white;
-        /* Color del texto */
-        /*font-weight: bold;*/
+        height: 4vw;       
+        background-color: #F36621;        
+        color: white;       
         font-size: 1.5vw;
         border-radius: 50%;
         /* Hace el ícono circular */
@@ -54,8 +50,7 @@
       #user-icon {
 
         position: absolute;
-        top: 0px;
-        /*width: 15%;*/
+        top: 0px;        
         z-index: 100;
         margin-top: 0.7%;
         box-sizing: border-box;
@@ -134,8 +129,7 @@
         /*margin-right: 2%;*/
         margin-top: 2%;
         color:#1535D6; text-decoration: underline;"
-        onclick="window.location.href='gestion.html'">Gestión</p>
-        <!--<img id="img" src="img/usuario_autent.png" alt="Usuario Autenticado" style="width:5%" onclick="toggleUserMenu()">-->
+        onclick="window.location.href='gestion.html'">Gestión</p>     
         <div id="user-icon" class="user-icon"  onclick="toggleUserMenu()"></div>
         
     </div>
@@ -315,11 +309,7 @@
   </footer>
 
   <div class="registro">
-    <!--<div>
-      <p><span onclick="window.location.href='iniciar_sesion.html'">
-          Inicia sesión</span> <span>|</span> <span onclick="window.location.href='registro.html'"
-          >Regístrate</span></p>
-    </div>-->
+    
     <div id="linea">
     </div>
     <div id="creadores">
@@ -335,14 +325,7 @@
   <script src="js/main.js"></script>
   
   <script>
-    /*window.onload = function () {
-      // Desplazarse al 30% de la altura total de la página
-      window.scrollTo(0, document.body.scrollHeight * 0.1);
-    };*/
-
-    /*window.onload = function () {
-      window.scrollTo(0, 400); // 200 píxeles desde la parte superior
-  };*/
+    
 
   function logout() {
     sessionStorage.clear(); // Borra toda la información almacenada

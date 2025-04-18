@@ -164,12 +164,7 @@
             transform: translateY(0);
         }
 
-        /*.error {
-            color: red;
-            font-size: 0.95vw;
-            margin-top: 1%;
-        }*/
-
+        
         /* Secciones ocultas para cada método */
         .payment-section {
             display: none;
@@ -257,10 +252,7 @@
 
 
         .form-group-inline .inline-field label {
-            /*font-size: 0.95vw;
-            margin-bottom: 1%;
-            margin-top:1.5%;
-            color: #808080;*/
+           
             font-size: 0.95vw;
             color: #808080;
             margin-top: 1vw
@@ -703,50 +695,7 @@
             }
 
             const m = metodo.value;
-            // Función auxiliar para validar campo obligatorio
-            /*function checkRequired(id, mensaje) {
-                const el = document.getElementById(id);
-                if (!el || !el.value.trim()) {
-                    document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1)).textContent = mensaje;
-                    valid = false;
-                } else {
-                    document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1)).textContent = "";
-                }
-            }
-
-            if (m === "pagoMovil") {
-                checkRequired("bank", "Banco es obligatorio");
-                checkRequired("amount", "Monto es obligatorio");
-                checkRequired("referenceNumber", "Número de referencia es obligatorio");
-                checkRequired("phone", "Número de celular es obligatorio");
-                checkRequired("paymentDate", "Fecha de pago es obligatoria");
-            } else if (m === "transferencia") {
-                checkRequired("bankTransfer", "Banco es obligatorio");
-                checkRequired("amountTransfer", "Monto es obligatorio");
-                checkRequired("originAccount", "Cuenta Origen es obligatoria");
-                checkRequired("destinationAccount", "Cuenta Destino es obligatoria");
-                checkRequired("transferReference", "Número de referencia es obligatorio");
-                checkRequired("docType", "Tipo de documento es obligatorio");
-                checkRequired("docNumber", "Número de documento es obligatorio");
-                checkRequired("transferDate", "Fecha de la operación es obligatoria");
-                // Validar que docType sea V, P o E
-                const docType = document.getElementById("docType").value;
-                if (!["V", "P", "E"].includes(docType)) {
-                    document.getElementById("errorDocType").textContent = "El tipo debe ser V, P o E";
-                    valid = false;
-                }
-            } else if (m === "zelle") {
-                checkRequired("zelleEmail", "Correo electrónico es obligatorio");
-                checkRequired("amountZelle", "Monto es obligatorio");
-                checkRequired("referenceZelle", "Número de referencia es obligatorio");
-                checkRequired("zelleDate", "Fecha de pago es obligatoria");
-                // Validar correo básico
-                /*const email = document.getElementById("zelleEmail").value;
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    document.getElementById("errorZelleEmail").textContent = "Formato de correo inválido";
-                    valid = false;
-                }*/
+           
 
             if (m === "pagoMovil") {
 

@@ -9,18 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
-    /* Estilos generales del formulario */
-    /* .form-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      max-width: 1000px;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }*/
+   
     .form-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -32,42 +21,21 @@
       background-color: #fff;
       border-radius: 1vw;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    /*.form-group {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 15px;
-    }*/
+    }    
 
     .form-group {
       display: flex;
       flex-direction: column;
     }
 
-    /*.form-group label {
-      font-size: 14px;
-      /*font-weight: bold;*/
-    /* margin-bottom: 5px;
-      color: #808080
-    }*/
-
+   
     .form-group label {
-      font-size: 0.95vw;
-      /* font-weight: bold; */
+      font-size: 0.95vw;     
       margin-bottom: 1%;
       color: #808080;
     }
 
-    /*.form-group input,
-    .form-group select {
-      padding: 10px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }*/
-
+    
     .form-group input,
     .form-group select {
       padding: 2.25%;
@@ -84,30 +52,14 @@
       outline: none;
     }
 
-    /*.submit-container {
-      grid-column: span 2;
-      text-align: center;
-      margin-top: 20px;
-    }*/
-
+   
     .submit-container {
       grid-column: span 2;
       text-align: center;
       margin-top: 3%;
     }
 
-    /*.submit-container button {
-      background-color: #007bff;
-      color: white;
-      font-size: 16px;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      margin: 0 auto;
-    }*/
-
+    
     .submit-container button {
       background-color: #007bff;
       color: white;
@@ -130,12 +82,7 @@
       transform: translateY(0);
     }
 
-    /*@media screen and (max-width: 768px) {
-      .form-container {
-        grid-template-columns: 1fr;
-      }
-    }*/
-
+   
     /* Estilos para los mensajes de error */
     .error {
       color: red;
@@ -351,14 +298,7 @@
       <input type="text" id="phone" name="phone" />
       <span class="error" id="errorPhone"></span>
     </div>
-    <!--<div class="form-group">
-        <label for="plain">Plan:</label>
-        <select id="plain" name="plain">
-          <option value="">Seleccione una opción</option>
-          <option value="plan2">Plan 2</option>
-        </select>
-        <span class="error" id="errorPlain"></span>
-      </div>-->
+    
     <div class="form-group">
       <label for="team">Equipo:</label>
       <select id="team" name="team">
@@ -367,14 +307,7 @@
       </select>
       <span class="error" id="errorTeam"></span>
     </div>
-    <!--<div class="form-group">
-        <label for="level">Nivel:</label>
-        <select id="level" name="level">
-          <option value="">Seleccione una opción</option>
-          <option value="principiante2">Principiante 2</option>
-        </select>
-        <span class="error" id="errorLevel"></span>
-      </div>-->
+    
     <div class="submit-container">
       <button type="submit">Guardar</button>
     </div>
@@ -509,74 +442,7 @@
     }
     // Función de validación por campo
     function validateField(id, fieldName) {
-      /*const field = document.getElementById(id);
-      const errorField = document.getElementById(
-        "error" + id.charAt(0).toUpperCase() + id.slice(1)
-      );
-      const value = field.value.trim();
-
-      // Expresiones regulares para validaciones específicas
-      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;
-      const phoneRegex = /^[0-9]{4}-[0-9]{7}$/;
-
-      if (
-        id === "firstName" ||
-        id === "secondName" ||
-        id === "firstSurename" ||
-        id === "secondSurename"
-      ) {
-        if (!value) {
-          errorField.textContent = `${fieldName} es obligatorio`;
-          return false;
-        }
-        if (!nameRegex.test(value)) {
-          errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
-          return false;
-        }
-      } else if (id === "representorName" || id === "representorSurename") {
-        if (value && !nameRegex.test(value)) {
-          errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
-          return false;
-        }
-      } else if (id === "phone") {
-        if (!value) {
-          errorField.textContent = `${fieldName} es obligatorio`;
-          return false;
-        }
-        if (!phoneRegex.test(value)) {
-          errorField.textContent = `${fieldName} debe tener el formato 0412-1234567`;
-          return false;
-        }
-        } else {
-          if (!value) {
-            errorField.textContent = `${fieldName} es obligatorio`;
-            return false;
-          }
-
-        
-        if (id == "incomingDate") {
-          var fechaIngresoDate = new Date(value);
-          // Obtener la fecha actual y establecerla a medianoche para evitar problemas de horas
-          var fechaActual = new Date();
-          fechaActual.setHours(0, 0, 0, 0);
-          console.log("Fecha actual: " + fechaActual);
-
-          // Validar que la fecha de ingreso no sea mayor a la actual
-          if (fechaIngresoDate > fechaActual) {
-            document.getElementById("errorIncomingDate").innerText = "Fecha Ingreso no puede ser mayor a la fecha actual.";
-            return false; // Bloquear el envío del formulario
-          }
-
-          // Si la validación pasa, limpiar el mensaje de error
-          document.getElementById("errorIncomingDate").innerText = "";
-          return true; // Permitir el envío del formulario
-
-      }
-    }
-
-    errorField.textContent = "";
-    return true;*/
-
+      
     const field = document.getElementById(id);
     const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
     const value = field.value.trim();
@@ -727,9 +593,7 @@
           body: JSON.stringify(data)
         });
 
-       /* const textResponse = await response.text();
-        console.log(textResponse);*/
-
+       
         data = await response.json();
        
 
@@ -799,9 +663,11 @@
         if (!validateForm()) {
           Swal.fire({
             title: "Error",
-            text: "Por favor, corrige los errores en el formulario.",
+            text: "Por favor, corrija los errores en el formulario.",
             icon: "error",
             confirmButtonText: "Entendido",
+            allowOutsideClick: false,
+            allowEscapeKey: false,
           });
           return;
         }
@@ -831,25 +697,14 @@
           incomingDate: document.getElementById("incomingDate").value,
           email: document.getElementById("email").value.trim(),
           swimmerKey: swimmerK,
-          status: "A",
-          /*yearsActive: 0,
-          monthsActive: 0,
-          daysActive: 0,*/
+          status: "A",          
           representorName: document
             .getElementById("representorName")
             .value.trim(),
           representorSurename: document
             .getElementById("representorSurename")
             .value.trim(),
-          phone: document.getElementById("phone").value.trim(),
-          /*plain: document.getElementById("plain").value.trim(),
-          level: document.getElementById("level").value.trim(),
-          monday: "00:00:00.000000",
-          tuesday: "00:00:00.000000",
-          wednesday: "00:00:00.000000",
-          thursday: "00:00:00.000000",
-          friday: "00:00:00.000000",
-          saturday: "00:00:00.000000",*/
+          phone: document.getElementById("phone").value.trim(),         
           team: document.getElementById("team").value.trim(),
         };
 
@@ -869,7 +724,7 @@
           const responseData = await response.json();
 
           if (responseData.code === "201") {
-            //sessionStorage.setItem("userEmail", document.getElementById("email").value.trim());
+            
             await Swal.fire({
               title: "Registro exitoso",
               text: "El nadador ha sido inscrito correctamente.",

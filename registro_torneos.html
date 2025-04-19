@@ -369,7 +369,7 @@
                 // Se asume que los checkboxes tienen name="teamsNames[]"
                 const checkboxes = document.querySelectorAll('input[name="teamsNames[]"]:checked');
                 if (checkboxes.length === 0) {
-                    errorField.textContent = `Debes seleccionar al menos un ${label}.`;
+                    errorField.textContent = `Debe seleccionar al menos un ${label}.`;
                     errorField.style.display = "block";
                     valid = false;
                 } else {
@@ -728,7 +728,9 @@
                         title: "Error",
                         text: "Ya existe un torneo con ese nombre y fechas",
                         icon: "error",
-                        confirmButtonText: "Intentar nuevamente"
+                        confirmButtonText: "Intentar nuevamente",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
                     });
                 } else {
                     throw new Error(responseData.message || "Error al registrar el torneo.");

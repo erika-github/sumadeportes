@@ -730,6 +730,8 @@
               text: "El nadador ha sido inscrito correctamente.",
               icon: "success",
               confirmButtonText: "Aceptar",
+              allowOutsideClick: false,
+              allowEscapeKey: false,
             });
             window.location.href = "gestion.html";
           } else if (responseData.code === "409") {
@@ -738,6 +740,8 @@
               text: "Ya existe un usuario registrado con ese número de documento",
               icon: "error",
               confirmButtonText: "Aceptar",
+              allowOutsideClick: false,
+              allowEscapeKey: false
             });
           } else {
             throw new Error(

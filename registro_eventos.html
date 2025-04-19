@@ -428,7 +428,7 @@
       if (id === "events_container") {
         // Se valida que haya al menos un evento seleccionado
         if (selectedEvents.length === 0) {
-          errorField.textContent = `Debes seleccionar al menos un ${label}.`;
+          errorField.textContent = `Debe seleccionar al menos un ${label}.`;
           errorField.style.display = "block";
           valid = false;
         } else {
@@ -757,7 +757,9 @@
             title: "Error",
             text: "Ya se han registrado uno o más eventos con el mismo nombre, para ese torneo",
             icon: "error",
-            confirmButtonText: "Intentar nuevamente"
+            confirmButtonText: "Intentar nuevamente",
+            allowOutsideClick: false,
+            allowEscapeKey: false
           });
         } else {
           throw new Error(responseData.message || "Error al registrar el evento.");

@@ -777,7 +777,7 @@
 
     function obtenerCedulaInfo(labelId) {
       // Extraer solo la parte después de "Cédula: "
-      const cedulaValue = cedulaText.replace("Cédula:", "").trim();
+      const cedulaValue = labelId.replace("Cédula:", "").trim();
 
       // Separar en partes usando el guion
       const partes = cedulaValue.split("-");

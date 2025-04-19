@@ -735,9 +735,9 @@
           } else if (responseData.code === "409") {
             await Swal.fire({
               title: "Error",
-              text: "Ya existe un usuario con ese número de documento. Coloque uno válido",
+              text: "Ya existe un usuario registrado con ese número de documento",
               icon: "error",
-              confirmButtonText: "Intentar nuevamente",
+              confirmButtonText: "Aceptar",
             });
           } else {
             throw new Error(

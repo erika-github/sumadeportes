@@ -903,7 +903,7 @@
 
             // Se construye el objeto de datos a enviar basado en el método seleccionado
             const metodoSeleccionado = document.querySelector("input[name='paymentMethod']:checked").value;
-            let requestData = { method: metodoSeleccionado };
+            let requestData = { paymentMedium: metodoSeleccionado };
 
             if (metodoSeleccionado === "pagoMovil") {
                 requestData = {

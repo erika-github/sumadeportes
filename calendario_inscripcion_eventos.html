@@ -39,7 +39,7 @@
     }
 
     body {
-      font-family: Arial, sans-serif;      
+      font-family: Arial, sans-serif;
       margin: 0;
     }
 
@@ -71,7 +71,7 @@
       background-color: lightgray;
     }
 
-    .day {      
+    .day {
       width: 45px;
       height: 45px;
       display: flex;
@@ -174,7 +174,7 @@
     .legend .circle {
       width: 10px;
       height: 10px;
-      border-radius: 50%;      
+      border-radius: 50%;
       display: inline-block;
       margin-right: 5px;
       vertical-align: middle;
@@ -414,7 +414,7 @@
       </div>
     </div>
     <div class="events-container">
-      <div style="" class="student-info">      
+      <div style="" class="student-info">
         <div style="
               margin: 2vh auto; /* Margen vertical adaptable */
               width: 25vw; /* Ancho relativo al viewport */
@@ -450,8 +450,8 @@
           <tr>
             <th style="width: 50px">#</th>
             <th>Fecha</th>
-            <th>Torneo</th>            
-            <th>Evento</th>            
+            <th>Torneo</th>
+            <th>Evento</th>
             <th style="width: 50px">Tiempo</th>
             <th style="width: 50px">Seleccionar</th>
             <th>Acción</th>
@@ -535,7 +535,7 @@
         </table>
       </div>
     </div>
-  </div> 
+  </div>
   <script>
     /*document.addEventListener('click', function (event) {
 
@@ -763,7 +763,7 @@
 
         // Agregamos los datos de la fila al array
         eventosSeleccionados.push({
-          
+
           tournamentName: data[2],
           startDate: startDate,
           endDate: endDate,
@@ -776,16 +776,17 @@
     }
 
     function obtenerCedulaInfo(labelId) {
-      // Obtener el contenido del label
-      const cedulaText = document.getElementById(labelId).innerText;
-
-      console.log("La Cédula::"+cedulaText)
-
       // Extraer solo la parte después de "Cédula: "
       const cedulaValue = cedulaText.replace("Cédula:", "").trim();
 
-      // Dividir en tipo y número de documento (asumiendo formato "V-12345678")
-      const [documentType, documentNumber] = cedulaValue.split("-");
+      // Separar en partes usando el guion
+      const partes = cedulaValue.split("-");
+
+      // El tipo de documento es la primera parte
+      const documentType = partes[0];
+
+      // El número de documento es todo lo demás unido con guion
+      const documentNumber = partes.slice(1).join("-");
 
       return { documentType, documentNumber };
     }
@@ -810,7 +811,7 @@
             allowEscapeKey: false,
           });
           return; // Detiene la ejecución si no hay eventos seleccionados
-        }       
+        }
 
         const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
 
@@ -824,7 +825,7 @@
           "requestData:::: " + JSON.stringify(requestData, null, 2)
         );
 
-       
+
         try {
           // Se realiza el request para registrar la inscripción
           const response = await fetch(
@@ -892,7 +893,7 @@
               allowEscapeKey: false,
               backdrop: true
             });
-            
+
           } else {
             throw new Error(responseData.message || "Error al registrar el evento.");
           }
@@ -1000,7 +1001,7 @@
 
     async function getEventsByDate(age, gender, resultado) {
 
-      
+
       const requestData = {
         month: resultado.mes || "",
         gender: gender.charAt(0) || "",
@@ -1054,7 +1055,7 @@
           });
 
           plannedEvents_ = result.data || [];
-         
+
         } else {
           console.error("Error en la respuesta:", result);
         }
@@ -1124,7 +1125,7 @@
           ).innerHTML = `<strong>Fecha de Nacimiento:</strong> ${formatDate(
             result.data.birthDate
           )}`;
-          
+
           await Promise.all([
             getEventsByDate(age, gender, resultado),
             getFinishedEvents(age, gender, resultado),
@@ -1141,7 +1142,7 @@
       }
 
 
-    } 
+    }
 
     // Función para obtener los parámetros de la URL
     function obtenerParametrosURL() {
@@ -1239,7 +1240,7 @@
           day.classList.add("has-event");
           const eventIndicator = document.createElement("div");
           eventIndicator.classList.add("event", "planned");
-          day.appendChild(eventIndicator);          
+          day.appendChild(eventIndicator);
           day.addEventListener("click", () => selectEvent(i, events[i]));
         }
 
@@ -1288,7 +1289,7 @@
         console.log("Eventos para el día:", day, event);
 
         const table = $("#eventTable").DataTable();
-        
+
         const dayFormattedStart = `${day.toString().padStart(2, "0")}/${resultado.mes
           .toString()
           .padStart(2, "0")}/${resultado.anio}`;
@@ -1299,7 +1300,7 @@
           .indexes()
           .toArray()
           .filter((index) => {
-            const rowData = table.row(index).data(); 
+            const rowData = table.row(index).data();
             const fechaInicioEnTabla = rowData[1]?.split(" al ")[0];
             return fechaInicioEnTabla === dayFormattedStart;
           });
@@ -1321,7 +1322,7 @@
       let table = $("#eventTable").DataTable();
       let existingData = table.rows().data().toArray(); // Obtener todos los registros actuales en la tabla
 
-      selectedDates.forEach((day) => {       
+      selectedDates.forEach((day) => {
 
         let eventDataList = plannedEvents_.filter((item) => item.startDate === day);
 
@@ -1330,15 +1331,15 @@
 
           eventDataList.forEach((eventData) => {
             // Recorrer los nombres y obtener la hora correspondiente (por índice)
-            eventData.eventName.forEach((eventName, index) => {              
+            eventData.eventName.forEach((eventName, index) => {
 
               let tournamentsName = eventData.tournamentName[index] || "";
 
               // Verificar si el registro ya existe en la tabla, comparando fecha y nombre del evento
-              let isExisting = existingData.some((row) => {               
+              let isExisting = existingData.some((row) => {
 
                 return (
-                  row[1] ===                 
+                  row[1] ===
 
                   `${day.toString().padStart(2, "0")}/${resultado.mes
                     .toString()
@@ -1373,17 +1374,17 @@
 
                 table.row
                   .add([
-                    eventId++,                    
+                    eventId++,
                     `${day.toString().padStart(2, "0")}/${resultado.mes
                       .toString()
                       .padStart(2, "0")}/${resultado.anio} al ${eventData.endDate
                         .toString()
                         .padStart(2, "0")}/${resultado.mes
                           .toString()
-                          .padStart(2, "0")}/${resultado.anio}`,                    
+                          .padStart(2, "0")}/${resultado.anio}`,
                     tournamentsName,
                     eventName, // Nombre del evento
-                   
+
                     `<span class="time" data-id="${eventId - 1
                     }">00:00:00</span>`, // Span para el tiempo (puedes actualizarlo según necesidad)
                     `<input type="checkbox" class="inscribeCheckbox" data-index="${index}" style="display: block; margin: 0 auto;">`,
@@ -1398,7 +1399,7 @@
       });
     }
 
-    
+
 
     function getTimeValues(eventName) {
       return {
@@ -1409,7 +1410,7 @@
       };
     }
 
-   
+
     function scrollToTop() {
       const container = document.querySelector(".events-container"); // Reemplaza con el ID o clase de tu contenedor
       if (container) {
@@ -1431,23 +1432,23 @@
     function obtenerEstadoEvento(endDate, mes, anio) {
       // Verifica si endDate es un array y extrae el valor correcto
       const endDateValue = Array.isArray(endDate) ? endDate[0] : endDate;
-    
+
       const parsedEndDate = parseInt(endDateValue, 10);
       if (isNaN(parsedEndDate)) {
         console.warn("endDate no válido:", endDateValue);
         return "DESCONOCIDO";
       }
-    
+
       // Crear fecha fin del evento (restando 1 al mes porque en JS enero = 0)
       const fechaFinEvento = new Date(anio, mes - 1, parsedEndDate);
-    
+
       // Obtener la fecha actual sin hora
       const hoy = new Date();
       hoy.setHours(0, 0, 0, 0);
-    
+
       console.log("Fecha fin del evento:", fechaFinEvento.toLocaleDateString());
       console.log("Fecha actual:", hoy.toLocaleDateString());
-    
+
       return fechaFinEvento >= hoy ? "PROGRAMADO" : "FINALIZADO";
     }
 
@@ -1570,7 +1571,7 @@
         );
 
         plannedEvents_.forEach((event) => {
-          event.eventName.forEach((eventName, index) => {       
+          event.eventName.forEach((eventName, index) => {
 
             let status = "PROGRAMADO" || "";
             let tournamentsName = event.tournamentName[index] || "";
@@ -1618,7 +1619,7 @@
         );
 
         finishedEvents.forEach((event) => {
-          event.eventName.forEach((eventName, index) => {           
+          event.eventName.forEach((eventName, index) => {
             let tournamentsName = event.tournamentName[index] || "";
             let status = "FINALIZADO" || "";
 
@@ -1666,7 +1667,7 @@
 
         otherEvents.forEach((event) => {
           event.eventName.forEach((eventName, index) => {
-            
+
             let status = obtenerEstadoEvento(event.endDate, resultado.mes, resultado.anio); // ← Aquí llamamos a la función
             let tournamentsName = event.tournamentName[index] || "";
             otherEventsTable.row
@@ -1726,7 +1727,7 @@
       }
     }
 
-    setUserIcon();    
+    setUserIcon();
     searchSwimmer();
 
     $("#registerEvent").click(function () {

@@ -908,35 +908,55 @@
             if (metodoSeleccionado === "pagoMovil") {
                 requestData = {
                     ...requestData,
-                    bank: document.getElementById("bank").value,
+                    /*bank: document.getElementById("bank").value,
                     amount: document.getElementById("amount").value,
                     referenceNumber: document.getElementById("referenceNumber").value,
                     phone: document.getElementById("phone").value,
-                    paymentDate: document.getElementById("paymentDate").value
+                    paymentDate: document.getElementById("paymentDate").value*/
+                    orgBank: document.getElementById("bank").value,
+                    paymentAmount: document.getElementById("amount").value,
+                    paymentReference: document.getElementById("referenceNumber").value,
+                    paymentDate: document.getElementById("paymentDate").value,
+                    celNumber:document.getElementById("phone").value
                 };
             } else if (metodoSeleccionado === "transferencia") {
                 requestData = {
                     ...requestData,
-                    bank: document.getElementById("bankTransfer").value,
+                    /*bank: document.getElementById("bankTransfer").value,
                     amount: document.getElementById("amountTransfer").value,
                     originAccount: document.getElementById("originAccount").value,
                     destinationAccount: document.getElementById("destinationAccount").value,
                     transferReference: document.getElementById("transferReference").value,
                     docType: document.getElementById("docType").value,
                     docNumber: document.getElementById("docNumber").value,
-                    transferDate: document.getElementById("transferDate").value
+                    transferDate: document.getElementById("transferDate").value*/
+
+                    orgBank: document.getElementById("bankTransfer").value,
+                    paymentAmount: document.getElementById("amountTransfer").value,
+                    orgAccount: document.getElementById("originAccount").value,
+                    destAccount: document.getElementById("destinationAccount").value,
+                    paymentReference: document.getElementById("transferReference").value,
+                    docType: document.getElementById("docType").value,
+                    docNumber: document.getElementById("docNumber").value,
+                    paymentDate: document.getElementById("paymentDate").value
+
                 };
             } else if (metodoSeleccionado === "zelle") {
                 requestData = {
                     ...requestData,
-                    zelleEmail: document.getElementById("zelleEmail").value,
+                    /*zelleEmail: document.getElementById("zelleEmail").value,
                     amount: document.getElementById("amountZelle").value,
                     referenceNumber: document.getElementById("referenceZelle").value,
+                    paymentDate: document.getElementById("zelleDate").value*/
+                    email: document.getElementById("zelleEmail").value,
+                    paymentAmount:  document.getElementById("amountZelle").value,
+                    paymentReference:document.getElementById("referenceZelle").value,
                     paymentDate: document.getElementById("zelleDate").value
+
                 };
             }
 
-            try {
+            /*try {
                 const responseData = await simularEnvio(requestData);
                 if (responseData.code === "201") {
                     let mes = sessionStorage.getItem("month") || "";
@@ -961,6 +981,61 @@
                         allowEscapeKey: false,
                         backdrop: true
                     });
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire({
+                    title: "Error",
+                    text: error.message || "No se pudo conectar con el servidor.",
+                    icon: "error",
+                    confirmButtonText: "Intentar nuevamente",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    backdrop: true
+                });
+            } finally {
+                submitButton.disabled = false;
+            }*/
+
+            try {
+                const response = await fetch("https://c986-44-201-249-73.ngrok-free.app/payments/send", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(requestData)
+                });
+        
+                const responseData = await response.json();
+        
+                if (response.status === 201) {
+                    let mes = sessionStorage.getItem("month") || "";
+                    let anio = sessionStorage.getItem("year") || "";
+        
+                    await Swal.fire({
+                        title: "Registro exitoso",
+                        text: responseData.message || "El registro fue creado correctamente.",
+                        icon: "success",
+                        confirmButtonText: "Aceptar",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        backdrop: true
+                    });
+        
+                    window.location.href = `calendario_inscripcion_eventos.html?mes=${mes}&anio=${anio}`;
+        
+                } else if (response.status === 409) {
+                    await Swal.fire({
+                        title: "Advertencia",
+                        text: responseData.message || "Conflicto: ya existe un registro similar.",
+                        icon: "warning",
+                        confirmButtonText: "Intentar nuevamente",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        backdrop: true
+                    });
+                } else {
+                    throw new Error(responseData.message || "Ocurrió un error inesperado.");
                 }
             } catch (error) {
                 console.error("Error:", error);

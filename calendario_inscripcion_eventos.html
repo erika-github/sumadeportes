@@ -779,6 +779,8 @@
       // Obtener el contenido del label
       const cedulaText = document.getElementById(labelId).innerText;
 
+      console.log("La Cédula::"+cedulaText)
+
       // Extraer solo la parte después de "Cédula: "
       const cedulaValue = cedulaText.replace("Cédula:", "").trim();
 

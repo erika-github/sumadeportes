@@ -755,7 +755,7 @@
         } else if (responseData.code === "409") {
           await Swal.fire({
             title: "Error",
-            text: "Ya existe un evento con ese nombre",
+            text: "Ya se han registrado uno o más eventos con el mismo nombre, para ese torneo",
             icon: "error",
             confirmButtonText: "Intentar nuevamente"
           });

@@ -663,7 +663,7 @@
         // Usa DataTables para obtener los datos de la fila (envuelve la fila en jQuery)
         const data = $("#eventTable").DataTable().row($(row)).data();
 
-        console.log("Data de la fila:", data);
+        //console.log("Data de la fila:", data);
         const { documentType, documentNumber } = obtenerCedulaInfo("cedula");
 
         // Preparo el objeto a enviar.
@@ -677,11 +677,11 @@
         };
 
 
-        console.log(eventData);
+        /*console.log(eventData);
         console.log(
           "Datos del evento (formato JSON):",
           JSON.stringify(eventData, null, 2)
-        );
+        );*/
 
         if (checkbox.checked) {
           try {
@@ -779,8 +779,6 @@
       // Obtener el contenido del label
       const cedulaText = document.getElementById(labelId).innerText;
 
-      console.log("La Cédula::" + cedulaText);
-
       // Extraer solo la parte después de "Cédula: "
       const cedulaValue = cedulaText.replace("Cédula:", "").trim();
 
@@ -803,7 +801,7 @@
         eventos = obtenerEventosSeleccionados();
         // Guarda los eventos como una cadena JSON en sessionStorage          
         //sessionStorage.setItem("swimmerMark", JSON.stringify(eventos));
-        console.log(eventos);
+        //console.log(eventos);
 
         // Validar si hay al menos un evento seleccionado
         if (eventos.length === 0) {
@@ -826,9 +824,9 @@
           eventsMarks: eventos,
         };
 
-        console.log(
+        /*console.log(
           "requestData:::: " + JSON.stringify(requestData, null, 2)
-        );
+        );*/
 
 
         try {
@@ -945,11 +943,11 @@
         );
         const result = await response.json(); // Renombramos data a result para evitar confusión
 
-        console.log("Respuesta completa del servidor:", result);
+        /*console.log("Respuesta completa del servidor:", result);
         console.log("Código de respuesta:", result.code);
         console.log("Datos recibidos:", result.data);
         console.log("Tipo de result.data:", typeof result.data);
-        console.log("Es un array?:", Array.isArray(result.data));
+        console.log("Es un array?:", Array.isArray(result.data));*/
 
 
         if (result.code === "200" && result.data) {
@@ -1076,8 +1074,8 @@
         documentNumber: sessionStorage.getItem("userDoc") || "",
       };
 
-      console.log("Tipo de documento: " + requestData.documentType);
-      console.log("Número de documento: " + requestData.documentNumber);
+      /*console.log("Tipo de documento: " + requestData.documentType);
+      console.log("Número de documento: " + requestData.documentNumber);*/
 
       try {
         /* const response = await fetch(
@@ -1275,7 +1273,7 @@
       const dayElement = document
         .querySelectorAll(".day")
       [day - 1]?.querySelector(".event");
-      console.log("dayElement: " + dayElement);
+      //console.log("dayElement: " + dayElement);
 
       if (!dayElement) return; // Evita errores si el elemento no existe
       // Asegurar que el elemento tiene la clase "planned"
@@ -1291,7 +1289,7 @@
         selectedDates.splice(index, 1);
         dayElement.classList.remove("selected"); // Regresa a verde claro
 
-        console.log("Eventos para el día:", day, event);
+        //console.log("Eventos para el día:", day, event);
 
         const table = $("#eventTable").DataTable();
 
@@ -1451,8 +1449,8 @@
       const hoy = new Date();
       hoy.setHours(0, 0, 0, 0);
 
-      console.log("Fecha fin del evento:", fechaFinEvento.toLocaleDateString());
-      console.log("Fecha actual:", hoy.toLocaleDateString());
+      /*console.log("Fecha fin del evento:", fechaFinEvento.toLocaleDateString());
+      console.log("Fecha actual:", hoy.toLocaleDateString());*/
 
       return fechaFinEvento >= hoy ? "PROGRAMADO" : "FINALIZADO";
     }
@@ -1735,9 +1733,6 @@
     setUserIcon();
     searchSwimmer();
 
-    $("#registerEvent").click(function () {
-      /* alert('Función de registro de eventos a implementar');*/
-    });
   </script>
 </body>
 

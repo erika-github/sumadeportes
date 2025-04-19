@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     correo.addEventListener("input", function () {
-        errorCorreo.textContent = correo.value.trim() === "" ? "El correo es requerido."
-            : !regexEmail.test(correo.value) ? "Ingresa un correo válido." : "";
+        errorCorreo.textContent = correo.value.trim() === "" ? "El correo electrónico es requerido."
+            : !regexEmail.test(correo.value) ? "Ingresa un correo electrónico válido." : "";
     });
 
     contrasena.addEventListener("input", function () {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         if (correo.value.trim() === "") {
-            errorCorreo.textContent = "El correo es requerido.";
+            errorCorreo.textContent = "El correo electrónico es requerido.";
         }
         if (contrasena.value.trim() === "") {
             errorContrasena.textContent = "La contraseña es requerida.";
@@ -119,13 +119,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const { firstName, lastName, role, birthDate, email, userId } = responseData.data;
         const { documentType, documentNumber } = userId || {};
 
-        /*console.log("BirthDate:", birthDate);
+        console.log("BirthDate:", birthDate);
         console.log("FirstName:", firstName);
         console.log("LastName:", lastName);
         console.log("Email:", email);
         console.log("UserId:", userId);
         console.log("Document Type:", documentType);
-        console.log("Document Number:", documentNumber);*/
+        console.log("Document Number:", documentNumber);
 
         sessionStorage.setItem("userFirstName", firstName || "");
         sessionStorage.setItem("userLastName", lastName || "");

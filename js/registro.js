@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
       `,
       icon: 'info',
-      width: '37vw',           
+      width: '37vw',
       heightAuto: false,       // Permite controlar la altura si se quisiera
       allowOutsideClick: false, // No cierra al hacer click fuera
       allowEscapeKey: false,    // No cierra con Escape
@@ -174,16 +174,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Validar si está vacío
-    if (!validarCampoVacio(fechaNacimientoEl, {}, "Fecha de Nacimiento")) {
+    /*if (!validarCampoVacio(fechaNacimientoEl, {}, "Fecha de Nacimiento")) {
       mostrarError("La fecha de nacimiento es obligatoria.");
       return;
-    }
+    }*/
 
     // Obtener la fecha seleccionada
     const fechaNacimiento = fechaNacimientoEl._flatpickr.selectedDates[0];
 
     if (!fechaNacimiento) {
-      mostrarError("La fecha de nacimiento es obligatoria.");
+      mostrarError("La fecha de nacimiento es requerida.");
       return;
     }
 
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Validación en tiempo real para el correo
   correo.addEventListener("input", function () {
-    if (!validarCampoVacio(correo, errorCorreo, "Correo")) return;
+    if (!validarCampoVacio(correo, errorCorreo, "correo electrónico")) return;
 
     const value = correo.value.trim();
     if (value.length > 150) {
@@ -238,16 +238,13 @@ document.addEventListener("DOMContentLoaded", function () {
         errorEl.remove();
       }
 
-
-      mostrarError("La fecha de nacimiento es obligatoria.");
-
-
+      mostrarError("La fecha de nacimiento es requerida.");
     }
     if (numeroDocumentoEl.value.trim() === "") {
       errorDocumento.textContent = "El número de documento es requerido.";
     }
     if (correo.value.trim() === "") {
-      errorCorreo.textContent = "El correo es requerido."
+      errorCorreo.textContent = "El correo electrónico es requerido."
     }
 
     // Si hay algún error, se detiene el envío
@@ -318,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.setItem("userEmail", email);
         await Swal.fire({
           title: "Registro exitoso",
-          text: "Se ha enviado una contraseña temporal a su correo electrónico.",
+          text: "Se ha enviado una contraseña temporal a su correo electrónico. Sino lo visualiza en su bandeja de entrada, revise su bandeja de spam",
           icon: "success",
           confirmButtonText: "Aceptar",
           allowOutsideClick: false,

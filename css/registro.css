@@ -27,7 +27,7 @@ div:where(.swal2-container) div:where(.swal2-popup) {
 }
 
 .swal2-title {
-  font-size: 1.8vw; /* ajusta este valor a tu gusto */
+  font-size: 1.8vw; 
 }
 
 .swal-custom-popup {
@@ -98,8 +98,6 @@ input[type="checkbox"]:checked::before {
   position: absolute;
   right: 0px;
   top: 0px;
- /* z-index: 6000;*/
-
 }
 
 

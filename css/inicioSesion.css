@@ -171,7 +171,6 @@ form {
 }
 
 
-
 label {
   display: block;
   margin-top: 5%;
@@ -194,8 +193,7 @@ input[type="email"],
 input[type="password"] {
   height: 2.5vw;
   width: 100%;
-  padding: 2%; 
-  /*margin-bottom: 2%;*/
+  padding: 2%;  
   box-sizing: border-box;
   border: 0.15vw solid #ccc;
   border-radius: 0.2vw;

@@ -447,7 +447,7 @@
       const value = field.value.trim();
 
       // Expresiones regulares para validaciones específicas
-      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;      
+      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;
       const phoneRegex = /^0(?!000)\d{3}-(?!0{7})\d{7}$/;
 
       // Validaciones para nombres y apellidos
@@ -478,58 +478,62 @@
 
       // Validación para teléfono
       else if (id === "phone") {
-              
-          let digits = field.value.replace(/\D/g, ""); // quitar todo lo que no sea dígito
-        
-          if (digits.length > 4) {
-            digits = digits.slice(0, 4) + "-" + digits.slice(4);
-          }
-        
-          field.value = digits.slice(0, 12); // limitar a 12 caracteres
-        
-          const value = field.value.trim(); // ahora sí usamos el valor actualizado
-        
-          if (!value) {
-            errorField.textContent = `${fieldName} es obligatorio`;
-            return false;
-          }
-        
-          if (!phoneRegex.test(value)) {
-            errorField.textContent = `${fieldName} debe tener el formato 04xx-xxxxxxx, y no puede tener solo ceros.`;
-            return false;
-          } else {
-            errorField.textContent = "";
-            return true;
-          }
+
+        let digits = field.value.replace(/\D/g, ""); // quitar todo lo que no sea dígito
+
+        if (digits.length > 4) {
+          digits = digits.slice(0, 4) + "-" + digits.slice(4);
+        }
+
+        field.value = digits.slice(0, 12); // limitar a 12 caracteres
+
+        const value = field.value.trim(); // ahora sí usamos el valor actualizado
+
+        if (!value) {
+          errorField.textContent = `${fieldName} es obligatorio`;
+          return false;
+        }
+
+        if (!phoneRegex.test(value)) {
+          errorField.textContent = `${fieldName} debe tener el formato 04xx-xxxxxxx, y no puede tener solo ceros.`;
+          return false;
+        } else {
+          errorField.textContent = "";
+          return true;
+        }
       }
 
       // Validación de fecha de ingreso
-      
+
       else if (id === "incomingDate") {
         if (!value) {
-            errorField.textContent = `${fieldName} es obligatorio`;
-            return false;
+          errorField.textContent = `${fieldName} es obligatorio`;
+          return false;
         }
-    
+
         const fechaIngresoDate = new Date(value);
         const fechaActual = new Date();
         fechaActual.setHours(0, 0, 0, 0); // Para evitar diferencias por hora
-    
+
         const birthDateValue = document.getElementById("birthDate").value;
         const fechaNacimiento = new Date(birthDateValue);
-    
+
         if (fechaIngresoDate > fechaActual) {
-            errorField.textContent = "Fecha de Ingreso no puede ser mayor a la fecha actual.";
-            return false;
+          errorField.textContent = "Fecha de Ingreso no puede ser mayor a la fecha actual.";
+          return false;
         }
-    
+
         if (birthDateValue && fechaIngresoDate <= fechaNacimiento) {
-            errorField.textContent = "Fecha de Ingreso no puede ser menor o igual a la fecha de nacimiento.";
-            return false;
-        }
-    
-        errorField.textContent = ""; // Limpiar mensaje si está todo bien
-    }
+          errorField.textContent = "Fecha de Ingreso no puede ser menor o igual a la fecha de nacimiento.";
+          return false;
+        }        
+
+        errorField.textContent = ""; 
+        return true;
+      }
+
+      errorField.textContent = ""; // Limpiar mensaje si está todo bien
+        return true;
 
     }
 
@@ -549,9 +553,9 @@
         birthDate: "Fecha de Nacimiento",
         incomingDate: "Fecha de Ingreso",
         email: "Correo Electrónico",
-        phone: "Teléfono",        
+        phone: "Teléfono",
         team: "Equipo"
-        
+
       };
 
       Object.keys(fieldLabels).forEach((id) => {
@@ -581,9 +585,9 @@
         birthDate: "Fecha de Nacimiento",
         incomingDate: "Fecha de Ingreso",
         email: "Correo Electrónico",
-        phone: "Teléfono",        
+        phone: "Teléfono",
         team: "Equipo",
-        
+
       };
 
       Object.entries(fieldsToValidate).forEach(([id, label]) => {
@@ -656,7 +660,7 @@
         email: sessionStorage.getItem("userEmail") || "",
       };
 
-      const edad = calcularEdad(sessionData.birthDate);    
+      const edad = calcularEdad(sessionData.birthDate);
 
       document.getElementById("documentType").value =
         sessionData.documentType;
@@ -664,8 +668,8 @@
         sessionData.documentNumber;
       document.getElementById("firstName").value = sessionData.firstName;
       document.getElementById("firstSurename").value = sessionData.lastName;
-      document.getElementById("birthDate").value = sessionData.birthDate;  
-      document.getElementById("age").value = edad;    
+      document.getElementById("birthDate").value = sessionData.birthDate;
+      document.getElementById("age").value = edad;
       document.getElementById("email").value = sessionData.email;
 
       attachRealTimeValidations();
@@ -709,7 +713,7 @@
             .value.trim(),
           age: parseInt(document.getElementById("age").value),
           gender: document.getElementById("gender").value.trim(),
-          birthDate: document.getElementById("birthDate").value,          
+          birthDate: document.getElementById("birthDate").value,
           incomingDate: document.getElementById("incomingDate").value,
           email: document.getElementById("email").value.trim(),
           swimmerKey: swimmerK,

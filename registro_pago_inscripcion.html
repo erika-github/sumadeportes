@@ -388,17 +388,17 @@
             </div>
             <div class="form-group">
                 <label for="referenceNumber">Número de Referencia:</label>
-                <input type="number" id="referenceNumber" name="referenceNumber" oninput="limitarLongitud(this)" />
+                <input type="number" id="referenceNumber" name="referenceNumber" />
                 <span class="error" id="errorReferenceNumber"></span>
             </div>
             <div class="form-group">
                 <label for="phone">Número de Celular (Pago Móvil):</label>
-                <input type="text" id="phone" name="phone" oninput="prevalidacion(this,12)"/>
+                <input type="text" id="phone" name="phone" />
                 <span class="error" id="errorPhone"></span>
             </div>
             <div class="form-group">
                 <label for="paymentDate">Fecha de Pago:</label>
-                <input type="date" id="paymentDate" name="paymentDate" oninput="prevalidacion(this)"/>
+                <input type="date" id="paymentDate" name="paymentDate" />
                 <span class="error" id="errorPaymentDate"></span>
             </div>
         </div>
@@ -451,17 +451,17 @@
             </div>
             <div class="form-group">
                 <label for="originAccount">Cuenta Origen (20 dígitos):</label>
-                <input type="text" id="originAccount" name="originAccount" oninput="prevalidacion(this,20)" />
+                <input type="text" id="originAccount" name="originAccount" />
                 <span class="error" id="errorOriginAccount"></span>
             </div>
             <div class="form-group">
                 <label for="DestinationAccount">Cuenta Destino (20 dígitos):</label>
-                <input type="text" id="destinationAccount" name="destinationAccount" oninput="prevalidacion(this,20)" />
+                <input type="text" id="destinationAccount" name="destinationAccount" />
                 <span class="error" id="errorDestinationAccount"></span>
             </div>
             <div class="form-group">
                 <label for="transferReference">Número de Referencia/Operación:</label>
-                <input type="text" id="transferReference" name="transferReference" oninput="prevalidacion(this,30)" />
+                <input type="number" id="transferReference" name="transferReference" />
                 <span class="error" id="errorTransferReference"></span>
             </div>
 
@@ -482,8 +482,7 @@
 
                 <div class="inline-field docNumber">
                     <label for="docNumber">Número de Documento:</label>
-                    <input type="text" id="docNumber" name="docNumber" oninput="prevalidacion(this,10)"
-                        class="estilo1" />
+                    <input type="text" id="docNumber" name="docNumber" class="estilo1" />
                     <span class="error" id="errorDocNumber"></span>
                 </div>
 
@@ -491,7 +490,7 @@
 
             <div class="form-group">
                 <label for="transferDate">Fecha de la Operación:</label>
-                <input type="date" id="transferDate" name="transferDate" oninput="prevalidacion(this)"/>
+                <input type="date" id="transferDate" name="transferDate" />
                 <span class="error" id="errorTransferDate"></span>
             </div>
         </div>
@@ -501,7 +500,7 @@
             <h3>Zelle</h3>
             <div class="form-group">
                 <label for="zelleEmail">Correo Electrónico asociado a Zelle:</label>
-                <input type="email" id="zelleEmail" name="zelleEmail" oninput="prevalidacion(this,100)"/>
+                <input type="email" id="zelleEmail" name="zelleEmail" />
                 <span class="error" id="errorZelleEmail"></span>
             </div>
             <div class="form-group">
@@ -511,12 +510,12 @@
             </div>
             <div class="form-group">
                 <label for="referenceZelle">Número de Referencia:</label>
-                <input type="number" id="referenceZelle" name="referenceZelle" oninput="limitarLongitud(this)" />
+                <input type="number" id="referenceZelle" name="referenceZelle" />
                 <span class="error" id="errorReferenceZelle"></span>
             </div>
             <div class="form-group">
                 <label for="zelleDate">Fecha de Pago:</label>
-                <input type="date" id="zelleDate" name="zelleDate"  oninput="prevalidacion(this)"/>
+                <input type="date" id="zelleDate" name="zelleDate" />
                 <span class="error" id="errorZelleDate"></span>
             </div>
         </div>
@@ -667,90 +666,6 @@
         }
 
 
-
-        // Función para limitar la cantidad de dígitos (para cuenta, referencia, etc.)
-        function prevalidacion(input, maxDigits) {
-
-           
-            const capitalizedId = input.id.charAt(0).toUpperCase() + input.id.slice(1);
-            const errorSpan = document.getElementById(`error${capitalizedId}`);
-
-            
-            if (!errorSpan) {
-                console.error(`No se encontró el span con ID: error${capitalizedId}`);
-                return;
-            }
-
-            const valueLength = input.value.length;
-            const fieldName = fieldLabels[input.id] || input.id; // Usa el nombre amigable o el ID como fallback
-
-            if (input.id === "paymentDate"||input.id === "transferDate"||input.id === "zelleDate") {
-                if (!input.value) {
-                    errorSpan.textContent = `${fieldName} es obligatorio.`;
-                    errorSpan.style.color = "red";
-                } else {
-                    errorSpan.textContent = "";
-                }
-            } else if (input.id === "zelleEmail") {               
-                input.value = input.value.slice(0, maxDigits);
-                if (!input.value) {
-                    errorSpan.textContent = `${fieldName} es obligatorio.`;
-                    errorSpan.style.color = "red";                
-                } else {
-                    errorSpan.textContent = "";
-                }
-            } else if (input.id === "phone") {
-                input.value = input.value.slice(0, maxDigits);
-                if (!input.value) {
-                    errorSpan.textContent = `${fieldName} es obligatorio.`;
-                    errorSpan.style.color = "red";
-
-                 } else {
-                    errorSpan.textContent = "";
-                }
-            } else if (input.id === "docNumber") {
-                input.value = input.value.replace(/\D/g, '').slice(0, maxDigits); // Solo dígitos y máx 10
-                if (valueLength === 0) {
-                    errorSpan.textContent = `${fieldName} es obligatorio.`;
-                    errorSpan.style.color = "red";
-                } else if (valueLength < 7) {
-                    errorSpan.textContent = `Mínimo deben ser 7 dígitos.`;
-                    errorSpan.style.color = "red";
-                } else {
-                    errorSpan.textContent = "";
-                }
-            } else if (input.id === "transferReference") {
-                input.value = input.value.replace(/\D/g, '').slice(0, maxDigits);
-                if (valueLength === 0) {
-                    errorSpan.textContent = `${fieldName} es obligatorio.`;
-                    errorSpan.style.color = "red";
-                } else {
-                    errorSpan.textContent = "";
-                }
-            } else {
-                input.value = input.value.replace(/\D/g, '').slice(0, maxDigits);
-
-                if (valueLength === 0) {
-                    errorSpan.textContent = `${fieldName} es obligatorio.`;
-                    errorSpan.style.color = "red";
-                } else if (valueLength < maxDigits) {
-                    errorSpan.textContent = `${fieldName} debe tener exactamente ${maxDigits} dígitos.`;
-                    errorSpan.style.color = "red";
-                } else {
-                    errorSpan.textContent = "";
-                }
-            }
-
-        }
-
-
-        function limitarLongitud(input) {
-            let valor = input.value;
-            if (valor.length > 30) {
-                input.value = valor.slice(0, 30);
-            }
-        }
-
         // Función que limita número con decimales: 
         function limitarNumeroConDecimales(input) {
             let valor = input.value.replace(',', '.').replace(/[^0-9.]/g, '');
@@ -766,6 +681,7 @@
                 valor = partes[0].slice(0, 12);
             }
             input.value = valor;
+
         }
 
         // Validación de campos según sección visible
@@ -851,92 +767,10 @@
         }
 
 
-        // Función de validación en tiempo real
-        function validateField(id, fieldName) {
-            const field = document.getElementById(id);
-            const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-            const value = field.value.trim();
-
-            if (!errorField) {
-                console.error(`No se encontró el campo de error con el ID: error${id.charAt(0).toUpperCase() + id.slice(1)}`);
-                return false;
-            }
-
-            const phoneRegex = /^(0412|0414|0416|0424|0426)-\d{7}$/;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-            const camposEspeciales = ["bankTransfer", "amountTransfer", "docType", "transferDate", "transferReference", "referenceZelle",
-                "amountZelle", "zelleEmail", "zelleDate", "bank", "amount", "referenceNumber"]; 
-
-            if (camposEspeciales.includes(id)) {
-                if (errorField.textContent.trim() !== "" && value === "") {
-                    //console.log(`Se detiene validación para el campo especial: ${id}`);
-                    return false;
-                }
-            } else {
-                // Para el resto de los campos, si ya hay un error, no validamos
-                if (errorField.textContent.trim() !== "") {
-                    //console.log(`Se detiene validación para campo general con error previo: ${id}`);
-                    return false;
-                }
-            }
-
-            if (id === "zelleEmail") {
-                if (!value) {
-                    errorField.textContent = `${fieldName} es obligatorio`;
-                    return false;
-                } else if (!emailRegex.test(value)) {
-                    errorField.textContent = "Formato de correo inválido";
-                    return false;
-                }
-            }
-
-            if (id === "phone") {
-                if (!value) {
-                    errorField.textContent = `${fieldName} es obligatorio`;
-                    return false;
-                } else if (!phoneRegex.test(value)) {
-                    errorField.textContent = `${fieldName} debe tener el formato 0412-1234567`;
-                    return false;
-                }else{
-                    errorField.textContent = "";
-                }
-            }
-
-            if (id === "paymentDate" || id === "transferDate" || id === "zelleDate") {
-                if (!value) {
-                    errorField.textContent = `${fieldName} es obligatorio`;
-                    return false;
-                }
-
-                const fechaPagoDate = new Date(value);
-                const fechaActual = new Date();
-                fechaActual.setHours(0, 0, 0, 0);
-
-
-                if (fechaPagoDate > fechaActual) {
-                    errorField.textContent = "Fecha de Pago no puede ser mayor a la fecha actual.";
-                    return false;
-                }
-            }
-
-            // Validación genérica para campos que no entren en los casos anteriores
-            if (!field || field.value.trim() === "") {
-                errorField.textContent = `${fieldName} es obligatorio.`;                
-                return false;
-            }
-
-            
-            // Si todo está bien, limpia el mensaje de error
-            errorField.textContent = "";           
-            return true;
-
-        }
-
+        // Función de validación en tiempo real        
 
         function attachRealTimeValidations() {
-            
+
             Object.keys(fieldLabels).forEach((id) => {
                 const element = document.getElementById(id);
                 if (element) {
@@ -946,12 +780,175 @@
                 }
             });
         }
+       
+
+        function validateField(id) {
+
+            const input = document.getElementById(id);
+
+            if (!input) {
+                console.error(`No se encontró el input con ID: ${id}`);
+                return;
+            }
+
+            const capitalizedId = id.charAt(0).toUpperCase() + id.slice(1);
+            const errorSpan = document.getElementById(`error${capitalizedId}`);
+            if (!errorSpan) {
+                console.error(`No se encontró el span con ID: error${capitalizedId}`);
+                return;
+            }
+
+            const fieldName = fieldLabels[id] || id;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
+            const phoneRegex = /^(0412|0414|0416|0424|0426)-(?!0{7})\d{7}$/;
+
+            // 1) Fecha
+            if (input.type === "date") {
+
+                const inputDate = new Date(input.value.trim());
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
 
 
+                } else if (inputDate > today) {
+                    errorSpan.textContent = `${fieldName} no puede ser mayor a la fecha actual.`;
 
+                } else {
+                    errorSpan.textContent = "";
+                }
+                errorSpan.style.color = "red";
+                return;
+            }
+
+            // 2) Email / Zelle
+            if (input.type === "email" || id === "zelleEmail") {
+                // Limitar longitud a 100 caracteres
+                if (input.value.length > 100) {
+                    input.value = input.value.slice(0, 100);
+                }
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                } else if (!emailRegex.test(input.value)) {
+                    errorSpan.textContent = `Ingrese un ${fieldName} válido.`;
+                } else {
+                    errorSpan.textContent = "";
+                }
+                errorSpan.style.color = "red";
+                return;
+            }
+
+            // 3) Teléfono / Celular (formato 04xx-xxxxxxx → 12 caracteres)
+            if (id === "phone") {
+                // Extrae dígitos
+                let digits = input.value.replace(/\D/g, "");
+                // Inserta guion tras 4 dígitos
+                if (digits.length > 4) {
+                    digits = digits.slice(0, 4) + "-" + digits.slice(4);
+                }
+                // Limita a 12 caracteres
+                input.value = digits.slice(0, 12);
+
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                } else if (!phoneRegex.test(input.value)) {
+                    errorSpan.textContent = `Formato inválido. Debe ser 04xx-xxxxxxx.`;
+                } else {
+                    errorSpan.textContent = "";
+                }
+                errorSpan.style.color = "red";
+                return;
+            }
+
+            // 4) Número de Documento: solo dígitos, max 10, no puede ser "0"
+            if (id === "docNumber") {
+
+                input.value = input.value.replace(/\D/g, "").slice(0, 10);
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio`;
+
+                } else if (/^0+$/.test(input.value)) {
+                    errorSpan.textContent = `${fieldName} no puede ser cero.`;
+
+                } else if (input.value.length < 7) {
+
+                    errorSpan.textContent = `${fieldName} debe tener al menos 7 dígitos.`;
+                } else {
+                    errorSpan.textContent = "";
+                }
+                errorSpan.style.color = "red";
+                return;
+            }
+
+            // 5) Cuenta Origen / Cuenta Destino: solo dígitos, exactamente 20
+            if (id === "originAccount" || id === "destinationAccount") {
+
+                input.value = input.value.replace(/\D/g, "").slice(0, 20);
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                } else if (input.value.length < 20) {
+                    errorSpan.textContent = `${fieldName} debe tener exactamente 20 dígitos.`;
+
+                } else if (/^0+$/.test(input.value)) {
+                    errorSpan.textContent = `${fieldName} no puede ser cero.`;
+
+                } else {
+                    errorSpan.textContent = "";
+                }
+                errorSpan.style.color = "red";
+                return;
+            }
+
+            // 6) Referencia de Transferencia: solo dígitos, hasta 30
+            if (id === "transferReference" || id === "referenceNumber" || id === "referenceZelle") {
+
+                input.value = input.value.replace(/\D/g, "").slice(0, 30);
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+
+                } else if (/^0+$/.test(input.value)) {
+                    errorSpan.textContent = `${fieldName} no puede ser cero.`;
+
+                } else {
+                    errorSpan.textContent = "";
+                }
+                errorSpan.style.color = "red";
+                return;
+            }
+
+            //7) validacion de montos
+
+            if (id === "amount" || id === "amountTransfer" || id === "amountZelle") {          
+                
+                const monto = parseFloat(input.value);
+                
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;                                        
+                }else if(isNaN(monto) || monto <= 0){
+                    errorSpan.textContent = `${fieldName} debe ser mayor a cero.`;                   
+                } else {
+                    errorSpan.textContent = "";
+                }
+                errorSpan.style.color = "red";
+                return
+            }
+
+            // 8) Caso general: obligatorio (sin validación de longitud específica)
+            input.value = input.value.trim();
+            if (!input.value) {
+                errorSpan.textContent = `${fieldName} es obligatorio.`;
+            } else {
+                errorSpan.textContent = "";
+            }
+            errorSpan.style.color = "red";
+
+
+        }
 
         // Simulación del llamado al servicio (para pruebas)
-        async function simularEnvio(formData) {
+        /*async function simularEnvio(formData) {
             // Se simula una respuesta exitosa con código 201 o error con otro código
             return await new Promise((resolve) => {
                 setTimeout(() => {
@@ -961,7 +958,7 @@
                     });
                 }, 1000);
             });
-        }
+        }*/
 
         // Listener para el envío del formulario
         document.getElementById("payment-form").addEventListener("submit", async function (event) {

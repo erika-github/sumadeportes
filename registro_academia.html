@@ -9,7 +9,6 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
-   
     .form-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -21,21 +20,21 @@
       background-color: #fff;
       border-radius: 1vw;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }    
+    }
 
     .form-group {
       display: flex;
       flex-direction: column;
     }
 
-   
+
     .form-group label {
-      font-size: 0.95vw;     
+      font-size: 1vw;
       margin-bottom: 1%;
       color: #808080;
     }
 
-    
+
     .form-group input,
     .form-group select {
       padding: 2.25%;
@@ -52,14 +51,14 @@
       outline: none;
     }
 
-   
+
     .submit-container {
       grid-column: span 2;
       text-align: center;
       margin-top: 3%;
     }
 
-    
+
     .submit-container button {
       background-color: #007bff;
       color: white;
@@ -82,11 +81,11 @@
       transform: translateY(0);
     }
 
-   
+
     /* Estilos para los mensajes de error */
     .error {
       color: red;
-      font-size: 0.95vw;
+      font-size: 0.90vw;
       margin-top: 1%;
     }
 
@@ -298,7 +297,7 @@
       <input type="text" id="phone" name="phone" />
       <span class="error" id="errorPhone"></span>
     </div>
-    
+
     <div class="form-group">
       <label for="team">Equipo:</label>
       <select id="team" name="team">
@@ -307,7 +306,7 @@
       </select>
       <span class="error" id="errorTeam"></span>
     </div>
-    
+
     <div class="submit-container">
       <button type="submit">Guardar</button>
     </div>
@@ -442,58 +441,71 @@
     }
     // Función de validación por campo
     function validateField(id, fieldName) {
-      
-    const field = document.getElementById(id);
-    const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
-    const value = field.value.trim();
 
-    // Expresiones regulares para validaciones específicas
-    const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;
-    const phoneRegex = /^[0-9]{4}-[0-9]{7}$/;
+      const field = document.getElementById(id);
+      const errorField = document.getElementById("error" + id.charAt(0).toUpperCase() + id.slice(1));
+      const value = field.value.trim();
 
-    // Validaciones para nombres y apellidos
-    if (["firstName", "secondName", "firstSurename", "secondSurename"].includes(id)) {
+      // Expresiones regulares para validaciones específicas
+      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]+$/;      
+      const phoneRegex = /^0(?!000)\d{3}-(?!0{7})\d{7}$/;
+
+      // Validaciones para nombres y apellidos
+      if (["firstName", "secondName", "firstSurename", "secondSurename"].includes(id)) {
         if (!value) {
-            errorField.textContent = `${fieldName} es obligatorio`;
-            return false;
+          errorField.textContent = `${fieldName} es obligatorio`;
+          return false;
         }
         if (!nameRegex.test(value)) {
-            errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
-            return false;
+          errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
+          return false;
         }
-    }
+      }
 
-    // Validaciones opcionales para nombre y apellido del representante
-    else if (["representorName", "representorSurename"].includes(id)) {
+      // Validaciones opcionales para nombre y apellido del representante
+      else if (["representorName", "representorSurename"].includes(id)) {
         if (value && !nameRegex.test(value)) {
-            errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
-            return false;
+          errorField.textContent = `${fieldName} solo puede contener letras, acentos y apóstrofes`;
+          return false;
         }
-    }
+      }
 
-    else if(!value) {
-      errorField.textContent = `${fieldName} es obligatorio`;
-      return false;
-    
-    }
+      else if (!value) {
+        errorField.textContent = `${fieldName} es obligatorio`;
+        return false;
 
-    // Validación para teléfono
-    else if (id === "phone") {
+      }
+
+      // Validación para teléfono
+      else if (id === "phone") {
+
+        //const value = field.value.trim();
+        let digits = field.value.replace(/\D/g, "");
+
+        console.log("Valor de digitos:"+digits);
+
+        if (digits.length > 4) {
+          digits = digits.slice(0, 4) + "-" + digits.slice(4);
+          console.log("Valor de digitos DESPUES:"+digits);
+        }        
+
+        field.value= digits.slice(0,12);
+
         if (!value) {
-            errorField.textContent = `${fieldName} es obligatorio`;
-            return false;
+          errorField.textContent = `${fieldName} es obligatorio`;
+          return false;
         }
         if (!phoneRegex.test(value)) {
-            errorField.textContent = `${fieldName} debe tener el formato 0412-1234567`;
-            return false;
+          errorField.textContent = `${fieldName} debe tener el formato 04xx-xxxxxxx`;
+          return false;
         }
-    }
+      }
 
-    // Validación de fecha de ingreso
-    else if (id === "incomingDate") {
+      // Validación de fecha de ingreso
+      else if (id === "incomingDate") {
         if (!value) {
-            errorField.textContent = `${fieldName} es obligatorio`;
-            return false;
+          errorField.textContent = `${fieldName} es obligatorio`;
+          return false;
         }
 
         var fechaIngresoDate = new Date(value);
@@ -501,16 +513,16 @@
         fechaActual.setHours(0, 0, 0, 0); // Establecer a medianoche para evitar problemas con horas
 
         if (fechaIngresoDate > fechaActual) {
-            errorField.textContent = "Fecha Ingreso no puede ser mayor a la fecha actual.";
-            return false;
+          errorField.textContent = "Fecha Ingreso no puede ser mayor a la fecha actual.";
+          return false;
         }
+      }
+
+      // Si la validación pasa, limpiar el mensaje de error
+      errorField.textContent = "";
+      return true;
+
     }
-
-    // Si la validación pasa, limpiar el mensaje de error
-    errorField.textContent = "";
-    return true;
-
-  }
 
     // Función para adjuntar validación en tiempo real a cada campo
     function attachRealTimeValidations() {
@@ -578,11 +590,11 @@
     async function loadTeams() {
       const teamSelect = document.getElementById("team"); // ID del <select>
 
-        let data = {}; 
+      let data = {};
 
       try {
         const response = await fetch("https://c986-44-201-249-73.ngrok-free.app/team/getAll", {
-        //const response = await fetch("http://localhost:8085/team/getAll", {
+          //const response = await fetch("http://localhost:8085/team/getAll", {
           //method: "GET",
 
           method: "POST",
@@ -593,9 +605,9 @@
           body: JSON.stringify(data)
         });
 
-       
+
         data = await response.json();
-       
+
 
         if (data.code === "200" && Array.isArray(data.data)) {
           data.data.forEach((team) => {
@@ -648,7 +660,7 @@
       document.getElementById("firstName").value = sessionData.firstName;
       document.getElementById("firstSurename").value = sessionData.lastName;
       document.getElementById("birthDate").value = sessionData.birthDate;
-      document.getElementById("age").value = edad;
+      //document.getElementById("age").value = edad;
       document.getElementById("email").value = sessionData.email;
 
       attachRealTimeValidations();
@@ -697,14 +709,14 @@
           incomingDate: document.getElementById("incomingDate").value,
           email: document.getElementById("email").value.trim(),
           swimmerKey: swimmerK,
-          status: "A",          
+          status: "A",
           representorName: document
             .getElementById("representorName")
             .value.trim(),
           representorSurename: document
             .getElementById("representorSurename")
             .value.trim(),
-          phone: document.getElementById("phone").value.trim(),         
+          phone: document.getElementById("phone").value.trim(),
           team: document.getElementById("team").value.trim(),
         };
 
@@ -712,8 +724,8 @@
           // Enviar solicitud con fetch
           /*const response = await fetch(
             "http://localhost:8085/swimmer/create",*/
-            const response = await fetch(
-              "https://c986-44-201-249-73.ngrok-free.app/swimmer/create",
+          const response = await fetch(
+            "https://c986-44-201-249-73.ngrok-free.app/swimmer/create",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -724,7 +736,7 @@
           const responseData = await response.json();
 
           if (responseData.code === "201") {
-            
+
             await Swal.fire({
               title: "Registro exitoso",
               text: "El nadador ha sido inscrito correctamente.",

@@ -122,7 +122,7 @@
   }
   
   .contenido_bloque2 #correo_electronico {
-    font-size: 1.2vw;
+    font-size: 1.17vw;
   }
   
   .contenido_bloque2 #contraseña {
@@ -181,7 +181,7 @@
     border: none;
     padding: 2%;
     cursor: pointer;
-    font-size: 1.3vw;
+    font-size: 1.17vw;
     width: 100%;  
   
   }

@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
            position: relative;
            background-color: #fff;
          ">
-  <span style="font-size: 0.9vw; position:relative; top:-0.5%; right:2%">
+  <span style="font-size: 0.9vw; position:relative; top:0; right:2%">
     He leído y acepto todas las reglas para el registro de cuentas.
   </span>
       </div>
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const errorCorreo = document.getElementById("errorCorreo");
 
   // Expresiones regulares para validaciones
-  const regexTexto = /^[A-Za-zÁÉÍÓÚáéíóúÑñ' ]*$/; // Letras, acentos, ñ, espacios y apóstrofes
+  const regexTexto = /^[A-Za-zÁÉÍÓÚáéíóúÑñ']*$/; // Letras, acentos, ñ y apóstrofes
   const regexDocumento = /^[0-9]*$/;               // Solo dígitos
   const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;   // Expresión regular para correo
 
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
   nombreEl.addEventListener("input", function () {
     if (!validarCampoVacio(nombreEl, errorNombre, "Nombre")) return;
     if (!regexTexto.test(nombreEl.value)) {
-      errorNombre.textContent = "Solo se permiten letras, acentos, espacios y apóstrofes.";
+      errorNombre.textContent = "Solo se permiten letras, acentos y apóstrofes.";
     } else {
       errorNombre.textContent = "";
     }
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
   apellidoEl.addEventListener("input", function () {
     if (!validarCampoVacio(apellidoEl, errorApellido, "Apellido")) return;
     if (!regexTexto.test(apellidoEl.value)) {
-      errorApellido.textContent = "Solo se permiten letras, acentos, espacios y apóstrofes.";
+      errorApellido.textContent = "Solo se permiten letras, acentos y apóstrofes.";
     } else {
       errorApellido.textContent = "";
     }
@@ -131,19 +131,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Validación en tiempo real para el número de documento
   numeroDocumentoEl.addEventListener("input", function () {
-    if (!validarCampoVacio(numeroDocumentoEl, errorDocumento, "Número de Documento")) return;
+    if (!validarCampoVacio(numeroDocumentoEl, errorDocumento, "número de documento")) return;   
 
-    const valueNumDoc = numeroDocumentoEl.value.trim();
-    if (valueNumDoc.length < 7) {
-      errorDocumento.textContent = "Debe contener un mínimo de 7 caracteres.";
-    } else if (!regexDocumento.test(numeroDocumentoEl.value)) {
-      errorDocumento.textContent = "Solo se permiten números.";
+    const originalValue = numeroDocumentoEl.value;
+
+    
+    // Limpiar el valor eliminando caracteres no numéricos
+    numeroDocumentoEl.value = numeroDocumentoEl.value.replace(/\D/g, "");
+
+    const valueNumDoc = numeroDocumentoEl.value;
+
+    if (!validarCampoVacio(numeroDocumentoEl, errorDocumento, "número de documento")) return;
+
+    if (/^0+$/.test(valueNumDoc)) {
+        errorDocumento.textContent = "El número de documento no puede estar en cero.";
+    } else if (valueNumDoc.length < 7) {
+        errorDocumento.textContent = "El número de documento debe tener al menos 7 dígitos.";
     } else {
-      errorDocumento.textContent = "";
+        errorDocumento.textContent = "";
     }
+
+    errorDocumento.style.color = "red";
+
   });
 
-
+  
   // Función para mostrar el error
   function mostrarError(mensaje) {
     const nuevoSpan = document.createElement("span");
@@ -151,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
     nuevoSpan.textContent = mensaje;
     // Asignar el estilo directamente al span
     nuevoSpan.style.position = "relative";
-    nuevoSpan.style.top = "-0.5vw";
+    nuevoSpan.style.top = "0";
 
     // Insertar el span justo después del input-group, dentro del contenedor
     contenedor.insertBefore(nuevoSpan, grupo.nextSibling);
@@ -170,14 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (siguienteElemento && siguienteElemento.classList.contains("error")) {
       siguienteElemento.remove();
     }
-
-
-
-    // Validar si está vacío
-    /*if (!validarCampoVacio(fechaNacimientoEl, {}, "Fecha de Nacimiento")) {
-      mostrarError("La fecha de nacimiento es obligatoria.");
-      return;
-    }*/
+   
 
     // Obtener la fecha seleccionada
     const fechaNacimiento = fechaNacimientoEl._flatpickr.selectedDates[0];

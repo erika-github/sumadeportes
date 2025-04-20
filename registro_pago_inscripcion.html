@@ -718,23 +718,14 @@
 
                 Object.entries(fieldsToValidate).forEach(([id, label]) => {
 
-                    /*if (!validateField(id, label)) {
+                    if (!validateField(id, label)) {
                         valid = false;
                     }
-
-                    console.log("Valor de validate 1::::"+validateField)
-                });
-                return valid;*/
-                    const result = validateField(id, label);
-
-                    console.log(`Resultado de validar ${id}: ${result}`);
-
-                    if (!result) {
-                        valid = false;
-                    }
+                    
                 });
                 return valid;
-                
+                  
+
             } else if (m === "transferencia") {
 
                 const fieldsToValidate = {
@@ -804,14 +795,14 @@
 
             if (!input) {
                 console.error(`No se encontró el input con ID: ${id}`);
-                return;
+                return false;
             }
 
             const capitalizedId = id.charAt(0).toUpperCase() + id.slice(1);
             const errorSpan = document.getElementById(`error${capitalizedId}`);
             if (!errorSpan) {
                 console.error(`No se encontró el span con ID: error${capitalizedId}`);
-                return;
+                return false;
             }
 
             const fieldName = fieldLabels[id] || id;
@@ -819,7 +810,7 @@
             const phoneRegex = /^(0412|0414|0416|0424|0426)-(?!0{7})\d{7}$/;
 
             // 1) Fecha
-            if (input.type === "date") {
+            /*if (input.type === "date") {
 
                 const inputDate = new Date(input.value.trim());
                 const today = new Date();
@@ -827,11 +818,11 @@
 
                 if (!input.value) {
                     errorSpan.textContent = `${fieldName} es obligatorio.`;
-
+                    return false
 
                 } else if (inputDate > today) {
                     errorSpan.textContent = `${fieldName} no puede ser mayor a la fecha actual.`;
-
+                    return false
                 } else {
                     errorSpan.textContent = "";
                 }
@@ -959,8 +950,155 @@
                 errorSpan.textContent = "";
             }
             errorSpan.style.color = "red";
-            return
+            return*/
 
+            // 1) Fecha
+            if (input.type === "date") {
+                const inputDate = new Date(input.value.trim());
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (inputDate > today) {
+                    errorSpan.textContent = `${fieldName} no puede ser mayor a la fecha actual.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else {
+                    errorSpan.textContent = "";
+                    return true;
+                }
+            }
+
+            // 2) Email / Zelle
+            if (input.type === "email" || id === "zelleEmail") {
+                if (input.value.length > 100) {
+                    input.value = input.value.slice(0, 100);
+                }
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (!emailRegex.test(input.value)) {
+                    errorSpan.textContent = `Ingrese un ${fieldName} válido.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else {
+                    errorSpan.textContent = "";
+                    return true;
+                }
+            }
+
+            // 3) Teléfono / Celular
+            if (id === "phone") {
+                let digits = input.value.replace(/\D/g, "");
+                if (digits.length > 4) {
+                    digits = digits.slice(0, 4) + "-" + digits.slice(4);
+                }
+                input.value = digits.slice(0, 12);
+
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (!phoneRegex.test(input.value)) {
+                    errorSpan.textContent = `Formato inválido. Debe ser 04xx-xxxxxxx.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else {
+                    errorSpan.textContent = "";
+                    return true;
+                }
+            }
+
+            // 4) Número de Documento
+            if (id === "docNumber") {
+                input.value = input.value.replace(/\D/g, "").slice(0, 10);
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (/^0+$/.test(input.value)) {
+                    errorSpan.textContent = `${fieldName} no puede ser cero.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (input.value.length < 7) {
+                    errorSpan.textContent = `${fieldName} debe tener al menos 7 dígitos.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else {
+                    errorSpan.textContent = "";
+                    return true;
+                }
+            }
+
+            // 5) Cuenta Origen / Cuenta Destino
+            if (id === "originAccount" || id === "destinationAccount") {
+                input.value = input.value.replace(/\D/g, "").slice(0, 20);
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (input.value.length < 20) {
+                    errorSpan.textContent = `${fieldName} debe tener exactamente 20 dígitos.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (/^0+$/.test(input.value)) {
+                    errorSpan.textContent = `${fieldName} no puede ser cero.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else {
+                    errorSpan.textContent = "";
+                    return true;
+                }
+            }
+
+            // 6) Referencia de Transferencia
+            if (id === "transferReference" || id === "referenceNumber" || id === "referenceZelle") {
+                input.value = input.value.replace(/\D/g, "").slice(0, 30);
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (/^0+$/.test(input.value)) {
+                    errorSpan.textContent = `${fieldName} no puede ser cero.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else {
+                    errorSpan.textContent = "";
+                    return true;
+                }
+            }
+
+            // 7) Validación de Montos
+            if (id === "amount" || id === "amountTransfer" || id === "amountZelle") {
+                const monto = parseFloat(input.value);
+                if (!input.value) {
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else if (isNaN(monto) || monto <= 0) {
+                    errorSpan.textContent = `${fieldName} debe ser mayor a cero.`;
+                    errorSpan.style.color = "red";
+                    return false;
+                } else {
+                    errorSpan.textContent = "";
+                    return true;
+                }
+            }
+
+            // 8) Caso general
+            input.value = input.value.trim();
+            if (!input.value) {
+                errorSpan.textContent = `${fieldName} es obligatorio.`;
+                errorSpan.style.color = "red";
+                return false;
+            } else {
+                errorSpan.textContent = "";
+                return true;
+            }
         }
 
         // Simulación del llamado al servicio (para pruebas)

@@ -530,26 +530,24 @@
             return false;
         }
     
-            
         const fechaIngresoDate = new Date(value);
         const fechaActual = new Date();
-        fechaActual.setHours(0, 0, 0, 0); // Establecer a medianoche
+        fechaActual.setHours(0, 0, 0, 0); // Para evitar diferencias por hora
     
-        const fechaNacimiento = new Date(birthDate);
-
-        console.log("fechaNacimiento: "+document.getElementById("birthDate"))
+        const birthDateValue = document.getElementById("birthDate").value;
+        const fechaNacimiento = new Date(birthDateValue);
     
         if (fechaIngresoDate > fechaActual) {
             errorField.textContent = "Fecha de ingreso no puede ser mayor a la fecha actual.";
             return false;
         }
     
-        if (fechaIngresoDate < fechaNacimiento) {
+        if (birthDateValue && fechaIngresoDate < fechaNacimiento) {
             errorField.textContent = "Fecha de ingreso no puede ser menor a la fecha de nacimiento.";
             return false;
         }
     
-        errorField.textContent = ""; // Limpiar error si todo está bien
+        errorField.textContent = ""; // Limpiar mensaje si está todo bien
     }
 
     }

@@ -521,8 +521,8 @@
             return false;
         }
     
-        if (birthDateValue && fechaIngresoDate < fechaNacimiento) {
-            errorField.textContent = "Fecha de Ingreso no puede ser menor a la fecha de nacimiento.";
+        if (birthDateValue && fechaIngresoDate <= fechaNacimiento) {
+            errorField.textContent = "Fecha de Ingreso no puede ser menor o igual a la fecha de nacimiento.";
             return false;
         }
     

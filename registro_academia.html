@@ -478,27 +478,29 @@
 
       // Validación para teléfono
       else if (id === "phone") {
-
-        //const value = field.value.trim();
-        let digits = field.value.replace(/\D/g, "");
-
-        console.log("Valor de digitos:"+digits);
-
-        if (digits.length > 4) {
-          digits = digits.slice(0, 4) + "-" + digits.slice(4);
-          console.log("Valor de digitos DESPUES:"+digits);
-        }        
-
-        field.value= digits.slice(0,12);
-
-        if (!value) {
-          errorField.textContent = `${fieldName} es obligatorio`;
-          return false;
-        }
-        if (!phoneRegex.test(value)) {
-          errorField.textContent = `${fieldName} debe tener el formato 04xx-xxxxxxx`;
-          return false;
-        }
+              
+          let digits = field.value.replace(/\D/g, ""); // quitar todo lo que no sea dígito
+        
+          if (digits.length > 4) {
+            digits = digits.slice(0, 4) + "-" + digits.slice(4);
+          }
+        
+          field.value = digits.slice(0, 12); // limitar a 12 caracteres
+        
+          const value = field.value.trim(); // ahora sí usamos el valor actualizado
+        
+          if (!value) {
+            errorField.textContent = `${fieldName} es obligatorio`;
+            return false;
+          }
+        
+          if (!phoneRegex.test(value)) {
+            errorField.textContent = `${fieldName} debe tener el formato 04xx-xxxxxxx, y no puede tener solo ceros.`;
+            return false;
+          } else {
+            errorField.textContent = "";
+            return true;
+          }
       }
 
       // Validación de fecha de ingreso

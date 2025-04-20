@@ -502,11 +502,13 @@
       }
 
       // Validación de fecha de ingreso
-      else if (id === "incomingDate") {
-        if (!value) {
+      //else if (id === "incomingDate") {
+        /*if (!value) {
           errorField.textContent = `${fieldName} es obligatorio`;
           return false;
         }
+
+        console.log("fecha de nacimiento::"+birthDate);
 
         var fechaIngresoDate = new Date(value);
         var fechaActual = new Date();
@@ -520,7 +522,33 @@
 
       // Si la validación pasa, limpiar el mensaje de error
       errorField.textContent = "";
-      return true;
+      return true;*/
+
+      else if (id === "incomingDate") {
+        if (!value) {
+            errorField.textContent = `${fieldName} es obligatorio`;
+            return false;
+        }
+    
+            
+        const fechaIngresoDate = new Date(value);
+        const fechaActual = new Date();
+        fechaActual.setHours(0, 0, 0, 0); // Establecer a medianoche
+    
+        const fechaNacimiento = new Date(birthDate);
+    
+        if (fechaIngresoDate > fechaActual) {
+            errorField.textContent = "Fecha de ingreso no puede ser mayor a la fecha actual.";
+            return false;
+        }
+    
+        if (fechaIngresoDate < fechaNacimiento) {
+            errorField.textContent = "Fecha de ingreso no puede ser menor a la fecha de nacimiento.";
+            return false;
+        }
+    
+        errorField.textContent = ""; // Limpiar error si todo está bien
+    }
 
     }
 

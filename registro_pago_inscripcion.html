@@ -713,14 +713,16 @@
                     amount: "Monto",
                     referenceNumber: "Numero de Referencia",
                     phone: "Número de Celular",
-                    paymentDate: "Fecha de Pago",
-
+                    paymentDate: "Fecha de Pago"
                 };
 
                 Object.entries(fieldsToValidate).forEach(([id, label]) => {
+                  
                     if (!validateField(id, label)) {
                         valid = false;
                     }
+
+                    console.log("Valor de validate 1::::"+validateField)
                 });
                 return valid;
             } else if (m === "transferencia") {
@@ -743,6 +745,8 @@
                     if (!validateField(id, label)) {
                         valid = false;
                     }
+
+                    console.log("Valor de validate 2::::"+validateField)
                 });
                 return valid;
 
@@ -760,6 +764,8 @@
                     if (!validateField(id, label)) {
                         valid = false;
                     }
+
+                    console.log("Valor de validate:::: 3"+validateField)
                 });
                 return valid;
             }

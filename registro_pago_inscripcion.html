@@ -717,14 +717,24 @@
                 };
 
                 Object.entries(fieldsToValidate).forEach(([id, label]) => {
-                  
-                    if (!validateField(id, label)) {
+
+                    /*if (!validateField(id, label)) {
                         valid = false;
                     }
 
                     console.log("Valor de validate 1::::"+validateField)
                 });
+                return valid;*/
+                    const result = validateField(id, label);
+
+                    console.log(`Resultado de validar ${id}: ${result}`);
+
+                    if (!result) {
+                        valid = false;
+                    }
+                });
                 return valid;
+                
             } else if (m === "transferencia") {
 
                 const fieldsToValidate = {
@@ -746,7 +756,7 @@
                         valid = false;
                     }
 
-                    console.log("Valor de validate 2::::"+validateField)
+                    console.log("Valor de validate 2::::" + validateField)
                 });
                 return valid;
 
@@ -765,7 +775,7 @@
                         valid = false;
                     }
 
-                    console.log("Valor de validate:::: 3"+validateField)
+                    console.log("Valor de validate:::: 3" + validateField)
                 });
                 return valid;
             }
@@ -786,7 +796,7 @@
                 }
             });
         }
-       
+
 
         function validateField(id) {
 
@@ -805,7 +815,7 @@
             }
 
             const fieldName = fieldLabels[id] || id;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const phoneRegex = /^(0412|0414|0416|0424|0426)-(?!0{7})\d{7}$/;
 
             // 1) Fecha
@@ -926,14 +936,14 @@
 
             //7) validacion de montos
 
-            if (id === "amount" || id === "amountTransfer" || id === "amountZelle") {          
-                
+            if (id === "amount" || id === "amountTransfer" || id === "amountZelle") {
+
                 const monto = parseFloat(input.value);
-                
+
                 if (!input.value) {
-                    errorSpan.textContent = `${fieldName} es obligatorio.`;                                        
-                }else if(isNaN(monto) || monto <= 0){
-                    errorSpan.textContent = `${fieldName} debe ser mayor a cero.`;                   
+                    errorSpan.textContent = `${fieldName} es obligatorio.`;
+                } else if (isNaN(monto) || monto <= 0) {
+                    errorSpan.textContent = `${fieldName} debe ser mayor a cero.`;
                 } else {
                     errorSpan.textContent = "";
                 }

@@ -502,28 +502,7 @@
       }
 
       // Validación de fecha de ingreso
-      //else if (id === "incomingDate") {
-        /*if (!value) {
-          errorField.textContent = `${fieldName} es obligatorio`;
-          return false;
-        }
-
-        console.log("fecha de nacimiento::"+birthDate);
-
-        var fechaIngresoDate = new Date(value);
-        var fechaActual = new Date();
-        fechaActual.setHours(0, 0, 0, 0); // Establecer a medianoche para evitar problemas con horas
-
-        if (fechaIngresoDate > fechaActual) {
-          errorField.textContent = "Fecha Ingreso no puede ser mayor a la fecha actual.";
-          return false;
-        }
-      }
-
-      // Si la validación pasa, limpiar el mensaje de error
-      errorField.textContent = "";
-      return true;*/
-
+      
       else if (id === "incomingDate") {
         if (!value) {
             errorField.textContent = `${fieldName} es obligatorio`;
@@ -538,12 +517,12 @@
         const fechaNacimiento = new Date(birthDateValue);
     
         if (fechaIngresoDate > fechaActual) {
-            errorField.textContent = "Fecha de ingreso no puede ser mayor a la fecha actual.";
+            errorField.textContent = "Fecha de Ingreso no puede ser mayor a la fecha actual.";
             return false;
         }
     
         if (birthDateValue && fechaIngresoDate < fechaNacimiento) {
-            errorField.textContent = "Fecha de ingreso no puede ser menor a la fecha de nacimiento.";
+            errorField.textContent = "Fecha de Ingreso no puede ser menor a la fecha de nacimiento.";
             return false;
         }
     
@@ -568,10 +547,9 @@
         birthDate: "Fecha de Nacimiento",
         incomingDate: "Fecha de Ingreso",
         email: "Correo Electrónico",
-        phone: "Teléfono",
-        /*plain: "Plan",*/
+        phone: "Teléfono",        
         team: "Equipo"
-        /*level: "Nivel",*/
+        
       };
 
       Object.keys(fieldLabels).forEach((id) => {
@@ -601,10 +579,9 @@
         birthDate: "Fecha de Nacimiento",
         incomingDate: "Fecha de Ingreso",
         email: "Correo Electrónico",
-        phone: "Teléfono",
-        /*plain: "Plan",*/
+        phone: "Teléfono",        
         team: "Equipo",
-        /*level: "Nivel",*/
+        
       };
 
       Object.entries(fieldsToValidate).forEach(([id, label]) => {
@@ -677,9 +654,7 @@
         email: sessionStorage.getItem("userEmail") || "",
       };
 
-      const edad = calcularEdad(sessionData.birthDate);
-      /*birthD= transformDate(sessionData.birthDate);  
-    console.log("Esta es la fecha de cumpleaños: "+birthD)*/
+      const edad = calcularEdad(sessionData.birthDate);    
 
       document.getElementById("documentType").value =
         sessionData.documentType;
@@ -687,8 +662,7 @@
         sessionData.documentNumber;
       document.getElementById("firstName").value = sessionData.firstName;
       document.getElementById("firstSurename").value = sessionData.lastName;
-      document.getElementById("birthDate").value = sessionData.birthDate;
-      //document.getElementById("age").value = edad;
+      document.getElementById("birthDate").value = sessionData.birthDate;      
       document.getElementById("email").value = sessionData.email;
 
       attachRealTimeValidations();
@@ -732,8 +706,7 @@
             .value.trim(),
           age: parseInt(document.getElementById("age").value),
           gender: document.getElementById("gender").value.trim(),
-          birthDate: document.getElementById("birthDate").value,
-          /*birthDate: birthD,*/
+          birthDate: document.getElementById("birthDate").value,          
           incomingDate: document.getElementById("incomingDate").value,
           email: document.getElementById("email").value.trim(),
           swimmerKey: swimmerK,

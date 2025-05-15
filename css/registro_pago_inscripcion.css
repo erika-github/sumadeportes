@@ -598,16 +598,11 @@ footer #informacion p {
   font-size: 1.3vw;
 }
 
-footer,
 .registro {
-  display: none;
-}
-
-/*.registro {
   display: flex;
   flex-direction: column;
   text-align: center;
-}*/
+}
 
 .registro p {
   color: #012edc;
@@ -630,4 +625,9 @@ footer,
   margin-top: 0.5%;
   margin-bottom: 0.5%;
   font-size: 1.05vw;
+}
+
+footer,
+.registro {
+  display: none;
 }

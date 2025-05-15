@@ -9,42 +9,20 @@
   <link rel="stylesheet" type="text/css" href="css/cambio_clave.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <style>
-    .error {
-        color: red;
-        font-size: 0.95vw;
-        margin-left: 2%;
-    }
-
-    .user-container {
-
-        display: flex;
-        position: absolute;
-        right: 1%;
-        top: 3vw;
-        transform: translateY(-50%);       
-        width: 20%;
-        z-index: 1;
-
-    }
-</style>
+  
 </head>
 
 <body> 
 
-  <div class="header-container">
-    <!-- Cintillo -->
+  <div class="header-container">  
     <div style="height: 7vw;  
     position: relative;">
       <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo">
-    </div>
-    <!-- Logo -->
+    </div>    
     <div class="logoDiv">
       <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index.html'">
     </div>
-
-    <!-- Imagen de usuario -->
+  
     <div class="user-container" onclick="toggleUserMenu()">
       <button type="submit" id="login-button" onclick="window.location.href='iniciar_sesion.html'">Inicia
         sesión</button>

@@ -5,125 +5,37 @@
     <meta charset="utf-8">
     <title>SumaDeportes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" type="text/css" href="css/inscripcion_eventos_mes.css">
-    <!--<style>
-       
-        .user-container {
-            display: flex;
-            justify-content: space-between;
-            height: auto;
-            margin-left: 2%;
-            cursor: pointer;
-        }
-
-        .user-icon {
-            width: 4vw;
-            height: 4vw;
-            background-color: #F36621;
-            color: white;
-            font-size: 1.5vw;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        #img,
-        .user-container p {
-            position: absolute;
-            top: 0px;
-            width: auto;
-            z-index: 100;
-            margin-top: 0.5%;
-            box-sizing: border-box;
-            right: 10%;
-        }
-
-        #user-icon {
-            position: absolute;
-            top: 0px;
-            z-index: 100;
-            margin-top: 0.7%;
-            box-sizing: border-box;
-            right: 5%;
-        }
-
-        .user-menu {
-            display: none;
-            position: absolute;
-            right: 1%;
-            min-width: 13%;
-            max-width: 13%;
-            top: 5.4vw;
-            background-color: white;
-            border-radius: 0.5vw;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            padding-bottom: 1%;
-            z-index: 10000;
-        }
-
-        .user-menu-header {
-            background-color: #F2F2F2;
-            padding: 1.5vw;
-            color: #7F7F7F;
-            text-align: center;
-            font-weight: lighter;
-        }
-
-        .user-menu-content {
-            padding: 1vw;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-menu-content a {
-            text-decoration: none;
-            color: #7F7F7F;
-            padding: 0.7vw;
-            text-align: center;
-            border-radius: 0.3vw;
-            margin-top: 2%;
-            transition: background 0.3s ease;
-        }
-
-        .user-menu-content a:hover {
-            background: #F2F2F2;
-        }
-    </style>-->
 
 </head>
 
 
 <body>
     
-
     <div class="header-container">
-        
+
         <div style="height: 7vw; position: relative">
-          <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo" />
+            <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo" />
         </div>
-        
+
         <div class="logoDiv">
-          <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index_autenticado.html'" />
+            <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index_autenticado.html'" />
         </div>
-        
+
         <div class="user-container">
-          <p style="
+            <p style="
                 font-size: 1.2vw;
                 margin-top: 2%;
                 color: #1535d6;
                 text-decoration: underline;
               " onclick="window.location.href='gestion.html'">
-            Gestión
-          </p>
-          <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
+                Gestión
+            </p>
+            <div id="user-icon" class="user-icon" onclick="toggleUserMenu()"></div>
         </div>
-      </div>
+    </div>
 
-   
+
     <div class="user-menu" id="user-menu">
         <div class="user-menu-header">
             <p style="font-size:1vw" id="userName">Nombre del Usuario</p>
@@ -135,10 +47,10 @@
         </div>
     </div>
 
-    
-  <div id="titulo" style="text-align:center; margin-top:7%; margin-bottom:8%">
-  <img src="img/titulo_calendario.png" style="width: 75%; height: 75%; object-fit: contain;">
-  </div>
+
+    <div id="titulo" style="text-align:center; margin-top:7%; margin-bottom:8%">
+        <img src="img/titulo_calendario.png" style="width: 75%; height: 75%; object-fit: contain;">
+    </div>
 
     <div class="divs-gestion" style="display:flex; justify-content:space-evenly; margin-top:4%; margin-bottom:8%">
 
@@ -147,15 +59,15 @@
             onclick="window.location.href='registro_academia.html'">
             <img src="img/enero.png" style="width: 95%; height: 95%; object-fit: contain;">
         </div>
-        <div class="boton-gestion" id="febrero"style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
+        <div class="boton-gestion" id="febrero" style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
         justify-content: center;transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
             <img src="img/febrero.png" style="width: 95%; height: 95%; object-fit: contain;">
         </div>
-        <div class="boton-gestion"id="marzo" style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
+        <div class="boton-gestion" id="marzo" style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
         justify-content: center; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
             <img src="img/marzo.png" style="width: 95%; height: 95%; object-fit: contain;">
         </div>
-        <div class="boton-gestion" id = "abril" style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
+        <div class="boton-gestion" id="abril" style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
         justify-content: center; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
             <img src="img/abril.png" style="width: 95%; height: 95%; object-fit: contain;">
         </div>
@@ -170,7 +82,7 @@
             onclick="window.location.href='registro_academia.html'">
             <img src="img/mayo.png" style="width: 95%; height: 95%; object-fit: contain;">
         </div>
-        <div class="boton-gestion" id="junio"style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
+        <div class="boton-gestion" id="junio" style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
     justify-content: center;transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
             <img src="img/junio.png" style="width: 95%; height: 95%; object-fit: contain;">
         </div>
@@ -195,7 +107,7 @@
     justify-content: center;transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
             <img src="img/octubre.png" style="width: 95%; height: 95%; object-fit: contain;">
         </div>
-        <div class="boton-gestion" id= "noviembre" style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
+        <div class="boton-gestion" id="noviembre" style="height:11vw; width:18%; background-color:white; border-radius:1vw; box-shadow: 0vw 0vw 0.70vw rgba(0, 0, 0, 0.5); display: flex; align-items: center; 
     justify-content: center; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
             <img src="img/noviembre.png" style="width: 95%; height: 95%; object-fit: contain;">
         </div>
@@ -205,7 +117,7 @@
         </div>
 
     </div>
-    
+
     <footer>
         <div id=footer_logo>
             <img src="img/logo_.png" alt="">
@@ -236,97 +148,7 @@
     <script src="js/jquery-ui-1.13.3/external/jquery/jquery.js"></script>
     <script src="js/jquery-ui-1.13.3/jquery-ui.min.js"></script>
     <script src="js/inscripcion_eventos_mes.js"></script>
-    <!--<script>
 
-       
-        
-        function logout() {
-            sessionStorage.clear(); 
-            window.location.href = "index.html"; 
-        }
-
-       
-        function getInitials(firstName, lastName) {
-            if (!firstName || !lastName) return "U"; 
-            return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
-        }
-
-        
-        function updateUserInfo() {
-         
-            const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
-            const lastName = sessionStorage.getItem("userLastName") || "Apellido";
-            const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
-
-            
-            const fullName = `${firstName} ${lastName}`;
-
-            const nameElem = document.getElementById("userName");
-            const roleElem = document.getElementById("userRole");
-
-            if (nameElem) nameElem.innerText = fullName;
-            if (roleElem) roleElem.innerText = userRole;
-        }
-
-        
-        function setUserIcon() {
-           
-            updateUserInfo();
-
-           
-            const firstName = sessionStorage.getItem("userFirstName");
-            const lastName = sessionStorage.getItem("userLastName");
-
-         
-            const userIcon = document.getElementById("user-icon");
-            if (userIcon) {
-                userIcon.textContent = getInitials(firstName, lastName);
-            }
-        }
-
-      
-        function toggleUserMenu() {
-            const menu = document.getElementById("user-menu");
-            const userIcon = document.getElementById("user-icon");
-
-            if (menu) {
-                const isVisible = menu.style.display === "block";
-                menu.style.display = isVisible ? "none" : "block";
-                userIcon.style.backgroundColor = isVisible ? "#F36621" : "#2e3192";
-            }
-        }
-
-        
-        document.addEventListener("click", (event) => {
-            const menu = document.getElementById("user-menu");
-            const userIcon = document.getElementById("user-icon");
-            const userContainer = document.querySelector(".user-container");
-
-            if (menu && userIcon && userContainer && !userContainer.contains(event.target)) {
-                menu.style.display = "none";
-                userIcon.style.backgroundColor = "#F36621";
-            }
-        });
-
-        const meses = [
-        "enero", "febrero", "marzo", "abril", "mayo", "junio",
-        "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-      ];
-    
-      const anio = new Date().getFullYear();
-    
-      meses.forEach((idMes, index) => {
-        const elemento = document.getElementById(idMes);
-        if (elemento) {
-          elemento.addEventListener("click", () => {
-            const mes = index + 1;
-            window.location.href = `calendario_inscripcion_eventos.html?mes=${mes}&anio=${anio}`;
-          });
-        }
-      });    
-       
-        document.addEventListener("DOMContentLoaded", setUserIcon);
-    </script>-->
 </body>
 
 </html>

@@ -6,9 +6,9 @@
     <title>SumaDeportes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="css/gestion.css">
-    <style>
-        /* Estilos adicionales para header, menú y demás secciones */
+    <link rel="stylesheet" type="text/css" href="css/inscripcion_eventos_mes.css">
+    <!--<style>
+       
         .user-container {
             display: flex;
             justify-content: space-between;
@@ -92,7 +92,7 @@
         .user-menu-content a:hover {
             background: #F2F2F2;
         }
-    </style>
+    </style>-->
 
 </head>
 
@@ -101,15 +101,15 @@
     
 
     <div class="header-container">
-        <!-- Cintillo -->
+        
         <div style="height: 7vw; position: relative">
           <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo" />
         </div>
-        <!-- Logo -->
+        
         <div class="logoDiv">
           <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index_autenticado.html'" />
         </div>
-        <!-- Imagen de usuario -->
+        
         <div class="user-container">
           <p style="
                 font-size: 1.2vw;
@@ -123,7 +123,7 @@
         </div>
       </div>
 
-    <!-- Menú emergente -->
+   
     <div class="user-menu" id="user-menu">
         <div class="user-menu-header">
             <p style="font-size:1vw" id="userName">Nombre del Usuario</p>
@@ -235,29 +235,30 @@
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/jquery-ui-1.13.3/external/jquery/jquery.js"></script>
     <script src="js/jquery-ui-1.13.3/jquery-ui.min.js"></script>
-    <script>
+    <script src="js/inscripcion_eventos_mes.js"></script>
+    <!--<script>
 
        
-        // Función para cerrar sesión y redirigir a la página de inicio
+        
         function logout() {
-            sessionStorage.clear(); // Borra toda la información almacenada
-            window.location.href = "index.html"; // Redirige a la página de inicio
+            sessionStorage.clear(); 
+            window.location.href = "index.html"; 
         }
 
-        // Función para obtener las iniciales del usuario
+       
         function getInitials(firstName, lastName) {
-            if (!firstName || !lastName) return "U"; // Si no hay nombre, usa "U"
+            if (!firstName || !lastName) return "U"; 
             return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
         }
 
-        // Función para actualizar la información del usuario en el DOM
+        
         function updateUserInfo() {
-            // Recuperar datos desde sessionStorage
+         
             const firstName = sessionStorage.getItem("userFirstName") || "Nombre";
             const lastName = sessionStorage.getItem("userLastName") || "Apellido";
             const userRole = sessionStorage.getItem("userRole") || "Rol Predeterminado";
 
-            // Concatenar nombres y mostrar en los elementos correspondientes
+            
             const fullName = `${firstName} ${lastName}`;
 
             const nameElem = document.getElementById("userName");
@@ -267,23 +268,23 @@
             if (roleElem) roleElem.innerText = userRole;
         }
 
-        // Función para establecer el ícono del usuario con iniciales
+        
         function setUserIcon() {
-            // Actualizar información del usuario
+           
             updateUserInfo();
 
-            // Obtener nombre y apellido del sessionStorage
+           
             const firstName = sessionStorage.getItem("userFirstName");
             const lastName = sessionStorage.getItem("userLastName");
 
-            // Asignar iniciales al ícono del usuario
+         
             const userIcon = document.getElementById("user-icon");
             if (userIcon) {
                 userIcon.textContent = getInitials(firstName, lastName);
             }
         }
 
-        // Mostrar/ocultar el menú emergente y cambiar color del icono
+      
         function toggleUserMenu() {
             const menu = document.getElementById("user-menu");
             const userIcon = document.getElementById("user-icon");
@@ -295,7 +296,7 @@
             }
         }
 
-        // Cerrar el menú si se hace clic fuera de él
+        
         document.addEventListener("click", (event) => {
             const menu = document.getElementById("user-menu");
             const userIcon = document.getElementById("user-icon");
@@ -322,11 +323,10 @@
             window.location.href = `calendario_inscripcion_eventos.html?mes=${mes}&anio=${anio}`;
           });
         }
-      });
-    
-        // Llamar a la función al cargar la página
+      });    
+       
         document.addEventListener("DOMContentLoaded", setUserIcon);
-    </script>
+    </script>-->
 </body>
 
 </html>

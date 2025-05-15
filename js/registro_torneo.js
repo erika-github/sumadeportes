@@ -334,10 +334,8 @@ const form = document.querySelector("form");
 
           
             setUserIcon();
-
             loadTournaments();
             loadTeams();
-
             attachRealTimeValidations();
         });
 

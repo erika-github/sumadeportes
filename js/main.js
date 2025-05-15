@@ -1,14 +1,11 @@
 $(document).ready(function () {
 		
-	var imgItems = $('.slider li').length; // Numero de Slides
+	var imgItems = $('.slider li').length; 
 	var imgPos = 1;	
 
-	$('.slider li').hide(); // Ocultamos todos los slides
-	$('.slider li:first').show(); // Mostramos el primer slide	
-	$('.pagination li:first').css({ 'color': '#0048FF' }); // Damos estilos al primer item de la paginacion
-
-	// Ejecutamos todas las funciones
-
+	$('.slider li').hide();
+	$('.slider li:first').show();	
+	$('.pagination li:first').css({ 'color': '#0048FF' }); 
 	$('.pagination li').click(pagination);
 
 
@@ -23,12 +20,10 @@ $(document).ready(function () {
 
 		myTimer = setInterval(nextSlider, 2000);
 
-		var paginationPos = $(this).index() + 1; // Posicion de la paginacion seleccionada
+		var paginationPos = $(this).index() + 1; 
 
-
-		$('.slider li').hide(); // Ocultamos todos los slides			
-		$('.slider li:nth-child(' + paginationPos + ')').show();
-		// Dandole estilos a la paginacion seleccionada
+		$('.slider li').hide(); 		
+		$('.slider li:nth-child(' + paginationPos + ')').show();		
 		$('.pagination li').css({ 'color': '#FFFFFF' });
 		$(this).css({ 'color': '#0048FF' });
 
@@ -49,10 +44,8 @@ $(document).ready(function () {
 		$('.pagination li').css({ 'color': '#FFFFFF' });
 		$('.pagination li:nth-child(' + imgPos + ')').css({ 'color': '#0048FF' });
 
-		$('.slider li').hide(); // Ocultamos todos los slides		
+		$('.slider li').hide(); 	
 		$('.slider li:nth-child(' + imgPos + ')').show();
-
-
 		$('.pagination li').css({ 'z-index': 100 });
 		
 

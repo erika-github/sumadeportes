@@ -68,40 +68,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            //let response = await fetch("http://localhost:8085/login", {
-            let response = await fetch("https://c986-44-201-249-73.ngrok-free.app/login", {
-            //let response = await fetch("https://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:443/login", {
+           
+            let response = await fetch("https://c986-44-201-249-73.ngrok-free.app/login", {          
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestData)
             });
 
-            //Response de prueba, simulando un json
-
-            /*const response = {
-                ok: true,
-                status: 200,
-                json: async () => ({
-                  message: "Login successful",
-                  code: "200",
-                  data: {
-                    userId: {
-                      documentType: "V",
-                      documentNumber: "21444444"
-                    },
-                    firstName: "Erika",
-                    lastName: "Diaz",
-                    birthDate: "2008-02-06",
-                    email: "erika1983diaz@gmail.com",
-                    password: "Arion14.",
-                    numberRetries: 0,
-                    locked: false,
-                    enabled: true,
-                    firstTime: false,
-                    role: "ROLE_USER"
-                  }
-                })
-            }*/
+           
 
           let responseData = await response.json();
 
@@ -118,14 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (response.ok && responseData.data) {
         const { firstName, lastName, role, birthDate, email, userId } = responseData.data;
         const { documentType, documentNumber } = userId || {};
-
-        /*console.log("BirthDate:", birthDate);
-        console.log("FirstName:", firstName);
-        console.log("LastName:", lastName);
-        console.log("Email:", email);
-        console.log("UserId:", userId);
-        console.log("Document Type:", documentType);
-        console.log("Document Number:", documentNumber);*/
+       
 
         sessionStorage.setItem("userFirstName", firstName || "");
         sessionStorage.setItem("userLastName", lastName || "");

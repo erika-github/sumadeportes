@@ -603,11 +603,11 @@ footer,
   display: none;
 }
 
-.registro {
+/*.registro {
   display: flex;
   flex-direction: column;
   text-align: center;
-}
+}*/
 
 .registro p {
   color: #012edc;

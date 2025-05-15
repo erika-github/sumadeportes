@@ -2,13 +2,11 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   function updateUserEmail() {
-    // Recuperar el correo electrónico desde sessionStorage
+    
     const userEmail = sessionStorage.getItem("userEmail") || "";
-
-    // Obtener el input del correo
+   
     const emailInput = document.getElementById("correo");
 
-    // Si el input existe, asignarle el valor
     if (emailInput) {
       emailInput.value = userEmail;
     }
@@ -19,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validarCampoVacio(inputEl, nombreCampo = "") {
     const valor = inputEl.value?.trim() || "";
-    const errorId = inputEl.id + "error"; // ejemplo: fechaNacimiento-error
+    const errorId = inputEl.id + "error"; 
 
     if (valor === "") {
       updateErrorElement(errorId, inputEl, `${nombreCampo}`);
@@ -30,106 +28,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-
-  // Función para actualizar el elemento de error:
-  // Si message es vacío, se elimina el span de error (si existe).
-  // Si message tiene contenido, se crea (si es necesario) y se actualiza.
-  function updateErrorElement(errorId, targetContainer, message) {
-
-
-    /*let errorEl = document.getElementById(errorId);
-    const wrapper = targetContainer.closest(".form-group"); // Vamos más arriba del input
   
-    if (message === "") {
-      if (errorEl) errorEl.remove();
-    } else {
-      if (!errorEl) {
-        errorEl = document.createElement("span");
-        errorEl.id = errorId;
-        errorEl.className = "error";
-        wrapper?.appendChild(errorEl); // Insertamos después del contenedor, no dentro
-      }
-      errorEl.innerHTML = message;
-    }*/
-
-
-    /*let errorEl = document.getElementById(errorId);
-    const formGroup = targetContainer.closest(".form-group");
-
-    if (!formGroup) return;
-
-    if (message === "") {
-      if (errorEl) errorEl.remove();
-    } else {
-      if (!errorEl) {
-        errorEl = document.createElement("span");
-        errorEl.id = errorId;
-        errorEl.className = "error";
-        formGroup.insertAdjacentElement("afterend", errorEl);
-      }
-      // Solo actualiza el contenido si cambió, para evitar re-render innecesario
-      if (errorEl.innerHTML !== message) {
-        errorEl.innerHTML = message;
-      }
-    }*/
-
-
-      /*let errorEl = document.getElementById(errorId);
-  const formGroup = targetContainer.closest(".form-group");
-
-  if (!formGroup) return;
-
-  // Eliminar cualquier span.error duplicado dentro del mismo contenedor
-  const existingErrors = formGroup.parentNode.querySelectorAll(`#${errorId}, .error`);
-  if (message === "") {
-    existingErrors.forEach(el => el.remove());
-    return;
-  }
-
-  // Si no existe el span de error, lo creamos
-  if (!errorEl) {
-    errorEl = document.createElement("span");
-    errorEl.id = errorId;
-    errorEl.className = "error";
-    formGroup.insertAdjacentElement("afterend", errorEl);
-  }
-
-  // Actualizar contenido solo si es diferente
-  if (errorEl.innerHTML !== message) {
-    errorEl.innerHTML = message;
-  }*/
-
+  function updateErrorElement(errorId, targetContainer, message) {    
 
     let errorEl = document.getElementById(errorId);
-
-  // Buscar el contenedor más cercano que agrupe el campo
+ 
   const wrapper = targetContainer.closest(".form-group") || inputEl.parentNode;
 
   if (!wrapper) return;
 
-  // Eliminar error si ya no hay mensaje
   if (message === "") {
     if (errorEl) errorEl.remove();
     return;
   }
-
-  // Si ya existe el error, solo actualizar el mensaje
+  
   if (errorEl) {
     errorEl.innerHTML = message;
     return;
   }
 
-  // Si no existe, lo creamos y lo insertamos justo después del contenedor
   errorEl = document.createElement("span");
   errorEl.id = errorId;
   errorEl.className = "error";
   errorEl.innerHTML = message;
-
-  // Insertar después del .form-group o wrapper
+  
   wrapper.insertAdjacentElement("afterend", errorEl);
   }
 
-  // Toggle para mostrar/ocultar contraseñas
   const toggleIcons = document.querySelectorAll('.toggle-password');
   toggleIcons.forEach(icon => {
     icon.addEventListener('click', function () {
@@ -148,20 +73,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Referencias al formulario y sus campos
+  
   const form = document.getElementById("loginCambioClave");
   const correoEl = document.getElementById("correo");
   const claveTemporalEl = document.getElementById("claveTemporal");
   const claveNuevaEl = document.getElementById("claveNueva");
   const submitButton = document.getElementById("btnCrear");
 
-  // Expresiones regulares para validación
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const claveNuevaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8}$/;
 
-  // Validación en tiempo real para el correo electrónico
   correoEl.addEventListener("input", function () {
-    // Aquí usamos el input mismo como contenedor de referencia      
+       
     const value = correoEl.value.trim();
     let mensaje = "";
     validarCampoVacio(correoEl, "El correo electrónico es requerido");
@@ -175,9 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   });
 
-  // Validación en tiempo real para la contraseña temporal
+ 
   claveTemporalEl.addEventListener("input", function () {
-    // Se usa el div .password-wrapper como contenedor de referencia
+    
     const container = claveTemporalEl.parentNode;
     const value = claveTemporalEl.value;
     let mensaje = "";
@@ -191,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   });
 
-  // Validación en tiempo real para la contraseña nueva
+ 
   claveNuevaEl.addEventListener("input", function () {
     const container = claveNuevaEl.parentNode;
     const value = claveNuevaEl.value;
@@ -199,14 +122,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (value.length !== 8) {
       mensaje = "La nueva contraseña debe tener exactamente 8 caracteres.";
-    } else if (!claveNuevaRegex.test(value)) {
-      /*mensaje = "La contraseña debe contener mayúsculas, minúsculas, números y al menos un carácter especial.";*/
+    } else if (!claveNuevaRegex.test(value)) {     
       mensaje = "La contraseña debe contener mayúsculas, minúsculas, números<br>y al menos un carácter especial."
     }
     updateErrorElement("errorClaveNueva", container, mensaje);
   });
 
-  // Evento submit: validación final y envío
+  
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -214,36 +136,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const correo = correoEl.value.trim();
     const claveTemporal = claveTemporalEl.value;
     const claveNueva = claveNuevaEl.value;
-
-    // Validación para el correo electrónico
+    
     let mensajeCorreo = "";    
     validarCampoVacio(correoEl, "El correo electrónico es requerido");
     updateErrorElement("errorCorreo", correoEl, mensajeCorreo);
-
-    // Validación para la contraseña temporal
+    
     let mensajeClaveTemporal = "";    
     validarCampoVacio(claveTemporalEl, "La contraseña temporal es requerida");
     updateErrorElement("errorClaveTemporal", claveTemporalEl, mensajeClaveTemporal);
-
-    // Validación para la contraseña nueva
+    
     let mensajeClaveNueva = "";
-    //const containerNueva = claveNuevaEl.parentNode;
+   
     if (claveNueva === "") {
       mensajeClaveNueva = "La nueva contraseña es requerida.";
       hayErrores = true;
     } else if (claveNueva.length !== 8) {
       mensajeClaveNueva = "La nueva contraseña debe tener exactamente 8 caracteres.";
       hayErrores = true;
-    } else if (!claveNuevaRegex.test(claveNueva)) {
-      /*mensajeClaveNueva = "La contraseña debe contener mayúsculas, minúsculas, números y al menos un carácter especial.";*/
+    } else if (!claveNuevaRegex.test(claveNueva)) {      
       mensajeClaveNueva = "La contraseña debe contener mayúsculas, minúsculas, números<br>y al menos un carácter especial."
       hayErrores = true;
     }
     updateErrorElement("errorClaveNueva", claveNuevaEl, mensajeClaveNueva);
 
-    // Si existen errores, se notifica y se detiene el envío
     if (hayErrores) {
-      /*alert("Por favor, corrija los errores en el formulario antes de enviarlo.");*/
+    
       Swal.fire({
         title: "Error",
         text: "Por favor, corrija los errores en el formulario.",
@@ -255,10 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Deshabilitar el botón para evitar envíos múltiples
     submitButton.disabled = true;
-
-    // Preparar datos para enviar
+    
     const data = {
       email: correo,
       oldPassword: claveTemporal,
@@ -267,9 +182,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
 
-      //const response = await fetch("http://localhost:8085/change-password", {
       const response = await fetch("https://c986-44-201-249-73.ngrok-free.app/change-password", {
-        //const response = await fetch( "https://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:443/change-password", {
+        
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
       `,
       icon: 'info',
       width: '37vw',
-      heightAuto: false,       // Permite controlar la altura si se quisiera
-      allowOutsideClick: false, // No cierra al hacer click fuera
-      allowEscapeKey: false,    // No cierra con Escape
+      heightAuto: false,       
+      allowOutsideClick: false, 
+      allowEscapeKey: false,   
       focusConfirm: false,
       confirmButtonText: 'Continuar',
       customClass: {
@@ -66,18 +66,17 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-  // Función para mostrar el spinner
+  
   function showSpinner() {
     document.getElementById('spinner').style.display = 'flex';
   }
 
-  // Función para ocultar el spinner
+  
   function hideSpinner() {
     document.getElementById('spinner').style.display = 'none';
   }
 
 
-  // Referencias al formulario, botón y campos
   const form = document.querySelector("form");
   const submitButton = form.querySelector("button[type='submit']");
 
@@ -88,19 +87,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const fechaNacimientoEl = document.getElementById("fechaNacimiento");
   const correo = document.getElementById("correo");
 
-  // Referencias a los spans de error
+
   const errorNombre = document.getElementById("errorNombre");
   const errorApellido = document.getElementById("errorApellido");
   const errorDocumento = document.getElementById("errorDocumento");
   const errorFecha = document.getElementById("errorFecha");
   const errorCorreo = document.getElementById("errorCorreo");
 
-  // Expresiones regulares para validaciones
-  const regexTexto = /^[A-Za-zÁÉÍÓÚáéíóúÑñ']*$/; // Letras, acentos, ñ y apóstrofes
-  const regexDocumento = /^[0-9]*$/;               // Solo dígitos
-  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;   // Expresión regular para correo
 
-  // Función para validar campo vacío
+  const regexTexto = /^[A-Za-zÁÉÍÓÚáéíóúÑñ']*$/; 
+  const regexDocumento = /^[0-9]*$/;               
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
+
   function validarCampoVacio(input, errorSpan, nombreCampo) {
     if (input.value.trim() === "") {
       errorSpan.textContent = `El ${nombreCampo} es requerido.`;
@@ -109,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  // Validaciones en tiempo real para el nombre
   nombreEl.addEventListener("input", function () {
     if (!validarCampoVacio(nombreEl, errorNombre, "Nombre")) return;
     if (!regexTexto.test(nombreEl.value)) {
@@ -119,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Validaciones en tiempo real para el apellido
   apellidoEl.addEventListener("input", function () {
     if (!validarCampoVacio(apellidoEl, errorApellido, "Apellido")) return;
     if (!regexTexto.test(apellidoEl.value)) {
@@ -129,14 +125,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Validación en tiempo real para el número de documento
   numeroDocumentoEl.addEventListener("input", function () {
     if (!validarCampoVacio(numeroDocumentoEl, errorDocumento, "número de documento")) return;   
 
     const originalValue = numeroDocumentoEl.value;
-
     
-    // Limpiar el valor eliminando caracteres no numéricos
+   
     numeroDocumentoEl.value = numeroDocumentoEl.value.replace(/\D/g, "");
 
     const valueNumDoc = numeroDocumentoEl.value;
@@ -156,35 +150,32 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   
-  // Función para mostrar el error
   function mostrarError(mensaje) {
     const nuevoSpan = document.createElement("span");
     nuevoSpan.className = "error";
     nuevoSpan.textContent = mensaje;
-    // Asignar el estilo directamente al span
+    
     nuevoSpan.style.position = "relative";
     nuevoSpan.style.top = "0";
 
-    // Insertar el span justo después del input-group, dentro del contenedor
     contenedor.insertBefore(nuevoSpan, grupo.nextSibling);
   }
 
 
-  // Validación en tiempo real para la fecha de nacimiento usando Flatpickr
+  
   fechaNacimientoEl.addEventListener("input", function () {
 
 
     grupo = fechaNacimientoEl.closest(".input-group");
     contenedor = grupo.parentElement;
 
-    // Buscar si ya existe un error justo después del input-group
+    
     const siguienteElemento = grupo.nextElementSibling;
     if (siguienteElemento && siguienteElemento.classList.contains("error")) {
       siguienteElemento.remove();
     }
    
 
-    // Obtener la fecha seleccionada
     const fechaNacimiento = fechaNacimientoEl._flatpickr.selectedDates[0];
 
     if (!fechaNacimiento) {
@@ -204,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   });
 
-  // Validación en tiempo real para el correo
+
   correo.addEventListener("input", function () {
     if (!validarCampoVacio(correo, errorCorreo, "correo electrónico")) return;
 
@@ -218,14 +209,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Evento submit unificado: primero se validan los campos y si todo es correcto se envía la solicitud
+  
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     showSpinner();
 
 
-    // Validaciones finales: se verifica que los campos no estén vacíos
+    
     if (nombreEl.value.trim() === "") {
       errorNombre.textContent = "El nombre es requerido.";
     }
@@ -237,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
       grupo = fechaNacimientoEl.closest(".input-group");
       contenedor = grupo.parentElement;
 
-      // Eliminar error previo si existe
+      
       const errorEl = grupo.nextElementSibling;
       if (errorEl && errorEl.classList.contains("error")) {
         errorEl.remove();
@@ -252,11 +243,11 @@ document.addEventListener("DOMContentLoaded", function () {
       errorCorreo.textContent = "El correo electrónico es requerido."
     }
 
-    // Si hay algún error, se detiene el envío
+  
     if (
       errorNombre.textContent ||
       errorApellido.textContent ||
-      (errorFecha && errorFecha.textContent) || // esto hace que no intente acceder a un elemento del dom que no existe.
+      (errorFecha && errorFecha.textContent) || 
       errorDocumento.textContent ||
       errorCorreo.textContent
     ) {
@@ -274,10 +265,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    // Deshabilita el botón para evitar múltiples envíos
+    
     submitButton.disabled = true;
 
-    // Recopilar datos
+    
     const tipoDocumento = tipoDocumentoEl.value;
     const numeroDocumento = numeroDocumentoEl.value;
     const nombre = nombreEl.value.trim();
@@ -301,10 +292,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
 
-      // Realiza la solicitud al servidor  
-      const response = await fetch("https://c986-44-201-249-73.ngrok-free.app/user/create", {
-        //const response = await fetch("http://localhost:8085/user/create", {
-        //const response = await fetch("https://ec2-18-118-19-249.us-east-2.compute.amazonaws.com:443/user/create", {
+      
+      const response = await fetch("https://c986-44-201-249-73.ngrok-free.app/user/create", {       
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -350,8 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
         confirmButtonText: "Intentar nuevamente"
       });
     } finally {
-      hideSpinner();
-      // Reactiva el botón después de procesar la solicitud
+      hideSpinner();      
       submitButton.disabled = false;
     }
   });

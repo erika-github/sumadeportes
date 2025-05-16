@@ -5,18 +5,17 @@
     <meta charset="utf-8">
     <title>SumaDeportes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 1. Estilos de librerías -->
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="css/registro.css"> <!-- Tu CSS personalizado -->
-
-    <!-- 2. Scripts de librerías -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery debe ser cargado primero -->
+    <link rel="stylesheet" type="text/css" href="css/registro.css"> 
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <!-- Luego Select2 -->
+  
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
@@ -33,28 +32,27 @@
             position: absolute;
             right: 1%;
             top: 3vw;
-            transform: translateY(-50%);
-            /* Lo ajusta para que quede perfectamente centrado */
+            transform: translateY(-50%);            
             width: 20%;
             z-index: 1;
         }
 
         .swal2-container {
-            z-index: 99999 !important;  /* Asegúrate de que el Swal tenga un z-index más alto */
+            z-index: 99999 !important;  
           }
 
         
           .spinner {
-            display: none;  /* Asegúrate de que el spinner esté oculto inicialmente */
+            display: none; 
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);  /* Fondo negro con opacidad */
+            background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
-            z-index: 9999;  /* Asegúrate de que esté encima de otros elementos */
+            z-index: 9999;  
           }
           
       
@@ -79,30 +77,26 @@
 <script>
 
     document.addEventListener("DOMContentLoaded", function () {
-        // Inicializa el calendario Flatpickr
+        
         console.time("Flatpickr Init");
         const fechaInput = flatpickr('#fechaNacimiento', {           
-            dateFormat: "Y-m-d", // Formato YYYY-MM-DD, este es el formato con el que va a viajar
-            altInput: true, // Campo visible con otro formato (opcional)
-            altFormat: "d/m/Y", // Formato visible (opcional)
+            dateFormat: "Y-m-d", 
+            altInput: true, 
+            altFormat: "d/m/Y",
             defaultDate: null,
-            minDate: "1925-01-01",
-            /*maxDate: "2030-12-31",*/
-            disableMobile: true, // Desactiva el selector de fecha móvil (opcional)
+            minDate: "1925-01-01",            
+            disableMobile: true, 
             locale: "es",
-            onChange: (selectedDates, dateStr, instance) => {
-                /*console.log("Fecha seleccionada:", dateStr);*/
-                let dateObj = selectedDates[0]; // Obtiene el objeto Date
-                /*console.log("Fecha seleccionada (Date):", dateObj); // Tipo Date
-                console.log("Fecha formateada (YYYY-MM-DD):", dateStr); // String YYYY-MM-DD*/
+            onChange: (selectedDates, dateStr, instance) => {                
+                let dateObj = selectedDates[0];                
             }
         });
 
         console.timeEnd("Flatpickr Init");
 
-        // Asocia el clic del botón al input de fecha
+        
         document.getElementById('calendarButton').addEventListener('click', function () {
-            fechaInput.open();  // Abre el calendario cuando se hace clic en el botón
+            fechaInput.open();  
         });
 
         $('#tipoDocumento').select2();
@@ -115,18 +109,15 @@
 <body>
 
     
-    <div class="header-container">
-        <!-- Cintillo -->
+    <div class="header-container">        
         <div style="height: 7vw;  
         position: relative;">
             <img id="cintillo" src="img/cintilloMenu.png" alt="Cintillo">
-        </div>
-        <!-- Logo -->
+        </div>        
         <div class="logoDiv">
             <img id="logo" src="img/logo.png" alt="Logo" onclick="window.location.href='index.html'">
         </div>
-
-        <!-- Imagen de usuario -->
+    
         <div class="user-container" onclick="toggleUserMenu()">
             <button type="submit" id="login-button" onclick="window.location.href='iniciar_sesion.html'">Inicia
                 sesión</button>
@@ -161,11 +152,9 @@
                     <div>
                         <label style="color:#7F7F7F">Fecha de Nacimiento:</label>
 
-                        <div class="input-group">
-                            <!-- Input de fecha con espacio para el ícono -->
+                        <div class="input-group">                            
                             <input type="text" id="fechaNacimiento" name="fechaNacimiento" data-input
-                                class="form-control">
-                            <!-- Ícono de calendario dentro del input -->
+                                class="form-control">                           
                             <span class="input-group-text" id="calendarButton">
                                 <i class="fas fa-calendar-alt" style="color:gray"></i>
                             </span>
